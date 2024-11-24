@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Register from './screens/register/Register';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import UserInfo from './screens/userInfo/UserInfo';
+import HomeScreen from './screens/HomeScreen/Home';
 
 function App() {
   
@@ -13,6 +14,10 @@ function App() {
     {
       path: "/user-info",
       element: <UserInfo />,
+    },
+    {
+      path: "/",
+      element: <HomeScreen />,
     },
     // {
     //   element: <MainLayout />,

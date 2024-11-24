@@ -1,0 +1,44 @@
+.register-container {
+    width: 100vw;
+    height: 100vh;
+    padding: 16px;
+    display: grid;
+    gap: 16px;
+    grid-template-columns: 1fr 1fr;
+    overflow-x: hidden;
+}
+
+.left{
+    background-color: #3C97AF;
+    position: relative;
+    border-radius: 20px;
+    padding: 128px 21px;
+    text-align: center;
+    color: white;
+}
+.left h1 {
+    padding-bottom: 48px;
+}
+
+.left div svg {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.right {
+    padding-top: 128px;
+    padding-bottom: 128px;
+}
+
+@media (max-width: 700px) {
+    .left {
+        display: none;
+    }
+    
+    .register-container {
+        grid-template-columns: 1fr;
+    }
+}

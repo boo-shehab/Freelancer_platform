@@ -1,0 +1,92 @@
+.Account-type {
+    height: 100%;
+    text-align: center;
+    gap: 32px;
+    display: flex;
+    flex-direction: column;
+}
+.Account-type .steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+.Account-type .steps span {
+    width: 100%;
+    height: 6px;
+    background-color: #EBEBEB;
+    border: 0px solid #EBEBEB;
+    border-radius: 8px;
+}
+.Account-type .steps span.done {
+    background-color:#3C97AF;
+}
+.Account-type .steps span.half-done {
+    background-image: linear-gradient(to right, #3C97AF 50%, #EBEBEB 50%);
+}
+.Account-type h1 {
+    padding-bottom: 8px;
+    font-size: 40px;
+}
+.Account-type div > p {
+    font-size: 18px;
+    color: #999999;
+}
+.Account-type .form {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.Account-type .form .type{
+    display: flex;
+    gap: 16px;
+}
+.Account-type label {
+    border: 1px solid #EBEBEB;
+    border-radius: 16px;
+    padding: 16px 24px;
+    cursor: pointer;
+}
+.Account-type label.active {
+    background-color: #ECF6F9;
+    border: 1px solid #3C97AF
+}
+.Account-type label h2 {
+    font-size: 18px;
+}
+.Account-type label p {
+    font-size: 14px;
+    color: #999999;
+}
+.phone-input-container .PhoneInput {
+    display: flex;
+    align-items: center;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 8px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .phone-input-container .PhoneInputInput {
+    border: none;
+    outline: none;
+    width: 100%;
+    padding: 0 10px;
+    font-size: 16px;
+    color: #333;
+  }
+  
+  .phone-input-container .PhoneInputCountry {
+    border-right: 1px solid #e0e0e0;
+    padding-right: 8px;
+  }
+  
+  .phone-input-container .PhoneInputCountrySelect {
+    display: none;
+  }
+  
+  .phone-input-container .PhoneInputCountryIcon {
+    margin-right: 8px;
+  }
+  

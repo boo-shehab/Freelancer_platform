@@ -1,0 +1,17 @@
+.customButton {
+    background-color: #3C97AF;
+    width: 100%;
+    color: white;
+    border: none;
+    border-radius: 16px;
+    padding: 16px 24px;
+    margin-top: 16px;
+    margin-bottom:16px;
+    cursor: pointer;
+}
+
+.customButton:disabled{
+    background-color: #EBEBEB;
+    color: gray;
+    cursor: not-allowed;
+}

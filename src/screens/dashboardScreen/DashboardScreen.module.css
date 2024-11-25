@@ -1,0 +1,26 @@
+.dashboardContainer {
+    background-color: #F8FBFC;
+    padding: 16px;
+    margin-bottom: 16px;
+}
+
+.dashboardContainer .content {
+    display: grid;
+    grid-template-columns: 60% 40%;
+    
+}
+
+.dashboardContainer .projectsContainer {
+    
+}
+.dashboardContainer .projectsContainer .projectsHeader{
+    display: flex;
+    gap: 8px;
+}
+.dashboardContainer .projectsContainer .projectsHeader button{
+    background-color: #EBEBEBA3;
+    border-radius: 24px;
+    padding: 12px 24px;
+    color: #999;
+    border: none;
+}

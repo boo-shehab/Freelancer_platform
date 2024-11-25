@@ -1,4 +1,4 @@
-import VectorIcon from '../../SvgComponents/VectorIcon';
+import VectorIcon from '../../svgComponents/VectorIcon';
 import styles from './registerContainer.module.css'
 const RegisterContainer = ({children}) => {
     return (

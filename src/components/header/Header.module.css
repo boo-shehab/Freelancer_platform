@@ -1,0 +1,127 @@
+.header {
+    background-color: #F8FBFC;
+    padding: 16px;
+    margin-bottom: 16px;
+    position: relative;
+}
+
+.header .content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 15px;
+    gap: 16px;
+    width: 100%;
+    border-bottom: 1px solid #D9D9D9
+}
+
+.header .nav-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
+
+.header .nav-bar .search {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    box-shadow: 0px 2px 8px 0px #3C97AF14;
+    padding: 8px;
+    gap: 2px;
+    border-radius: 8px;
+}
+
+.header .nav-menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 48px;
+}
+
+.header .logo {
+    text-decoration: none;
+    color: transparent;
+    background: linear-gradient(90deg, #9CE2E8 0%, #134D52 50%, #21868E 100%);
+-webkit-background-clip: text;
+
+}
+
+.header .nav-menu a {
+    color: #999999;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.header .nav-menu :global(a.active) {
+    color: black;
+    border-bottom: 1px solid #3C97AF;
+}
+
+.header .nav-bar .search input {
+    font-size: 18px;
+    background-color: transparent;
+    padding-left: 5px;
+    border: none;
+    outline: none;
+}
+
+.header button {
+    background-color: white;
+    border: none;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    box-shadow: 1px 2px 8px 0px #21868E36;
+    position: relative;
+}
+
+.header button.have-messages::after{
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    top: 0px;
+    right: 0px;
+    background-color: #5A9BD8;
+}
+
+.header .notifications {
+    position: absolute;
+    background-color: white;
+    padding: 24px;
+    right: 0px;
+    border-radius: 12px;
+    box-shadow: 1px 2px 8px 0px #21868E40;
+}
+
+.header ul {
+    
+}
+
+.header ul li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-bottom: 16px;
+    padding-top: 16px;
+    border-bottom: 1px solid #eee;
+}
+
+.header ul li .marker {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #C1D9F0;
+}
+
+.header ul li div {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.header ul li img {
+    width: 50px;
+    height: 50px;
+}

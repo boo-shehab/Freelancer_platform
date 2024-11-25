@@ -17,10 +17,10 @@ const DashboardScreen = () => {
             <div className={styles.content}>
                 <div className={styles.projectsContainer}>
                     <div className={styles.projectsHeader}>
-                    <button onClick={setFilterType('All')}>All</button>
-                    <button>Pending</button>
-                    <button>InProgress</button>
-                    <button>Completed</button>
+                    <button onClick={() => setFilterType('All')} className={filterType === 'All' && styles.active}>All</button>
+                    <button onClick={() => setFilterType('Pending')}>Pending</button>
+                    <button onClick={() => setFilterType('In Progress')}>InProgress</button>
+                    <button onClick={() => setFilterType('Completed')}>Completed</button>
                     </div>
                 </div>
                 <div style={{backgroundColor: 'green'}}>

@@ -2,10 +2,10 @@ import { useState } from 'react'
 import Register from './screens/register/Register';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import UserInfo from './screens/userInfo/UserInfo';
-import HomeScreen from './screens/HomeScreen/Home';
 import DashboardScreen from './screens/dashboardScreen/DashboardScreen';
 import MainLayout from './layout/MainLayout';
 import ProtectedRoute from './components/ProtectedRoute';
+import HomeScreen from './screens/HomeScreen/homeScreen';
 
 function App() {
   

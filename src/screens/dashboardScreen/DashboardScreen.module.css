@@ -20,7 +20,19 @@
 .dashboardContainer .projectsContainer .projectsHeader button{
     background-color: #EBEBEBA3;
     border-radius: 24px;
+    cursor: pointer;
     padding: 12px 24px;
     color: #999;
     border: none;
+}
+
+.dashboardContainer .projectsContainer .projectsHeader button.active {
+    background-color: #3C97AF33;
+    color: #3C97AF;
+
+}
+.dashboardContainer .projectsContainer .projectsHeader button:hover {
+    background-color: #3C97AF33;
+    color: #3C97AF;
+
 }

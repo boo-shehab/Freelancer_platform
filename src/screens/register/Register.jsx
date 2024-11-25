@@ -6,8 +6,8 @@ import styles from './register.module.css'
 import PhoneNumberInput from "../../components/PhoneNumberInput/PhoneNumberInput";
 import OtpComponent from "../../components/OtpComponent/OtpComponent";
 import CustomButton from "../../components/customButton/CustomButton";
-import UserIcon from "../../svgComponents/UserIcon";
-import UserSearchIcon from "../../svgComponents/UserSearchIcon";
+import UserIcon from "../../CustomIcons/UserIcon";
+import UserSearchIcon from "../../CustomIcons/UserSearchIcon";
 
 const Register = () => {
     const [accountType, setAccountType] = useState(null);

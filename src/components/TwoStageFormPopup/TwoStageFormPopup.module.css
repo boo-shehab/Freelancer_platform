@@ -1,0 +1,154 @@
+#popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+  
+#popup-overlay .popup-content {
+    background: #F8FBFC;
+    padding: 20px;
+    border-radius: 12px;
+    width: 90%;
+    height: 80%;
+    max-width: 700px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+#popup-overlay .popup-content .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+#popup-overlay .close-btn {
+    font-size: 18px;
+    background-color: #FFE5E5;
+    border: 1px solid #EB0000;
+    color: #EB0000;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+}
+  
+  #popup-overlay  h2 {
+    font-size: 32px;
+  }
+  
+  #popup-overlay .progress-bar {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+  
+  #popup-overlay .progress-segment {
+    flex: 1;
+    height: 4px;
+    background: #e0e0e0;
+    border-radius: 2px;
+  }
+  
+  #popup-overlay .progress-segment.active {
+    background: #2196F3;
+  }
+
+#popup-overlay form {
+    flex-grow: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+#popup-overlay .spacer {
+    flex-grow: 1;
+}
+  
+  #popup-overlay label {
+    font-size: 14px;
+    display: block;
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+
+  #popup-overlay label .sacred-code {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  #popup-overlay label .sacred-code button {
+    width: 100%;
+    border: 1px solid #BFBFBF;
+    background-color: white;
+    color: #D9D9D9;
+    border-radius: 8px;
+    padding: 12px 10px;
+
+  }
+  
+  #popup-overlay select,
+  #popup-overlay textarea,
+  #popup-overlay input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    background-color: #F8FBFC;
+    border-radius: 4px;
+    margin-bottom: 16px;
+  }
+  
+  #popup-overlay textarea {
+    height: 100px;
+  }
+  
+  #popup-overlay .file-buttons {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  
+  #popup-overlay .file-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    color: #3C97AF;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: white;
+    border: none;
+  }
+  
+  #popup-overlay .file-btn:hover {
+    background-color: #B2EBF2;
+    border: 1px solid #2196F3;
+  }
+  
+  #popup-overlay .next-btn {
+    display: block;
+    margin-left: 50px;
+    width: 100%;
+    padding: 10px;
+    background-color: #2196F3;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  #popup-overlay .next-btn:hover {
+    background-color: #1976D2;
+  }
+  

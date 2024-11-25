@@ -91,19 +91,32 @@
     position: absolute;
     background-color: white;
     padding: 24px;
-    right: 0px;
+    right: 18px;
+    top: 50px;
+    text-align: start;
+    width: 500px;
+    max-height: calc(100vh - 100px);
+    overflow: auto;
     border-radius: 12px;
     box-shadow: 1px 2px 8px 0px #21868E40;
 }
 
-.header ul {
-    
+.header .notifications h3 {
+    font-size: 26px;
+}
+
+.header .notifications p.subTitle {
+    font-size: 16px;
+}
+.header .notifications p.subTitle span{
+    color: #3C97AF;
 }
 
 .header ul li {
     display: flex;
     align-items: center;
     gap: 8px;
+    font-size: 14px;
     padding-bottom: 16px;
     padding-top: 16px;
     border-bottom: 1px solid #eee;

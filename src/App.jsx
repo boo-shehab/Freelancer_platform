@@ -6,6 +6,7 @@ import DashboardScreen from './screens/dashboardScreen/DashboardScreen';
 import MainLayout from './layout/MainLayout';
 import ProtectedRoute from './components/ProtectedRoute';
 import HomeScreen from './screens/HomeScreen/homeScreen';
+import ProfileScreen from './screens/ProfileScreen/ProfileScreen';
 
 function App() {
   
@@ -29,14 +30,14 @@ function App() {
             </ProtectedRoute>
           ),
         },
-        // {
-        //   path: "/profile",
-        //   element: (
-        //     <ProtectedRoute isProtected={true}>
-        //       <Profile />
-        //     </ProtectedRoute>
-        //   ),
-        // },
+        {
+          path: "/profile",
+          element: (
+            <ProtectedRoute isProtected={true}>
+              <ProfileScreen />
+            </ProtectedRoute>
+          ),
+        },
         {
           path: "/dashboard",
           element: (

@@ -1,56 +1,56 @@
 import React from "react";
 
-const DonutChart = () => {
-  const circleRadius = 50;
+const DonutChart = ({
+  data,
+  total,
+  size = 150,
+  emptyColor = "#d3d3d3", // Default color for empty space
+  strokeWidth,
+  children,
+}) => {
+  const circleRadius = size / 3; // Adjust radius based on size
   const circleCircumference = 2 * Math.PI * circleRadius;
 
-  // Example progress data
-  const progress1 = 50; // Yellow portion
-  const progress2 = 50; // Green portion
-  const progress3 = 50 ; // Gray portion
+  // Calculate total of provided data
+  const usedTotal = data.reduce((sum, item) => sum + item.value, 0);
 
-  // Calculate stroke-dasharray for the progress
-  const dashArray1 = (progress1 / 150) * circleCircumference;
-  const dashArray2 = (progress2 / 150) * circleCircumference;
-  const dashArray3 = (progress3 / 150) * circleCircumference;
+  // Add remaining space if the total is not fully used
+  const chartData =
+    usedTotal < total
+      ? [...data, { value: total - usedTotal, color: emptyColor }]
+      : data;
+
+  // Accumulated offset for segments
+  let accumulatedOffset = 0;
 
   return (
-    <div style={{ position: "relative", width: "150px", height: "150px", margin: 'auto' }}>
-      <svg
-        width="150"
-        height="150"
-        viewBox="0 0 120 120"
-      >
-        <circle
-          cx="60"
-          cy="60"
-          r={circleRadius}
-          fill="none"
-          stroke="#FFD700"
-          strokeWidth="20"
-        />
+    <div style={{ position: "relative", width: `${size}px`, height: `${size}px`, margin: "auto" }}>
+      <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
+        {chartData.map((item, index) => {
+          const dashArray = (item.value / total) * circleCircumference;
+          const dashOffset = circleCircumference - accumulatedOffset;
 
-        <circle
-          cx="60"
-          cy="60"
-          r={circleRadius}
-          fill="none"
-          stroke="#d3d3d3"
-          strokeWidth="20"
-          strokeDasharray={`${dashArray1} ${circleCircumference}`}
-          strokeDashoffset="0"
-        />
+          // Update accumulated offset
+          accumulatedOffset += dashArray;
 
-        <circle
-          cx="60"
-          cy="60"
-          r={circleRadius}
-          fill="none"
-          stroke="#32CD32"
-          strokeWidth="20"
-          strokeDasharray={`${dashArray2} ${circleCircumference}`}
-          strokeDashoffset={`-${dashArray1}`}
-        />
+          return (
+            <circle
+              key={index}
+              cx={size / 2}
+              cy={size / 2}
+              r={circleRadius}
+              fill="none"
+              stroke={item.color}
+              strokeWidth={strokeWidth? strokeWidth : size / 6} // Adjust stroke width based on size
+              strokeDasharray={`${dashArray} ${circleCircumference}`}
+              strokeDashoffset={-accumulatedOffset + dashArray}
+              style={{
+                transform: `rotate(-90deg)`,
+                transformOrigin: "center",
+              }}
+            />
+          );
+        })}
       </svg>
 
       {/* Center Text */}
@@ -61,11 +61,10 @@ const DonutChart = () => {
           left: "50%",
           transform: "translate(-50%, -50%)",
           textAlign: "center",
-          fontSize: "12px",
+          fontSize: size / 12, // Adjust font size based on size
         }}
       >
-        <div>projects</div>
-        <div>progress</div>
+        {children}
       </div>
     </div>
   );

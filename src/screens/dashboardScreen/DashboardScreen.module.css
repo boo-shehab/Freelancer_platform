@@ -7,6 +7,7 @@
 .dashboardContainer .content {
     display: grid;
     grid-template-columns: 60% 40%;
+    gap: 16px;
     
 }
 
@@ -35,4 +36,14 @@
     background-color: #3C97AF33;
     color: #3C97AF;
 
+}
+
+.ProjectsInfo {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 16px;
+}
+
+.ProjectsInfo .projectItem {
+    
 }

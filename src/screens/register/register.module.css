@@ -46,6 +46,7 @@
     border-radius: 16px;
     padding: 16px 24px;
     cursor: pointer;
+    width: 100%;
 }
 .Account-type label.active {
     background-color: #ECF6F9;

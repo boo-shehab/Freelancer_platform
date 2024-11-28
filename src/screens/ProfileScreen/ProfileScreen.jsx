@@ -188,7 +188,7 @@ const projects = [
                     <section className={styles.section2}>
                         <Card>
                             <h3 className={styles.ActivityHeader}>Your Activity</h3>
-                            <span style={{margin: 'auto'}}>
+                            <span className={styles.chart}>
                                 <DonutChart data={chartData} size={200} >
                                     <div>Projects</div>
                                     <div>Progress</div>

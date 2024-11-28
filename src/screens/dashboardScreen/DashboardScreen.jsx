@@ -92,14 +92,14 @@ const DashboardScreen = () => {
                                     <div className={styles.projectItem}>
                                         <div>
                                             <h3>{project.projectName}</h3>
-                                            <p>{project.progress}</p>
+                                            <p className={styles.projectStatus}>{project.projectStatus}</p>
                                         </div>
                                         
                                         <DonutChart data={chartData} size={100} total={100} emptyColor="#D9D9D9" strokeWidth={6}>
-                                            {chartData[0].value}%
+                                            <p className={styles.chartText}>{chartData[0].value}%</p>
                                         </DonutChart>
                                     </div>
-                                    <div>
+                                    <div className={styles.userInfo}>
                                         <img src={project.user.image} alt="" />
                                         <p>{project.user.name}</p>
                                     </div>

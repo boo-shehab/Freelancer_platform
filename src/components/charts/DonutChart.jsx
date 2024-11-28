@@ -24,7 +24,7 @@ const DonutChart = ({
   let accumulatedOffset = 0;
 
   return (
-    <div style={{ position: "relative", width: `${size}px`, height: `${size}px`, margin: "auto" }}>
+    <div style={{ position: "relative", width: `${size}px`, height: `${size}px` }}>
       <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
         {chartData.map((item, index) => {
           const dashArray = (item.value / total) * circleCircumference;

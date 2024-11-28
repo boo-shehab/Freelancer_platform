@@ -1,10 +1,12 @@
-import * as React from "react"
-const UserIcon = (props) => (
+import * as React from "react";
+
+const UserIcon = ({ width = 32, height = 32, ...props }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width={32}
-    height={32}
+    width={width}
+    height={height}
     fill="none"
+    viewBox="0 0 32 32"
     {...props}
   >
     <path
@@ -20,5 +22,6 @@ const UserIcon = (props) => (
       d="M22 8.667a6 6 0 1 1-12 0 6 6 0 0 1 12 0Z"
     />
   </svg>
-)
-export default UserIcon
+);
+
+export default UserIcon;

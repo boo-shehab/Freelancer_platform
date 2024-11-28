@@ -1,13 +1,17 @@
 import Card from '../../components/Card/card';
+import DonutChart from '../../components/charts/DonutChart';
 import Container from '../../components/Container/container';
 import CommentsIcon from '../../CustomIcons/CommentsIcon';
 import EditIcon from '../../CustomIcons/EditIcon';
 import HeartIcon from '../../CustomIcons/HeartIcon';
 import MoreIcon from '../../CustomIcons/MoreIcon';
 import PlusIcon from '../../CustomIcons/PlusIcon';
+import UserIcon from '../../CustomIcons/UserIcon';
+import TaskDoneIcon from '../../CustomIcons/TaskDoneIcon';
 import styles from './ProfileScreen.module.css'
+import EmptyStarIcon from '../../CustomIcons/emptyStarIcon';
+import Star2Icon from '../../CustomIcons/Star2Icon';
 const ProfileScreen = () => {
-    
 
     const posts = [
         {
@@ -49,6 +53,12 @@ const projects = [
       desc: "Developed a task management web application designed to help users organize, prioritize, and track their daily tasks efficiently. ",
     },
   ];
+  const rating = {
+    starRate: '4.0',
+    highRate: 82,
+    midRate: 12,
+    lowRate: 6
+    }
     return (
         <div className={styles.ProfileScreen}>
             <Container>
@@ -171,7 +181,87 @@ const projects = [
                         </Card>
                     </section>
                     <section className={styles.section2}>
-section2
+                        <Card>
+                            <h3 className={styles.ActivityHeader}>Your Activity</h3>
+                            <span style={{margin: 'auto'}}>
+                                <DonutChart />
+                            </span>
+                            <div className={styles.ChartInfo}>
+                                <div className={styles.ChartInfoItem}>
+                                    <div className={styles.dot} style={{backgroundColor: '#d3d3d3'}}></div>
+                                    <p>Posted projects</p>
+                                </div>
+                                <div className={styles.ChartInfoItem}>
+                                    <div className={styles.dot} style={{backgroundColor: '#FFD700'}}></div>
+                                    <p>Pending projects</p>
+                                </div>
+                                <div className={styles.ChartInfoItem}>
+                                    <div className={styles.dot} style={{backgroundColor: '#32CD32'}}></div>
+                                    <p>Completed projects</p>
+                                </div>
+                            </div>
+                            <div className={styles.infoList}>
+                                <div className={styles.infoItem}>
+                                    <UserIcon width={24} height={24} />
+                                    <div className={styles.label}>freelancer worked with</div>
+                                    <div className={styles.value}>8</div>
+                                </div>
+                                <div className={styles.infoItem}>
+                                    <HeartIcon />
+                                    <div className={styles.label}>Given Likes</div>
+                                    <div className={styles.value}>32</div>
+                                </div>
+                                <div className={styles.infoItem}>
+                                    <TaskDoneIcon />
+                                    <div className={styles.label}>Project Posted</div>
+                                    <div className={styles.value}>14</div>
+                                </div>
+                            </div>
+                        </Card>
+                        <Card marginTop={24}>
+                            <h3 className={styles.rateTitle}>Rating</h3>
+                            <p className={styles.rateSubtitle}>Average Rating</p>
+                            <div className={styles.ratingStars}>
+                                <b>{rating.starRate}</b>
+                                <div>
+                                    {+rating.starRate >= 1? <Star2Icon />: <EmptyStarIcon /> }
+                                    {+rating.starRate >= 2? <Star2Icon />: <EmptyStarIcon /> }
+                                    {+rating.starRate >= 3? <Star2Icon />: <EmptyStarIcon /> }
+                                    {+rating.starRate >= 4? <Star2Icon />: <EmptyStarIcon /> }
+                                    {+rating.starRate >= 5? <Star2Icon />: <EmptyStarIcon /> }
+                                </div>
+                            </div>
+                            <div className={styles.ratingBar}>
+                                <div className={styles.barItem}>
+                                    <b>High rate</b>
+                                    <div className={styles.bar}>
+                                        <div style={{width: `${rating.highRate}%`, backgroundColor: '#4DB251'}}></div>
+                                    </div>
+                                    <p>{rating.highRate}%</p>
+                                </div>
+                                <div className={styles.barItem}>
+                                    <b>Mid rate</b>
+                                    <div className={styles.bar}>
+                                        <div style={{width: `${rating.midRate}%`, backgroundColor: '#FFBF00'}}></div>
+                                    </div>
+                                    <p>{rating.midRate}%</p>
+                                </div>
+                                <div className={styles.barItem}>
+                                    <b>low rate</b>
+                                    <div className={styles.bar}>
+                                        <div style={{width: `${rating.lowRate}%`, backgroundColor: '#E4636F'}}></div>
+                                    </div>
+                                    <p>{rating.lowRate}%</p>
+                                </div>
+                            </div>
+                        </Card>
+                        <Card marginTop={24}>
+                            <h3 className={styles.titleReviews}>Reviews</h3>
+                            <p className={styles.subtitleReviews}>Total People who visited your profile</p>
+                            <p className={styles.reviews}><b>70</b> review</p>
+                            <button className={styles.seeAllReviews}>See all</button>
+                        </Card>
+
                     </section>
                 </div>
             </Container>

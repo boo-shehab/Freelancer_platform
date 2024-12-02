@@ -235,6 +235,12 @@
     margin-bottom: 32px;
 }
 
+.Chart {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .ChartInfo {
     display: flex;
     align-items: center;

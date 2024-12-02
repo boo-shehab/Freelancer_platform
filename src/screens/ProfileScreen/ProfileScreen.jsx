@@ -13,6 +13,12 @@ import EmptyStarIcon from '../../CustomIcons/emptyStarIcon';
 import Star2Icon from '../../CustomIcons/Star2Icon';
 const ProfileScreen = () => {
 
+
+  const chartData = [
+    { value: 25, color: "#FFD700" }, 
+    { value: 25, color: "#32CD32" }, 
+    { value: 25, color: "#d3d3d3" }, 
+  ];
     const posts = [
         {
           id: 1,
@@ -183,9 +189,12 @@ const projects = [
                     <section className={styles.section2}>
                         <Card>
                             <h3 className={styles.ActivityHeader}>Your Activity</h3>
-                            <span style={{margin: 'auto'}}>
-                                <DonutChart />
-                            </span>
+                            <div className={styles.Chart}>
+                                <DonutChart data={chartData} barSize={18} size={200}>
+                                    <div>Projects</div>
+                                    <div>Progress</div>
+                                </DonutChart>
+                            </div>
                             <div className={styles.ChartInfo}>
                                 <div className={styles.ChartInfoItem}>
                                     <div className={styles.dot} style={{backgroundColor: '#d3d3d3'}}></div>

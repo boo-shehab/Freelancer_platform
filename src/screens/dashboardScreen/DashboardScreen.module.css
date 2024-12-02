@@ -7,17 +7,14 @@
 .dashboardContainer .content {
     display: grid;
     grid-template-columns: 60% 40%;
-    
+    gap: 16px;
 }
 
-.dashboardContainer .projectsContainer {
-    
-}
-.dashboardContainer .projectsContainer .projectsHeader{
+.dashboardContainer .section1 .projectsHeader{
     display: flex;
     gap: 8px;
 }
-.dashboardContainer .projectsContainer .projectsHeader button{
+.dashboardContainer .section1 .projectsHeader button{
     background-color: #EBEBEBA3;
     border-radius: 24px;
     cursor: pointer;
@@ -26,13 +23,151 @@
     border: none;
 }
 
-.dashboardContainer .projectsContainer .projectsHeader button.active {
+.dashboardContainer .section1 .projectsHeader button.active {
     background-color: #3C97AF33;
     color: #3C97AF;
 
 }
-.dashboardContainer .projectsContainer .projectsHeader button:hover {
+.dashboardContainer .section1 .projectsHeader button:hover {
     background-color: #3C97AF33;
     color: #3C97AF;
+}
 
+.projects {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    align-items: center;
+    margin-top: 16px;
+    gap: 16px;
+}
+.projectInfo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.projectData b{
+    font-size: 18px;
+}
+.projectData p{
+    font-size: 14px;
+    color: #D69E2E;
+    padding: 8px 16px;
+    background-color: #F8EFDD;
+    border-radius: 16px;
+    text-align: center;
+    margin-top: 12px;
+    margin-bottom: 24px;
+}
+
+.projectData.completed p{
+    background-color: #DDF8E7;
+    color: #1FAD58;
+}
+.projectData.pending p{
+    background-color: #DEEBF7;
+    color: #3182CE;
+}
+
+.projectData.inProgress p{
+    color: #D69E2E;
+    background-color: #F8EFDD;
+}
+
+.ChartText {
+    font-size: 16px;
+    color: #808080;
+}
+.projectUserInfo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.projectUserInfo img{
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+}
+.projectUserInfo p{
+    font-size: 12px;
+    color: #808080;
+}
+
+.statisticsSection {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.totalDonutChart {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.totalDonutChart h2 {
+    font-size: 24px;
+    min-width: 190px;
+    margin-bottom: 16px;
+}
+
+.statistics {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    align-items: center;
+
+}
+
+.statistics .card {
+    background: linear-gradient(135deg, #3C97AF 0%, #7AC0D2 100%);
+    position: relative;
+    border-radius: 16px;
+    padding: 32px 16px;
+    color: white;
+}
+
+.statistics .card::before{
+    content: url(./ChartShape.png);
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.statistics .card p {
+    font-size: 18px;
+
+}
+
+.statistics .card b {
+    font-size: 32px;
+}
+
+
+.ratingBar {
+    width: 100%;
+}
+
+.ratingBar .barItem {
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
+
+.ratingBar .barItem b {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.ratingBar .barItem .bar {
+    flex: 1;
+    height: 8px;
+    background-color: #d1d1d1;
+    border-radius: 8px;
+    margin-top: 8px;
+}
+.ratingBar .barItem .bar div{
+    height: 100%;
+    border-radius: 8px;
 }

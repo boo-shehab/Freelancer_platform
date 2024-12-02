@@ -128,7 +128,9 @@
     border-radius: 8px;
     cursor: pointer;
     background-color: white;
-    border: none;
+    border: 1px solid white;
+    transition: 0.3s;
+    box-shadow: 0px 2px 12px 0px #3C97AF14;
   }
   
   #popup-overlay .file-btn:hover {

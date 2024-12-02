@@ -1,5 +1,4 @@
 import React from "react";
-
 const DonutChart = ({ data, total, size = 150, emptyColor = "#d3d3d3",children, barSize }) => {
   const circleRadius = (size - (barSize || size / 6)) / 2;; // Adjust radius based on size
   
@@ -14,8 +13,7 @@ const DonutChart = ({ data, total, size = 150, emptyColor = "#d3d3d3",children, 
   // Add remaining space if the total is not fully used
   const chartData =
     usedTotal < calculatedTotal
-      ? [...data, { value: calculatedTotal - usedTotal, color: emptyColor }]
-      : data;
+      ? [...data, { value: calculatedTotal - usedTotal, color: emptyColor }] : data;
 
   // Accumulated offset for segments
   let accumulatedOffset = 0;

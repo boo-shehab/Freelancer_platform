@@ -7,6 +7,7 @@ import MainLayout from './layout/MainLayout';
 import ProtectedRoute from './components/ProtectedRoute';
 import HomeScreen from './screens/HomeScreen/homeScreen';
 import ProfileScreen from './screens/ProfileScreen/ProfileScreen';
+import Login from './screens/login/login';
 
 function App() {
   
@@ -18,6 +19,10 @@ function App() {
     {
       path: "/user-info",
       element: <UserInfo />,
+    },
+    {
+      path: "/Login",
+      element: <Login />
     },
     {
       element: <MainLayout />,

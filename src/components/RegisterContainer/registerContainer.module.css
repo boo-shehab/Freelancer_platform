@@ -8,7 +8,9 @@
     overflow-x: hidden;
     background-color: white;
 }
-
+.loginLink{
+    text-align: center;
+}
 .left{
     background-color: #3C97AF;
     position: relative;

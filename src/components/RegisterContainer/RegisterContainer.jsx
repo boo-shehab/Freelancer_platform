@@ -12,6 +12,10 @@ const RegisterContainer = ({children}) => {
             </div>
             <div className={styles.right}>
                 {children}
+                {window.location.pathname === '/Login' ?    <p className={styles.loginLink}>Create new Acount ? <a href="register">SingUp</a></p>
+                                                       :    <p className={styles.loginLink}>you already have Acount ? <a href="Login">Login</a></p>
+                }
+              
             </div>
         </div>
     )

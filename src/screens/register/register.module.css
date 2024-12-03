@@ -90,4 +90,28 @@
   .phone-input-container .PhoneInputCountryIcon {
     margin-right: 8px;
   }
-  
+  @media (max-width: 660px) {
+    .Account-type h1 {
+        text-align: start;
+        font-size: 32px;
+        line-height: 36px;
+    }
+    .Account-type p {
+        text-align: start;
+        text-align: start;
+        font-size: 16px;
+        line-height: 22px;
+    }
+    .Account-type .form .type{
+      flex-direction: column;
+      margin-top: 40px;
+    }
+    .Account-type label {
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        padding: 24px;
+        gap: 6px;
+        text-align: start;
+    }
+}

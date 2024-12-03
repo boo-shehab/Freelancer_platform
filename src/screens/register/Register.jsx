@@ -61,17 +61,22 @@ const Register = () => {
                         {stage === 1 && (
                             <>
                                 <div className={styles.type}>
-                                <label onClick={() =>setAccountType(1)} className={`${accountType === 1? styles.active: ''}`}>
+                                <label  onClick={() =>setAccountType(1)} className={`${accountType === 1? styles.active: ''}`}>
                                     <UserIcon />
-                                    <h2>freelance</h2>
-                                    <p>I’m a freelancer ready to work for projects</p>
+                                    <div>
+                                        <h2>freelance</h2>
+                                        <p>I’m a freelancer ready to work for projects</p>
+                                    </div>
                                 <input type="type" name="type" id="freelance" value={1} style={{display: "none"}} />
                                 </label>
 
                                 <label onClick={() => setAccountType(2)} className={`${accountType === 2? styles.active: ''}`}>
                                     <UserSearchIcon />
-                                    <h2>client</h2>
-                                    <p>I’m a freelancer ready to work for projects</p>
+                                    <div className="">
+                                        <h2>client</h2>
+                                        <p>I’m a freelancer ready to work for projects</p>
+                                    </div>
+                               
                                     <input type="type" name="type" id="client" value={2} style={{display: "none"}} />
                                 </label>
                                 </div>

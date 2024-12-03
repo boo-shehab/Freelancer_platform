@@ -45,7 +45,7 @@
 .userInfoContainer label input {
     border: 1px solid #EBEBEB;
     width: 100%;
-    border-radius: 16px;
+    border-radius: 10px;
     padding: 16px 24px;
     cursor: pointer;
 }
@@ -98,10 +98,24 @@
   }
   
   .phone-input-container .PhoneInputCountrySelect {
-    display: none; /* Hides the country dropdown */
+    display: none; 
   }
   
   .phone-input-container .PhoneInputCountryIcon {
     margin-right: 8px;
   }
   
+  @media (max-width: 660px) {
+    .userInfoContainer h1 {
+        align-items: start;
+        text-align: start;
+        font-size: 32px;
+        line-height: 38px;
+    }
+    .userInfoContainer p {
+        align-items: start;
+        text-align: start;
+        font-size: 16px;
+        line-height: 22px;
+    }
+}

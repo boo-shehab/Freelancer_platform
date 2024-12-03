@@ -3,12 +3,13 @@ import RegisterContainer from "../../components/RegisterContainer/RegisterContai
 import 'react-phone-number-input/style.css';
 import styles from './login.module.css';
 import CustomButton from "../../components/customButton/CustomButton";
+import { useNavigate } from 'react-router-dom';
+
 
 const Login = () => {
     const [phoneNumber, setPhoneNumber] = useState('');
     const [password, setPassword] = useState('');
-    
-    // Validation logic for enabling/disabling the button
+    const navigate = useNavigate();
     const isFormValid = phoneNumber.length === 10 && password.length >= 8;
 
     return (
@@ -43,7 +44,7 @@ const Login = () => {
                         </div>
                         <CustomButton
                             onClick={() => {
-                                window.pathname = '/home';
+                                navigate('/'); 
                             }}
                             disabled={!isFormValid}
                         >

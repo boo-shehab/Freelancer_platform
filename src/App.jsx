@@ -51,14 +51,7 @@ function App() {
             // </ProtectedRoute>
           ),
         },
-        // {
-        //   path: "/setting",
-        //   element: (
-        //     <ProtectedRoute isProtected={true}>
-        //       <Home />
-        //     </ProtectedRoute>
-        //   ),
-        // },
+       
       ],
     },
   ]);

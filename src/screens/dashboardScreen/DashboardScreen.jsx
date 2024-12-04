@@ -4,6 +4,8 @@ import styles from "./DashboardScreen.module.css"
 import Container from "../../components/Container/container";
 import Card from "../../components/Card/card";
 import DonutChart from "../../components/charts/DonutChart";
+import CloseSliderIcon from "../../CustomIcons/CloseSliderIcon";
+
 const DashboardScreen = () => {
     const [filterType, setFilterType] = useState('All');
     const projects = [
@@ -166,6 +168,33 @@ const DashboardScreen = () => {
                     </div>
                 </div>
             </Container>
+            <div className={styles.sliderOFprojectinfo}>
+                <div className={styles.slider}>
+                            <div className={styles.projectName}>
+                                <button><CloseSliderIcon/></button>
+                                <h1>Project Name</h1>
+                            </div>
+                            <div className={styles.StatusOFproject}>
+                                <label>
+                                    <div className={styles.dote}></div>
+                                    <p> Status :</p>
+                                    <a href="">Pending</a>
+                                </label>
+                                <label>
+                                    <div className={styles.dote}></div>
+                                    <p>  Timeline :</p>
+                                    <span>2 months</span>
+                                </label>
+                            </div>
+                            <div className={styles.sliderDescription}>
+                                <h1>Project Description :</h1>
+                                <p>Develop an app for daily task management ..... <button>see more</button></p>
+                            </div>
+                            <div className="Freelancerlist">
+                                
+                            </div>
+                </div>
+            </div>
         </div>
     )
 }

@@ -119,19 +119,10 @@ const TwoStageFormPopup = ({ isOpen, onClose }) => {
                 required
               ></input>
             </label>
-            <label>
-                Pricing Type
-                <div className={styles['sacred-code']}>
-                    <button type='button' onClick={() => setFormData({ ...formData, ['pricingType']: 1 })}>Per Hour</button>
-                    <button type='button' onClick={() => setFormData({ ...formData, ['pricingType']: 2 })}>For The Project</button>
-                </div>
-            </label>
-            {formData.pricingType >= 1 && (
                 <label>
-                    {formData.pricingType === 1? "Price Per Hour" : "Price For The Project"}
+                     Price Per Hour
                     <input name='price' value={formData.price} onChange={handleChange} type="text" placeholder='Enter price' />
                 </label>
-            )}
             <div className={styles.spacer} />
                 <CustomButton onClick={(handleSave)}>Add Project +</CustomButton>
             </form>

@@ -121,6 +121,7 @@ const HomeScreen = () => {
   }
   return (
     <div style={styles.homeScreen}>
+      <TwoStageFormPopup isOpen={isPopupOpen} onClose={() => setIsPopupOpen(false)} />
       <Container>
         <div className={styles.content}>
           <section className={styles.section1}>
@@ -264,9 +265,9 @@ const HomeScreen = () => {
                       </div>
                     </div>
 
-                    <button className={`${styles.arrowBtn} ${recentProjectOpened === recentProject.id && styles.active}`} onClick={() => setRecentProjectOpened(recentProject.id)}><ArrowTop/></button>
+                    <button className={`${styles.arrowBtn} ${recentProjectOpened === recentProject.id && styles.active}`} onClick={() => recentProjectOpened === -1 || recentProjectOpened !== recentProject.id ? setRecentProjectOpened(recentProject.id) : setRecentProjectOpened(-1)}><ArrowTop/></button>
                     </div>
-                    <p>{recentProject.projectDescription}</p>
+                    <p className={styles.projectDescription}>{recentProject.projectDescription}</p>
                   </div>
                 ))}
               </div>
@@ -296,8 +297,6 @@ const HomeScreen = () => {
           </section>
         </div>
       </Container>
-      
-      <TwoStageFormPopup isOpen={isPopupOpen} onClose={() => setIsPopupOpen(false)} />
     </div>
   );
 };

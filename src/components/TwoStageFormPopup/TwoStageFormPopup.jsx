@@ -1,11 +1,17 @@
 import { useEffect, useState } from 'react';
 import styles from './TwoStageFormPopup.module.css'
 import CustomButton from '../customButton/CustomButton';
-import { useAppStore } from '../../store';
+import Dropbutton from '../../CustomIcons/Dropbutton';
+import MediaIcon from '../../CustomIcons/MediaIcon';
+import DocumentIcon from '../../CustomIcons/DocumentIcon';
 
+import { useAppStore } from '../../store';
+const options = ["UIUX Designer", "Back-end", "Front-end", "Mobile app"];
 const TwoStageFormPopup = ({ isOpen, onClose }) => {
   const {projectsPosts, addNewProjectPost} = useAppStore((state) => state)
   const [stage, setStage] = useState(1);
+  const [CurrentOption, setCurrentOption] = useState("Select option");
+  const [showSelectoption, setshowSelectoption] = useState(false);
   const [formData, setFormData] = useState({ 
     qualification: '', 
     description: '', 
@@ -59,13 +65,21 @@ const TwoStageFormPopup = ({ isOpen, onClose }) => {
           <form>
             <label>
               Select Required Qualifications
-              <select name="qualification" value={formData.qualification} onChange={handleChange} required>
-                <option value="">Select option</option>
-                <option value="qualification1">Qualification 1</option>
-                <option value="qualification2">Qualification 2</option>
-              </select>
             </label>
-
+            <button className={ CurrentOption === "Select option" ? styles.Selectoption : styles.SelectoptionWithactive} onClick={()=>setshowSelectoption(!showSelectoption)}>
+                    {CurrentOption}
+                   <Dropbutton />
+              </button>
+              <div className={styles.Selectoptionchose} style={{display: showSelectoption ? "block" : "none"}}>
+                    {options.map((option) => (
+                      <button
+                        key={option}
+                        className={CurrentOption === option ? styles.SelectoptionchoseActive : ''}
+                        onClick={() => setCurrentOption(option)}
+                      >
+                        {option}
+                      </button>
+                    ))}</div>
             <label>
               Description
               <textarea
@@ -79,13 +93,11 @@ const TwoStageFormPopup = ({ isOpen, onClose }) => {
 
             <div className={styles.spacer} />
             <div className={styles["file-buttons"]}>
-              <button type="button" className={styles["file-btn"]} onClick={() => document.getElementById('mediaUpload').click()}>
-                <img src="./image-upload.png" alt="" />
-                Media
+              <button type="button" className={styles.Uploadfile}>
+                 <MediaIcon />
               </button>
-              <button type="button" className={styles["file-btn"]} onClick={() => document.getElementById('documentUpload').click()}>
-              <img src="./document-code.png" alt="" />
-                Document
+              <button type="button" className={styles.Uploadfile}>
+                 <DocumentIcon />
               </button>
               <input id="mediaUpload" type="file" onChange={handleFileUpload} style={{ display: 'none' }} />
               <input id="documentUpload" type="file" onChange={handleFileUpload} style={{ display: 'none' }} />

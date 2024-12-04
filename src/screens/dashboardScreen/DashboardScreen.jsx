@@ -7,6 +7,7 @@ import DonutChart from "../../components/charts/DonutChart";
 import CloseSliderIcon from "../../CustomIcons/CloseSliderIcon";
 
 const DashboardScreen = () => {
+    const [showSlider, setshowSlider] = useState(0);
     const [filterType, setFilterType] = useState('All');
     const projects = [
         {
@@ -79,6 +80,33 @@ const DashboardScreen = () => {
     useEffect(() => {
 
     }, [filterType])
+
+    const [freelancerApplied, setfreelancerApplied] = useState([
+        {
+            id: 1,
+            imag: './avatar.png',
+            name: "Sara Saad",
+            type: "UIUX Designer",
+        },
+        {
+            id: 2,
+            imag: './avatar.png',
+            name: "Mohamed ali",
+            type: "UIUX Designer",
+        },
+        {
+            id: 3,
+            imag: './avatar.png',
+            name: "Ali Saad",
+            type: "UIUX Designer",
+        },
+    ]);
+    const removeFreelancerById = (id) => {
+        setfreelancerApplied((prevState) =>
+            prevState.filter((freelancer) => freelancer.id !== id)
+        );
+    };
+    
     return (
         
         <div className={styles.dashboardContainer}>
@@ -93,7 +121,7 @@ const DashboardScreen = () => {
                         </div>
                         <div className={styles.projects}>
                             {projects.map((project) => (
-                                <Card key={project.id}>
+                                <button key={project.id} onClick={()=> setshowSlider(1)}>
                                     <div className={styles.projectInfo}>
                                         <div className={`${styles.projectData} ${project.projectStatus === 'completed'? styles.completed : project.projectStatus === 'Pending'? styles.pending: styles.inProgress}`}>
                                             <b>{project.projectName}</b>
@@ -107,7 +135,7 @@ const DashboardScreen = () => {
                                         <img src={project.user.image} alt="" />
                                         <p>{project.user.name}</p>
                                     </div>
-                                </Card>
+                                </button>
                             ))}
                         </div>
                     </section>
@@ -168,10 +196,10 @@ const DashboardScreen = () => {
                     </div>
                 </div>
             </Container>
-            <div className={styles.sliderOFprojectinfo}>
+            <div className={styles.sliderOFprojectinfo} style={{display : showSlider === 1 ? "flex" : "none"}}>
                 <div className={styles.slider}>
                             <div className={styles.projectName}>
-                                <button><CloseSliderIcon/></button>
+                                <button onClick={()=>setshowSlider(0)}><CloseSliderIcon/></button>
                                 <h1>Project Name</h1>
                             </div>
                             <div className={styles.StatusOFproject}>
@@ -190,8 +218,25 @@ const DashboardScreen = () => {
                                 <h1>Project Description :</h1>
                                 <p>Develop an app for daily task management ..... <button>see more</button></p>
                             </div>
-                            <div className="Freelancerlist">
-                                
+                            <div className={styles.freeLancerList}>
+                                  <h1>{freelancerApplied.length} Freelancer Applied:</h1>
+                            </div>
+                            <div className={styles.freelancerApplied}>
+                                {freelancerApplied.map((p)=>(
+                                   <div className={styles.singleFreeLancer}>
+                                         <div className={styles.freeLancerInfo}>
+                                            <img src={p.imag} alt="" />
+                                            <div className={styles.freeLancerText}>
+                                                <h1>{p.name}</h1>
+                                                <p>{p.type}</p>
+                                            </div>
+                                         </div>
+                                         <div className={styles.freeLancerAction}>
+                                                <button  onClick={() => removeFreelancerById(p.id)} className={styles.acceptFreeLancer}>Accept</button>
+                                                <button  onClick={() => removeFreelancerById(p.id)} className={styles.declineFreeLancer}>Decline</button>
+                                          </div>
+                                   </div>
+                                ))}
                             </div>
                 </div>
             </div>

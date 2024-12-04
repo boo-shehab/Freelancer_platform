@@ -178,7 +178,7 @@
     top: 0;
     left: 0;
     background: rgba(0, 0, 0, 0.2);
-    display: flex;
+    display: flex ;
     align-items: start;
     justify-content: end;
 }
@@ -277,5 +277,100 @@
     color: var(--Color-Primary-Primary, rgba(60, 151, 175, 1));
     font-family: 'Poppins', sans-serif;
     font-size: 12px;
+    font-weight: 700
+}
+.sliderOFprojectinfo .freeLancerList{
+    margin-top: 32px;
+}
+.sliderOFprojectinfo .freeLancerList h1{
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
     font-weight: 700;
+    line-height: 22.5px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+}
+.freelancerApplied{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: 24px;
+}
+.singleFreeLancer{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.freeLancerInfo{
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 8px;
+}
+.freeLancerInfo img{
+    width: 34px;
+    height: 34px;
+}
+.freeLancerInfo .freeLancerText h1{
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 21px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+}
+
+.freeLancerInfo .freeLancerText p{
+    color: var(--Color-Text-Secondary, rgba(153, 153, 153, 1));
+    font-family: 'Poppins', sans-serif;
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 15px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+}
+button.acceptFreeLancer{
+    border: none;
+    background: var(--Colors-Success-100, rgba(221, 248, 231, 1));
+    color: var(--Colors-Success-500, rgba(31, 173, 88, 1));
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 18px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    border-radius: 30px;
+    text-align: center;
+    width: 76px;
+    height: 34px;
+    margin-right: 8px;
+}
+button.declineFreeLancer{
+    border: none;
+    background: var(--Colors-Error-100, rgba(255, 214, 214, 1));
+    color: var(--Colors-Error-500, rgba(235, 0, 0, 1));
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 18px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    border-radius: 30px;
+    text-align: center;
+    width: 76px;
+    height: 34px;
+}
+.projects button{
+  padding: 16px;
+  border-radius: 16px;
+  box-shadow: 0px 2px 8px 0px #3c97af14;
+  background-color: #fff;
+  border: none;
 }

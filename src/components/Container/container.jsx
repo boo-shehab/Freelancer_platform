@@ -4,8 +4,8 @@ const Container = ({ children }) => {
       style={{
         maxWidth: 1800,
         margin: "auto",
-        paddingLeft: 16,
-        paddingRight: 16,
+        paddingLeft: 24,
+        paddingRight: 24,
       }}
     >
       {children}

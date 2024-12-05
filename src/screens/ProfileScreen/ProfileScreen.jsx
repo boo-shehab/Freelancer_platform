@@ -1,6 +1,6 @@
 import Card from "../../components/Card/card";
 import DonutChart from "../../components/charts/DonutChart";
-import Container from "../../components/Container/container";
+import ContainerProfileScreen from "../../components/Container/containerProfileScreen";
 import CommentsIcon from "../../CustomIcons/CommentsIcon";
 import EditIcon from "../../CustomIcons/EditIcon";
 import HeartIcon from "../../CustomIcons/HeartIcon";
@@ -67,7 +67,7 @@ const ProfileScreen = () => {
   };
   return (
     <div className={styles.ProfileScreen}>
-      <Container>
+      <ContainerProfileScreen>
         <div className={styles.content}>
           <section className={styles.section1}>
             <Card>
@@ -301,7 +301,7 @@ const ProfileScreen = () => {
             </Card>
           </section>
         </div>
-      </Container>
+      </ContainerProfileScreen>
     </div>
   );
 };

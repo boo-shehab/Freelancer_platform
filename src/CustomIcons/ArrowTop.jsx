@@ -1,4 +1,4 @@
-import * as React from "react"
+import * as React from "react";
 const ArrowTop = (props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -12,9 +12,9 @@ const ArrowTop = (props) => (
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={1.5}
-      d="M13 7S8.58 1 7 1C5.419 1 1 7 1 7"
+      d="M13 1S8.581 7 7 7C5.419 7 1 1 1 1"
     />
   </svg>
-)
+);
 
-export default ArrowTop
+export default ArrowTop;

@@ -1,5 +1,5 @@
 import React from "react";
-const DonutChart = ({ data, total, size = 150, emptyColor = "#d3d3d3",children, barSize }) => {
+const DonutChart = ({ data, total, size = 150, emptyColor = "#D9D9D9",children, barSize }) => {
   const circleRadius = (size - (barSize || size / 6)) / 2;; // Adjust radius based on size
   
   const circleCircumference = 2 * Math.PI * circleRadius;

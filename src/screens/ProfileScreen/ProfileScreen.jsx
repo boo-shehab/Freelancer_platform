@@ -15,9 +15,9 @@ const ProfileScreen = () => {
 
 
   const chartData = [
-    { value: 25, color: "#FFD700" }, 
-    { value: 25, color: "#32CD32" }, 
-    { value: 25, color: "#d3d3d3" }, 
+    { value: 25, color: "#FFDB70" }, 
+    { value: 25, color: "#7FC882" }, 
+    { value: 25, color: "#D9D9D9" }, 
   ];
     const posts = [
         {
@@ -197,15 +197,15 @@ const projects = [
                             </div>
                             <div className={styles.ChartInfo}>
                                 <div className={styles.ChartInfoItem}>
-                                    <div className={styles.dot} style={{backgroundColor: '#d3d3d3'}}></div>
+                                    <div className={styles.dot} style={{backgroundColor: '#D9D9D9'}}></div>
                                     <p>Posted projects</p>
                                 </div>
                                 <div className={styles.ChartInfoItem}>
-                                    <div className={styles.dot} style={{backgroundColor: '#FFD700'}}></div>
+                                    <div className={styles.dot} style={{backgroundColor: '#FFDB70'}}></div>
                                     <p>Pending projects</p>
                                 </div>
                                 <div className={styles.ChartInfoItem}>
-                                    <div className={styles.dot} style={{backgroundColor: '#32CD32'}}></div>
+                                    <div className={styles.dot} style={{backgroundColor: '#7FC882'}}></div>
                                     <p>Completed projects</p>
                                 </div>
                             </div>

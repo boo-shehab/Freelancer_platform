@@ -62,7 +62,7 @@ const Register = () => {
                             <>
                                 <div className={styles.type}>
                                 <label  onClick={() =>setAccountType(1)} className={`${accountType === 1? styles.active: ''}`}>
-                                    <UserIcon />
+                                <UserIcon color={accountType === 1 ? "#3C97AF" : "black"} />
                                     <div>
                                         <h2>freelance</h2>
                                         <p>I’m a freelancer ready to work for projects</p>
@@ -71,7 +71,7 @@ const Register = () => {
                                 </label>
 
                                 <label onClick={() => setAccountType(2)} className={`${accountType === 2? styles.active: ''}`}>
-                                    <UserSearchIcon />
+                                    <UserSearchIcon color={accountType === 2 ? "#3C97AF" : "black"} />
                                     <div className="">
                                         <h2>client</h2>
                                         <p>I’m a freelancer ready to work for projects</p>

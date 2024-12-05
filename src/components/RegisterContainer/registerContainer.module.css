@@ -1,9 +1,9 @@
 .register-container {
     width: 100vw;
     height: 100vh;
-    padding: 16px;
+    padding: 16px 50px;
     display: grid;
-    gap: 16px;
+    gap: 80px;
     grid-template-columns: 1fr 1fr;
     overflow-x: hidden;
     background-color: white;
@@ -40,7 +40,7 @@
     padding-top: 48px;
    }
 }
-@media (max-width: 700px) {
+@media (max-width: 780px) {
     .left {
         display: none;
     }

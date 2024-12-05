@@ -60,7 +60,7 @@ const OtpComponent = ({handleNext}) => {
           <span
             className={`${styles['resend-link']} ${isResendDisabled ? styles.disabled : ''}`}
             onClick={!isResendDisabled ? handleResend : null}
-            style={{ color: isResendDisabled ? '#ccc' : '#007bff', cursor: isResendDisabled ? 'not-allowed' : 'pointer' }}
+            style={{ color: isResendDisabled ? '#3c96af81' : '#3C97AF', cursor: isResendDisabled ? 'not-allowed' : 'pointer' }}
           >
             Resend
           </span>

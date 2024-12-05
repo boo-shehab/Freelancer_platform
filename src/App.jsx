@@ -7,6 +7,7 @@ import MainLayout from './layout/MainLayout';
 import ProtectedRoute from './components/ProtectedRoute';
 import HomeScreen from './screens/HomeScreen/homeScreen';
 import ProfileScreen from './screens/ProfileScreen/ProfileScreen';
+import FreePost from "./components/FreelancerPost/FreelancerPost"
 import Login from './screens/login/login';
 
 function App() {
@@ -31,8 +32,9 @@ function App() {
           path: "/",
           element: (
             // <ProtectedRoute isProtected={true}>
-              <HomeScreen />
+             // <HomeScreen />
             // </ProtectedRoute>
+            <FreePost/>
           ),
         },
         {

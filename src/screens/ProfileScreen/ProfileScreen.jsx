@@ -75,7 +75,7 @@ const ProfileScreen = () => {
       <Container paddingx={56}>
         <div className={styles.content}>
           <section className={styles.section1}>
-            <Card marginBottom={152} paddingx={24}>
+            <Card marginBottom={152} paddingx={24} marginbottom={152}>
               <div className={styles.userProfile}>
                 <div className={styles.userInfo}>
                   <img src="./avatar.png" alt="" />

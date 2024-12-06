@@ -6,11 +6,10 @@ const freeLancerScreen = () => {
   const [value, setValue] = useState([0, 5000]);
   const [selectedJobs, setSelectedJobs] = useState([]);
   const handleJobSelection = (jobId) => {
-    setSelectedJobs(
-      (prevSelected) =>
-        prevSelected.includes(jobId)
-          ? prevSelected.filter((id) => id !== jobId) // Remove if already selected
-          : [...prevSelected, jobId] // Add if not selected
+    setSelectedJobs((prevSelected) =>
+      prevSelected.includes(jobId)
+        ? prevSelected.filter((id) => id !== jobId) // Remove if already selected
+        : [...prevSelected, jobId]
     );
   };
   const clearAllSelections = () => {
@@ -81,14 +80,60 @@ const freeLancerScreen = () => {
 
           <div className={styles.timeLine}>
             <h3>Time Line</h3>
-            <select name="" id="" className={styles.selectTime}>
-              <option value="">1</option>
-              <option value="">4</option>
-            </select>
-            <select name="" id="" className={styles.selectTime}>
-              <option value="">1</option>
-              <option value="">4</option>
-            </select>
+            <div className={styles.timeLineSelector}>
+              <select name="" id="" className={styles.selectTime}>
+                {" "}
+                <option value="" disabled selected hidden>
+                  Month
+                </option>
+                <option value="">1</option>
+                <option value="">2</option>
+                <option value="">3</option>
+                {/* <option value="">4</option> 
+                <option value="">5</option> 
+                <option value="">6</option>
+                <option value="">7</option>
+                <option value="">8</option>
+                <option value="">9</option>
+                <option value="">10</option> 
+                <option value="">11</option> 
+                <option value="">12</option> */}
+              </select>
+              <select name="" id="" className={styles.selectTime}>
+                <option value="" disabled selected hidden>
+                  Days
+                </option>
+                <option value="">1</option>
+                <option value="">2</option>
+                <option value="">3</option>
+                {/* <option value="">4</option> 
+                <option value="">5</option> 
+                <option value="">6</option>
+                <option value="">7</option>
+                <option value="">8</option>
+                <option value="">9</option>
+                <option value="">10</option> 
+                <option value="">11</option> 
+                <option value="">12</option>
+                <option value="">14</option>
+                <option value="">15</option>
+                <option value="">16</option>
+                <option value="">17</option> 
+                <option value="">18</option> 
+                <option value="">19</option>
+                <option value="">20</option>
+                <option value="">21</option>
+                <option value="">22</option>
+                <option value="">23</option> 
+                <option value="">24</option> 
+                <option value="">25</option>
+                <option value="">26</option>
+                <option value="">27</option>
+                <option value="">28</option>
+                <option value="">29</option> 
+                <option value="">30</option>  */}
+              </select>
+            </div>
           </div>
           <div className={styles.priceRage}>
             <h3 className={styles.PriceRageHeader}>Price Rage</h3>
@@ -135,8 +180,13 @@ const freeLancerScreen = () => {
               value={value}
               onChange={onSliderChange}
               tipFormatter={(value) => `${value}$`}
+              className={styles.marginSlider}
             />
           </ConfigProvider>
+
+          <div className={styles.editProfileFreeLancerSide}>
+            <h3>Profile</h3>
+          </div>
         </div>
       </FilterSide>
     </>

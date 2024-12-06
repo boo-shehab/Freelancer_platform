@@ -72,9 +72,15 @@
   border-bottom: 1px solid #bfbfbf;
   border-top: 1px solid #bfbfbf;
 }
-
+.timeLineSelector {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+  align-items: center;
+  justify-content: space-between;
+}
 .selectTime {
-  width: 40%;
+  width: 50%;
   height: 48px;
   border: 1px solid #bfbfbf;
   border-radius: 12px;
@@ -112,17 +118,13 @@
 .priceShowUpInput:focus {
   outline: #3c97af;
 }
-.ant-tooltip-inner {
-    background-color: transparent !important; /* Tooltip background */
-    border: none !important; /* Remove border */
-    box-shadow: none !important; /* Remove shadow */
-    color: #000 !important; /* Optional: change text color if needed */
-  }
-  
-  /* Remove the arrow */
-  .ant-tooltip-arrow {
-    border-top-color: transparent !important; /* Remove the arrow color */
-    border-right-color: transparent !important;
-    border-bottom-color: transparent !important;
-    border-left-color: transparent !important;
-  }
+.marginSlider {
+  margin-top: 42px;
+}
+.editProfileFreeLancerSide {
+  width: 331px;
+  height: 217px;
+  padding: 16px;
+  border-radius: 16px;
+  border: 0.3px solid #1c4752;
+}

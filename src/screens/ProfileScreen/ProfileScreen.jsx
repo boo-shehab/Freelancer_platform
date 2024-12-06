@@ -13,10 +13,9 @@ import EmptyStarIcon from "../../CustomIcons/emptyStarIcon";
 import Star2Icon from "../../CustomIcons/Star2Icon";
 import { useState } from "react";
 const ProfileScreen = () => {
-  const [aboutState, setAboutState] = useState("As a software manager with a passion for technology and team development, I specialize in guiding projects from concept to completion. With a strong focus on collaboration and clear communication, I work closely with clients and developers to ensure we deliver high-quality solutions that meet our stakeholders' needs. My goal is to bridge the gap between technical expertise and client vision, helping teams create innovative software that drives results and keeps pace with industry demands");
   const aboutValue =
     "As a software manager with a passion for technology and team development, I specialize in guiding projects from concept to completion. With a strong focus on collaboration and clear communication, I work closely with clients and developers to ensure we deliver high-quality solutions that meet our stakeholders' needs. My goal is to bridge the gap between technical expertise and client vision, helping teams create innovative software that drives results and keeps pace with industry demands,Developed a task management web application designed to help users organize";
-
+  const [aboutState, setAboutState] = useState(aboutValue.slice(0, 492));
   const [dotsAbout, setDotsAbout] = useState("....");
   const [seeAction, setSeeAction] = useState("See More");
   const chartData = [
@@ -99,16 +98,16 @@ const ProfileScreen = () => {
                   <span
                     className={styles.seeMoreAbout}
                     onClick={() => {
-                        if (dotsAbout === "...." && seeAction === "See More") {
-                            setAboutState(aboutValue); 
-                            setDotsAbout("");                  // Remove dots
-                            setSeeAction("Show Less");         // Update button text
-                          } else {
-                            setAboutState(aboutValue.slice(0, 492));
-                                         // Show full text
-                            setDotsAbout("....");              // Restore dots
-                            setSeeAction("See More");          // Update button text
-                          }
+                      if (dotsAbout === "...." && seeAction === "See More") {
+                        setAboutState(aboutValue);
+                        setDotsAbout(""); // Remove dots
+                        setSeeAction("Show Less"); // Update button text
+                      } else {
+                        setAboutState(aboutValue.slice(0, 492));
+                        // Show full text
+                        setDotsAbout("...."); // Restore dots
+                        setSeeAction("See More"); // Update button text
+                      }
                     }}
                   >
                     {seeAction}

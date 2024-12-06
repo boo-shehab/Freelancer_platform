@@ -99,11 +99,11 @@ const ProfileScreen = () => {
                   <span
                     className={styles.seeMoreAbout}
                     onClick={() => {
-                    //   if (aboutValue.length < 400) {
-                    //     setDotsAbout("");
-                    //     setSeeAction("");
-                    //     setAboutState(aboutValue);
-                    //   } else
+                      if (aboutValue.length < 400) {
+                        setDotsAbout("");
+                        setSeeAction("");
+                        setAboutState(aboutValue);
+                      } else
                        if (
                         dotsAbout === "...." &&
                         seeAction === "See More"

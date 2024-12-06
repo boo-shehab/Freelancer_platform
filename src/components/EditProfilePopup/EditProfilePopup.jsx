@@ -78,6 +78,7 @@ const EditProfilePopup = ({ isOpen, onClose, initialData, onSave }) => {
       </div>
     </div>
   );
+  
 };
 
 export default EditProfilePopup;

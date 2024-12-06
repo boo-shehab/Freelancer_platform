@@ -4,15 +4,25 @@ import styles from "./DashboardScreen.module.css"
 import Container from "../../components/Container/container";
 import Card from "../../components/Card/card";
 import DonutChart from "../../components/charts/DonutChart";
-import CloseSliderIcon from "../../CustomIcons/CloseSliderIcon";
+// import CloseSliderIcon from "../../CustomIcons/CloseSliderIcon";
+import SliderOfProject from '../../components/SliderOfProject/SliderOfProject';
 
 const DashboardScreen = () => {
     const [showSlider, setshowSlider] = useState(0);
     const [filterType, setFilterType] = useState('All');
+    const [selectedProject, setSelectedProject] = useState(null);
+
+    const [tasks, setTasks] = useState([
+        { id: 1, name: 'Design Registration Screen' },
+        { id: 2, name: 'Design Registration Screen' },
+        { id: 3, name: 'Design Registration Screen' },
+    ]);
+
+
     const projects = [
         {
             id: 1,
-            projectName: 'ProjectName',
+            projectName: 'ProjectName 1',
             projectStatus: 'In Progress',
             progress: 50,
             user: {
@@ -22,7 +32,7 @@ const DashboardScreen = () => {
         },
         {
             id: 2,
-            projectName: 'ProjectName',
+            projectName: 'ProjectName 2',
             projectStatus: 'In Progress',
             progress: 50,
             user: {
@@ -32,8 +42,8 @@ const DashboardScreen = () => {
         },
         {
             id: 3,
-            projectName: 'ProjectName',
-            projectStatus: 'completed',
+            projectName: 'ProjectName 3',
+            projectStatus: 'Completed',
             progress: 100,
             user: {
                 image: './avatar.png',
@@ -42,8 +52,8 @@ const DashboardScreen = () => {
         },
         {
             id: 4,
-            projectName: 'ProjectName',
-            projectStatus: 'completed',
+            projectName: 'ProjectName 4',
+            projectStatus: 'Completed',
             progress: 100,
             user: {
                 image: './avatar.png',
@@ -52,7 +62,7 @@ const DashboardScreen = () => {
         },
         {
             id: 5,
-            projectName: 'ProjectName',
+            projectName: 'ProjectName 5',
             projectStatus: 'Pending',
             progress: 0,
             user: {
@@ -62,7 +72,7 @@ const DashboardScreen = () => {
         },
         {
             id: 6,
-            projectName: 'ProjectName',
+            projectName: 'ProjectName 6',
             projectStatus: 'Pending',
             progress: 0,
             user: {
@@ -77,6 +87,7 @@ const DashboardScreen = () => {
         midRate: 12,
         lowRate: 6
     }
+
     useEffect(() => {
 
     }, [filterType])
@@ -101,14 +112,36 @@ const DashboardScreen = () => {
             type: "UIUX Designer",
         },
     ]);
+
     const removeFreelancerById = (id) => {
         setfreelancerApplied((prevState) =>
             prevState.filter((freelancer) => freelancer.id !== id)
         );
     };
-    
+
+    const handleProjectClick = (projectId) => {
+        const project = projects.find((project) => project.id === projectId);
+        setSelectedProject(project);
+        setshowSlider(1);
+    };
+
+    const handleEdit = (taskId) => {
+        const taskName = prompt("Edit Task Name:");
+        if (taskName) {
+            setTasks((prevTasks) =>
+                prevTasks.map((task) =>
+                    task.id === taskId ? { ...task, name: taskName } : task
+                )
+            );
+        }
+    };
+
+    const handleDelete = (taskId) => {
+        if (window.confirm("Are you sure you want to delete this task?")) {
+            setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
+        }
+    };
     return (
-        
         <div className={styles.dashboardContainer}>
             <Container>
                 <div className={styles.content}>
@@ -121,13 +154,13 @@ const DashboardScreen = () => {
                         </div>
                         <div className={styles.projects}>
                             {projects.map((project) => (
-                                <button key={project.id} onClick={()=> setshowSlider(1)}>
+                                <button key={project.id} onClick={() => handleProjectClick(project.id)}>
                                     <div className={styles.projectInfo}>
-                                        <div className={`${styles.projectData} ${project.projectStatus === 'completed'? styles.completed : project.projectStatus === 'Pending'? styles.pending: styles.inProgress}`}>
+                                        <div className={`${styles.projectData} ${project.projectStatus === 'Completed' ? styles.completed : project.projectStatus === 'Pending' ? styles.pending : styles.inProgress}`}>
                                             <b>{project.projectName}</b>
                                             <p>{project.projectStatus}</p>
                                         </div>
-                                        <DonutChart data={[{value: project.progress, color: project.projectStatus === 'completed'? '#1FAD58': '#FFBF00'}]} total={100} size={70} barSize={4}>
+                                        <DonutChart data={[{ value: project.progress, color: project.projectStatus === 'Completed' ? '#1FAD58' : '#FFBF00' }]} total={100} size={70} barSize={4}>
                                             <p className={styles.ChartText}>{project.progress}%</p>
                                         </DonutChart>
                                     </div>
@@ -159,89 +192,56 @@ const DashboardScreen = () => {
                             </div>
                         </div>
 
-                            <Card marginTop={12}>
-                                <div className={styles.statisticsSection}>
-                                    <div className={styles.totalDonutChart}>
-                                        <h2>Total Tasks - 21</h2>
-                                        <DonutChart  data={[{value: 50, color: '#1FAD58'}]} total={100} size={150} barSize={10}>
-                                            <DonutChart  data={[{value: 40, color: '#D69E2E'}]} total={100} size={110} barSize={10}>
-                                                <DonutChart  data={[{value: 20, color: '#3C97AF'}]} total={100} size={70} barSize={10}>
-                                                </DonutChart>
+                        <Card marginTop={12}>
+                            <div className={styles.statisticsSection}>
+                                <div className={styles.totalDonutChart}>
+                                    <h2>Total Tasks - 21</h2>
+                                    <DonutChart data={[{ value: 50, color: '#1FAD58' }]} total={100} size={150} barSize={10}>
+                                        <DonutChart data={[{ value: 40, color: '#D69E2E' }]} total={100} size={110} barSize={10}>
+                                            <DonutChart data={[{ value: 20, color: '#3C97AF' }]} total={100} size={70} barSize={10}>
                                             </DonutChart>
                                         </DonutChart>
+                                    </DonutChart>
+                                </div>
+
+                                <div className={styles.ratingBar}>
+                                    <div className={styles.barItem}>
+                                        <b>High rate</b>
+                                        <div className={styles.bar}>
+                                            <div style={{ width: `${rating.highRate}%`, backgroundColor: '#4DB251' }}></div>
+                                        </div>
                                     </div>
-                                    
-                                    <div className={styles.ratingBar}>
-                                        <div className={styles.barItem}>
-                                            <b>High rate</b>
-                                            <div className={styles.bar}>
-                                                <div style={{width: `${rating.highRate}%`, backgroundColor: '#4DB251'}}></div>
-                                            </div>
+                                    <div className={styles.barItem}>
+                                        <b>Mid rate</b>
+                                        <div className={styles.bar}>
+                                            <div style={{ width: `${rating.midRate}%`, backgroundColor: '#FFBF00' }}></div>
                                         </div>
-                                        <div className={styles.barItem}>
-                                            <b>Mid rate</b>
-                                            <div className={styles.bar}>
-                                                <div style={{width: `${rating.midRate}%`, backgroundColor: '#FFBF00'}}></div>
-                                            </div>
-                                        </div>
-                                        <div className={styles.barItem}>
-                                            <b>low rate</b>
-                                            <div className={styles.bar}>
-                                                <div style={{width: `${rating.lowRate}%`, backgroundColor: '#E4636F'}}></div>
-                                            </div>
+                                    </div>
+                                    <div className={styles.barItem}>
+                                        <b>Low rate</b>
+                                        <div className={styles.bar}>
+                                            <div style={{ width: `${rating.lowRate}%`, backgroundColor: '#E4636F' }}></div>
                                         </div>
                                     </div>
                                 </div>
-                            </Card>
+                            </div>
+                        </Card>
                     </div>
                 </div>
             </Container>
-            <div className={styles.sliderOFprojectinfo} style={{display : showSlider === 1 ? "flex" : "none"}}>
-                <div className={styles.slider}>
-                            <div className={styles.projectName}>
-                                <button onClick={()=>setshowSlider(0)}><CloseSliderIcon/></button>
-                                <h1>Project Name</h1>
-                            </div>
-                            <div className={styles.StatusOFproject}>
-                                <label>
-                                    <div className={styles.dote}></div>
-                                    <p> Status :</p>
-                                    <a href="">Pending</a>
-                                </label>
-                                <label>
-                                    <div className={styles.dote}></div>
-                                    <p>  Timeline :</p>
-                                    <span>2 months</span>
-                                </label>
-                            </div>
-                            <div className={styles.sliderDescription}>
-                                <h1>Project Description :</h1>
-                                <p>Develop an app for daily task management ..... <button>see more</button></p>
-                            </div>
-                            <div className={styles.freeLancerList}>
-                                  <h1>{freelancerApplied.length} Freelancer Applied:</h1>
-                            </div>
-                            <div className={styles.freelancerApplied}>
-                                {freelancerApplied.map((p)=>(
-                                   <div className={styles.singleFreeLancer}>
-                                         <div className={styles.freeLancerInfo}>
-                                            <img src={p.imag} alt="" />
-                                            <div className={styles.freeLancerText}>
-                                                <h1>{p.name}</h1>
-                                                <p>{p.type}</p>
-                                            </div>
-                                         </div>
-                                         <div className={styles.freeLancerAction}>
-                                                <button  onClick={() => removeFreelancerById(p.id)} className={styles.acceptFreeLancer}>Accept</button>
-                                                <button  onClick={() => removeFreelancerById(p.id)} className={styles.declineFreeLancer}>Decline</button>
-                                          </div>
-                                   </div>
-                                ))}
-                            </div>
-                </div>
-            </div>
+            <SliderOfProject
+                show={!!showSlider}
+                onClose={() => setshowSlider(0)}
+                freelancers={freelancerApplied}
+                onRemoveFreelancer={removeFreelancerById}
+                projectStatus={selectedProject ? selectedProject.projectStatus : ''}
+                progress={selectedProject ? selectedProject.progress : ''}
+                tasks={selectedProject ? tasks : []}
+                handleEdit={handleEdit}
+                handleDelete={handleDelete}
+            />
         </div>
-    )
-}
+    );
+};
 
 export default DashboardScreen;

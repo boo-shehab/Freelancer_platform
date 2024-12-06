@@ -1,6 +1,6 @@
 .content {
     display: flex;
-    gap: 16px;
+    gap: 40px;
     margin-top: 30px;
 }
 
@@ -321,6 +321,7 @@
 }
 
 .ratingBar .barItem {
+    margin-top: 16px;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -377,4 +378,19 @@
     display: block;
     margin-left: auto;
     cursor: pointer;
+    font-weight: 600;
+}
+.LineInBottom{
+    width: 100%;
+    height: 1px;
+    background-color: #BFBFBF;
+    margin: 24px 0px;
+}
+.seeMoreAbout{
+font-family: Poppins;
+font-size: 18px;
+font-weight: 500;
+line-height: 27px;
+color: #3C97AF;
+cursor: pointer;
 }

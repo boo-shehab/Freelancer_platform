@@ -30,7 +30,18 @@
     box-shadow: 0px 2px 8px 0px #3C97AF14;
     padding: 8px;
     gap: 2px;
-    border-radius: 8px;
+    border-radius: 16px;
+}
+.header .nav-bar .search input::placeholder {
+    font-family: Source Sans Pro;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 27px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: #BFBFBF;
+    
 }
 
 .header .nav-menu {

@@ -61,7 +61,7 @@ const Header = () => {
                     <div className={styles["nav-bar"]}>
                         <div className={styles.search}>
                             <SearchIcon />
-                            <input type="text" placeholder="Search..." />
+                            <input type="text" placeholder="Search" />
                         </div>
                         <button onClick={openNotification} className={`${ newNotification? styles['have-messages'] : ''}`}>
                             {/* <img src={`${isOpenNotification? 'notification-active.png': './notification.png'}`} alt="" /> */}

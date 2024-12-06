@@ -3,6 +3,7 @@ import { OtpInput } from 'reactjs-otp-input';
 import styles from './OtpComponent.module.css'
 import './OtpComponent.css'
 import CustomButton from '../customButton/CustomButton';
+import Timer from '../../CustomIcons/Timer';
 
 const OtpComponent = ({handleNext}) => {
   const [otp, setOtp] = useState('');
@@ -50,11 +51,12 @@ const OtpComponent = ({handleNext}) => {
           value={otp}
           onChange={handleChange}
           numInputs={6}
-          separator={<span>&nbsp;</span>}
+          
+          separator={<span style={{ width: "10px" }}></span>}
           inputStyle="otp-input"
           isInputNum={true}
         />
-        <div className={styles.timer}>00:{timer < 10 ? `0${timer}` : timer}</div>
+        <div className={styles.timer}><Timer/> 00:{timer < 10 ? `0${timer}` : timer}</div>
         <p className={styles["resend-text"]}>
           Didn't receive a message?{' '}
           <span

@@ -128,3 +128,15 @@
   border-radius: 16px;
   border: 0.3px solid #1c4752;
 }
+.editProfileFreeLancerSideContent{
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+text-align: center;
+gap: 4px;
+}
+.FreeLancerSideContentImg{
+  border-radius: 50%;
+  background-color: #1c4752;
+}

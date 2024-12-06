@@ -48,6 +48,14 @@ const freeLancerScreen = () => {
       Job: "Back End",
     },
   ];
+  const nameOfFreeLancer = [
+    {
+      id: 1,
+      name: "Abdullah Ali",
+      email: "alnashmieghifran@gmail.com",
+    },
+  ];
+
   return (
     <>
       <FilterSide>
@@ -186,6 +194,15 @@ const freeLancerScreen = () => {
 
           <div className={styles.editProfileFreeLancerSide}>
             <h3>Profile</h3>
+            <div className={styles.editProfileFreeLancerSideContent}>
+              <img className={styles.FreeLancerSideContentImg} src="" alt="" />
+              {nameOfFreeLancer.map((i) => (
+                <div className={styles.FreeLancerSideContentText}>
+                  <h4>{i.name}</h4>
+                  <p>{i.email}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </FilterSide>

@@ -13,6 +13,7 @@ import styles from "./homeScreen.module.css";
 import TwoStageFormPopup from "../../components/TwoStageFormPopup/TwoStageFormPopup";
 import { Link } from "react-router-dom";
 
+
 const projects = [
   {
     id: 1,
@@ -298,6 +299,7 @@ const HomeScreen = () => {
         </div>
       </Container>
     </div>
+
   );
 };
 

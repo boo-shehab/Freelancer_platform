@@ -272,7 +272,9 @@ const projects = [
                         </Card>
 
                     </section>
+                  
                 </div>
+        
             </Container>
         </div>
     )

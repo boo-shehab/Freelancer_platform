@@ -9,6 +9,7 @@ import HomeScreen from './screens/HomeScreen/homeScreen';
 import ProfileScreen from './screens/ProfileScreen/ProfileScreen';
 import Login from './screens/login/login';
 
+
 function App() {
   
   const router = createBrowserRouter([
@@ -65,7 +66,7 @@ function App() {
   return (
     <>
       <RouterProvider router={router} />
-    </>
+</>
   )
 }
 

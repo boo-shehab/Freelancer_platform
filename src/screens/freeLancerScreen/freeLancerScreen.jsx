@@ -8,7 +8,7 @@ const freeLancerScreen = () => {
   const handleJobSelection = (jobId) => {
     setSelectedJobs((prevSelected) =>
       prevSelected.includes(jobId)
-        ? prevSelected.filter((id) => id !== jobId) // Remove if already selected
+        ? prevSelected.filter((id) => id !== jobId)
         : [...prevSelected, jobId]
     );
   };
@@ -53,6 +53,7 @@ const freeLancerScreen = () => {
       id: 1,
       name: "Abdullah Ali",
       email: "alnashmieghifran@gmail.com",
+      img: "/post.png",
     },
   ];
 
@@ -150,14 +151,14 @@ const freeLancerScreen = () => {
                 className={styles.priceShowUpInput}
                 type="text"
                 value={value[0]}
-                onChange={(e) => onInputChange(0, e.target.value)} // Update second value
+                onChange={(e) => onInputChange(0, e.target.value)}
               />
               <small>to</small>
               <input
                 className={styles.priceShowUpInput}
                 type="text"
                 value={value[1]}
-                onChange={(e) => onInputChange(1, e.target.value)} // Update second value
+                onChange={(e) => onInputChange(1, e.target.value)}
               />
             </div>
           </div>
@@ -195,14 +196,19 @@ const freeLancerScreen = () => {
           <div className={styles.editProfileFreeLancerSide}>
             <h3>Profile</h3>
             <div className={styles.editProfileFreeLancerSideContent}>
-              <img className={styles.FreeLancerSideContentImg} src="" alt="" />
+              <img
+                className={styles.FreeLancerSideContentImg}
+                src="/public/avatar.png"
+                alt=""
+              />
               {nameOfFreeLancer.map((i) => (
                 <div className={styles.FreeLancerSideContentText}>
-                  <h4>{i.name}</h4>
-                  <p>{i.email}</p>
+                  <h4 className={styles.FreeLancerSideContentName}>{i.name}</h4>
+                  <p className={styles.FreeLancerSideContentEmail}>{i.email}</p>
                 </div>
               ))}
             </div>
+            <p className={styles.FreeLancerSideSeeProfile}>See profile</p>
           </div>
         </div>
       </FilterSide>

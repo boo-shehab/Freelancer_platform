@@ -84,6 +84,7 @@
   height: 48px;
   border: 1px solid #bfbfbf;
   border-radius: 12px;
+  cursor: pointer;
 }
 .selectTime:focus {
   outline: none;
@@ -122,21 +123,56 @@
   margin-top: 42px;
 }
 .editProfileFreeLancerSide {
-  width: 331px;
-  height: 217px;
+  width: 300px;
+  height: 210px;
   padding: 16px;
   border-radius: 16px;
   border: 0.3px solid #1c4752;
+  margin-top: 40px;
 }
-.editProfileFreeLancerSideContent{
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-text-align: center;
-gap: 4px;
+.editProfileFreeLancerSideContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 24px;
 }
-.FreeLancerSideContentImg{
+.FreeLancerSideContentImg {
   border-radius: 50%;
-  background-color: #1c4752;
+  width: 56px;
+  height: 56px;
+}
+.FreeLancerSideContentText{
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.FreeLancerSideContentName {
+  font-family: Poppins;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 17.5px;
+  text-decoration-skip-ink: none;
+  color: #3d3d3d;
+}
+
+.FreeLancerSideContentEmail {
+  font-family: Poppins;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  text-decoration-skip-ink: none;
+  color: #999999;
+}
+.FreeLancerSideSeeProfile {
+  font-family: Poppins;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+  text-decoration-skip-ink: none;
+  text-align: right;
+  color: #3c97af;
+  padding-top: 12px;
+  cursor: pointer;
 }

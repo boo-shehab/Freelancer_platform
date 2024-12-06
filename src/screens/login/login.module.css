@@ -80,6 +80,7 @@
   }
   .LoginForm{
     text-align: start;
+
   }
   .LoginForm input{
     width: 100%;
@@ -104,6 +105,10 @@
         font-size: 32px;
         line-height: 36px;
     }
+    .LoginForm{
+      margin-top: 60px;
+      
+    }
     .loginHeader p{
       text-align: center; 
     }
@@ -124,4 +129,5 @@
         gap: 6px;
         text-align: start;
     }
+    
 }

@@ -14,6 +14,8 @@
 .loginLink a {
  color: #3C97AF;
 }
+
+
 .left {
   background-color: #3c97af;
   position: relative;
@@ -50,5 +52,15 @@
 
   .register-container {
     grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 660px) {
+  .register-container {
+ 
+    padding: 16px 12px;
+  
+   
+
+ 
   }
 }

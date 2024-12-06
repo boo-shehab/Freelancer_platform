@@ -10,6 +10,9 @@
 }
 .content .section2 {
   width: 45%;
+  height: 80vh;
+  overflow-y: auto;
+  scrollbar-width: none;
 }
 .content .section3 {
   width: 32%;

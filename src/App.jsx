@@ -9,6 +9,7 @@ import HomeScreen from './screens/HomeScreen/homeScreen';
 import ProfileScreen from './screens/ProfileScreen/ProfileScreen';
 import Login from './screens/login/login';
 
+
 function App() {
   
   const router = createBrowserRouter([
@@ -52,21 +53,22 @@ function App() {
             // </ProtectedRoute>
           ),
         },
-        // {
-        //   path: "/setting",
-        //   element: (
+        {
+          path: "/setting",
+          element: (
+            <>lhslf</>
         //     <ProtectedRoute isProtected={true}>
         //       <Home />
         //     </ProtectedRoute>
-        //   ),
-        // },
+          ),
+        },
       ],
     },
   ]);
   return (
     <>
       <RouterProvider router={router} />
-    </>
+</>
   )
 }
 

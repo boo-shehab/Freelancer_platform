@@ -1,6 +1,7 @@
 .header {
     background-color: #F7FDFD;
-    padding: 16px;
+    padding-top: 16px;
+    padding-bottom: 16px;
     margin-bottom: 16px;
     position: relative;
 }
@@ -30,6 +31,17 @@
     padding: 8px;
     gap: 2px;
     border-radius: 16px;
+}
+.header .nav-bar .search input::placeholder {
+    font-family: Source Sans Pro;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 27px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: #BFBFBF;
+    
 }
 
 .header .nav-menu {

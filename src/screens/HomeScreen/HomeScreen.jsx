@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 import ProjectPost from "../../components/ProjectPost/ProjectPost";
 import FreeLancerScreen from "../freeLancerScreen/freeLancerScreen";
 
+
 const projects = [
   {
     id: 1,
@@ -298,6 +299,7 @@ const HomeScreen = () => {
         </div>
       </Container>
     </div>
+
   );
 };
 

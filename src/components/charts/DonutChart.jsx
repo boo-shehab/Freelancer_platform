@@ -52,7 +52,7 @@ const DonutChart = ({
               strokeDasharray={`${dashArray} ${circleCircumference}`}
               strokeDashoffset={-accumulatedOffset + dashArray}
               style={{
-                transform: `rotate(-90deg)`,
+                transform: `rotate(-260deg)`,
                 transformOrigin: "center",
               }}
             />
@@ -68,7 +68,9 @@ const DonutChart = ({
           left: "50%",
           transform: "translate(-50%, -50%)",
           textAlign: "center",
-          fontSize: size / 12, // Adjust font size based on size
+          fontSize: size / 8, // Adjust font size based on size
+          fontWeight: "600",
+          lineHeight:"25px"
         }}
       >
         {children}

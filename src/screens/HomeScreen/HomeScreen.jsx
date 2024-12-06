@@ -11,6 +11,7 @@ import TwoStageFormPopup from "../../components/TwoStageFormPopup/TwoStageFormPo
 import { Link } from "react-router-dom";
 import ProjectPost from "../../components/ProjectPost/ProjectPost";
 
+
 const projects = [
   {
     id: 1,
@@ -271,6 +272,7 @@ const HomeScreen = () => {
         </div>
       </Container>
     </div>
+
   );
 };
 

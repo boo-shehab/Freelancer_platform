@@ -10,6 +10,7 @@ import styles from "./homeScreen.module.css";
 import TwoStageFormPopup from "../../components/TwoStageFormPopup/TwoStageFormPopup";
 import { Link } from "react-router-dom";
 import ProjectPost from "../../components/ProjectPost/ProjectPost";
+import FreeLancerScreen from "../freeLancerScreen/freeLancerScreen";
 
 const projects = [
   {
@@ -55,125 +56,134 @@ const posts = [
 const recentProjects = [
   {
     id: 1,
-    projectName: 'Web Design Project',
-    projectPrice: '10$/Hour',
-    projectDescription: 'This Project Involves implementing both frontend and back-end functionalities ,as  well as integrating with third-party Apls.'
+    projectName: "Web Design Project",
+    projectPrice: "10$/Hour",
+    projectDescription:
+      "This Project Involves implementing both frontend and back-end functionalities ,as  well as integrating with third-party Apls.",
   },
   {
     id: 2,
-    projectName: 'Web Design Project',
-    projectPrice: '10$/Hour',
-    projectDescription: 'This Project Involves implementing both frontend and back-end functionalities ,as  well as integrating with third-party Apls.'
+    projectName: "Web Design Project",
+    projectPrice: "10$/Hour",
+    projectDescription:
+      "This Project Involves implementing both frontend and back-end functionalities ,as  well as integrating with third-party Apls.",
   },
   {
     id: 3,
-    projectName: 'Web Design Project',
-    projectPrice: '10$/Hour',
-    projectDescription: 'This Project Involves implementing both frontend and back-end functionalities ,as  well as integrating with third-party Apls.'
+    projectName: "Web Design Project",
+    projectPrice: "10$/Hour",
+    projectDescription:
+      "This Project Involves implementing both frontend and back-end functionalities ,as  well as integrating with third-party Apls.",
   },
 ];
 
 const formerCoworkers = [
   {
     id: 1,
-    img: './avatar.png',
-    name: 'Zena Saad',
-    time: '2 months ago',
-    rate: '8.0'
+    img: "./avatar.png",
+    name: "Zena Saad",
+    time: "2 months ago",
+    rate: "8.0",
   },
   {
     id: 2,
-    img: './avatar.png',
-    name: 'Zena Saad',
-    time: '2 months ago',
-    rate: '6.0'
+    img: "./avatar.png",
+    name: "Zena Saad",
+    time: "2 months ago",
+    rate: "6.0",
   },
   {
     id: 3,
-    img: './avatar.png',
-    name: 'Zena Saad',
-    time: '2 months ago',
-    rate: '5.0'
+    img: "./avatar.png",
+    name: "Zena Saad",
+    time: "2 months ago",
+    rate: "5.0",
   },
   {
     id: 4,
-    img: './avatar.png',
-    name: 'Zena Saad',
-    time: '2 months ago',
-    rate: '9.0'
+    img: "./avatar.png",
+    name: "Zena Saad",
+    time: "2 months ago",
+    rate: "9.0",
   },
   {
     id: 5,
-    img: './avatar.png',
-    name: 'Zena Saad',
-    time: '2 months ago',
-    rate: '8.0'
+    img: "./avatar.png",
+    name: "Zena Saad",
+    time: "2 months ago",
+    rate: "8.0",
   },
 ];
 
 const HomeScreen = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [recentProjectOpened, setRecentProjectOpened] = useState(-1)
-  const handleNewProject = () =>{
-    setIsPopupOpen(true)
-  }
+  const [recentProjectOpened, setRecentProjectOpened] = useState(-1);
+  const [isClint, setIsClint] = useState(false);
+  const handleNewProject = () => {
+    setIsPopupOpen(true);
+  };
   return (
     <div style={styles.homeScreen}>
-      <TwoStageFormPopup isOpen={isPopupOpen} onClose={() => setIsPopupOpen(false)} />
+      <TwoStageFormPopup
+        isOpen={isPopupOpen}
+        onClose={() => setIsPopupOpen(false)}
+      />
       <Container>
         <div className={styles.content}>
-          <section className={styles.section1}>
-            <Card>
-              <div className={styles.userInfo}>
-                <img src="/avatar.png" />
-                <p className={styles.name}>Mustafa Emad</p>
-                <div className={styles.rate}>
-                  <StarIcon /> <span>5.0</span>
+        <FreeLancerScreen/>
+
+          {isClint && (
+            <section className={styles.section1}>
+              <Card>
+                <div className={styles.userInfo}>
+                  <img src="/avatar.png" />
+                  <p className={styles.name}>Mustafa Emad</p>
+                  <div className={styles.rate}>
+                    <StarIcon /> <span>5.0</span>
+                  </div>
+                  <Link to="/profile">Edit Profile</Link>
                 </div>
-                  <Link to="/profile">
-                    Edit Profile
-                  </Link>
-              </div>
-            </Card>
-            <Card marginTop={16}>
-              <div className={styles.about}>
-                <div className={styles.aboutHead}>
-                  <b>About</b>
-                  <EditIcon />
-                </div>
-                <p>
-                  GreenTech Solutions Inc. Renewable Energy & Technology San
-                  Francisco, California, with operations in North America and
-                  Europe
-                </p>
-              </div>
-            </Card>
-            <Card marginTop={16}>
-              <div className={styles.history}>
-                <div className={styles.historyHead}>
-                  <b>Projects History</b>
-                  <div className={styles.actions}>
-                    <PlusIcon />
+              </Card>
+              <Card marginTop={16}>
+                <div className={styles.about}>
+                  <div className={styles.aboutHead}>
+                    <b>About</b>
                     <EditIcon />
                   </div>
+                  <p>
+                    GreenTech Solutions Inc. Renewable Energy & Technology San
+                    Francisco, California, with operations in North America and
+                    Europe
+                  </p>
                 </div>
-
-                {projects?.map((p) => (
-                  <div className={styles.projectItem} key={p.id}>
-                    <div className={styles.guid}>
-                      <div className={styles.dot}></div>
-                      <div className={styles.line}></div>
-                    </div>
-                    <div className={styles.itemInfo}>
-                      <h4>{p.title}</h4>
-                      <small>{p.createdAt}</small>
-                      <p className={styles.itemDesc}>{p.desc}</p>
+              </Card>
+              <Card marginTop={16}>
+                <div className={styles.history}>
+                  <div className={styles.historyHead}>
+                    <b>Projects History</b>
+                    <div className={styles.actions}>
+                      <PlusIcon />
+                      <EditIcon />
                     </div>
                   </div>
-                ))}
-              </div>
-            </Card>
-          </section>
+                  {projects?.map((p) => (
+                    <div className={styles.projectItem} key={p.id}>
+                      <div className={styles.guid}>
+                        <div className={styles.dot}></div>
+                        <div className={styles.line}></div>
+                      </div>
+                      <div className={styles.itemInfo}>
+                        <h4>{p.title}</h4>
+                        <small>{p.createdAt}</small>
+                        <p className={styles.itemDesc}>{p.desc}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </Card>
+            </section>
+          )}
+
           <section className={styles.section2}>
             <Card>
               <div className={styles.postBox}>
@@ -192,54 +202,81 @@ const HomeScreen = () => {
               <ProjectPost key={post.id} post={post} />
             ))}
           </section>
-          <section className={styles.section3}>
-            <Card>
-              <div className={styles.recent}>
-                <div className={styles.recentHead}>
-                  <b className={styles.recentTitle}>Your Recent Project</b>
-                  <a className={styles.more}>see all projects</a>
-                </div>
-                {recentProjects.map((recentProject) => (
-                  <div key={recentProject.id} className={`${styles.recentItem} ${recentProjectOpened === recentProject.id && styles.active}`}>
-                    <div className={styles.recentHead}>
-                    <div className={styles.recentItemInfo}>
-                      <div className={styles.recentItemAvatar}></div>
-                      <div>
-                        <b>{recentProject.projectName}</b><br/>
-                        <small>{recentProject.projectPrice}</small>
-                      </div>
-                    </div>
+          {isClint && (
+            <section className={styles.section3}>
+              <Card>
+                <div className={styles.recent}>
+                  <div className={styles.recentHead}>
+                    <b className={styles.recentTitle}>Your Recent Project</b>
+                    <a className={styles.more}>see all projects</a>
+                  </div>
+                  {recentProjects.map((recentProject) => (
+                    <div
+                      key={recentProject.id}
+                      className={`${styles.recentItem} ${
+                        recentProjectOpened === recentProject.id &&
+                        styles.active
+                      }`}
+                    >
+                      <div className={styles.recentHead}>
+                        <div className={styles.recentItemInfo}>
+                          <div className={styles.recentItemAvatar}></div>
+                          <div>
+                            <b>{recentProject.projectName}</b>
+                            <br />
+                            <small>{recentProject.projectPrice}</small>
+                          </div>
+                        </div>
 
-                    <button className={`${styles.arrowBtn} ${recentProjectOpened === recentProject.id && styles.active}`} onClick={() => recentProjectOpened === -1 || recentProjectOpened !== recentProject.id ? setRecentProjectOpened(recentProject.id) : setRecentProjectOpened(-1)}><ArrowTop/></button>
+                        <button
+                          className={`${styles.arrowBtn} ${
+                            recentProjectOpened === recentProject.id &&
+                            styles.active
+                          }`}
+                          onClick={() =>
+                            recentProjectOpened === -1 ||
+                            recentProjectOpened !== recentProject.id
+                              ? setRecentProjectOpened(recentProject.id)
+                              : setRecentProjectOpened(-1)
+                          }
+                        >
+                          <ArrowTop />
+                        </button>
+                      </div>
+                      <p className={styles.projectDescription}>
+                        {recentProject.projectDescription}
+                      </p>
                     </div>
-                    <p className={styles.projectDescription}>{recentProject.projectDescription}</p>
-                  </div>
-                ))}
-              </div>
-            </Card>
-            <Card marginTop={16}>
-              <div className={styles.formerCoworkers}>
-                <div className={styles.formerCoworkersHead}>
-                  <b className={styles.formerCoworkersTitle}>Your Recent Project</b>
-                  <a className={styles.more}>See All</a>
+                  ))}
                 </div>
-                {formerCoworkers.map((coWorker) => (
-                  <div key={coWorker.id} className={styles.coWorkerItem}>
-                    <div className={styles.coWorkerInfo}>
-                      <img src={coWorker.img} alt="" />
-                      <div>
-                        <b>{coWorker.name}</b><br/>
-                        <small>{coWorker.time}</small>
+              </Card>
+              <Card marginTop={16}>
+                <div className={styles.formerCoworkers}>
+                  <div className={styles.formerCoworkersHead}>
+                    <b className={styles.formerCoworkersTitle}>
+                      Your Recent Project
+                    </b>
+                    <a className={styles.more}>See All</a>
+                  </div>
+                  {formerCoworkers.map((coWorker) => (
+                    <div key={coWorker.id} className={styles.coWorkerItem}>
+                      <div className={styles.coWorkerInfo}>
+                        <img src={coWorker.img} alt="" />
+                        <div>
+                          <b>{coWorker.name}</b>
+                          <br />
+                          <small>{coWorker.time}</small>
+                        </div>
+                      </div>
+                      <div className={styles.rate}>
+                        <StarIcon /> <span>{coWorker.rate}</span>
                       </div>
                     </div>
-                    <div className={styles.rate}>
-                      <StarIcon /> <span>{coWorker.rate}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </Card>
-          </section>
+                  ))}
+                </div>
+              </Card>
+            </section>
+          )}
         </div>
       </Container>
     </div>

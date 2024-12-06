@@ -170,20 +170,20 @@
   cursor: pointer;
 }
 
-.moreInfo{
+.moreInfo {
   margin-top: 16px;
 }
 
-.moreInfo .infoTitle{
+.moreInfo .infoTitle {
   font-size: 16px;
 }
-.moreInfo .infoValue{
+.moreInfo .infoValue {
   font-size: 14px;
   color: #999;
   margin-top: 8px;
 }
 
-.recentHead{
+.recentHead {
   display: flex;
   width: 100%;
   align-items: center;
@@ -191,19 +191,19 @@
   margin-bottom: 16px;
 }
 
-.more{
+.more {
   color: #3c97af;
 }
 
-.recentTitle{
+.recentTitle {
   font-size: 18px;
 }
 
-.recentItem{
+.recentItem {
   max-height: 70px;
   margin-top: 16px;
   overflow: hidden;
-  border-bottom: 1px solid #F2F2F2;
+  border-bottom: 1px solid #f2f2f2;
   transition: 0.5s;
 }
 
@@ -211,7 +211,7 @@
   max-height: 300px;
 }
 
-.recentItem .recentHead{
+.recentItem .recentHead {
   display: flex;
   width: 100%;
   align-items: center;
@@ -219,24 +219,24 @@
   margin-bottom: 16px;
 }
 
-.recentItem:last-child{
+.recentItem:last-child {
   border-bottom: none;
 }
 
-.recentItemInfo{
+.recentItemInfo {
   display: flex;
   gap: 8px;
   align-items: center;
 }
 
-.recentItemAvatar{
+.recentItemAvatar {
   width: 50px;
   height: 50px;
   border-radius: 50%;
   background-color: #ddf8e7;
 }
 
-.arrowBtn{
+.arrowBtn {
   height: 42px;
   width: 42px;
   background-color: #3c97af;
@@ -249,16 +249,16 @@
   transform: rotateZ(-180deg);
 }
 
-.recentItemInfo b{
+.recentItemInfo b {
   font-size: 16px;
 }
-.recentItemInfo small{
+.recentItemInfo small {
   color: #999;
   display: block;
   margin-top: 6px;
 }
 
-.formerCoworkers .formerCoworkersHead{
+.formerCoworkers .formerCoworkersHead {
   display: flex;
   width: 100%;
   align-items: center;
@@ -283,10 +283,10 @@
   gap: 8px;
 }
 
-.coWorkerInfo b{
+.coWorkerInfo b {
   font-size: 16px;
 }
-.coWorkerInfo small{
+.coWorkerInfo small {
   color: #999;
   display: block;
   margin-top: 6px;
@@ -309,9 +309,9 @@
   height: 50px;
   border-radius: 50%;
 }
-.projectDescription{
-  color: var(--Color-Text-Secondary, rgba(153, 153, 153, 1)); 
-  font-family: 'Poppins', sans-serif;
+.projectDescription {
+  color: var(--Color-Text-Secondary, rgba(153, 153, 153, 1));
+  font-family: "Poppins", sans-serif;
   font-size: 12px;
   font-weight: 400;
   line-height: 18px;
@@ -320,3 +320,5 @@
   text-decoration-skip-ink: none;
   margin-bottom: 24px;
 }
+
+

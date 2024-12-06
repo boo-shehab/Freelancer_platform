@@ -301,7 +301,7 @@ const HomeScreen = () => {
               <div className={styles.formerCoworkers}>
                 <div className={styles.formerCoworkersHead}>
                   <b className={styles.formerCoworkersTitle}>
-                  Freelancers You Worked With
+                    Freelancers You Worked With
                   </b>
                   <a className={styles.more}>See All</a>
                 </div>

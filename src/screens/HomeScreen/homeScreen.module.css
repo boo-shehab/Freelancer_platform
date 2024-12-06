@@ -320,5 +320,45 @@
   text-decoration-skip-ink: none;
   margin-bottom: 24px;
 }
-
-
+.mainFreeLancerScreenSearch {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+.FreeLancerScreenSearch {
+  width: 748px;
+  height: 58px;
+  border-radius: 24px;
+  background-color: #ffffff;
+  border: 1px solid #bfbfbf;
+  padding: 16px 24px;
+  align-items: center;
+  display: flex;
+  gap: 8px;
+}
+.SearchInput:focus{
+  outline: none;
+}
+.SearchInput{
+  border: none;
+  height: 100%;
+  width: 100%;
+}
+.SearchBtn {
+  width: 105px;
+  height: 58px;
+  padding: 10px;
+  border-radius: 24px;
+  border: 1px solid #bfbfbf;
+  background-color: #ffffff;
+  color: #999999;
+  font-family: Poppins;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 22.5px;
+  text-align: center;
+  text-decoration-skip-ink: none;
+  cursor: pointer;
+}

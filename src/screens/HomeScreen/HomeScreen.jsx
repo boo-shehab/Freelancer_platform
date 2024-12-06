@@ -6,6 +6,7 @@ import EditIcon from "../../CustomIcons/EditIcon";
 import Pluse2Icon from "../../CustomIcons/Pluse2Icon";
 import PlusIcon from "../../CustomIcons/PlusIcon";
 import StarIcon from "../../CustomIcons/StarIcon";
+import SearchIcon from "../../CustomIcons/SearchIcon";
 import styles from "./homeScreen.module.css";
 import TwoStageFormPopup from "../../components/TwoStageFormPopup/TwoStageFormPopup";
 import { Link } from "react-router-dom";
@@ -118,8 +119,7 @@ const formerCoworkers = [
 const HomeScreen = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [recentProjectOpened, setRecentProjectOpened] = useState(-1);
-  const [isClint, setIsClint] = useState(true);
-  const [isFreeLancer, setIsFreeLancer] = useState(false);
+  const [isFreeLancer, setIsFreeLancer] = useState(true);
   const handleNewProject = () => {
     setIsPopupOpen(true);
   };
@@ -132,10 +132,9 @@ const HomeScreen = () => {
       <Container>
         <div className={styles.content}>
           {/* MuhammedLami */}
-          {isFreeLancer && <FreeLancerScreen />}
-          {/* MuhammedLami */}
-
-          {isClint && (
+          {isFreeLancer ? (
+            <FreeLancerScreen />
+          ) : (
             <section className={styles.section1}>
               <Card>
                 <div className={styles.userInfo}>
@@ -186,26 +185,42 @@ const HomeScreen = () => {
               </Card>
             </section>
           )}
-
-          <section className={styles.section2}>
-            <Card>
-              <div className={styles.postBox}>
-                <img src="/avatar.png" />
-                <div className={styles.postInput} onClick={handleNewProject}>
-                  <p className={styles.postInputHint}>
-                    Mustafa Let’s Create a Project !
-                  </p>
-                  <button className={styles.addBtn}>
-                    <Pluse2Icon />
-                  </button>
+          <section
+            className={styles.section2}
+            style={{ width: isFreeLancer ? "calc(100% - 390px)" : "" }}
+          >
+            {isFreeLancer ? (
+              <div className={styles.mainFreeLancerScreenSearch}>
+                <div className={styles.FreeLancerScreenSearch}>
+                  <SearchIcon />
+                  <input
+                    className={styles.SearchInput}
+                    placeholder="Search"
+                    type="text"
+                  />
                 </div>
+                <button className={styles.SearchBtn}>Search</button>
               </div>
-            </Card>
+            ) : (
+              <Card>
+                <div className={styles.postBox}>
+                  <img src="/avatar.png" />
+                  <div className={styles.postInput} onClick={handleNewProject}>
+                    <p className={styles.postInputHint}>
+                      Mustafa Let’s Create a Project !
+                    </p>
+                    <button className={styles.addBtn}>
+                      <Pluse2Icon />
+                    </button>
+                  </div>
+                </div>
+              </Card>
+            )}
             {posts?.map((post) => (
               <ProjectPost key={post.id} post={post} />
             ))}
           </section>
-          {isClint && (
+          {!isFreeLancer && (
             <section className={styles.section3}>
               <Card>
                 <div className={styles.recent}>

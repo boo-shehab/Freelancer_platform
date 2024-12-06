@@ -14,10 +14,15 @@ const Login = () => {
   return (
     <>
       <RegisterContainer>
-        <div className={styles["Account-type"]}>   
-          <div className={styles.loginHeader}>
-            <h1>Login to get started!</h1>
-            <p>Enter your Freelancing Hub information!</p>
+        <div className={styles["Account-type"]}>
+          <div className={styles.steps}>
+            <span className={styles.done}></span>
+            <span className={styles.done}></span>
+            <span className={styles.done}></span>
+          </div>
+          <div>
+            <h1>Let’s Get Login!</h1>
+            <p>Enter your information</p>
           </div>
           <div className={styles.form}>
             <div className={styles.LoginForm}>
@@ -38,13 +43,13 @@ const Login = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            <CustomButton 
+            <CustomButton
               onClick={() => {
                 navigate("/");
               }}
               disabled={!isFormValid}
             >
-              Login &gt;
+              Open &gt;
             </CustomButton>
           </div>
         </div>

@@ -1,11 +1,11 @@
-const Container = ({ children ,paddingx=24}) => {
+const Container = ({ children }) => {
   return (
     <div
       style={{
         maxWidth: 1800,
         margin: "auto",
-        paddingLeft: paddingx,
-        paddingRight: paddingx,
+        paddingLeft: 16,
+        paddingRight: 16,
       }}
     >
       {children}

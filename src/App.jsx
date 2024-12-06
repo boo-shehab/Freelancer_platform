@@ -8,8 +8,6 @@ import ProtectedRoute from './components/ProtectedRoute';
 import HomeScreen from './screens/HomeScreen/homeScreen';
 import ProfileScreen from './screens/ProfileScreen/ProfileScreen';
 import Login from './screens/login/login';
-
-
 function App() {
   
   const router = createBrowserRouter([
@@ -34,7 +32,6 @@ function App() {
             // <ProtectedRoute isProtected={true}>
               <HomeScreen />
             // </ProtectedRoute>
-            
           ),
         },
         {
@@ -67,7 +64,7 @@ function App() {
   return (
     <>
       <RouterProvider router={router} />
-</>
+    </>
   )
 }
 

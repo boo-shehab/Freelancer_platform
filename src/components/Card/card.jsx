@@ -1,11 +1,8 @@
 import styles from "./card.module.css";
 
-const Card = ({ children, marginTop = 0, paddingx = 16 ,marginbottom=0}) => {
+const Card = ({ children, marginTop = 0 }) => {
   return (
-    <div
-      className={styles.card}
-      style={{ marginTop, paddingLeft: paddingx, paddingRight: paddingx ,marginBottom:marginbottom}}
-    >
+    <div className={styles.card} style={{ marginTop }}>
       {children}
     </div>
   );

@@ -118,8 +118,8 @@ const formerCoworkers = [
 const HomeScreen = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [recentProjectOpened, setRecentProjectOpened] = useState(-1);
-  const [isClint, setIsClint] = useState(false);
-  const [isFreeLancer, setIsFreeLancer] = useState(true);
+  const [isClint, setIsClint] = useState(true);
+  const [isFreeLancer, setIsFreeLancer] = useState(false);
   const handleNewProject = () => {
     setIsPopupOpen(true);
   };

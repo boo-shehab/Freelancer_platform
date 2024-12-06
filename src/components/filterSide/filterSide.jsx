@@ -7,5 +7,4 @@ const filterSide = ({children}) => {
     </>
   );
 };
-
 export default filterSide;

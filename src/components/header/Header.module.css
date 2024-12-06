@@ -29,7 +29,7 @@
     box-shadow: 0px 2px 8px 0px #3C97AF14;
     padding: 8px;
     gap: 2px;
-    border-radius: 8px;
+    border-radius: 16px;
 }
 
 .header .nav-menu {
@@ -74,6 +74,9 @@
     border-radius: 50%;
     box-shadow: 1px 2px 8px 0px #21868E36;
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .header button.have-messages::after{

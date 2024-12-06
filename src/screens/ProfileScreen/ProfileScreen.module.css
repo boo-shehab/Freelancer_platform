@@ -386,3 +386,11 @@
     background-color: #BFBFBF;
     margin: 24px 0px;
 }
+.seeMoreAbout{
+font-family: Poppins;
+font-size: 18px;
+font-weight: 500;
+line-height: 27px;
+color: #3C97AF;
+cursor: pointer;
+}

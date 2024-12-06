@@ -1,4 +1,4 @@
-import CardProfileScreen from "../../components/Card/cardProfileScreen"; 
+import CardProfileScreen from "../../components/Card/cardProfileScreen";
 import DonutChart from "../../components/charts/DonutChart";
 import ContainerProfileScreen from "../../components/Container/containerProfileScreen";
 import CommentsIcon from "../../CustomIcons/CommentsIcon";
@@ -11,13 +11,18 @@ import TaskDoneIcon from "../../CustomIcons/TaskDoneIcon";
 import styles from "./ProfileScreen.module.css";
 import EmptyStarIcon from "../../CustomIcons/emptyStarIcon";
 import Star2Icon from "../../CustomIcons/Star2Icon";
+import { useState } from "react";
 const ProfileScreen = () => {
+  const [aboutState, setAboutState] = useState("As a software manager with a passion for technology and team development, I specialize in guiding projects from concept to completion. With a strong focus on collaboration and clear communication, I work closely with clients and developers to ensure we deliver high-quality solutions that meet our stakeholders' needs. My goal is to bridge the gap between technical expertise and client vision, helping teams create innovative software that drives results and keeps pace with industry demands");
+  const aboutValue =
+    "As a software manager with a passion for technology and team development, I specialize in guiding projects from concept to completion. With a strong focus on collaboration and clear communication, I work closely with clients and developers to ensure we deliver high-quality solutions that meet our stakeholders' needs. My goal is to bridge the gap between technical expertise and client vision, helping teams create innovative software that drives results and keeps pace with industry demands,Developed a task management web application designed to help users organize";
+
+  const [dotsAbout, setDotsAbout] = useState("....");
+  const [seeAction, setSeeAction] = useState("See More");
   const chartData = [
     { value: 25, color: "#FFDB70" },
     { value: 25, color: "#D9D9D9" },
     { value: 25, color: "#7FC882" },
-    
-
   ];
   const posts = [
     {
@@ -89,9 +94,25 @@ const ProfileScreen = () => {
                   <EditIcon />
                 </div>
                 <p>
-                  GreenTech Solutions Inc. Renewable Energy & Technology San
-                  Francisco, California, with operations in North America and
-                  Europe
+                  {aboutState}
+                  {dotsAbout}{" "}
+                  <span
+                    className={styles.seeMoreAbout}
+                    onClick={() => {
+                        if (dotsAbout === "...." && seeAction === "See More") {
+                            setAboutState(aboutValue); 
+                            setDotsAbout("");                  // Remove dots
+                            setSeeAction("Show Less");         // Update button text
+                          } else {
+                            setAboutState(aboutValue.slice(0, 492));
+                                         // Show full text
+                            setDotsAbout("....");              // Restore dots
+                            setSeeAction("See More");          // Update button text
+                          }
+                    }}
+                  >
+                    {seeAction}
+                  </span>
                 </p>
               </div>
 
@@ -187,11 +208,10 @@ const ProfileScreen = () => {
               </div>
               <div className={styles.LineInBottom}></div>
               <button className={styles.seeAllReviews}>See all</button>
-
             </CardProfileScreen>
           </section>
           <section className={styles.section2}>
-          <CardProfileScreen>
+            <CardProfileScreen>
               <h3 className={styles.ActivityHeader}>Your Activity</h3>
               <div className={styles.Chart}>
                 <DonutChart data={chartData} barSize={22} size={200}>

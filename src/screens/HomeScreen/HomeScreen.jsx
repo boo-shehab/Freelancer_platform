@@ -118,7 +118,8 @@ const formerCoworkers = [
 const HomeScreen = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [recentProjectOpened, setRecentProjectOpened] = useState(-1);
-  const [isClint, setIsClint] = useState(false);
+  const [isClint, setIsClint] = useState(true);
+  const [isFreeLancer, setIsFreeLancer] = useState(false);
   const handleNewProject = () => {
     setIsPopupOpen(true);
   };
@@ -130,7 +131,9 @@ const HomeScreen = () => {
       />
       <Container>
         <div className={styles.content}>
-        <FreeLancerScreen/>
+          {/* MuhammedLami */}
+          {isFreeLancer && <FreeLancerScreen />}
+          {/* MuhammedLami */}
 
           {isClint && (
             <section className={styles.section1}>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./freeLancerScreen.module.css";
 import FilterSide from "../../components/filterSide/filterSide";
-import { Slider } from "antd";
+import { Slider, ConfigProvider } from "antd";
 const freeLancerScreen = () => {
   const [value, setValue] = useState([0, 5000]);
   const [selectedJobs, setSelectedJobs] = useState([]);
@@ -108,14 +108,35 @@ const freeLancerScreen = () => {
               />
             </div>
           </div>
-          <Slider
-            range
-            max={5000}
-            min={0}
-            value={value}
-            onChange={onSliderChange}
-            className="custom-slider"
-          />
+          <ConfigProvider
+            theme={{
+              components: {
+                Slider: {
+                  fontSize: 12,
+                  lineHeight: 18,
+                  colorPrimary: "#3C97AF",
+                  trackBg: "#3C97AF",
+                  trackBgDisabled: "#3C97AF",
+                  trackHoverBg: "#3C97AF",
+                  railBg: "#BFBFBF",
+                  handleActiveColor: "#3C97AF",
+                  handleColor: "#3C97AF",
+                  handleActiveColor: "#3C97AF",
+                  colorBgElevated: "#3C97AF",
+                  colorPrimaryBorderHover: "#3C97AF",
+                },
+              },
+            }}
+          >
+            <Slider
+              range
+              max={5000}
+              min={0}
+              value={value}
+              onChange={onSliderChange}
+              tipFormatter={(value) => `${value}$`}
+            />
+          </ConfigProvider>
         </div>
       </FilterSide>
     </>

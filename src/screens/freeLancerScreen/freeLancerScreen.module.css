@@ -82,19 +82,7 @@
 .selectTime:focus {
   outline: none;
 }
-.custom-slider .ant-slider-track {
-  background-color: #3c97af; /* Track color */
-}
 
-.custom-slider .ant-slider-dot {
-  background-color: #3c97af; /* Dot background color */
-  border-color: #3c97af; /* Dot border color */
-}
-
-.custom-slider .ant-slider-handle {
-  background-color: #3c97af; /* Handle background color */
-  border-color: #3c97af; /* Handle border color */
-}
 .priceRage {
   margin-top: 16px;
 }
@@ -124,3 +112,17 @@
 .priceShowUpInput:focus {
   outline: #3c97af;
 }
+.ant-tooltip-inner {
+    background-color: transparent !important; /* Tooltip background */
+    border: none !important; /* Remove border */
+    box-shadow: none !important; /* Remove shadow */
+    color: #000 !important; /* Optional: change text color if needed */
+  }
+  
+  /* Remove the arrow */
+  .ant-tooltip-arrow {
+    border-top-color: transparent !important; /* Remove the arrow color */
+    border-right-color: transparent !important;
+    border-bottom-color: transparent !important;
+    border-left-color: transparent !important;
+  }

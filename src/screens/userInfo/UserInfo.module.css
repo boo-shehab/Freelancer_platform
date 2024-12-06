@@ -5,20 +5,48 @@
     display: flex;
     flex-direction: column;
 }
-.userInfoContainer .steps {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-}
-.userInfoContainer .steps span {
+.steps {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;  
+  }
+  
+  .done {
+    height: 6px;
     width: 100%;
-    height: 0;
-    border: 3px solid #EBEBEB;
-    border-radius: 8px;
-}
-.userInfoContainer .steps span.done {
-    border: 3px solid #3C97AF;
-}
+    background-color: #3c97af; 
+    border-radius: 10px;
+  }
+  
+  .DoneAnimate {
+    height: 6px;
+    width: 100%;
+    background-color: #ebebeb;  
+    border-radius: 10px;
+    position: relative;
+  }
+  
+  .DoneAnimate::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0%; 
+    background-color: #3c97af;  
+    border-radius: 10px;
+    animation: fillFromLeftToRight 1s ease forwards;  
+  }
+
+  @keyframes fillFromLeftToRight {
+    0% {
+      width: 0%;
+    }
+    100% {
+      width: 100%;
+    }
+  }
+  
 .userInfoContainer h1 {
     padding-bottom: 8px;
     font-size: 40px;
@@ -38,6 +66,10 @@
     flex-direction: column;
     align-items: start;
 }
+.userInfoContainer .form .type p{
+  font-size: 15px;
+  font-weight: 600;
+}
 .userInfoContainer label {
     width: 100%;
     text-align: start;
@@ -49,6 +81,14 @@
     padding: 16px 24px;
     cursor: pointer;
 }
+.inputForm:focus {
+    border: 1px solid #3C97AF;
+    border-color: #3c97af;
+    outline: none;
+  }
+  .inputForm:not(:placeholder-shown) {
+      border: 1px solid #3C97AF;
+    }
 .userInfoContainer label.active input {
     background-color: #ECF6F9;
     border: 1px solid #3C97AF

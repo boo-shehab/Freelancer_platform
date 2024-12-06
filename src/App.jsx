@@ -34,6 +34,7 @@ function App() {
             // <ProtectedRoute isProtected={true}>
               <HomeScreen />
             // </ProtectedRoute>
+            
           ),
         },
         {

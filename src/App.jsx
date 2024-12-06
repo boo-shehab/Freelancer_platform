@@ -53,14 +53,15 @@ function App() {
             // </ProtectedRoute>
           ),
         },
-        // {
-        //   path: "/setting",
-        //   element: (
+        {
+          path: "/setting",
+          element: (
+            <>lhslf</>
         //     <ProtectedRoute isProtected={true}>
         //       <Home />
         //     </ProtectedRoute>
-        //   ),
-        // },
+          ),
+        },
       ],
     },
   ]);

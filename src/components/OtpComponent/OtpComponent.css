@@ -3,12 +3,11 @@
   height: 50px;
   margin: 6px 0px;
   border-radius: 8px;
-  border: 1px solid #e0e0e0;
+  border: 1px solid #BFBFBF;
   font-size: 18px;
   color: #333;
   outline: none;
 }
-
 .otp-input:focus {
   background-color: #3c96af29;
   border: 1px solid #3c97af;
@@ -24,4 +23,8 @@
   color: #3c97af;
   font-size: 16px;
   font-weight: 640;
+}
+
+@media (max-width: 660px) {
+
 }

@@ -10,9 +10,19 @@
   .timer {
     font-size: 16px;
     color: #3C97AF;
+    margin-top: 12px;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
   }
   
   .resend-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
     font-size: 14px;
     color: #888;
   }
@@ -21,3 +31,9 @@
     color: #38bdf8;
     cursor: pointer;
   }
+  @media (max-width: 660px) {
+  .otp-wrapper {
+    margin-top: 40px;
+  }
+ }
+  

@@ -1,6 +1,6 @@
-import CardProfileScreen from "../../components/Card/cardProfileScreen";
+import Card from "../../components/Card/card";
 import DonutChart from "../../components/charts/DonutChart";
-import ContainerProfileScreen from "../../components/Container/containerProfileScreen";
+import Container from "../../components/Container/container";
 import CommentsIcon from "../../CustomIcons/CommentsIcon";
 import EditIcon from "../../CustomIcons/EditIcon";
 import HeartIcon from "../../CustomIcons/HeartIcon";
@@ -72,10 +72,10 @@ const ProfileScreen = () => {
 
   return (
     <div className={styles.ProfileScreen}>
-      <ContainerProfileScreen>
+      <Container paddingx={56}>
         <div className={styles.content}>
           <section className={styles.section1}>
-            <CardProfileScreen marginBottom={152}>
+            <Card marginBottom={152} paddingx={24}>
               <div className={styles.userProfile}>
                 <div className={styles.userInfo}>
                   <img src="./avatar.png" alt="" />
@@ -155,7 +155,7 @@ const ProfileScreen = () => {
                   </div>
                 </div>
                 {posts?.map((post) => (
-                  <CardProfileScreen marginTop={16} key={post.id}>
+                  <Card marginTop={16} key={post.id} paddingx={16}>
                     <div className={styles.postItem}>
                       <div className={styles.postHead}>
                         <div className={styles.postClient}>
@@ -210,15 +210,15 @@ const ProfileScreen = () => {
                         </div>
                       </div>
                     </div>
-                  </CardProfileScreen>
+                  </Card>
                 ))}
               </div>
               <div className={styles.LineInBottom}></div>
               <button className={styles.seeAllReviews}>See all</button>
-            </CardProfileScreen>
+            </Card>
           </section>
           <section className={styles.section2}>
-            <CardProfileScreen>
+            <Card paddingx={24}>
               <h3 className={styles.ActivityHeader}>Your Activity</h3>
               <div className={styles.Chart}>
                 <DonutChart data={chartData} barSize={22} size={200}>
@@ -266,8 +266,8 @@ const ProfileScreen = () => {
                   <div className={styles.value}>14</div>
                 </div>
               </div>
-            </CardProfileScreen>
-            <CardProfileScreen marginTop={24}>
+            </Card>
+            <Card marginTop={24} paddingx={24}>
               <h3 className={styles.rateTitle}>Rating</h3>
               <p className={styles.rateSubtitle}>Average Rating</p>
               <div className={styles.ratingStars}>
@@ -318,8 +318,8 @@ const ProfileScreen = () => {
                   <p>{rating.lowRate}%</p>
                 </div>
               </div>
-            </CardProfileScreen>
-            <CardProfileScreen marginTop={24}>
+            </Card>
+            <Card marginTop={24} paddingx={24}>
               <h3 className={styles.titleReviews}>Reviews</h3>
               <p className={styles.subtitleReviews}>
                 Total People who visited your profile
@@ -328,10 +328,10 @@ const ProfileScreen = () => {
                 <b>70</b> review
               </p>
               <button className={styles.seeAllReviews}>See all</button>
-            </CardProfileScreen>
+            </Card>
           </section>
         </div>
-      </ContainerProfileScreen>
+      </Container>
     </div>
   );
 };

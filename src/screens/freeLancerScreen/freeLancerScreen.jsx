@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import styles from "./freeLancerScreen.module.css";
 import FilterSide from "../../components/filterSide/filterSide";
+import { Slider } from "antd";
 const freeLancerScreen = () => {
-  const [isGreen, setIsGreen] = useState(false);
+  const [value, setValue] = useState([0, 5000]);
   const [selectedJobs, setSelectedJobs] = useState([]);
   const handleJobSelection = (jobId) => {
     setSelectedJobs(
@@ -14,6 +15,17 @@ const freeLancerScreen = () => {
   };
   const clearAllSelections = () => {
     setSelectedJobs([]);
+  };
+  const onInputChange = (index, newValue) => {
+    const updatedValue = [...value];
+    const numericValue = Number(newValue);
+    if (!isNaN(numericValue) && numericValue >= 0 && numericValue <= 5000) {
+      updatedValue[index] = numericValue;
+      setValue(updatedValue);
+    }
+  };
+  const onSliderChange = (newValue) => {
+    setValue(newValue);
   };
   const optionOfFreelancing = [
     {
@@ -66,21 +78,44 @@ const freeLancerScreen = () => {
               </div>
             </div>
           </div>
-         
+
           <div className={styles.timeLine}>
             <h3>Time Line</h3>
-          <select name="" id="" className={styles.selectTime}>
-            <option value="">1</option>
-            <option value="">4</option>
-          </select>
-          <select name="" id="" className={styles.selectTime}>
-            <option value="">1</option>
-            <option value="">4</option>
-          </select>
+            <select name="" id="" className={styles.selectTime}>
+              <option value="">1</option>
+              <option value="">4</option>
+            </select>
+            <select name="" id="" className={styles.selectTime}>
+              <option value="">1</option>
+              <option value="">4</option>
+            </select>
           </div>
-
-
-          hg
+          <div className={styles.priceRage}>
+            <h3 className={styles.PriceRageHeader}>Price Rage</h3>
+            <div className={styles.priceShowUp}>
+              <input
+                className={styles.priceShowUpInput}
+                type="text"
+                value={value[0]}
+                onChange={(e) => onInputChange(0, e.target.value)} // Update second value
+              />
+              <small>to</small>
+              <input
+                className={styles.priceShowUpInput}
+                type="text"
+                value={value[1]}
+                onChange={(e) => onInputChange(1, e.target.value)} // Update second value
+              />
+            </div>
+          </div>
+          <Slider
+            range
+            max={5000}
+            min={0}
+            value={value}
+            onChange={onSliderChange}
+            className="custom-slider"
+          />
         </div>
       </FilterSide>
     </>

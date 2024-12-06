@@ -380,3 +380,9 @@
     cursor: pointer;
     font-weight: 600;
 }
+.LineInBottom{
+    width: 100%;
+    height: 1px;
+    background-color: #BFBFBF;
+    margin: 24px 0px;
+}

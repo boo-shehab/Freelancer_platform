@@ -70,7 +70,7 @@ const ProfileScreen = () => {
       <ContainerProfileScreen>
         <div className={styles.content}>
           <section className={styles.section1}>
-            <CardProfileScreen>
+            <CardProfileScreen marginBottom={152}>
               <div className={styles.userProfile}>
                 <div className={styles.userInfo}>
                   <img src="./avatar.png" alt="" />
@@ -185,6 +185,9 @@ const ProfileScreen = () => {
                   </CardProfileScreen>
                 ))}
               </div>
+              <div className={styles.LineInBottom}></div>
+              <button className={styles.seeAllReviews}>See all</button>
+
             </CardProfileScreen>
           </section>
           <section className={styles.section2}>

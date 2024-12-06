@@ -68,7 +68,7 @@ const Header = () => {
                             <BellIcon active={isOpenNotification}/>
                             {isOpenNotification && (
                                 <div className={styles.notifications}>
-                                    <h3>Notification</h3>
+                                    <h3>Nkotification</h3>
                                     <p className={styles.subTitle}>You Have 3 <span>Notification</span> Today !</p>
                                     <ul>
 

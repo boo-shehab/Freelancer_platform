@@ -11,7 +11,7 @@ import TaskDoneIcon from "../../CustomIcons/TaskDoneIcon";
 import styles from "./ProfileScreen.module.css";
 import EmptyStarIcon from "../../CustomIcons/emptyStarIcon";
 import Star2Icon from "../../CustomIcons/Star2Icon";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 const ProfileScreen = () => {
   const aboutValue =
     "As a software manager with a passion for technology and team development, I specialize in guiding projects from concept to completion. With a strong focus on collaboration and clear communication, I work closely with clients and developers to ensure we deliver high-quality solutions that meet our stakeholders' needs. My goal is to bridge the gap between technical expertise and client vision, helping teams create innovative software that drives results and keeps pace with industry demands,Developed a task management web application designed to help users organize";
@@ -69,6 +69,7 @@ const ProfileScreen = () => {
     midRate: 12,
     lowRate: 6,
   };
+
   return (
     <div className={styles.ProfileScreen}>
       <ContainerProfileScreen>
@@ -98,15 +99,22 @@ const ProfileScreen = () => {
                   <span
                     className={styles.seeMoreAbout}
                     onClick={() => {
-                      if (dotsAbout === "...." && seeAction === "See More") {
+                    //   if (aboutValue.length < 400) {
+                    //     setDotsAbout("");
+                    //     setSeeAction("");
+                    //     setAboutState(aboutValue);
+                    //   } else
+                       if (
+                        dotsAbout === "...." &&
+                        seeAction === "See More"
+                      ) {
                         setAboutState(aboutValue);
-                        setDotsAbout(""); // Remove dots
-                        setSeeAction("Show Less"); // Update button text
+                        setDotsAbout("");
+                        setSeeAction("Show Less");
                       } else {
                         setAboutState(aboutValue.slice(0, 492));
-                        // Show full text
-                        setDotsAbout("...."); // Restore dots
-                        setSeeAction("See More"); // Update button text
+                        setDotsAbout("....");
+                        setSeeAction("See More");
                       }
                     }}
                   >

@@ -1,0 +1,178 @@
+.freeLancer {
+  display: flex;
+  flex-direction: column;
+}
+.freeLancerHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.clearAll {
+  font-family: Poppins;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 15px;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  color: #d92637;
+  cursor: pointer;
+}
+.filterHead {
+  font-family: Poppins;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 30px;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  color: #000000;
+}
+.specializationFilter {
+  padding-top: 24px;
+}
+.specializationHead {
+  color: #808080;
+  font-family: Poppins;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 20px;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+}
+.specializationBody {
+  padding-top: 16px;
+}
+.spacing {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.Options {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.btn {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  border: 1px #bfbfbf solid;
+  background-color: #ffffff;
+  cursor: pointer;
+}
+.btnGreen {
+  background-color: #3c97af;
+  border: none;
+}
+.timeLine {
+  margin-top: 24px;
+  padding: 16px 0px;
+  border-bottom: 1px solid #bfbfbf;
+  border-top: 1px solid #bfbfbf;
+}
+.timeLineSelector {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+  align-items: center;
+  justify-content: space-between;
+}
+.selectTime {
+  width: 50%;
+  height: 48px;
+  border: 1px solid #bfbfbf;
+  border-radius: 12px;
+  cursor: pointer;
+}
+.selectTime:focus {
+  outline: none;
+}
+
+.priceRage {
+  margin-top: 16px;
+}
+.priceShowUp {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-top: 16px;
+}
+.PriceRageHeader {
+  font-family: Poppins;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 20px;
+  text-align: left;
+  text-decoration-skip-ink: none;
+  color: #808080;
+}
+.priceShowUpInput {
+  width: 148px;
+  height: 48px;
+  padding: 10px;
+  gap: 10px;
+  border: 1px #3c97af solid;
+  border-radius: 8px;
+}
+.priceShowUpInput:focus {
+  outline: #3c97af;
+}
+.marginSlider {
+  margin-top: 42px;
+}
+.editProfileFreeLancerSide {
+  width: 300px;
+  height: 210px;
+  padding: 16px;
+  border-radius: 16px;
+  border: 0.3px solid #1c4752;
+  margin-top: 40px;
+}
+.editProfileFreeLancerSideContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 24px;
+}
+.FreeLancerSideContentImg {
+  border-radius: 50%;
+  width: 56px;
+  height: 56px;
+}
+.FreeLancerSideContentText{
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.FreeLancerSideContentName {
+  font-family: Poppins;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 17.5px;
+  text-decoration-skip-ink: none;
+  color: #3d3d3d;
+}
+
+.FreeLancerSideContentEmail {
+  font-family: Poppins;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  text-decoration-skip-ink: none;
+  color: #999999;
+}
+.FreeLancerSideSeeProfile {
+  font-family: Poppins;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+  text-decoration-skip-ink: none;
+  text-align: right;
+  color: #3c97af;
+  padding-top: 12px;
+  cursor: pointer;
+}

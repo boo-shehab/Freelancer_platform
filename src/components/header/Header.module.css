@@ -86,6 +86,9 @@
     border-radius: 50%;
     box-shadow: 1px 2px 8px 0px #21868E36;
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .header button.have-messages::after{

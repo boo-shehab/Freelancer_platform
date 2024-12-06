@@ -10,19 +10,35 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 16px;
 }
+
 .Account-type .steps span {
     width: 100%;
     height: 6px;
     background-color: #EBEBEB;
-    border: 0px solid #EBEBEB;
     border-radius: 8px;
+    position: relative;
+    overflow: hidden;
 }
-.Account-type .steps span.done {
-    background-color:#3C97AF;
+
+.Account-type .steps span::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0%;
+    background-color: #3C97AF;
+    transition: width 0.5s ease-in-out;
 }
-.Account-type .steps span.half-done {
-    background-image: linear-gradient(to right, #3C97AF 50%, #EBEBEB 50%);
+
+.Account-type .steps span.half-done::before {
+    width: 50%;
 }
+
+.Account-type .steps span.done::before {
+    width: 100%;
+}
+
 .Account-type h1 {
     padding-bottom: 8px;
     font-size: 40px;
@@ -93,7 +109,7 @@
   @media (max-width: 660px) {
     .Account-type h1 {
         text-align: start;
-        font-size: 32px;
+        font-size: 28px;
         line-height: 36px;
     }
     .Account-type p {

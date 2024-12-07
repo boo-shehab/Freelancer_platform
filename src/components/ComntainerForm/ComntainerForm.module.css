@@ -22,23 +22,28 @@
     flex-direction: column;
 }
 #popup-overlay .popup-content .headOfResponsive{
-  display: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   font-family: 'Poppins', sans-serif;
-  margin-top: 62px;
+  margin-bottom: 32px;
 }
 #popup-overlay .popup-content .headOfResponsive h1{
-  font-family: Poppins;
-  font-size: 60px;
+  font-size: 20px;
   font-weight: 700;
-  line-height: 30px;
+  width: 80%;
   text-align: left;
-  text-underline-position: from-font;
-  text-decoration-skip-ink: none;
 }
-#popup-overlay .popup-content .headOfResponsive button{
+#popup-overlay .popup-content .headOfResponsive button.webClose {
   background-color: transparent;
   border: none;
-  font-size: 60px;
+  font-size: 20px;
+}
+#popup-overlay .popup-content .headOfResponsive button.mobileClose{
+  display: none;
+  background-color: transparent;
+  border: none;
+  font-size: 20px;
 }
 @media screen and (max-width:700px){
     #popup-overlay .popup-content {
@@ -48,9 +53,13 @@
       max-width: 100%;
       height: 100% !important;
   }
+  #popup-overlay .popup-content .headOfResponsive button.mobileClose {
+    display: block;
+  }
+  #popup-overlay .popup-content .headOfResponsive button.webClose {
+    display: none;
+  }
   #popup-overlay .popup-content .headOfResponsive{
-    display: flex;
-    align-items: center;
     justify-content: start;
     gap: 26px;
   }

@@ -12,9 +12,13 @@ import styles from "./ProfileScreen.module.css";
 import EmptyStarIcon from "../../CustomIcons/emptyStarIcon";
 import Star2Icon from "../../CustomIcons/Star2Icon";
 import { useEffect, useState } from "react";
+import EditProfilePopup from "../../components/EditProfilePopup/EditProfilePopup";
+import EditAboutPopup from "../../components/EditAboutPopup/EditAboutPopup";
+
 const ProfileScreen = () => {
-  const aboutValue =
-    "As a software manager with a passion for technology and team development, I specialize in guiding projects from concept to completion. With a strong focus on collaboration and clear communication, I work closely with clients and developers to ensure we deliver high-quality solutions that meet our stakeholders' needs. My goal is to bridge the gap between technical expertise and client vision, helping teams create innovative software that drives results and keeps pace with industry demands,Developed a task management web application designed to help users organize";
+  const [isUserInfoOpen, setIsUserInfoOpen] = useState(false)
+  const [isAboutPopupOpen, setIsAboutPopupOpen] = useState(false)
+  const [aboutValue, setAboutValue] = useState("As a software manager with a passion for technology and team development, I specialize in guiding projects from concept to completion. With a strong focus on collaboration and clear communication, I work closely with clients and developers to ensure we deliver high-quality solutions that meet our stakeholders' needs. My goal is to bridge the gap between technical expertise and client vision, helping teams create innovative software that drives results and keeps pace with industry demands,Developed a task management web application designed to help users organize");
   const [aboutState, setAboutState] = useState(aboutValue.slice(0, 492));
   const [dotsAbout, setDotsAbout] = useState("....");
   const [seeAction, setSeeAction] = useState("See More");
@@ -69,9 +73,16 @@ const ProfileScreen = () => {
     midRate: 12,
     lowRate: 6,
   };
+  
+  const handleEditAbout = (value) => {
+    setAboutValue(value)
+    setAboutState(value.slice(0, 492))
+  }
 
   return (
     <div className={styles.ProfileScreen}>
+      <EditAboutPopup isOpen={isAboutPopupOpen} onClose={() => setIsAboutPopupOpen(false)} onSave={handleEditAbout}/>
+      <EditProfilePopup isOpen={isUserInfoOpen} onClose={() => setIsUserInfoOpen(false)} onSave={handleEditAbout} />
       <Container paddingx={56}>
         <div className={styles.content}>
           <section className={styles.section1}>
@@ -84,12 +95,12 @@ const ProfileScreen = () => {
                     <p>Business scope</p>
                   </div>
                 </div>
-                <div className={styles.action}>
+                <div className={styles.action} onClick={() => setIsUserInfoOpen(true)}>
                   <EditIcon />
                 </div>
               </div>
               <div className={styles.about}>
-                <div className={styles.aboutHead}>
+                <div className={styles.aboutHead} onClick={() => setIsAboutPopupOpen(true)}>
                   <b>About</b>
                   <EditIcon />
                 </div>

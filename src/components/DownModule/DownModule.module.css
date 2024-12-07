@@ -1,0 +1,57 @@
+#downModel-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 1000;
+  }
+#downModel-overlay .downModel-content {
+    background: #F8FBFC;
+    padding: 20px;
+    border-radius: 12px 12px 0px 0px;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+.downModelTitle{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.downModelHeader{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.borderOFheaderform{
+  background: rgba(97, 100, 107, 1);
+  height: 8px;
+  width: 66px;
+  border-radius: 15px;
+  margin-bottom: 24px;
+}
+.downModelTitle h1{
+  font-family: 'Poppins', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 22.5px;
+  text-align: center;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  text-align: center;
+}
+.downModelTitle button{
+  background-color: transparent;
+  border: none;
+  color: rgba(153, 153, 153, 1);
+  font-size: 24px;
+}
+
+/* import DownModule from './components/DownModule/DownModule';
+const [isPopupOpen , setisPopupOpen]= useState(true)
+
+<DownModule Hight="40%"  isOpen={isPopupOpen}
+onClose={() => setIsPopupOpen(false)} /> */

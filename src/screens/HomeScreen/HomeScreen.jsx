@@ -120,7 +120,7 @@ const formerCoworkers = [
 const HomeScreen = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [recentProjectOpened, setRecentProjectOpened] = useState(-1);
-  const [isFreeLancer, setIsFreeLancer] = useState(true);
+  const [isFreeLancer, setIsFreeLancer] = useState(false);
   const handleNewProject = () => {
     setIsPopupOpen(true);
   };
@@ -218,7 +218,7 @@ const HomeScreen = () => {
               </Card>
             )}
             {posts?.map((post) => (
-              <ProjectPost key={post.id} post={post} />
+              <ProjectPost isFreeLancer={isFreeLancer} key={post.id} post={post} />
             ))}
           </section>
           {!isFreeLancer && (

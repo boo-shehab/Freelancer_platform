@@ -11,7 +11,7 @@ import Login from './screens/login/login';
 
 
 function App() {
-  
+
   const router = createBrowserRouter([
     {
       path: "/register",
@@ -32,7 +32,7 @@ function App() {
           path: "/",
           element: (
             // <ProtectedRoute isProtected={true}>
-              <HomeScreen />
+              <HomeScreen  />
             // </ProtectedRoute>
             
           ),

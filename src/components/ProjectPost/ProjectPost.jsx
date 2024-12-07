@@ -5,7 +5,7 @@ import Card from "../Card/card";
 import CustomButton from "../customButton/CustomButton";
 import styles from "./ProjectPost.module.css";
 import { useState } from "react";
-const projectPost = ({ post }) => {
+const projectPost = ({ post , isFreeLancer}) => {
   const [isListVisible, setVisiblePostId] = useState(null);
   const idShow = (id) => {
     setVisiblePostId((prevId) => (prevId === id ? null : id));
@@ -34,9 +34,9 @@ const projectPost = ({ post }) => {
 
               {isListVisible===post.id && (
                 <div className={styles.list} style={{marginTop: "220px", position: "absolute" }}>
-                <button>Share</button>
-                  <button>Copy link</button>
-                 <button>Report</button>
+                    <button>Share</button>
+                    <button>Copy link</button>
+                    <button>{isFreeLancer ? "report" : "delete"}</button>
                 </div>
               )}
             </div>

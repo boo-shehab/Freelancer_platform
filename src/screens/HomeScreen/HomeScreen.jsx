@@ -2,16 +2,17 @@ import { useState } from "react";
 import Card from "../../components/Card/card";
 import Container from "../../components/Container/container";
 import ArrowTop from "../../CustomIcons/ArrowTop";
-import CommentsIcon from "../../CustomIcons/CommentsIcon";
 import EditIcon from "../../CustomIcons/EditIcon";
-import HeartIcon from "../../CustomIcons/HeartIcon";
-import MoreIcon from "../../CustomIcons/MoreIcon";
 import Pluse2Icon from "../../CustomIcons/Pluse2Icon";
 import PlusIcon from "../../CustomIcons/PlusIcon";
 import StarIcon from "../../CustomIcons/StarIcon";
+import SearchIcon from "../../CustomIcons/SearchIcon";
 import styles from "./homeScreen.module.css";
 import TwoStageFormPopup from "../../components/TwoStageFormPopup/TwoStageFormPopup";
 import { Link } from "react-router-dom";
+import ProjectPost from "../../components/ProjectPost/ProjectPost";
+import FreeLancerScreen from "../freeLancerScreen/freeLancerScreen";
+
 
 const projects = [
   {
@@ -119,6 +120,7 @@ const formerCoworkers = [
 const HomeScreen = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [recentProjectOpened, setRecentProjectOpened] = useState(-1);
+  const [isFreeLancer, setIsFreeLancer] = useState(true);
   const handleNewProject = () => {
     setIsPopupOpen(true);
   };
@@ -130,202 +132,174 @@ const HomeScreen = () => {
       />
       <Container>
         <div className={styles.content}>
-          <section className={styles.section1}>
-            <Card>
-              <div className={styles.userInfo}>
-                <img src="/avatar.png" />
-                <p className={styles.name}>Mustafa Emad</p>
-                <div className={styles.rate}>
-                  <StarIcon /> <span>5.0</span>
+          {/* MuhammedLami */}
+          {isFreeLancer ? (
+            <FreeLancerScreen />
+          ) : (
+            <section className={styles.section1}>
+              <Card>
+                <div className={styles.userInfo}>
+                  <img src="/avatar.png" />
+                  <p className={styles.name}>Mustafa Emad</p>
+                  <div className={styles.rate}>
+                    <StarIcon /> <span>5.0</span>
+                  </div>
+                  <Link to="/profile">Edit Profile</Link>
                 </div>
-                <Link to="/profile">Edit Profile</Link>
-              </div>
-            </Card>
-            <Card marginTop={16}>
-              <div className={styles.about}>
-                <div className={styles.aboutHead}>
-                  <b>About</b>
-                  <EditIcon />
-                </div>
-                <p>
-                  GreenTech Solutions Inc. Renewable Energy & Technology San
-                  Francisco, California, with operations in North America and
-                  Europe
-                </p>
-              </div>
-            </Card>
-            <Card marginTop={16}>
-              <div className={styles.history}>
-                <div className={styles.historyHead}>
-                  <b>Projects History</b>
-                  <div className={styles.actions}>
-                    <PlusIcon />
+              </Card>
+              <Card marginTop={16}>
+                <div className={styles.about}>
+                  <div className={styles.aboutHead}>
+                    <b>About</b>
                     <EditIcon />
                   </div>
-                </div>
-
-                {projects?.map((p) => (
-                  <div className={styles.projectItem} key={p.id}>
-                    <div className={styles.guid}>
-                      <div className={styles.dot}></div>
-                      <div className={styles.line}></div>
-                    </div>
-                    <div className={styles.itemInfo}>
-                      <h4>{p.title}</h4>
-                      <small>{p.createdAt}</small>
-                      <p className={styles.itemDesc}>{p.desc}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </Card>
-          </section>
-          <section className={styles.section2}>
-            <Card>
-              <div className={styles.postBox}>
-                <img src="/avatar.png" />
-                <div className={styles.postInput} onClick={handleNewProject}>
-                  <p className={styles.postInputHint}>
-                    Mustafa Let’s Create a Project !
+                  <p>
+                    GreenTech Solutions Inc. Renewable Energy & Technology San
+                    Francisco, California, with operations in North America and
+                    Europe
                   </p>
-                  <button className={styles.addBtn}>
-                    <Pluse2Icon />
-                  </button>
                 </div>
+              </Card>
+              <Card marginTop={16}>
+                <div className={styles.history}>
+                  <div className={styles.historyHead}>
+                    <b>Projects History</b>
+                    <div className={styles.actions}>
+                      <PlusIcon />
+                      <EditIcon />
+                    </div>
+                  </div>
+                  {projects?.map((p) => (
+                    <div className={styles.projectItem} key={p.id}>
+                      <div className={styles.guid}>
+                        <div className={styles.dot}></div>
+                        <div className={styles.line}></div>
+                      </div>
+                      <div className={styles.itemInfo}>
+                        <h4>{p.title}</h4>
+                        <small>{p.createdAt}</small>
+                        <p className={styles.itemDesc}>{p.desc}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </Card>
+            </section>
+          )}
+          <section
+            className={styles.section2}
+            style={{ width: isFreeLancer ? "calc(100% - 390px)" : "" }}
+          >
+            {isFreeLancer ? (
+              <div className={styles.mainFreeLancerScreenSearch}>
+                <div className={styles.FreeLancerScreenSearch}>
+                  <SearchIcon />
+                  <input
+                    className={styles.SearchInput}
+                    placeholder="Search"
+                    type="text"
+                  />
+                </div>
+                <button className={styles.SearchBtn}>Search</button>
               </div>
-            </Card>
-            {posts?.map((post) => (
-              <Card marginTop={16} key={post.id}>
-                <div className={styles.postItem}>
-                  <div className={styles.postHead}>
-                    <div className={styles.postClient}>
-                      <div className={styles.postAvatar}></div>
-                      <div>
-                        <b className={styles.postClientName}>
-                          {post?.client?.name}
-                        </b>
-                        <br />
-                        <small className={styles.postClientDate}>
-                          {post?.client?.createdAt}
-                        </small>
-                      </div>
-                    </div>
-
-                    <div className={styles.postClientAction}>
-                      <div className={styles.tag}>Available</div>
-                      <MoreIcon />
-                    </div>
-                  </div>
-
-                  <div className={styles.postBody}>
-                    <b className={styles.postTitle}>{post?.title}</b>
-                    <p className={styles.postDesc}>{post.desc}</p>
-                  </div>
-
-                  {!!post?.image ? (
-                    <img className={styles.postImage} src={post?.image} />
-                  ) : (
-                    <div>
-                      <div className={styles.moreInfo}>
-                        <b className={styles.infoTitle}>Duration of project</b>
-                        <p className={styles.infoValue}>{post.duration}</p>
-                      </div>
-                      <div className={styles.moreInfo}>
-                        <b className={styles.infoTitle}>Pricing</b>
-                        <p className={styles.infoValue}>
-                          Hourly $ {post.price}
-                        </p>
-                      </div>
-                    </div>
-                  )}
-
-                  <div className={styles.postFooter}>
-                    <div className={styles.footerItem}>
-                      <HeartIcon /> <span>like</span>
-                    </div>
-                    <div className={styles.footerItem}>
-                      <CommentsIcon /> <span>comment</span>
-                    </div>
+            ) : (
+              <Card>
+                <div className={styles.postBox}>
+                  <img src="/avatar.png" />
+                  <div className={styles.postInput} onClick={handleNewProject}>
+                    <p className={styles.postInputHint}>
+                      Mustafa Let’s Create a Project !
+                    </p>
+                    <button className={styles.addBtn}>
+                      <Pluse2Icon />
+                    </button>
                   </div>
                 </div>
               </Card>
+            )}
+            {posts?.map((post) => (
+              <ProjectPost key={post.id} post={post} />
             ))}
           </section>
-          <section className={styles.section3}>
-            <Card>
-              <div className={styles.recent}>
-                <div className={styles.recentHead}>
-                  <b className={styles.recentTitle}>Your Recent Project</b>
-                  <a className={styles.more}>see all projects</a>
+          {!isFreeLancer && (
+            <section className={styles.section3}>
+              <Card>
+                <div className={styles.recent}>
+                  <div className={styles.recentHead}>
+                    <b className={styles.recentTitle}>Your Recent Project</b>
+                    <a className={styles.more}>see all projects</a>
+                  </div>
+                  {recentProjects.map((recentProject) => (
+                    <div
+                      key={recentProject.id}
+                      className={`${styles.recentItem} ${
+                        recentProjectOpened === recentProject.id &&
+                        styles.active
+                      }`}
+                    >
+                      <div className={styles.recentHead}>
+                        <div className={styles.recentItemInfo}>
+                          <div className={styles.recentItemAvatar}></div>
+                          <div>
+                            <b>{recentProject.projectName}</b>
+                            <br />
+                            <small>{recentProject.projectPrice}</small>
+                          </div>
+                        </div>
+
+                        <button
+                          className={`${styles.arrowBtn} ${
+                            recentProjectOpened === recentProject.id &&
+                            styles.active
+                          }`}
+                          onClick={() =>
+                            recentProjectOpened === -1 ||
+                            recentProjectOpened !== recentProject.id
+                              ? setRecentProjectOpened(recentProject.id)
+                              : setRecentProjectOpened(-1)
+                          }
+                        >
+                          <ArrowTop />
+                        </button>
+                      </div>
+                      <p className={styles.projectDescription}>
+                        {recentProject.projectDescription}
+                      </p>
+                    </div>
+                  ))}
                 </div>
-                {recentProjects.map((recentProject) => (
-                  <div
-                    key={recentProject.id}
-                    className={`${styles.recentItem} ${
-                      recentProjectOpened === recentProject.id && styles.active
-                    }`}
-                  >
-                    <div className={styles.recentHead}>
-                      <div className={styles.recentItemInfo}>
-                        <div className={styles.recentItemAvatar}></div>
+              </Card>
+              <Card marginTop={16}>
+                <div className={styles.formerCoworkers}>
+                  <div className={styles.formerCoworkersHead}>
+                    <b className={styles.formerCoworkersTitle}>
+                      Your Recent Project
+                    </b>
+                    <a className={styles.more}>See All</a>
+                  </div>
+                  {formerCoworkers.map((coWorker) => (
+                    <div key={coWorker.id} className={styles.coWorkerItem}>
+                      <div className={styles.coWorkerInfo}>
+                        <img src={coWorker.img} alt="" />
                         <div>
-                          <b>{recentProject.projectName}</b>
+                          <b>{coWorker.name}</b>
                           <br />
-                          <small>{recentProject.projectPrice}</small>
+                          <small>{coWorker.time}</small>
                         </div>
                       </div>
-
-                      <button
-                        className={`${styles.arrowBtn} ${
-                          recentProjectOpened === recentProject.id &&
-                          styles.active
-                        }`}
-                        onClick={() =>
-                          recentProjectOpened === -1 ||
-                          recentProjectOpened !== recentProject.id
-                            ? setRecentProjectOpened(recentProject.id)
-                            : setRecentProjectOpened(-1)
-                        }
-                      >
-                        <ArrowTop />
-                      </button>
-                    </div>
-                    <p className={styles.projectDescription}>
-                      {recentProject.projectDescription}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </Card>
-            <Card marginTop={16}>
-              <div className={styles.formerCoworkers}>
-                <div className={styles.formerCoworkersHead}>
-                  <b className={styles.formerCoworkersTitle}>
-                    Freelancers You Worked With
-                  </b>
-                  <a className={styles.more}>See All</a>
-                </div>
-                {formerCoworkers.map((coWorker) => (
-                  <div key={coWorker.id} className={styles.coWorkerItem}>
-                    <div className={styles.coWorkerInfo}>
-                      <img src={coWorker.img} alt="" />
-                      <div>
-                        <b>{coWorker.name}</b>
-                        <br />
-                        <small>{coWorker.time}</small>
+                      <div className={styles.rate}>
+                        <StarIcon /> <span>{coWorker.rate}</span>
                       </div>
                     </div>
-                    <div className={styles.rate}>
-                      <StarIcon /> <span>{coWorker.rate}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </Card>
-          </section>
+                  ))}
+                </div>
+              </Card>
+            </section>
+          )}
         </div>
       </Container>
     </div>
+
   );
 };
 

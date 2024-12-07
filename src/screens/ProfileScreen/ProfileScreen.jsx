@@ -200,7 +200,6 @@ const ProfileScreen = () => {
                           </div>
                         </div>
                       )}
-
                       <div className={styles.postFooter}>
                         <div className={styles.footerItem}>
                           <HeartIcon /> <span>like</span>

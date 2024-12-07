@@ -5,24 +5,6 @@
     display: flex;
     flex-direction: column;
 }
-.Account-type .steps {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-}
-.Account-type .steps span {
-    width: 100%;
-    height: 6px;
-    background-color: #EBEBEB;
-    border: 0px solid #EBEBEB;
-    border-radius: 8px;
-}
-.Account-type .steps span.done {
-    background-color:#3C97AF;
-}
-.Account-type .steps span.half-done {
-    background-image: linear-gradient(to right, #3C97AF 50%, #EBEBEB 50%);
-}
 .Account-type h1 {
     padding-bottom: 8px;
     font-size: 40px;
@@ -36,6 +18,12 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    margin-top: 20px;
+}
+.Account-type .form p {
+  color: #0A0A0A;
+  font-size: 16px;
+  font-weight: 600;
 }
 .Account-type .form .type{
     display: flex;
@@ -92,6 +80,7 @@
   }
   .LoginForm{
     text-align: start;
+
   }
   .LoginForm input{
     width: 100%;
@@ -112,12 +101,18 @@
   }
   @media (max-width: 660px) {
     .Account-type h1 {
-        text-align: start;
+        text-align: center;
         font-size: 32px;
         line-height: 36px;
     }
-    .Account-type p {
-        text-align: start;
+    .LoginForm{
+      margin-top: 60px;
+      
+    }
+    .loginHeader p{
+      text-align: center; 
+    }
+    .LoginForm p {
         text-align: start;
         font-size: 16px;
         line-height: 22px;
@@ -134,4 +129,5 @@
         gap: 6px;
         text-align: start;
     }
+    
 }

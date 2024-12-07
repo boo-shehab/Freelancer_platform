@@ -17,6 +17,9 @@
   overflow-y: auto;
   scrollbar-width: none;
   width: 45%;
+  height: 80vh;
+  overflow-y: auto;
+  scrollbar-width: none;
 }
 
 .content .section3 {
@@ -181,78 +184,6 @@
   cursor: pointer;
 }
 
-.section2 .postItem .postHead {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.section2 .postItem .postHead .postClient {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.section2 .postItem .postHead .postAvatar {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background-color: #ebebeb;
-}
-
-.section2 .postItem .postHead .postClientName {
-  font-size: 18px;
-}
-.section2 .postItem .postHead .postClientDate {
-  font-size: 12px;
-  color: #999;
-  margin-top: 4px;
-  display: block;
-}
-
-.section2 .postItem .postHead .tag {
-  padding: 12px 16px;
-  background-color: #ddf8e7;
-  border-radius: 24px;
-  color: #4db251;
-}
-.section2 .postItem .postHead .postClientAction {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.postBody {
-  margin-top: 24px;
-}
-
-.postBody .postTitle {
-  font-size: 18px;
-  max-width: 300px;
-  display: block;
-  line-height: 1.4;
-}
-.postBody .postDesc {
-  font-size: 16px;
-  color: #999;
-  margin-top: 8px;
-  line-height: 1.4;
-}
-
-.postFooter {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-  margin-top: 16px;
-}
-
-.footerItem {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: #808080;
-}
-
 .moreInfo {
   margin-top: 16px;
 }
@@ -264,11 +195,6 @@
   font-size: 14px;
   color: #999;
   margin-top: 8px;
-}
-
-.postImage {
-  width: 100%;
-  margin-top: 16px;
 }
 
 .recentHead {
@@ -408,4 +334,46 @@
   text-underline-position: from-font;
   text-decoration-skip-ink: none;
   margin-bottom: 24px;
+}
+.mainFreeLancerScreenSearch {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+.FreeLancerScreenSearch {
+  width: 748px;
+  height: 58px;
+  border-radius: 24px;
+  background-color: #ffffff;
+  border: 1px solid #bfbfbf;
+  padding: 16px 24px;
+  align-items: center;
+  display: flex;
+  gap: 8px;
+}
+.SearchInput:focus{
+  outline: none;
+}
+.SearchInput{
+  border: none;
+  height: 100%;
+  width: 100%;
+}
+.SearchBtn {
+  width: 105px;
+  height: 58px;
+  padding: 10px;
+  border-radius: 24px;
+  border: 1px solid #bfbfbf;
+  background-color: #ffffff;
+  color: #999999;
+  font-family: Poppins;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 22.5px;
+  text-align: center;
+  text-decoration-skip-ink: none;
+  cursor: pointer;
 }

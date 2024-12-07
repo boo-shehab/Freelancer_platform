@@ -1,52 +1,66 @@
 .register-container {
-    width: 100vw;
-    height: 100vh;
-    padding: 16px;
-    display: grid;
-    gap: 16px;
-    grid-template-columns: 1fr 1fr;
-    overflow-x: hidden;
-    background-color: white;
+  width: 100vw;
+  height: 100vh;
+  padding: 16px 50px;
+  display: grid;
+  gap: 80px;
+  grid-template-columns: 1fr 1fr;
+  overflow-x: hidden;
+  background-color: white;
 }
-.loginLink{
-    text-align: center;
+.loginLink {
+  text-align: center;
 }
-.left{
-    background-color: #3C97AF;
-    position: relative;
-    border-radius: 20px;
-    padding: 128px 21px;
-    text-align: center;
-    color: white;
+.loginLink a {
+ color: #3C97AF;
+}
+
+
+.left {
+  background-color: #3c97af;
+  position: relative;
+  border-radius: 20px;
+  padding: 128px 21px;
+  text-align: center;
+  color: white;
 }
 .left h1 {
-    padding-bottom: 48px;
+  padding-bottom: 48px;
 }
 
 .left div svg {
-    width: 100%;
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 
 .right {
-    padding-top: 128px;
-    padding-bottom: 128px;
+  padding-top: 128px;
+  padding-bottom: 128px;
 }
 @media (max-width: 660px) {
-   .right{
+  .right {
     padding-top: 48px;
-   }
+  }
 }
-@media (max-width: 700px) {
-    .left {
-        display: none;
-    }
-    
-    .register-container {
-        grid-template-columns: 1fr;
-    }
-}
+@media (max-width: 780px) {
+  .left {
+    display: none;
+  }
 
+  .register-container {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 660px) {
+  .register-container {
+ 
+    padding: 16px 12px;
+  
+   
+
+ 
+  }
+}

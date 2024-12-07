@@ -1,0 +1,93 @@
+.postItem .postHead {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.postItem .postHead .postClient {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.postItem .postHead .postAvatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #ebebeb;
+}
+
+.postItem .postHead .postClientName {
+    font-size: 18px;
+}
+
+.postItem .postHead .postClientDate {
+    font-size: 12px;
+    color: #999;
+    margin-top: 4px;
+    display: block;
+}
+
+.postItem .postHead .tag {
+    padding: 12px 16px;
+    background-color: #ddf8e7;
+    border-radius: 24px;
+    color: #4db251;
+}
+
+.postItem .postHead .postClientAction {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.postBody {
+    margin-top: 24px;
+}
+
+.postBody .postTitle {
+    font-size: 18px;
+    max-width: 300px;
+    display: block;
+    line-height: 1.4;
+}
+
+.postBody .postDesc {
+    font-size: 16px;
+    color: #999;
+    margin-top: 8px;
+    line-height: 1.4;
+}
+
+.postFooter{
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-top: 16px;
+}
+
+.footerItem{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #808080;
+}
+
+.moreInfo{
+    margin-top: 16px;
+}
+
+.moreInfo .infoTitle{
+    font-size: 16px;
+}
+
+.moreInfo .infoValue{
+    font-size: 14px;
+    color: #999;
+    margin-top: 8px;
+}
+
+.postImage{
+    width: 100%;
+    margin-top: 16px;
+}

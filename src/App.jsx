@@ -8,6 +8,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import HomeScreen from './screens/HomeScreen/homeScreen';
 import ProfileScreen from './screens/ProfileScreen/ProfileScreen';
 import Login from './screens/login/login';
+import Setting from './screens/SettingScreen/Setting';
 
 
 function App() {
@@ -56,10 +57,9 @@ function App() {
         {
           path: "/setting",
           element: (
-            <>lhslf</>
-        //     <ProtectedRoute isProtected={true}>
-        //       <Home />
-        //     </ProtectedRoute>
+            // <ProtectedRoute isProtected={true}>
+            <Setting/>
+            // </ProtectedRoute>
           ),
         },
       ],

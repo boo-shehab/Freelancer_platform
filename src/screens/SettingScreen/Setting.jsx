@@ -54,7 +54,7 @@ function Setting() {
             </li>
             <li>
               <a>
-                <DeleteAccountIcon /> privacy & security{" "}
+                <DeleteAccountIcon />Delete Account
               </a>
               <SettingArrow />
             </li>

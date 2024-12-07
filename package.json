@@ -18,7 +18,7 @@
     "react-router-dom": "^7.0.2",
     "react-select": "^5.8.3",
     "reactjs-otp-input": "^2.0.10",
-    "zustand": "^5.0.1"
+    "zustand": "^5.0.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.13.0",

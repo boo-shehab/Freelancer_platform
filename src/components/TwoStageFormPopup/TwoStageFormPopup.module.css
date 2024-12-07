@@ -226,3 +226,62 @@ color: #3C97AF;
     align-items: center;
     background-color: transparent;
   }
+/* ////////////////////////////////////////////////////////// */
+
+#popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+#popup-overlay .popup-content {
+  background: #F8FBFC;
+  padding: 20px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 700px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+#popup-overlay .popup-content .headOfResponsive{
+display: none;
+font-family: 'Poppins', sans-serif;
+margin-top: 62px;
+}
+#popup-overlay .popup-content .headOfResponsive h1{
+font-family: Poppins;
+font-size: 60px;
+font-weight: 700;
+line-height: 30px;
+text-align: left;
+text-underline-position: from-font;
+text-decoration-skip-ink: none;
+}
+#popup-overlay .popup-content .headOfResponsive button{
+background-color: transparent;
+border: none;
+font-size: 60px;
+}
+@media screen and (max-width:700px){
+  #popup-overlay .popup-content {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    max-width: 100%;
+    height: 100% !important;
+}
+#popup-overlay .popup-content .headOfResponsive{
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 26px;
+}
+}

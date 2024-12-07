@@ -26,6 +26,24 @@ const freeLancerScreen = () => {
   const onSliderChange = (newValue) => {
     setValue(newValue);
   };
+  const theme = {
+    components: {
+      Slider: {
+        fontSize: 12,
+        lineHeight: 18,
+        colorPrimary: "#3C97AF",
+        trackBg: "#3C97AF",
+        trackBgDisabled: "#3C97AF",
+        trackHoverBg: "#3C97AF",
+        railBg: "#BFBFBF",
+        handleActiveColor: "#3C97AF",
+        handleColor: "#3C97AF",
+        handleActiveColor: "#3C97AF",
+        colorBgElevated: "#3C97AF",
+        colorPrimaryBorderHover: "#3C97AF",
+      },
+    },
+  };
   const optionOfFreelancing = [
     {
       id: 1,
@@ -162,26 +180,7 @@ const freeLancerScreen = () => {
               />
             </div>
           </div>
-          <ConfigProvider
-            theme={{
-              components: {
-                Slider: {
-                  fontSize: 12,
-                  lineHeight: 18,
-                  colorPrimary: "#3C97AF",
-                  trackBg: "#3C97AF",
-                  trackBgDisabled: "#3C97AF",
-                  trackHoverBg: "#3C97AF",
-                  railBg: "#BFBFBF",
-                  handleActiveColor: "#3C97AF",
-                  handleColor: "#3C97AF",
-                  handleActiveColor: "#3C97AF",
-                  colorBgElevated: "#3C97AF",
-                  colorPrimaryBorderHover: "#3C97AF",
-                },
-              },
-            }}
-          >
+          <ConfigProvider theme={theme}>
             <Slider
               range
               max={5000}

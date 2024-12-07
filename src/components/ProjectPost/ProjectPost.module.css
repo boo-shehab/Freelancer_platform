@@ -1,3 +1,6 @@
+.postItem{
+    position: relative;
+}
 .postItem .postHead {
     display: flex;
     align-items: center;
@@ -90,4 +93,45 @@
 .postImage{
     width: 100%;
     margin-top: 16px;
+
 }
+.list {
+    position: absolute;
+    background-color: #ded7d7; 
+    border-radius: 8px; 
+    padding: 10px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    min-width: 110px; 
+    z-index: 10; 
+   
+    
+  }
+  
+  .list button {
+    width: 100%; 
+    padding: 8px 12px;
+    margin: 5px 0; 
+    background-color: #0056b3; 
+    color: white; 
+    border: none; 
+    border-radius: 4px; 
+    cursor: pointer; 
+    font-size: 14px; 
+    text-align: center; 
+    
+  }
+  
+  .list button:hover {
+    background-color: #180c32; 
+  }
+ .active button{
+    background-color: rgb(40, 40, 41);
+ }
+ .list button:last-child {
+    background-color: #b30000; 
+  }
+  .list button:last-child:hover {
+    background-color:  #410606; 
+  }
+  
+  

@@ -5,13 +5,27 @@
 }
 
 .content .section1 {
+  height: 80vh;
+  overflow-y: auto;
+  scrollbar-width: none;
   width: 23%;
   min-width: 300px;
 }
+
 .content .section2 {
+  height: 80vh;
+  overflow-y: auto;
+  scrollbar-width: none;
   width: 45%;
+  height: 80vh;
+  overflow-y: auto;
+  scrollbar-width: none;
 }
+
 .content .section3 {
+  height: 80vh;
+  overflow-y: auto;
+  scrollbar-width: none;
   width: 32%;
   min-width: 400px;
 }
@@ -170,20 +184,20 @@
   cursor: pointer;
 }
 
-.moreInfo{
+.moreInfo {
   margin-top: 16px;
 }
 
-.moreInfo .infoTitle{
+.moreInfo .infoTitle {
   font-size: 16px;
 }
-.moreInfo .infoValue{
+.moreInfo .infoValue {
   font-size: 14px;
   color: #999;
   margin-top: 8px;
 }
 
-.recentHead{
+.recentHead {
   display: flex;
   width: 100%;
   align-items: center;
@@ -191,20 +205,20 @@
   margin-bottom: 16px;
 }
 
-.more{
+.more {
   color: #3c97af;
   cursor: pointer;
 }
 
-.recentTitle{
+.recentTitle {
   font-size: 18px;
 }
 
-.recentItem{
+.recentItem {
   max-height: 70px;
   margin-top: 16px;
   overflow: hidden;
-  border-bottom: 1px solid #F2F2F2;
+  border-bottom: 1px solid #f2f2f2;
   transition: 0.5s;
 }
 
@@ -212,7 +226,7 @@
   max-height: 300px;
 }
 
-.recentItem .recentHead{
+.recentItem .recentHead {
   display: flex;
   width: 100%;
   align-items: center;
@@ -220,24 +234,24 @@
   margin-bottom: 16px;
 }
 
-.recentItem:last-child{
+.recentItem:last-child {
   border-bottom: none;
 }
 
-.recentItemInfo{
+.recentItemInfo {
   display: flex;
   gap: 8px;
   align-items: center;
 }
 
-.recentItemAvatar{
+.recentItemAvatar {
   width: 50px;
   height: 50px;
   border-radius: 50%;
   background-color: #ddf8e7;
 }
 
-.arrowBtn{
+.arrowBtn {
   height: 42px;
   width: 42px;
   background-color: #3c97af;
@@ -250,16 +264,16 @@
   transform: rotateZ(-180deg);
 }
 
-.recentItemInfo b{
+.recentItemInfo b {
   font-size: 16px;
 }
-.recentItemInfo small{
+.recentItemInfo small {
   color: #999;
   display: block;
   margin-top: 6px;
 }
 
-.formerCoworkers .formerCoworkersHead{
+.formerCoworkers .formerCoworkersHead {
   display: flex;
   width: 100%;
   align-items: center;
@@ -284,10 +298,10 @@
   gap: 8px;
 }
 
-.coWorkerInfo b{
+.coWorkerInfo b {
   font-size: 16px;
 }
-.coWorkerInfo small{
+.coWorkerInfo small {
   color: #999;
   display: block;
   margin-top: 6px;
@@ -310,9 +324,9 @@
   height: 50px;
   border-radius: 50%;
 }
-.projectDescription{
-  color: var(--Color-Text-Secondary, rgba(153, 153, 153, 1)); 
-  font-family: 'Poppins', sans-serif;
+.projectDescription {
+  color: var(--Color-Text-Secondary, rgba(153, 153, 153, 1));
+  font-family: "Poppins", sans-serif;
   font-size: 12px;
   font-weight: 400;
   line-height: 18px;
@@ -320,4 +334,46 @@
   text-underline-position: from-font;
   text-decoration-skip-ink: none;
   margin-bottom: 24px;
+}
+.mainFreeLancerScreenSearch {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+.FreeLancerScreenSearch {
+  width: 748px;
+  height: 58px;
+  border-radius: 24px;
+  background-color: #ffffff;
+  border: 1px solid #bfbfbf;
+  padding: 16px 24px;
+  align-items: center;
+  display: flex;
+  gap: 8px;
+}
+.SearchInput:focus{
+  outline: none;
+}
+.SearchInput{
+  border: none;
+  height: 100%;
+  width: 100%;
+}
+.SearchBtn {
+  width: 105px;
+  height: 58px;
+  padding: 10px;
+  border-radius: 24px;
+  border: 1px solid #bfbfbf;
+  background-color: #ffffff;
+  color: #999999;
+  font-family: Poppins;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 22.5px;
+  text-align: center;
+  text-decoration-skip-ink: none;
+  cursor: pointer;
 }

@@ -1,0 +1,94 @@
+#popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+  
+  #popup-overlay .popup-content {
+   
+    background: #f8fbfc;
+    padding: 20px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 700px;
+    height: 90%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  #popup-overlay .close-btn-div {
+    height: 48px;
+    display: flex;
+    align-items: end;
+    justify-content: end;
+    width: 100%;
+    margin-bottom: 16px;
+    cursor: pointer;
+  }
+  #popup-overlay .close-btn {
+    border: none;
+    background-color: #ffffff;
+    width: 32px;
+    height: 32px;
+    font-size: 20px;
+  }
+  
+  #popup-overlay .image-div {
+    width: 100px;
+    height: 100px;
+  }
+  
+  #popup-overlay .image {
+    width: 100px;
+  }
+  h3 {
+    text-align: center;
+    margin-top: 8px;
+    margin-bottom: 40px;
+  }
+  #popup-overlay .form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  #popup-overlay .form label {
+    font-family: Poppins;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 21px;
+    margin-bottom: 8px;
+  
+  }
+  #popup-overlay .form input,textarea {
+    height: 48px;
+    padding-left: 10px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    font-size: 14px;
+    font-weight: 400;
+    border:1px solid  #BFBFBF ;
+    outline: none;
+  }
+  #popup-overlay textarea{
+    padding: 12px;
+    height: 117px;
+    border: 1px solid #bfbfbf;
+    border-radius: 8px;
+  }
+  
+  #popup-overlay .apply-btn{
+  position:absolute;
+  bottom: 32px;
+  width: 90%;
+  }
+  

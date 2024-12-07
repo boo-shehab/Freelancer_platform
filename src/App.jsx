@@ -54,14 +54,14 @@ function App() {
             // </ProtectedRoute>
           ),
         },
-        {
-          path: "/setting",
-          element: (
-            // <ProtectedRoute isProtected={true}>
-            <Setting/>
-            // </ProtectedRoute>
-          ),
-        },
+        // {
+        //   path: "/setting",
+        //   element: (
+        //     <ProtectedRoute isProtected={true}>
+        //       <Home />
+        //     </ProtectedRoute>
+        //   ),
+        // },
       ],
     },
   ]);

@@ -36,7 +36,6 @@ const freeLancerScreen = () => {
         trackBgDisabled: "#3C97AF",
         trackHoverBg: "#3C97AF",
         railBg: "#BFBFBF",
-        handleActiveColor: "#3C97AF",
         handleColor: "#3C97AF",
         handleActiveColor: "#3C97AF",
         colorBgElevated: "#3C97AF",

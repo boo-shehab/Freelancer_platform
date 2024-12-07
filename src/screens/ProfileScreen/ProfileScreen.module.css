@@ -6,10 +6,16 @@
 
 .content .section1 {
     width: 66%;
+    height: 80vh;
+  overflow-y: auto;
+  scrollbar-width: none;
 }
 .content .section2 {
     width: 34%;
     min-width: 300px;
+    height: 80vh;
+  overflow-y: auto;
+  scrollbar-width: none;
 }
 
 .section1 .userProfile {

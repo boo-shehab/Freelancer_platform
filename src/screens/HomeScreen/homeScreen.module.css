@@ -5,16 +5,27 @@
 }
 
 .content .section1 {
+  height: 80vh;
+  overflow-y: auto;
+  scrollbar-width: none;
   width: 23%;
   min-width: 300px;
 }
+
 .content .section2 {
+  height: 80vh;
+  overflow-y: auto;
+  scrollbar-width: none;
   width: 45%;
   height: 80vh;
   overflow-y: auto;
   scrollbar-width: none;
 }
+
 .content .section3 {
+  height: 80vh;
+  overflow-y: auto;
+  scrollbar-width: none;
   width: 32%;
   min-width: 400px;
 }

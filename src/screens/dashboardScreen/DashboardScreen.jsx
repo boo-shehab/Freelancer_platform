@@ -83,9 +83,9 @@ const DashboardScreen = () => {
     ]
     const rating = {
         starRate: '4.0',
-        highRate: 82,
+        highRate: 53,
         midRate: 12,
-        lowRate: 6
+        lowRate: 35
     }
 
     useEffect(() => {
@@ -154,7 +154,7 @@ const DashboardScreen = () => {
                         </div>
                         <div className={styles.projects}>
                             {projects.map((project) => (
-                                <button key={project.id} onClick={() => handleProjectClick(project.id)}>
+                                <button className={styles.projectBtn} key={project.id} onClick={() => handleProjectClick(project.id)}>
                                     <div className={styles.projectInfo}>
                                         <div className={`${styles.projectData} ${project.projectStatus === 'Completed' ? styles.completed : project.projectStatus === 'Pending' ? styles.pending : styles.inProgress}`}>
                                             <b>{project.projectName}</b>
@@ -172,8 +172,7 @@ const DashboardScreen = () => {
                             ))}
                         </div>
                     </section>
-                    <div>
-                        <div className={styles.statistics}>
+                    <div className={styles.section2}>                        <div className={styles.statistics}>
                             <div className={styles.card}>
                                 <p>total projects</p>
                                 <b>7</b>
@@ -206,21 +205,21 @@ const DashboardScreen = () => {
 
                                 <div className={styles.ratingBar}>
                                     <div className={styles.barItem}>
-                                        <b>High rate</b>
+                                        <b>To Do 35%</b>
                                         <div className={styles.bar}>
-                                            <div style={{ width: `${rating.highRate}%`, backgroundColor: '#4DB251' }}></div>
+                                            <div style={{ width: `${rating.lowRate}%`, backgroundColor: '#3C97AF' }}></div>
                                         </div>
                                     </div>
                                     <div className={styles.barItem}>
-                                        <b>Mid rate</b>
+                                        <b>In Progress 12%</b>
                                         <div className={styles.bar}>
-                                            <div style={{ width: `${rating.midRate}%`, backgroundColor: '#FFBF00' }}></div>
+                                            <div style={{ width: `${rating.midRate}%`, backgroundColor: '#D69E2E' }}></div>
                                         </div>
                                     </div>
                                     <div className={styles.barItem}>
-                                        <b>Low rate</b>
+                                        <b>Done 53%</b>
                                         <div className={styles.bar}>
-                                            <div style={{ width: `${rating.lowRate}%`, backgroundColor: '#E4636F' }}></div>
+                                            <div style={{ width: `${rating.highRate}%`, backgroundColor: '#1FAD58' }}></div>
                                         </div>
                                     </div>
                                 </div>

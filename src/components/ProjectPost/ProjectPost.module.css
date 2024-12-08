@@ -1,137 +1,136 @@
-.postItem{
-    position: relative;
+.postItem {
+  position: relative;
 }
 .postItem .postHead {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .postItem .postHead .postClient {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .postItem .postHead .postAvatar {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background-color: #ebebeb;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #ebebeb;
 }
 
 .postItem .postHead .postClientName {
-    font-size: 18px;
+  font-size: 18px;
 }
 
 .postItem .postHead .postClientDate {
-    font-size: 12px;
-    color: #999;
-    margin-top: 4px;
-    display: block;
+  font-size: 12px;
+  color: #999;
+  margin-top: 4px;
+  display: block;
 }
 
 .postItem .postHead .tag {
-    padding: 12px 16px;
-    background-color: #ddf8e7;
-    border-radius: 24px;
-    color: #4db251;
+  padding: 12px 16px;
+  background-color: #ddf8e7;
+  border-radius: 24px;
+  color: #4db251;
 }
 
 .postItem .postHead .postClientAction {
-    display: flex;
-    align-items: center;
-    gap: 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 
 .postBody {
-    margin-top: 24px;
+  margin-top: 24px;
 }
 
 .postBody .postTitle {
-    font-size: 18px;
-    max-width: 300px;
-    display: block;
-    line-height: 1.4;
+  font-size: 18px;
+  max-width: 300px;
+  display: block;
+  line-height: 1.4;
 }
 
 .postBody .postDesc {
-    font-size: 16px;
-    color: #999;
-    margin-top: 8px;
-    line-height: 1.4;
+  font-size: 16px;
+  color: #999;
+  margin-top: 8px;
+  line-height: 1.4;
 }
 
-.postFooter{
-    display: flex;
-    align-items: center;
-    gap: 24px;
-    margin-top: 16px;
+.postFooter {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-top: 16px;
 }
 
-.footerItem{
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: #808080;
+.footerItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #808080;
 }
 
-.moreInfo{
-    margin-top: 16px;
+.moreInfo {
+  margin-top: 16px;
 }
 
-.moreInfo .infoTitle{
-    font-size: 16px;
+.moreInfo .infoTitle {
+  font-size: 16px;
 }
 
-.moreInfo .infoValue{
-    font-size: 14px;
-    color: #999;
-    margin-top: 8px;
+.moreInfo .infoValue {
+  font-size: 14px;
+  color: #999;
+  margin-top: 8px;
 }
 
-.postImage{
-    width: 100%;
-    margin-top: 16px;
-
+.postImage {
+  width: 100%;
+  margin-top: 16px;
 }
 .list {
-    position: absolute;
-    background-color: #ded7d7; 
-    border-radius: 8px; 
-    padding: 10px; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
-    min-width: 110px; 
-    z-index: 10; 
-   
-    
-  }
-  
-  .list button {
-    width: 100%; 
-    padding: 8px 12px;
-    margin: 5px 0; 
-    background-color: #0056b3; 
-    color: white; 
-    border: none; 
-    border-radius: 4px; 
-    cursor: pointer; 
-    font-size: 14px; 
-    text-align: center; 
-    
-  }
-  
-  .list button:hover {
-    background-color: #180c32; 
-  }
- .active button{
-    background-color: rgb(40, 40, 41);
- }
- .list button:last-child {
-    background-color: #b30000; 
-  }
-  .list button:last-child:hover {
-    background-color:  #410606; 
-  }
-  
-  
+  position: absolute;
+  background-color: #ded7d7;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  min-width: 110px;
+  z-index: 10;
+}
+
+.list button {
+  width: 100%;
+  padding: 8px 12px;
+  margin: 5px 0;
+  background-color: #0056b3;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  text-align: center;
+}
+
+.list button:hover {
+  background-color: #180c32;
+}
+.active button {
+  background-color: rgb(40, 40, 41);
+}
+.list button:last-child {
+  background-color: #b30000;
+}
+.list button:last-child:hover {
+  background-color: #410606;
+}
+@media (max-width:950px){
+    .postFooter{
+        flex-wrap: wrap;
+    }
+}

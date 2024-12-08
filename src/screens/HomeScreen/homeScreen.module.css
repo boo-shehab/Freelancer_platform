@@ -1,6 +1,6 @@
 .content {
   display: flex;
-  gap: 16px;
+  gap: 24px;
   margin-top: 30px;
 }
 
@@ -16,7 +16,7 @@
   height: 80vh;
   overflow-y: auto;
   scrollbar-width: none;
-  width: 45%;
+  width: 76%;
   height: 80vh;
   overflow-y: auto;
   scrollbar-width: none;
@@ -53,7 +53,6 @@
   gap: 4px;
   justify-content: center;
 }
-
 .content .section1 .userInfo .rate span {
   color: #999999;
   font-size: 14px;
@@ -325,7 +324,7 @@
   border-radius: 50%;
 }
 .projectDescription {
-  color: var(--Color-Text-Secondary, rgba(153, 153, 153, 1));
+  color:  rgba(153, 153, 153, 1);
   font-family: "Poppins", sans-serif;
   font-size: 12px;
   font-weight: 400;
@@ -343,7 +342,7 @@
   margin-bottom: 32px;
 }
 .FreeLancerScreenSearch {
-  width: 748px;
+  width: 100%;
   height: 58px;
   border-radius: 24px;
   background-color: #ffffff;
@@ -352,15 +351,17 @@
   align-items: center;
   display: flex;
   gap: 8px;
+  box-shadow: 0px 2px 8px 0px #3c97af14;
 }
-.SearchInput:focus{
-  outline: none;
-}
-.SearchInput{
+.SearchInput {
   border: none;
   height: 100%;
   width: 100%;
 }
+.SearchInput:focus {
+  outline: none;
+}
+
 .SearchBtn {
   width: 105px;
   height: 58px;
@@ -376,4 +377,36 @@
   text-align: center;
   text-decoration-skip-ink: none;
   cursor: pointer;
+}
+.FilterResponsiveBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+  box-shadow: 0px 2px 8px 0px #3c97af14;
+  width: 48px;
+  height: 48px;
+  border: none;
+  border-radius: 16px;
+  display: none;
+}
+@media (max-width: 950px) {
+ .mainFreeLancerScreenSearch{
+  gap: 12px;
+ }
+  .postBox {
+    width: 100%;
+  }
+  .FreeLancerScreenSearch{
+    border: none;
+  }
+  .section2 {
+    width: 100% !important;
+  }
+  .SearchBtn {
+    display: none;
+  }
+  .FilterResponsiveBtn{
+    display: block;
+  }
 }

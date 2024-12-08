@@ -20,6 +20,7 @@ const SliderOfProject = ({
     if (!show) return null;
 
     const [selectedTab, setSelectedTab] = useState("To Do");
+    const [isFreeLancer, setIsFreeLancer] = useState(true);
 
     const handleTabClick = (tabName) => {
         setSelectedTab(tabName);
@@ -111,7 +112,7 @@ const SliderOfProject = ({
 
                 {projectStatus === "In Progress" && (
                     <div>
-                        <h3>Freelancer Tasks</h3>
+                        <h3>{isFreeLancer ? "Freelancer Tasks" : "My Tasks"}</h3>
                         <div className={styles.taskTabs}>
 
                             <a

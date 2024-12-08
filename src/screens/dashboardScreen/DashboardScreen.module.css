@@ -314,11 +314,27 @@ button.declineFreeLancer {
         gap: 12px;
         align-items: center;
         justify-content: space-between;
+        overflow-x: scroll;
+        white-space: nowrap;
+        scrollbar-width: none;
     }
 
+    .statistics::-webkit-scrollbar {
+        display: none;
+    }
     .statistics .card {
         width: 204px !important;
         height: 97px !important;
+    }
+    .projectsHeader{
+         width: 100%;
+        overflow-x: scroll;
+        white-space: nowrap;
+        scrollbar-width: none;
+    }
+
+    .projectsHeader::-webkit-scrollbar {
+        display: none;
     }
     
 }

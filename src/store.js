@@ -9,5 +9,6 @@ export const useAppStore = create((set, get) => ({
         get().projectsPosts.forEach((project) => {
             console.log(project);
         });
-    }
+    },
+    
 }));

@@ -8,10 +8,18 @@ import ProtectedRoute from './components/ProtectedRoute';
 import HomeScreen from './screens/HomeScreen/homeScreen';
 import ProfileScreen from './screens/ProfileScreen/ProfileScreen';
 import Login from './screens/login/login';
+import Setting from './screens/SettingScreen/Setting';
+
 
 
 function App() {
 
+<<<<<<< HEAD
+=======
+
+
+  
+>>>>>>> 144ef9b5281a828c14614689b81a0c43436c71a4
   const router = createBrowserRouter([
     {
       path: "/register",
@@ -56,10 +64,9 @@ function App() {
         {
           path: "/setting",
           element: (
-            <>lhslf</>
-        //     <ProtectedRoute isProtected={true}>
-        //       <Home />
-        //     </ProtectedRoute>
+            // <ProtectedRoute isProtected={true}>
+            <Setting/>
+            // </ProtectedRoute>
           ),
         },
       ],

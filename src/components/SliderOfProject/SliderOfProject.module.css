@@ -370,3 +370,13 @@ button.declineFreeLancer {
 .doneTask {
     text-decoration: line-through;
 }
+@media screen and (max-width: 400px) and (min-width:300px) {
+    .sliderOFprojectinfo .slider {
+        height: 100%;
+        width: 100%
+    }
+    .chartContainer{
+        margin-left: 40px;
+    }
+    
+}

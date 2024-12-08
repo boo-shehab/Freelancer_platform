@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./freeLancerScreen.module.css";
 import FilterSide from "../../components/filterSide/filterSide";
 import { Slider, ConfigProvider } from "antd";
@@ -7,7 +7,7 @@ import DownModule from "../../components/DownModule/DownModule.jsx";
 const freeLancerScreen = ({
   isPopupOpen2 = false,
   setIsPopupOpen2,
-  onClose,
+  result,
 }) => {
   const [value, setValue] = useState(["minimum", "maximum"]);
   const [selectedJobs, setSelectedJobs] = useState([]);
@@ -20,6 +20,10 @@ const freeLancerScreen = ({
         : [...prevSelected, jobId]
     );
   };
+
+  useEffect(() => {
+    result(selectedJobs);
+  }, [selectedJobs]);
 
   const clearAllSelections = () => {
     setSelectedJobs([]);
@@ -238,26 +242,7 @@ const freeLancerScreen = ({
               </button>
             ))}
           </div>
-          <div className={styles.selectedJobsContainer}>
-            {selectedJobs.length > 0 ? (
-              <div className={styles.selectedJobsList}>
-                {selectedJobs.map((job, index) => (
-                  <span key={index} className={styles.selectedJobTag}>
-                    {job}
-
-                    <button
-                      onClick={() => handleJobSelection(job)}
-                      className={styles.removeJobButton}
-                    >
-                      ×
-                    </button>
-                  </span>
-                ))}
-              </div>
-            ) : (
-              <p></p>
-            )}
-          </div>
+         
           <div className={styles.timeLine}>
             <h3>Time Line</h3>
             <div className={styles.timeLineSelector}>

@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 import ProjectPost from "../../components/ProjectPost/ProjectPost";
 import FreeLancerScreen from "../freeLancerScreen/freeLancerScreen";
 import FilterResponsive from "../../CustomIcons/filterResponsive";
+
 const projects = [
   {
     id: 1,
@@ -143,9 +144,9 @@ const HomeScreen = () => {
   const [selectedJobs, setSelectedJobs] = useState([]);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [recentProjectOpened, setRecentProjectOpened] = useState(-1);
-  const [isFreeLancer, setIsFreeLancer] = useState(false);
+  const [isFreeLancer, setIsFreeLancer] = useState(true);
   const [isPopupOpen2, setIsPopupOpen2] = useState(false);
-
+  const [callBack, setCallBack] = useState([]);
   const clearAllSelections = () => {
     setSelectedJobs([]);
   };
@@ -161,6 +162,10 @@ const HomeScreen = () => {
   const handleNewProject = () => {
     setIsPopupOpen(true);
   };
+  const callBackFun = (CB) => {
+    setCallBack(CB);
+    console.log(CB);
+  };
   return (
     <div style={styles.homeScreen}>
       <TwoStageFormPopup
@@ -174,6 +179,7 @@ const HomeScreen = () => {
             <FreeLancerScreen
               isPopupOpen2={isPopupOpen2}
               setIsPopupOpen2={setIsPopupOpen2}
+              result={callBackFun}
             />
           ) : (
             <section className={styles.section1}>
@@ -260,23 +266,36 @@ const HomeScreen = () => {
           )}
           <section className={styles.section2}>
             {isFreeLancer ? (
-              <div className={styles.mainFreeLancerScreenSearch}>
-                <div className={styles.FreeLancerScreenSearch}>
-                  <SearchIcon />
-                  <input
-                    className={styles.SearchInput}
-                    placeholder="Search"
-                    type="text"
-                  />
+              <>
+                <div className={styles.mainFreeLancerScreenSearch}>
+                  <div className={styles.FreeLancerScreenSearch}>
+                    <SearchIcon />
+                    <input
+                      className={styles.SearchInput}
+                      placeholder="Search"
+                      type="text"
+                    />
+                  </div>
+                  <button className={styles.SearchBtn}>Search</button>
+                  <button
+                    className={styles.FilterResponsiveBtn}
+                    onClick={() => setIsPopupOpen2(true)}
+                  >
+                    <FilterResponsive />
+                  </button>
                 </div>
-                <button className={styles.SearchBtn}>Search</button>
-                <button
-                  className={styles.FilterResponsiveBtn}
-                  onClick={() => setIsPopupOpen2(true)}
-                >
-                  <FilterResponsive />
-                </button>
-              </div>
+                <div className={styles.showingUp}>
+                {callBack.map((i) => (
+                  <>
+                    
+                      <div className={styles.insideShowingUp}>
+                        <div >x</div>
+                        <div>{i}</div>
+                      </div>
+                   
+                  </>
+                ))}{" "} </div>
+              </>
             ) : (
               <Card>
                 <div className={styles.postBox}>

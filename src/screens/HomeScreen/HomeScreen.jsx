@@ -12,8 +12,7 @@ import TwoStageFormPopup from "../../components/TwoStageFormPopup/TwoStageFormPo
 import { Link } from "react-router-dom";
 import ProjectPost from "../../components/ProjectPost/ProjectPost";
 import FreeLancerScreen from "../freeLancerScreen/freeLancerScreen";
-
-
+import FilterResponsive from "../../CustomIcons/filterResponsive";
 const projects = [
   {
     id: 1,
@@ -120,7 +119,9 @@ const formerCoworkers = [
 const HomeScreen = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [recentProjectOpened, setRecentProjectOpened] = useState(-1);
-  const [isFreeLancer, setIsFreeLancer] = useState(false);
+  const [isFreeLancer, setIsFreeLancer] = useState(true);
+  const [isPopupOpen2, setIsPopupOpen2] = useState(false);
+
   const handleNewProject = () => {
     setIsPopupOpen(true);
   };
@@ -134,7 +135,7 @@ const HomeScreen = () => {
         <div className={styles.content}>
           {/* MuhammedLami */}
           {isFreeLancer ? (
-            <FreeLancerScreen />
+            <FreeLancerScreen isPopupOpen2={isPopupOpen2} setIsPopupOpen2={setIsPopupOpen2}/>
           ) : (
             <section className={styles.section1}>
               <Card>
@@ -186,10 +187,7 @@ const HomeScreen = () => {
               </Card>
             </section>
           )}
-          <section
-            className={styles.section2}
-            style={{ width: isFreeLancer ? "calc(100% - 390px)" : "" }}
-          >
+          <section className={styles.section2}>
             {isFreeLancer ? (
               <div className={styles.mainFreeLancerScreenSearch}>
                 <div className={styles.FreeLancerScreenSearch}>
@@ -201,6 +199,9 @@ const HomeScreen = () => {
                   />
                 </div>
                 <button className={styles.SearchBtn}>Search</button>
+                <button className={styles.FilterResponsiveBtn} onClick={()=>(setIsPopupOpen2(true))}>
+                  <FilterResponsive />
+                </button>
               </div>
             ) : (
               <Card>
@@ -218,7 +219,11 @@ const HomeScreen = () => {
               </Card>
             )}
             {posts?.map((post) => (
-              <ProjectPost isFreeLancer={isFreeLancer} key={post.id} post={post} />
+              <ProjectPost
+                isFreeLancer={isFreeLancer}
+                key={post.id}
+                post={post}
+              />
             ))}
           </section>
           {!isFreeLancer && (
@@ -299,7 +304,6 @@ const HomeScreen = () => {
         </div>
       </Container>
     </div>
-
   );
 };
 

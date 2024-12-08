@@ -9,3 +9,9 @@
   overflow-y: auto;
   scrollbar-width: none;
 }
+
+@media (max-width:950px){
+  .filterFreeLanceSide{
+    display: none;
+  }
+}

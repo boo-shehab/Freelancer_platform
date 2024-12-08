@@ -20,6 +20,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  
 }
 .downModelHeader{
   display: flex;
@@ -28,8 +29,8 @@
 }
 .borderOFheaderform{
   background: rgba(97, 100, 107, 1);
-  height: 8px;
-  width: 66px;
+  height: 5px;
+  width: 64px;
   border-radius: 15px;
   margin-bottom: 24px;
 }
@@ -39,7 +40,6 @@
   font-weight: 700;
   line-height: 22.5px;
   text-align: center;
-  text-underline-position: from-font;
   text-decoration-skip-ink: none;
   text-align: center;
 }
@@ -49,9 +49,8 @@
   color: rgba(153, 153, 153, 1);
   font-size: 24px;
 }
+.ResponsiveFooterBtn{
+  display: flex;
+  gap: 16px;
+}
 
-/* import DownModule from './components/DownModule/DownModule';
-const [isPopupOpen , setisPopupOpen]= useState(true)
-
-<DownModule Hight="40%"  isOpen={isPopupOpen}
-onClose={() => setIsPopupOpen(false)} /> */

@@ -14,12 +14,6 @@ import Setting from './screens/SettingScreen/Setting';
 
 function App() {
 
-<<<<<<< HEAD
-=======
-
-
-  
->>>>>>> 144ef9b5281a828c14614689b81a0c43436c71a4
   const router = createBrowserRouter([
     {
       path: "/register",

@@ -1,259 +1,281 @@
-*{
-  padding:0;
-  margin:0;
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
+}
 
-}
-body{
+body {
   background-color: #F8FBFC;
-  
+  font-size: 16px;
+  color: #333;
 }
+
 
 .container {
   max-width: 430px;
-  margin-left:20px;
+  margin-left: 20px;
 }
 
+
 .box1 {
-  margin-top:10px;
-  width:430px;
-  height:160px;
-  display:flex;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 100%;
+  height: 160px;
+  display: flex;
   justify-content: center;
-  align-items:center;
+  align-items: center;
   background-color: #FFFFFF;
   border-radius: 12px;
-  gap:20px;
+  gap: 20px;
+  padding: 15px;
 }
 
 .selfie {
   width: 120px;
   height: 120px;
   border-radius: 50%;
-  border:2px solid #1C4752;
+  border: 2px solid #1C4752;
 }
 
-.name-specialization .name {
-
+.nameSpecialization .name {
   font-size: 24px;
   font-weight: 600;
-  line-height: 30px;
-  margin-bottom:5px;
-
+  color: #333;
 }
 
-.name-specialization .specialization {
+.nameSpecialization .specialization {
   font-size: 18px;
   font-weight: 500;
-  line-height: 27px;
-  color: #999999;  
+  color: #999999;
 }
 
 .edit {
   background: none;
   border: none;
   cursor: pointer;
+  padding: 5px;
+  transition: transform 0.2s;
 }
-
-.edit-icon {
+.box1 .editIcon {
   width: 26px;
   height: 26px;
 }
 
-.box2-About{
-  margin-top:10px;
-  width:430px;
-  height:230px;
-  display:flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items:center;
+
+.editIcon {
+  width: 20px;
+  height: 20px;
+}
+
+
+.box2About {
+  margin-bottom: 20px;
   background-color: #FFFFFF;
   border-radius: 12px;
+  padding: 20px;
+
 }
 
-.About-edit{
-  width:380px;
-  display:flex;
+.aboutEdit {
+  display: flex;
   justify-content: space-between;
-
+  align-items: center;
 }
 
-.About{
 
+.about, .educationAddEdit p, .projectAddEdit p, .workAddEdit p {
   font-size: 18px;
   font-weight: 700;
   line-height: 22.5px;
-
-
+  color: #000000;
 }
 
-.description-About{
-  width:380px;
 
-}
 
-.description-About p{
+.descriptionAbout {
+  padding-top: 10px;
+  max-height: 230px;
+  overflow-y: auto;
+  border-radius: 8px;
+  padding-right: 10px;
+  color: #808080;
   font-size: 14px;
   font-weight: 400;
   line-height: 24px;
-  color:#808080;
-  margin-top:12px;
+  text-align: left;
 
 }
 
-.description-About button{
+.descriptionAbout::-webkit-scrollbar {
+  width: 8px;
+}
+
+.descriptionAbout::-webkit-scrollbar-thumb {
+  background-color: #14B6DA;
+  border-radius: 8px;
+}
+
+.descriptionAbout::-webkit-scrollbar-track {
+  border-radius: 8px; 
+}
+
+.collapsedText {
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.expandedText {
+  display: block;
+}
+
+.seeMoreButton {
   background-color: white;
-  border:none;
-  color:#5376AC;
+  border: none;
+  color: #5376AC;
   cursor: pointer;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+
 }
 
-.edit{
-  width: 20px;
-  height:20px;
-}
 
-.box3 {
-  margin-top:10px;
-  width:430px;
-  height:200px;
-  display:flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items:center;
+.box3, .box4 {
+  margin-bottom: 20px;
   background-color: #FFFFFF;
   border-radius: 12px;
+  padding: 20px;
+
 
 }
 
-.Eduction-add-edit{
-  width:380px;
-  display:flex;
-  justify-content: space-between;
-  align-items:center;
-  margin-bottom: 10px;
-  
-}
-
-.button{
-  width:60px;
+.educationAddEdit, .projectAddEdit, .workAddEdit {
   display: flex;
   justify-content: space-between;
-
-
+  align-items: center;
+  margin-bottom: 10px;
 }
 
-button{
+.button {
+  display: flex;
+  gap: 20px;
+}
+
+button {
   background-color: #FFFFFF;
-  border:none;
+  border: none;
+  cursor: pointer;
 }
-.Eduction-add-edit p{
-
-  font-size: 18px;
-  font-weight: 700;
-  line-height: 22.5px;
-
-
+.img{
+  width:58px;
+  height: 38px;
+  margin-right:20px;
 
 }
 
-.box3-part2 {
-  width:380px;
 
-  display:flex;
+.universityIcon{
+  width:38px;
+  height: 38px;
+
+
+}
+
+
+
+.box3Part2 {
+  display: flex;
   justify-content: space-between;
-  background-color: #FFFFFF;
+  padding: 10px;
   border-radius: 12px;
-  gap:20px;
-
-
+  margin-bottom: 10px;
 }
-
-.Eduction-University{
-  font-size: 14px;
-  font-weight: bold;
+.university  ,.projectName ,.workName{
+  font-size: 16px;
+  font-weight: 500px;
   line-height: 24px;
   color:#000000;
-  margin-bottom:4px;
 }
 
-.Eduction-date{
+.projectDetails, .workDetails {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 24px;
+  color: #808080;
+}
 
+.line {
+  height: 1px;
+  background-color: #BFBFBF;
+  margin: 10px 0;
+}
+.date ,.duration{
   font-size: 12px;
   font-weight: 400;
   line-height: 18px;
   color:#999999;
+  margin-top:4px;
 
 }
 
-.Eduction-College{
+.college{
   margin-top:12px;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 400;
   line-height: 21px;
+  color:#1f1f1f;
 
 }
 
-
-.box4{
-  margin-top:20px;
-  padding-top:20px;
-  padding-bottom:10px;
-  width:430px;
-  display:flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items:center;
-  background-color: #FFFFFF;
-  border-radius: 12px;
-  margin-bottom: 10px;
+.description{
+  margin-top:12px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 21px;
+  color:#1f1f1f;
 
 }
 
-
-.box4-part2{
-  width:380px;
-  display:flex;
-  justify-content: space-between;
-  background-color: #FFFFFF;
-  border-radius: 12px;
-  gap:20px;
+.box4Part2{
+  display: flex;
+  width:100%;
 
 }
 
-.box4-part2-part1{
+.box4Part2Part1 {
+  width:200px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
-  width:38px;
-  height:140px;
+  justify-content: center; 
+  gap: 5px;
 }
 
-.circle{
-  width:12px;
-  height:12px;
-  border-radius: 50%;
-  background-color:#5376AC;
+
+.circle {
+  width: 10px; 
+  height: 10px; 
+  border-radius: 50%; 
+  background-color: #5376AC;
+  margin: 0 10px; 
 }
 
-.line{
-  width: 112px;
-  height: 2px;
-  border: 1.5px;
-  background-color:#5376AC;
-  transform: rotate(-90deg);
 
+.line1 {
+  width: 2px;
+  height: 90px; 
+  background-color: #5376AC; 
+  margin: 0 10px;
 }
-.line-space{
-  margin-top:24px ;
-  margin-bottom:24px ;
-  width:380px;
-  box-shadow: 0 0 0 0.35px #BFBFBF;
 
 
-}
+
+
 
 
 

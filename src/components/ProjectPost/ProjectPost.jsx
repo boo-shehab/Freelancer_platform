@@ -6,8 +6,12 @@ import Card from "../Card/card";
 import CustomButton from "../customButton/CustomButton";
 import ApplyToProjectFormPopup from "../ApplyToProjectFormPopup/ApplyToProjectFormPopup"
 import styles from "./ProjectPost.module.css"
-const projectPost = ({post}) => {
+const projectPost = ({post, isFreeLancer}) => {
     const [applyPopup, setApplyPopup] = useState(false)
+    const [isListVisible, setVisiblePostId] = useState(null);
+    const idShow = (id) => {
+      setVisiblePostId((prevId) => (prevId === id ? null : id));
+    };
     return (
         <>
             <Card marginTop={16} key={post.id}>
@@ -27,7 +31,14 @@ const projectPost = ({post}) => {
                         </div>
                         <div className={styles.postClientAction}>
                             <div className={styles.tag}>Available</div>
-                            <MoreIcon />
+                            <MoreIcon onClick={() => idShow(post.id)}/>
+                            {isListVisible===post.id && (
+                                <div className={styles.list} style={{marginTop: "220px", position: "absolute" }}>
+                                    <button>Share</button>
+                                    <button>Copy link</button>
+                                    <button>{isFreeLancer ? "report" : "delete"}</button>
+                                </div>
+                            )}
                         </div>
                     </div>
                     <div className={styles.postBody}>
@@ -67,5 +78,4 @@ const projectPost = ({post}) => {
         </>
     );
 }
-
 export default projectPost;

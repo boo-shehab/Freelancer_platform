@@ -73,7 +73,9 @@ const Header = ({ image = "none", name = "none", type = "none"}) => {
         <div className={styles.content}>
           {/* the code of mobile ; */}
           <div className={styles.mobileTitle}>
-            <h1 style={{display : image === "none" ? "block" : "none"}} >{location.pathname}</h1>
+          <h1 style={{ display: image === "none" ? "block" : "none" }}>
+           {location.pathname.startsWith("/") ? location.pathname.slice(1) : location.pathname}
+          </h1>
             <div style={{display : image === "none" ? "none" : "flex"}} className={styles.infoUserTitle}>
                 <div><img src={image} alt="" /></div>
                 <div className={styles.userData}>
@@ -173,7 +175,7 @@ const Header = ({ image = "none", name = "none", type = "none"}) => {
            <NavLink onClick={()=> setcurrecntPageNumber(1)} to="/"> <HomeIcon color={currecntPageNumber}/> </NavLink>
            <NavLink onClick={()=> setcurrecntPageNumber(2)} to="/dashboard"> <DashBord  color={currecntPageNumber}/> </NavLink>
          </div>
-              <div className={styles.insertPostIcon}> <button  onClick={() => setIsPopupOpen(true)}><InsertPostIcon /> </button></div>
+              <div className={styles.insertPostIcon}> <button  onClick={() => setIsPopupOpen(true)}><InsertPostIcon/> </button></div>
          <div className={styles.option2}>
            <NavLink onClick={()=> setcurrecntPageNumber(3)} to="/profile"> <ProfileIcon color={currecntPageNumber} /> </NavLink>
            <NavLink onClick={()=> setcurrecntPageNumber(4)} to="/setting"> <SettingIcon color={currecntPageNumber} /> </NavLink>

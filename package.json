@@ -15,6 +15,7 @@
     "react-country-flag": "^3.1.0",
     "react-dom": "^18.3.1",
     "react-phone-number-input": "^3.4.9",
+    "react-responsive": "^10.0.0",
     "react-router-dom": "^7.0.2",
     "react-select": "^5.8.3",
     "reactjs-otp-input": "^2.0.10",

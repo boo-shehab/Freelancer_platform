@@ -11,6 +11,7 @@ import TaskDoneIcon from "../../CustomIcons/TaskDoneIcon";
 import styles from "./ProfileScreen.module.css";
 import EmptyStarIcon from "../../CustomIcons/emptyStarIcon";
 import Star2Icon from "../../CustomIcons/Star2Icon";
+import { useMediaQuery } from "react-responsive";
 import { useEffect, useState } from "react";
 import EditProfilePopup from "../../components/EditProfilePopup/EditProfilePopup";
 import EditAboutPopup from "../../components/EditAboutPopup/EditAboutPopup";
@@ -21,6 +22,10 @@ const ProfileScreen = () => {
   const [isUserInfoOpen, setIsUserInfoOpen] = useState(false)
   const [isAboutPopupOpen, setIsAboutPopupOpen] = useState(false)
   const [aboutValue, setAboutValue] = useState("As a software manager with a passion for technology and team development, I specialize in guiding projects from concept to completion. With a strong focus on collaboration and clear communication, I work closely with clients and developers to ensure we deliver high-quality solutions that meet our stakeholders' needs. My goal is to bridge the gap between technical expertise and client vision, helping teams create innovative software that drives results and keeps pace with industry demands,Developed a task management web application designed to help users organize");
+
+  const isSmallScreen = useMediaQuery({ query: "(max-width: 950px)" });
+  const isTooSmallScreen = useMediaQuery({ query: "(max-width: 390px)" });
+
   const [aboutState, setAboutState] = useState(aboutValue.slice(0, 492));
   const [dotsAbout, setDotsAbout] = useState("....");
   const [seeAction, setSeeAction] = useState("See More");
@@ -91,10 +96,10 @@ const ProfileScreen = () => {
       <EditProfilePopup isOpen={isUserInfoOpen} onClose={() => setIsUserInfoOpen(false)} onSave={handleEditProfile} />
       <ProjectHistoryForm isOpen={isUserInfoOpen} onClose={() => setIsUserInfoOpen(false)} onSave={handleEditProfile} />
       {/* <EducationForm isOpen={isUserInfoOpen} onClose={() => setIsUserInfoOpen(false)} /> */}
-      <Container paddingx={56}>
+      <Container paddingx={isSmallScreen ? 0 : 56}>
         <div className={styles.content}>
           <section className={styles.section1}>
-            <Card paddingx={24} marginbottom={10}>
+            <Card paddingx={24} isProfilePage={true}>
               <div className={styles.userProfile}>
                 <div className={styles.userInfo}>
                   <img src="./avatar.png" alt="" />
@@ -236,10 +241,11 @@ const ProfileScreen = () => {
             </Card>
           </section>
           <section className={styles.section2}>
-            <Card paddingx={24}>
+            <Card paddingx={24} isProfilePage={true}>
+              <div className={styles.ActivityBox}>
               <h3 className={styles.ActivityHeader}>Your Activity</h3>
               <div className={styles.Chart}>
-                <DonutChart data={chartData} barSize={22} size={200}>
+                <DonutChart data={chartData} barSize={isTooSmallScreen? 16:22} size={isTooSmallScreen?140:200}>
                   <div>Projects</div>
                   <div>Progress</div>
                 </DonutChart>
@@ -283,9 +289,10 @@ const ProfileScreen = () => {
                   <div className={styles.label}>Project Posted</div>
                   <div className={styles.value}>14</div>
                 </div>
-              </div>
+              </div></div>
             </Card>
-            <Card marginTop={24} paddingx={24}>
+            <Card marginTop={24} paddingx={24} isProfilePage={true} >
+              <div className={styles.rateTitleBox}>
               <h3 className={styles.rateTitle}>Rating</h3>
               <p className={styles.rateSubtitle}>Average Rating</p>
               <div className={styles.ratingStars}>
@@ -335,9 +342,10 @@ const ProfileScreen = () => {
                   </div>
                   <p>{rating.lowRate}%</p>
                 </div>
-              </div>
+              </div></div>
             </Card>
-            <Card marginTop={24} paddingx={24}>
+            <Card marginTop={24} paddingx={24} isProfilePage={true}>
+              <div className={styles.titleReviewsBox}>
               <h3 className={styles.titleReviews}>Reviews</h3>
               <p className={styles.subtitleReviews}>
                 Total People who visited your profile
@@ -346,6 +354,7 @@ const ProfileScreen = () => {
                 <b>70</b> review
               </p>
               <button className={styles.seeAllReviews}>See all</button>
+              </div>
             </Card>
           </section>
         </div>

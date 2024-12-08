@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import styles from "./ApplyToProjectFormPopup.module.css";
 import CloseIcon from "../../CustomIcons/CloseIcon";
 import CustomButton from "../customButton/CustomButton";
-import ComntainerForm from "../ContainerForm/ContainerForm"
+import ContainerForm from "../ContainerForm/ContainerForm"
 
 const ApplyToProjectFormPopup = ({ isOpen, onClose }) => {
   const [name, setName] = useState("");
@@ -39,7 +39,7 @@ const ApplyToProjectFormPopup = ({ isOpen, onClose }) => {
     //         <CloseIcon />
     //       </button>
     //     </div>
-    <ComntainerForm isOpen={isOpen} onClose={onClose} HeadName="">
+    <ContainerForm isOpen={isOpen} onClose={onClose} HeadName="">
       <div className={styles["image-div"]}>
         <img className={styles["image"]} src={"avatar.png"} />
       </div>
@@ -80,7 +80,7 @@ const ApplyToProjectFormPopup = ({ isOpen, onClose }) => {
         />
       </div>
       <CustomButton  onClick={handleSave} disabled={disabled} className={styles["apply-btn"]}>Apply Now</CustomButton>
-    </ComntainerForm>
+    </ContainerForm>
     //   </div>
     // </div>
   );

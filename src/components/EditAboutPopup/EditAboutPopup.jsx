@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./EditAboutPopup.module.css";
-import ComntainerForm from "../ContainerForm/ContainerForm";
+import ContainerForm from "../ContainerForm/ContainerForm";
 
 const EditAboutPopup = ({ isOpen, onClose, initialText, onSave }) => {
   const [text, setText] = useState(initialText || "");
@@ -16,7 +16,7 @@ const EditAboutPopup = ({ isOpen, onClose, initialText, onSave }) => {
   if (!isOpen) return null ;
 
   return (
-    <ComntainerForm isOpen={isOpen} onClose={onClose} HeadName="Edit About">
+    <ContainerForm isOpen={isOpen} onClose={onClose} HeadName="Edit About">
         <div className={styles.popup}>
           {/* <div className={styles.header}>
             <h2>Edit About</h2>
@@ -38,7 +38,7 @@ const EditAboutPopup = ({ isOpen, onClose, initialText, onSave }) => {
             </button>
           </div>
         </div>
-    </ComntainerForm>
+    </ContainerForm>
   );
 };
 

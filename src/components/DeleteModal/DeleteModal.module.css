@@ -1,0 +1,22 @@
+.modal {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.overlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  inset: 0;
+  background-color: #0a0a0a56;
+}
+
+.content {
+  background: #fff;
+  position: fixed;
+  border-radius: 16px;
+  padding: 22px;
+}

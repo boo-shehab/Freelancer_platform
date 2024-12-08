@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./EditProfilePopup.module.css";
-import ComntainerForm from "../ContainerForm/ContainerForm";
+import ContainerForm from "../ContainerForm/ContainerForm";
 
 const EditProfilePopup = ({ isOpen, onClose, initialData, onSave }) => {
   const [firstName, setFirstName] = useState(initialData?.firstName || "");
@@ -27,7 +27,7 @@ const EditProfilePopup = ({ isOpen, onClose, initialData, onSave }) => {
   if (!isOpen) return null;
 
   return (
-    <ComntainerForm isOpen={isOpen} onClose={onClose} HeadName="Edit Name and Specialization">
+    <ContainerForm isOpen={isOpen} onClose={onClose} HeadName="Edit Name and Specialization">
         <div className={styles.body}>
           <label>
             First Name*
@@ -70,7 +70,7 @@ const EditProfilePopup = ({ isOpen, onClose, initialData, onSave }) => {
             Save
           </button>
         </div>
-    </ComntainerForm>
+    </ContainerForm>
   );
 };
 

@@ -4,10 +4,15 @@ import FilterSide from "../../components/filterSide/filterSide";
 import { Slider, ConfigProvider } from "antd";
 import DownModule from "../../components/DownModule/DownModule.jsx";
 
-const freeLancerScreen = ({ isPopupOpen2 = false, setIsPopupOpen2 }) => {
+const freeLancerScreen = ({
+  isPopupOpen2 = false,
+  setIsPopupOpen2,
+  onClose,
+}) => {
   const [value, setValue] = useState(["minimum", "maximum"]);
   const [selectedJobs, setSelectedJobs] = useState([]);
   const [sizeModule, setSizeModule] = useState(1);
+
   const handleJobSelection = (jobId) => {
     setSelectedJobs((prevSelected) =>
       prevSelected.includes(jobId)
@@ -29,6 +34,14 @@ const freeLancerScreen = ({ isPopupOpen2 = false, setIsPopupOpen2 }) => {
   };
   const onSliderChange = (newValue) => {
     setValue(newValue);
+  };
+  const deleteAndStop = () => {
+    setIsPopupOpen2(false);
+    setSelectedJobs([]);
+  };
+  const apply = () => {
+    setIsPopupOpen2(false);
+    selectedJobs;
   };
   const theme = {
     components: {
@@ -80,7 +93,7 @@ const freeLancerScreen = ({ isPopupOpen2 = false, setIsPopupOpen2 }) => {
 
   return (
     <>
-      <FilterSide>
+      <FilterSide selectedJobs={selectedJobs}>
         <div className={styles.freeLancer}>
           <div className={styles.freeLancerHeader}>
             <h1 className={styles.filterHead}>Filter</h1>
@@ -231,7 +244,7 @@ const freeLancerScreen = ({ isPopupOpen2 = false, setIsPopupOpen2 }) => {
                 {selectedJobs.map((job, index) => (
                   <span key={index} className={styles.selectedJobTag}>
                     {job}
-                    
+
                     <button
                       onClick={() => handleJobSelection(job)}
                       className={styles.removeJobButton}
@@ -314,10 +327,15 @@ const freeLancerScreen = ({ isPopupOpen2 = false, setIsPopupOpen2 }) => {
           />
         </ConfigProvider>
         <div className={styles.ResponsiveFooterBtn}>
-          <button className={styles.ResponsiveFooterBtnCancelSort}>
+          <button
+            className={styles.ResponsiveFooterBtnCancelSort}
+            onClick={deleteAndStop}
+          >
             Cancel Sort
           </button>
-          <button className={styles.ResponsiveFooterBtnApply}>Apply</button>
+          <button className={styles.ResponsiveFooterBtnApply} onClick={apply}>
+            Apply
+          </button>
         </div>
       </DownModule>
     </>

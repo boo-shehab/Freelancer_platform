@@ -116,6 +116,9 @@
   margin-bottom: 36px;
 }
 .deleteAccount {
+  /* position: fixed;
+  bottom: 15px;
+  left: 0; */
   border: none;
   width: 100%;
   background-color: #ebebeb;
@@ -149,7 +152,17 @@
 .mobileDelete {
   display: none !important;
 }
-@media (max-width: 945px) {
+@media (max-width: 950px) {
+  .deleteModalHeader button ,  .deleteModalHeader h3 {
+    display: none;
+  }
+  .deleteAccount{
+    position: fixed;
+    bottom: 60px;
+    left: 0;
+    width: 80%;
+    margin-left: 10%;
+  }
   .options {
     width: 90%;
     background-color: #ecf6f9;
@@ -201,8 +214,5 @@
     display: flex !important;
     justify-content: space-between !important;
   }
-  .notMobileDelete {
-    display: none !important;
-   
-  }
+
 }

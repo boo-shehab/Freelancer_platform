@@ -9,7 +9,7 @@ import LogoutIcon from "../../CustomIcons/LogoutIcon";
 import DeleteAccountIcon from "../../CustomIcons/DeleteAccountIcon";
 import LogoutModal from "../../components/LogoutModal/LogoutModal";
 import CloseIcon from "../../CustomIcons/CloseIcon";
-import DeleteModal from "../../components/DeleteModal/DeleteModal";
+import ComntainerForm from "../../components/ComntainerForm/ComntainerForm";
 import RadioComp from "../../components/RadioComp/RadioComp";
 import MobileDrawer from "../../components/MobileDrawer/MobileDrawer";
 
@@ -75,13 +75,6 @@ function Setting() {
               </a>
               <SettingArrow />
             </li>
-            <li className={styles.mobileDelete}>
-              <a>
-                <DeleteAccountIcon />
-                Delete Account
-              </a>
-              <SettingArrow />
-            </li>
           </ul>
         </div>
           
@@ -108,7 +101,7 @@ function Setting() {
           </div>
         </LogoutModal>
        
-        <DeleteModal isOpen={openDelete} onClose={() => setOpenDelete(false)}>
+        <ComntainerForm isOpen={openDelete} onClose={() => setOpenDelete(false)} HeadName="Delete Account">
           <div className={styles.deleteModal}>
             <div className={styles.deleteModalHeader}>
               <button
@@ -137,7 +130,7 @@ function Setting() {
         }`}
         disabled={!selectedOption}>Delete Account</button>
           </div>
-        </DeleteModal>
+        </ComntainerForm>
           
         <MobileDrawer isOpen={openDrawer} onClose={() => setOpenDrawer(false)}>
           <div className={styles.logoutCont}>

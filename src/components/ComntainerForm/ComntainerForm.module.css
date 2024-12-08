@@ -24,11 +24,11 @@
 #popup-overlay .popup-content .headOfResponsive{
   display: none;
   font-family: 'Poppins', sans-serif;
-  margin-top: 62px;
+  margin-top: 24px;
 }
 #popup-overlay .popup-content .headOfResponsive h1{
   font-family: Poppins;
-  font-size: 60px;
+  font-size: 24px;
   font-weight: 700;
   line-height: 30px;
   text-align: left;
@@ -38,7 +38,7 @@
 #popup-overlay .popup-content .headOfResponsive button{
   background-color: transparent;
   border: none;
-  font-size: 60px;
+  font-size: 30px;
 }
 @media screen and (max-width:700px){
     #popup-overlay .popup-content {

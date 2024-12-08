@@ -73,7 +73,9 @@ const Header = ({ image = "none", name = "none", type = "none"}) => {
         <div className={styles.content}>
           {/* the code of mobile ; */}
           <div className={styles.mobileTitle}>
-            <h1 style={{display : image === "none" ? "block" : "none"}} >{location.pathname}</h1>
+          <h1 style={{ display: image === "none" ? "block" : "none" }}>
+           {location.pathname.startsWith("/") ? location.pathname.slice(1) : location.pathname}
+          </h1>
             <div style={{display : image === "none" ? "none" : "flex"}} className={styles.infoUserTitle}>
                 <div><img src={image} alt="" /></div>
                 <div className={styles.userData}>

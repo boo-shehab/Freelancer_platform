@@ -20,21 +20,3 @@
   border-radius: 16px;
   padding: 22px;
 }
-
-
-@media (max-width: 945px) {
-  .modal {
-    display: none;
-  }
-
-  .overlay {
-    display: none;
-  }
-
-  .content {
-    display: none;
-  }
-}
-
-
-

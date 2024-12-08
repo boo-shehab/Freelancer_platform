@@ -1,10 +1,13 @@
+import { useState } from "react";
 import CommentsIcon from "../../CustomIcons/CommentsIcon";
 import HeartIcon from "../../CustomIcons/HeartIcon";
 import MoreIcon from "../../CustomIcons/MoreIcon";
 import Card from "../Card/card";
 import CustomButton from "../customButton/CustomButton";
+import ApplyToProjectFormPopup from "../ApplyToProjectFormPopup/ApplyToProjectFormPopup"
 import styles from "./ProjectPost.module.css"
 const projectPost = ({post}) => {
+    const [applyPopup, setApplyPopup] = useState(false)
     return (
         <>
             <Card marginTop={16} key={post.id}>
@@ -54,11 +57,12 @@ const projectPost = ({post}) => {
                         <div className={styles.footerItem}>
                             <CommentsIcon /> <span>comment</span>
                         </div>
-                        <CustomButton style={{margin: '0px', marginLeft: 'auto', width: 'auto'}}>
+                        <CustomButton style={{margin: '0px', marginLeft: 'auto', width: 'auto'}} onClick={() => setApplyPopup(true)}>
                             Apply now
                         </CustomButton>
                     </div>
                 </div>
+                <ApplyToProjectFormPopup isOpen={applyPopup} onClose={() => setApplyPopup(false)} />
             </Card>
         </>
     );

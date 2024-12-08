@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./EditProfilePopup.module.css";
-import ComntainerForm from "../ComntainerForm/ComntainerForm";
+import ComntainerForm from "../ContainerForm/ContainerForm";
 
 const EditProfilePopup = ({ isOpen, onClose, initialData, onSave }) => {
   const [firstName, setFirstName] = useState(initialData?.firstName || "");
@@ -27,14 +27,6 @@ const EditProfilePopup = ({ isOpen, onClose, initialData, onSave }) => {
   if (!isOpen) return null;
 
   return (
-    // <div className={styles.overlay}>
-    //   <div className={styles.popup}>
-    //     <div className={styles.header}>
-    //       <h2>Edit Name and Specialization</h2>
-    //       <button onClick={onClose} className={styles.closeButton}>
-    //         X
-    //       </button>
-    //     </div>
     <ComntainerForm isOpen={isOpen} onClose={onClose} HeadName="Edit Name and Specialization">
         <div className={styles.body}>
           <label>
@@ -79,8 +71,6 @@ const EditProfilePopup = ({ isOpen, onClose, initialData, onSave }) => {
           </button>
         </div>
     </ComntainerForm>
-    //   </div>
-    // </div>
   );
 };
 

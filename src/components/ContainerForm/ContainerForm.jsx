@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import styles from './ComntainerForm.module.css';
+import styles from './ContainerForm.module.css';
 
-const TwoStageFormPopup = ({ isOpen, onClose, Hight = 'auto' , HeadName="dashbord" , children}) => {
+const ContainerForm = ({ isOpen, onClose, Hight = 'auto' , HeadName="" , children}) => {
   if (!isOpen) return null;
 
   return (
@@ -18,4 +18,4 @@ const TwoStageFormPopup = ({ isOpen, onClose, Hight = 'auto' , HeadName="dashbor
   );
 };
 
-export default TwoStageFormPopup;
+export default ContainerForm;

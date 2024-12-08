@@ -14,6 +14,8 @@ import Star2Icon from "../../CustomIcons/Star2Icon";
 import { useEffect, useState } from "react";
 import EditProfilePopup from "../../components/EditProfilePopup/EditProfilePopup";
 import EditAboutPopup from "../../components/EditAboutPopup/EditAboutPopup";
+import EducationForm from "../../components/EducationForm/EducationForm";
+import ProjectHistoryForm from "../../components/ProjectHistoryForm/ProjectHistoryForm"
 
 const ProfileScreen = () => {
   const [isUserInfoOpen, setIsUserInfoOpen] = useState(false)
@@ -79,10 +81,16 @@ const ProfileScreen = () => {
     setAboutState(value.slice(0, 492))
   }
 
+  const handleEditProfile = () => {
+
+  }
+
   return (
     <div className={styles.ProfileScreen}>
       <EditAboutPopup isOpen={isAboutPopupOpen} onClose={() => setIsAboutPopupOpen(false)} onSave={handleEditAbout}/>
-      <EditProfilePopup isOpen={isUserInfoOpen} onClose={() => setIsUserInfoOpen(false)} onSave={handleEditAbout} />
+      <EditProfilePopup isOpen={isUserInfoOpen} onClose={() => setIsUserInfoOpen(false)} onSave={handleEditProfile} />
+      <ProjectHistoryForm isOpen={isUserInfoOpen} onClose={() => setIsUserInfoOpen(false)} onSave={handleEditProfile} />
+      {/* <EducationForm isOpen={isUserInfoOpen} onClose={() => setIsUserInfoOpen(false)} /> */}
       <Container paddingx={56}>
         <div className={styles.content}>
           <section className={styles.section1}>

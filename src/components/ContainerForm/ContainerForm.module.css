@@ -11,7 +11,7 @@
     z-index: 1000;
   }
   
-#popup-overlay .popup-content {
+  #popup-overlay .popup-content {
     background: #F8FBFC;
     padding: 20px;
     border-radius: 12px;
@@ -20,6 +20,8 @@
     position: relative;
     display: flex;
     flex-direction: column;
+    max-height: 100vh;
+    overflow: auto;
 }
 #popup-overlay .popup-content .headOfResponsive{
   display: flex;

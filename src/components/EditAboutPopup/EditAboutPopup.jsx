@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./EditAboutPopup.module.css";
-import ComntainerForm from "../ComntainerForm/ComntainerForm";
+import ComntainerForm from "../ContainerForm/ContainerForm";
 
 const EditAboutPopup = ({ isOpen, onClose, initialText, onSave }) => {
   const [text, setText] = useState(initialText || "");

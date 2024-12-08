@@ -1,0 +1,60 @@
+
+  .label {
+    display: block;
+    margin-bottom: 16px;
+    font-weight: 500;
+  }
+  
+  .input,
+  .select,
+  .textarea {
+    width: 100%;
+    padding: 8px;
+    margin-top: 8px;
+    border: 1px solid #ccc !important;
+    border-radius: 4px;
+    font-size: 14px;
+    background-color: transparent;
+    outline: none;
+  }
+
+  .input:focus,
+  .select:focus,
+  .textarea:focus {
+    border: 1px solid #3C97AF !important;
+  }
+
+  .textarea:focus{
+    resize: none;
+  }
+  
+  .row {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .col {
+    flex: 1;
+  }
+  
+  .buttonContainer{
+    text-align: right;
+  }
+
+  .button {
+    background-color: #3C97AF;
+    color: white;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 4px;
+    margin-left: auto;
+    font-size: 14px;
+    cursor: pointer;
+    text-align: center;
+  }
+  
+  .button:hover {
+    background-color: #006666;
+  }
+  

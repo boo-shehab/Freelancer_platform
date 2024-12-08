@@ -78,6 +78,29 @@ const recentProjects = [
   },
 ];
 
+const optionOfFreelancing = [
+  {
+    id: 1,
+    Job: "Full-Stack",
+  },
+  {
+    id: 2,
+    Job: "Front End ",
+  },
+  {
+    id: 3,
+    Job: "Mobile Developer",
+  },
+  {
+    id: 4,
+    Job: "UI UX Designer",
+  },
+  {
+    id: 5,
+    Job: "Back End",
+  },
+];
+
 const formerCoworkers = [
   {
     id: 1,
@@ -117,10 +140,23 @@ const formerCoworkers = [
 ];
 
 const HomeScreen = () => {
+  const [selectedJobs, setSelectedJobs] = useState([]);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [recentProjectOpened, setRecentProjectOpened] = useState(-1);
-  const [isFreeLancer, setIsFreeLancer] = useState(true);
+  const [isFreeLancer, setIsFreeLancer] = useState(false);
   const [isPopupOpen2, setIsPopupOpen2] = useState(false);
+
+  const clearAllSelections = () => {
+    setSelectedJobs([]);
+  };
+
+  const handleJobSelection = (jobId) => {
+    setSelectedJobs((prevSelected) =>
+      prevSelected.includes(jobId)
+        ? prevSelected.filter((id) => id !== jobId)
+        : [...prevSelected, jobId]
+    );
+  };
 
   const handleNewProject = () => {
     setIsPopupOpen(true);
@@ -135,7 +171,10 @@ const HomeScreen = () => {
         <div className={styles.content}>
           {/* MuhammedLami */}
           {isFreeLancer ? (
-            <FreeLancerScreen isPopupOpen2={isPopupOpen2} setIsPopupOpen2={setIsPopupOpen2}/>
+            <FreeLancerScreen
+              isPopupOpen2={isPopupOpen2}
+              setIsPopupOpen2={setIsPopupOpen2}
+            />
           ) : (
             <section className={styles.section1}>
               <Card>
@@ -146,6 +185,38 @@ const HomeScreen = () => {
                     <StarIcon /> <span>5.0</span>
                   </div>
                   <Link to="/profile">Edit Profile</Link>
+                </div>
+              </Card>
+
+              <Card marginTop={16}>
+                <div className={styles.freeLancerHeader}>
+                  <h1 className={styles.filterHead}>Filter</h1>
+
+                  <p className={styles.clearAll} onClick={clearAllSelections}>
+                    Clear all
+                  </p>
+                </div>
+                <div className={styles.specializationFilter}>
+                  <h4 className={styles.specializationHead}>
+                    specializationFilter
+                  </h4>
+                  <div className={styles.specializationBody}>
+                    <div className={styles.spacing}>
+                      {optionOfFreelancing.map((job) => (
+                        <div key={job.id} className={styles.Options}>
+                          <button
+                            className={`${styles.btn} 
+                          ${
+                            selectedJobs.includes(job.id) ? styles.btnGreen : ""
+                          }
+                          `}
+                            onClick={() => handleJobSelection(job.id)}
+                          ></button>
+                          <p>{job.Job}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               </Card>
               <Card marginTop={16}>
@@ -199,7 +270,10 @@ const HomeScreen = () => {
                   />
                 </div>
                 <button className={styles.SearchBtn}>Search</button>
-                <button className={styles.FilterResponsiveBtn} onClick={()=>(setIsPopupOpen2(true))}>
+                <button
+                  className={styles.FilterResponsiveBtn}
+                  onClick={() => setIsPopupOpen2(true)}
+                >
                   <FilterResponsive />
                 </button>
               </div>

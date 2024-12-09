@@ -36,6 +36,10 @@
   background-color: #ddf8e7;
   border-radius: 24px;
   color: #4db251;
+  font-family: Poppins;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 15px;
 }
 
 .postItem .postHead .postClientAction {
@@ -62,7 +66,13 @@
   line-height: 1.4;
 }
 
-.postFooter {
+.postFooter1 {
+  display: flex;
+  align-items: center;
+  margin-top: 16px;
+  justify-content: space-between;
+}
+.postFooter2 {
   display: flex;
   align-items: center;
   gap: 24px;
@@ -129,8 +139,34 @@
 .list button:last-child:hover {
   background-color: #410606;
 }
-@media (max-width:950px){
-    .postFooter{
-        flex-wrap: wrap;
-    }
+@media (max-width: 950px) {
+  .postFooter {
+    flex-wrap: wrap;
+  }
+}
+@media (max-width: 750px) {
+  .postFooter1 {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+  }
+}
+@media (max-width: 400px) {
+  .postItem .postHead .tag {
+    padding: 8px 10px;
+  font-size: 8px;
+  }
+  .postItem .postHead .postAvatar {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .postItem .postHead .postClientName {
+    font-size: 12px;
+  }
+  
+  .postItem .postHead .postClientDate {
+    font-size: 8px;
+    
+  }
 }

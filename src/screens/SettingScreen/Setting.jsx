@@ -77,7 +77,6 @@ function Setting() {
             </li>
           </ul>
         </div>
-          
         <LogoutModal isOpen={openModal} onClose={() => setOpenModal(false)}>
           <div className={styles.logoutModal}>
             <div className={styles.modalHeader}>

@@ -342,5 +342,9 @@ button.declineFreeLancer {
     .projects .projectBtn{
         width: 300px;
     }
-    
+}
+@media screen and (max-width: 400px)  {
+    .statisticsSection {
+        flex-direction: column;
+    }
 }

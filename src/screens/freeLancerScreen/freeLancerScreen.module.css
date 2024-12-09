@@ -1,3 +1,7 @@
+*{
+  text-decoration: none;
+}
+
 .freeLancer {
   display: flex;
   flex-direction: column;
@@ -109,7 +113,7 @@
   color: #808080;
 }
 .priceShowUpInput {
-  width: 148px;
+  width: 50%;
   height: 48px;
   padding: 10px;
   gap: 10px;
@@ -123,13 +127,23 @@
   margin-top: 42px;
 }
 .editProfileFreeLancerSide {
-  width: 300px;
-  height: 210px;
+  width: 100%;
   padding: 16px;
   border-radius: 16px;
   border: 0.3px solid #1c4752;
   margin-top: 40px;
 }
+
+.editProfileFreeLancerSide h3{
+text-align: left;
+font-family: Poppins;
+font-size: 18px;
+font-weight: 700;
+line-height: 22.5px;
+color: #1C4752;
+margin: 0;
+}
+
 .editProfileFreeLancerSideContent {
   display: flex;
   flex-direction: column;
@@ -142,6 +156,7 @@
   border-radius: 50%;
   width: 56px;
   height: 56px;
+  margin-top: 12px;
 }
 .FreeLancerSideContentText {
   display: flex;

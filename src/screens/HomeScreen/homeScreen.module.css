@@ -470,9 +470,6 @@
   .postBox {
     width: 100%;
   }
-  .FreeLancerScreenSearch {
-    /* border: none; */
-  }
   .section2 {
     width: 100% !important;
   }
@@ -480,7 +477,7 @@
     display: none;
   }
   .FilterResponsiveBtn {
-    display: block;
+    display: block ;
   }
 }
 @media (max-width: 1240px) {

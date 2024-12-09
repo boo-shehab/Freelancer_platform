@@ -68,7 +68,7 @@ const projectPost = ({post, isFreeLancer}) => {
                         <div className={styles.footerItem}>
                             <CommentsIcon /> <span>comment</span>
                         </div>
-                        <CustomButton style={{margin: '0px', marginLeft: 'auto', width: 'auto'}} onClick={() => setApplyPopup(true)}>
+                        <CustomButton style={{margin: '0px', marginLeft: 'auto', width: 'auto'}} onClick={() => setApplyPopup(true)}className={isFreeLancer==false ? styles.off : ""}>
                             Apply now
                         </CustomButton>
                     </div>

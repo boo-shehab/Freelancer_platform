@@ -12,7 +12,7 @@
 }
 .content .section2 {
   width: 34%;
-  min-width: 300px;
+  /* min-width: 300px; */
   height: 80vh;
   overflow-y: auto;
   scrollbar-width: none;
@@ -414,6 +414,9 @@ align-items: start;  }
 @media (max-width: 950px) {
   .profilePageOFFreelancer{
     flex-direction: column;
+  }
+  .section2{
+    width: 100%;
   }
   .content {
     display: flex;

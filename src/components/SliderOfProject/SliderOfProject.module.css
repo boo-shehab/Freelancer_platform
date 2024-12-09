@@ -45,12 +45,12 @@
 
 .StatusContainer {
     display: flex;
-    align-items: center; 
-    gap: 20px; 
+    align-items: center;
+    gap: 20px;
 }
 
 .sliderOFprojectinfo .slider .StatusOFproject {
-    display: flex; 
+    display: flex;
     flex-direction: column;
     gap: 10px;
 }
@@ -85,8 +85,8 @@
 
 .chartContainer {
     display: flex;
-    justify-content: center; 
-    align-items: center; 
+    justify-content: center;
+    align-items: center;
     margin-left: 90px;
 }
 
@@ -304,20 +304,22 @@ button.declineFreeLancer {
 
 .task {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     background: #f9f9f9;
     padding: 10px;
     border-radius: 5px;
     margin-bottom: 10px;
+    position: relative;
+    cursor: pointer;
+
+}
+
+.task p {
+    margin-left: 10px;
+    margin-right: 70px;
     
-
 }
 
-.taskActions {
-    display: flex;
-    gap: 10px;
-}
 
 .editButton {
     background: none;
@@ -325,6 +327,7 @@ button.declineFreeLancer {
     color: #FFBF00;
     cursor: pointer;
     font-size: 1rem;
+    margin-right: 5px;
 }
 
 .deleteButton {
@@ -340,26 +343,26 @@ button.declineFreeLancer {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    background-color: #fff; 
-    border:  solid #ccc; 
+    background-color: #fff;
+    border: solid #ccc;
     width: 16px;
     height: 16px;
-    border-radius: 4px; 
-    position: relative; 
+    border-radius: 4px;
+    position: relative;
 }
 
 .checkbox:checked {
-    background-color: var(--Colors-Success-600, #198A46); 
+    background-color: var(--Colors-Success-600, #198A46);
     border-color: var(--Colors-Success-600, #198A46);
 }
 
 .checkbox:checked::before {
     content: "✔";
-    color: white; 
-    font-size: 12px; 
+    color: white;
+    font-size: 12px;
     position: absolute;
     text-align: center;
-    line-height: 12px; 
+    line-height: 12px;
 }
 
 .checkboxLabel {
@@ -370,13 +373,34 @@ button.declineFreeLancer {
 .doneTask {
     text-decoration: line-through;
 }
+
+.subList {
+    width: Fixed 124px;
+    height: Fixed 76px;
+    padding: 10px;
+    gap: 6px;
+    border-radius: 16px;
+    background: #F8FBFC;
+    box-shadow: 1px 2px 8px 0px #21868E40;
+    position: absolute;
+    top: 44px;
+    z-index: 10;
+
+}
+
+.subListItems li {
+    list-style: none;
+}
+
+
 @media screen and (max-width: 400px) and (min-width:300px) {
     .sliderOFprojectinfo .slider {
         height: 100%;
         width: 100%
     }
-    .chartContainer{
+
+    .chartContainer {
         margin-left: 40px;
     }
-    
+
 }

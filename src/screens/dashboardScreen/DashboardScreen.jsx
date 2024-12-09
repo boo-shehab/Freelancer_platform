@@ -13,10 +13,20 @@ const DashboardScreen = () => {
     const [selectedProject, setSelectedProject] = useState(null);
 
     const [tasks, setTasks] = useState([
-        { id: 1, name: 'Design Registration Screen' },
-        { id: 2, name: 'Design Registration Screen' },
-        { id: 3, name: 'Design Registration Screen' },
+        { id: 1, name: 'Design Registration Screen', status: 'To Do' },
+        { id: 2, name: 'Design Registration Screen', status: 'To Do' },
+        { id: 3, name: 'Design Registration Screen', status: 'To Do' },
+        { id: 4, name: 'Design Registration Screen', status: 'In Progress' },
+        { id: 5, name: 'Design Registration Screen', status: 'In Progress' },
+        { id: 6, name: 'Design Registration Screen', status: 'In Progress' },
+        { id: 7, name: 'Design Registration Screen', status: 'In Review' },
+        { id: 8, name: 'Design Registration Screen', status: 'In Review' },
+        { id: 9, name: 'Design Registration Screen', status: 'In Review' },
+        { id: 10, name: 'Design Registration Screen', status: 'Done' },
+        { id: 11, name: 'Design Registration Screen', status: 'Done' },
+        { id: 12, name: 'Design Registration Screen', status: 'Done' },
     ]);
+
 
 
     const projects = [
@@ -141,6 +151,14 @@ const DashboardScreen = () => {
             setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
         }
     };
+    const handleTaskStatusChange = (taskId, newStatus) => {
+        setTasks((prevTasks) =>
+            prevTasks.map((task) =>
+                task.id === taskId ? { ...task, status: newStatus } : task
+            )
+        );
+    };
+
     return (
         <div className={styles.dashboardContainer}>
             <Container>
@@ -173,23 +191,23 @@ const DashboardScreen = () => {
                         </div>
                     </section>
                     <div className={styles.section2}>                        <div className={styles.statistics}>
-                            <div className={styles.card}>
-                                <p>total projects</p>
-                                <b>7</b>
-                            </div>
-                            <div className={styles.card}>
-                                <p>total projects</p>
-                                <b>7</b>
-                            </div>
-                            <div className={styles.card}>
-                                <p>total projects</p>
-                                <b>7</b>
-                            </div>
-                            <div className={styles.card}>
-                                <p>total projects</p>
-                                <b>7</b>
-                            </div>
+                        <div className={styles.card}>
+                            <p>total projects</p>
+                            <b>7</b>
                         </div>
+                        <div className={styles.card}>
+                            <p>total projects</p>
+                            <b>7</b>
+                        </div>
+                        <div className={styles.card}>
+                            <p>total projects</p>
+                            <b>7</b>
+                        </div>
+                        <div className={styles.card}>
+                            <p>total projects</p>
+                            <b>7</b>
+                        </div>
+                    </div>
 
                         <Card marginTop={12}>
                             <div className={styles.statisticsSection}>
@@ -238,7 +256,10 @@ const DashboardScreen = () => {
                 tasks={selectedProject ? tasks : []}
                 handleEdit={handleEdit}
                 handleDelete={handleDelete}
+                taskStatus={selectedProject ? tasks.map(task => task.status) : []}
+                onStatusChange={handleTaskStatusChange}
             />
+
         </div>
     );
 };

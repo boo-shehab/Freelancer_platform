@@ -1,4 +1,4 @@
-const Container = ({ children ,paddingx=24}) => {
+const Container = ({ children ,paddingx=24 }) => {
   return (
     <div
       style={{

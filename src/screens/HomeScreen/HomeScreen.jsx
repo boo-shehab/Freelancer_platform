@@ -172,7 +172,7 @@ const HomeScreen = () => {
         isOpen={isPopupOpen}
         onClose={() => setIsPopupOpen(false)}
       />
-      <Container>
+      <Container >
         <div className={styles.content}>
           {/* MuhammedLami */}
           {isFreeLancer ? (

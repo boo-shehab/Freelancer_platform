@@ -263,7 +263,9 @@
   transition: 0.5s;
   border-radius: 50%;
 }
-
+.ArrowTop{
+  align-items: center;
+  }
 .arrowBtn.active {
   transform: rotateZ(-180deg);
 }
@@ -460,6 +462,11 @@
   background-color: #3c97af;
   border: none;
 }
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 3defa4a39f9f4bf9d53d3f0ff39386fb183860ab
 .mobileSearch {display: none;}
 .showingUp {
   display: flex;

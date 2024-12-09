@@ -150,7 +150,8 @@ const HomeScreen = () => {
   const [isPopupOpen2, setIsPopupOpen2] = useState(false);
   const [openDrawer, setOpenDrawer] = useState(false);
 
-  const drawerHeight = 455 ; 
+  const drawerHeight = isFreeLancer === false ? 530 : 430;
+
 
   const clearAllSelections = () => {
     setSelectedJobs([]);

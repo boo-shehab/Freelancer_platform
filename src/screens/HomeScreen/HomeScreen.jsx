@@ -338,7 +338,8 @@ const HomeScreen = () => {
                               : setRecentProjectOpened(-1)
                           }
                         >
-                          <ArrowTop />
+                         <div className={styles.ArrowTop}> 
+                          <ArrowTop />  </div>
                         </button>
                       </div>
                       <p className={styles.projectDescription}>

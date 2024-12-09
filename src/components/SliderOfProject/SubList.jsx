@@ -1,7 +1,8 @@
 
 import InProgressIcon from '../../CustomIcons/InProgressIcon';
 import InReviewIcon from '../../CustomIcons/InReviewIcon';
-import ToDoIcon from '../../CustomIcons/ToDoIcon';import styles from './SliderOfProject.module.css';
+import ToDoIcon from '../../CustomIcons/ToDoIcon';
+import styles from './SliderOfProject.module.css';
 
 const SubList = ({ taskId, onStatusChange }) => (
     <div className={styles.subList}>

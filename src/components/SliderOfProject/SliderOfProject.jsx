@@ -43,9 +43,8 @@ const SliderOfProject = ({
     };
 
     const handleStatusChange = (taskId, newStatus) => {
-        // Update the status of the task via the parent method
         onStatusChange(taskId, newStatus);
-        setSelectedTab(newStatus);  // Update the selected tab
+        setSelectedTab(newStatus);  
         console.log("Task status changed. New status:", newStatus);
     };
 

@@ -4,7 +4,6 @@ import styles from "./DashboardScreen.module.css"
 import Container from "../../components/Container/container";
 import Card from "../../components/Card/card";
 import DonutChart from "../../components/charts/DonutChart";
-// import CloseSliderIcon from "../../CustomIcons/CloseSliderIcon";
 import SliderOfProject from '../../components/SliderOfProject/SliderOfProject';
 
 const DashboardScreen = () => {

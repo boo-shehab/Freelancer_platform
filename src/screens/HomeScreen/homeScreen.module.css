@@ -471,7 +471,7 @@
     width: 100%;
   }
   .FreeLancerScreenSearch {
-    /* border: none; */
+    border: none;
   }
   .section2 {
     width: 100% !important;
@@ -496,12 +496,7 @@
   .section2 {
     width: 100% !important;
   }
-  .SearchBtn {
-    display: none;
-  }
-  .FilterResponsiveBtn {
-    display: block;
-  }
+
 }
 @media (max-width: 1202px) {
   .content .section3 {
@@ -594,6 +589,9 @@
     display: none;
   }
   .section1 {
+    display: none;
+  }
+  .mainFreeLancerScreenSearch {
     display: none;
   }
   .postBoxCont {

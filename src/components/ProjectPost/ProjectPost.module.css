@@ -68,7 +68,9 @@
   gap: 24px;
   margin-top: 16px;
 }
-
+.postFooter .off{
+  display: none;
+}
 .footerItem {
   display: flex;
   align-items: center;

@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 import ProjectPost from "../../components/ProjectPost/ProjectPost";
 import FreeLancerScreen from "../freeLancerScreen/freeLancerScreen";
 import FilterResponsive from "../../CustomIcons/filterResponsive";
+import { useMediaQuery } from "react-responsive";
 
 const projects = [
   {
@@ -144,9 +145,10 @@ const HomeScreen = () => {
   const [selectedJobs, setSelectedJobs] = useState([]);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [recentProjectOpened, setRecentProjectOpened] = useState(-1);
-  const [isFreeLancer, setIsFreeLancer] = useState(true);
+  const [isFreeLancer, setIsFreeLancer] = useState(false);
   const [isPopupOpen2, setIsPopupOpen2] = useState(false);
   const [callBack, setCallBack] = useState([]);
+  const isSmallScreen = useMediaQuery({ query: "(max-width: 950px)" });
   const clearAllSelections = () => {
     setSelectedJobs([]);
   };
@@ -264,7 +266,7 @@ const HomeScreen = () => {
               </Card>
             </section>
           )}
-          <section className={styles.section2}>
+          <section className={styles.section2} style={{marginBottom:`${isSmallScreen ? "130px":"0px"}`}}>
             {isFreeLancer ? (
               <>
                 <div className={styles.mainFreeLancerScreenSearch}>

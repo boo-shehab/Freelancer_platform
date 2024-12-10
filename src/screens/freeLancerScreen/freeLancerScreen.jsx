@@ -3,6 +3,7 @@ import styles from "./freeLancerScreen.module.css";
 import FilterSide from "../../components/filterSide/filterSide";
 import { Slider, ConfigProvider } from "antd";
 import DownModule from "../../components/DownModule/DownModule.jsx";
+import { Link } from "react-router-dom";
 
 const freeLancerScreen = ({
   isPopupOpen2 = false,
@@ -212,7 +213,9 @@ const freeLancerScreen = ({
                 </div>
               ))}
             </div>
-            <p className={styles.FreeLancerSideSeeProfile}>See profile</p>
+            <Link to="/profile">
+              <p className={styles.FreeLancerSideSeeProfile}>See profile</p>
+            </Link>
           </div>
         </div>
       </FilterSide>

@@ -7,7 +7,7 @@ import CustomButton from "../customButton/CustomButton";
 import ApplyToProjectFormPopup from "../ApplyToProjectFormPopup/ApplyToProjectFormPopup";
 import styles from "./ProjectPost.module.css";
 import { useMediaQuery } from "react-responsive";
-const projectPost = ({ post, isFreeLancer }) => {
+const projectPost = ({ post, isFreeLancer = false }) => {
   const [applyPopup, setApplyPopup] = useState(false);
   const [isListVisible, setVisiblePostId] = useState(null);
 
@@ -78,6 +78,7 @@ const projectPost = ({ post, isFreeLancer }) => {
               Width={isSmallScreen ? "100%" : "128px"}
               style={{ margin: "0px", marginLeft: "auto" }}
               onClick={() => setApplyPopup(true)}
+              Display={isFreeLancer}
             >
               Apply now
             </CustomButton>

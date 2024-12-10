@@ -14,7 +14,7 @@ import ProjectPost from "../../components/ProjectPost/ProjectPost";
 import FreeLancerScreen from "../freeLancerScreen/freeLancerScreen";
 import FilterResponsive from "../../CustomIcons/filterResponsive";
 import { useMediaQuery } from "react-responsive";
-
+import CommentForm from "../../components/CommentForm/CommentForm";
 const projects = [
   {
     id: 1,
@@ -148,6 +148,7 @@ const HomeScreen = () => {
   const [isFreeLancer, setIsFreeLancer] = useState(false);
   const [isPopupOpen2, setIsPopupOpen2] = useState(false);
   const [callBack, setCallBack] = useState([]);
+  const [isCommentForm, setIsCommentForm] = useState(false);
   const isSmallScreen = useMediaQuery({ query: "(max-width: 950px)" });
   const clearAllSelections = () => {
     setSelectedJobs([]);
@@ -174,7 +175,7 @@ const HomeScreen = () => {
         isOpen={isPopupOpen}
         onClose={() => setIsPopupOpen(false)}
       />
-      <Container >
+      <Container>
         <div className={styles.content}>
           {/* MuhammedLami */}
           {isFreeLancer ? (
@@ -266,7 +267,10 @@ const HomeScreen = () => {
               </Card>
             </section>
           )}
-          <section className={styles.section2} style={{marginBottom:`${isSmallScreen ? "130px":"0px"}`}}>
+          <section
+            className={styles.section2}
+            style={{ marginBottom: `${isSmallScreen ? "130px" : "0px"}` }}
+          >
             {isFreeLancer ? (
               <>
                 <div className={styles.mainFreeLancerScreenSearch}>
@@ -287,16 +291,15 @@ const HomeScreen = () => {
                   </button>
                 </div>
                 <div className={styles.showingUp}>
-                {callBack.map((i) => (
-                  <>
-                    
+                  {callBack.map((i) => (
+                    <>
                       <div className={styles.insideShowingUp}>
-                        <div >x</div>
+                        <div>x</div>
                         <div>{i}</div>
                       </div>
-                   
-                  </>
-                ))}{" "} </div>
+                    </>
+                  ))}{" "}
+                </div>
               </>
             ) : (
               <Card>
@@ -316,6 +319,8 @@ const HomeScreen = () => {
             {posts?.map((post) => (
               <ProjectPost
                 isFreeLancer={isFreeLancer}
+                IsCommentForm={isCommentForm}
+                SetIsCommentForm={() => setIsCommentForm(!isCommentForm)}
                 key={post.id}
                 post={post}
               />
@@ -359,8 +364,9 @@ const HomeScreen = () => {
                               : setRecentProjectOpened(-1)
                           }
                         >
-                         <div className={styles.ArrowTop}> 
-                          <ArrowTop />  </div>
+                          <div className={styles.ArrowTop}>
+                            <ArrowTop />{" "}
+                          </div>
                         </button>
                       </div>
                       <p className={styles.projectDescription}>
@@ -399,6 +405,10 @@ const HomeScreen = () => {
           )}
         </div>
       </Container>
+      <CommentForm
+        isOpen={isCommentForm}
+        onClose={() => setIsCommentForm(!isCommentForm)}
+      />
     </div>
   );
 };

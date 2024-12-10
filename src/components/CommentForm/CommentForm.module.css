@@ -1,0 +1,37 @@
+.commentList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.CommentCardSpaceBetween{
+  display: flex;
+  gap: 12px;
+}
+.CommentCard {
+  display: flex;
+  gap: 10px;
+  padding: 10px 10px;
+  align-items: center;
+  min-height: 10px;
+  width: 100%;
+  box-shadow: 0px 2px 8px 0px #3c97af14;
+  border-radius: 16px;
+  justify-content: space-between;
+}
+
+.date {
+  color: #999999;
+}
+
+.CommentCardImg {
+  width: 40px;
+  height: 40px;
+}
+.btnsEditAndDelete{
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.editIcons{
+  cursor: pointer;
+}

@@ -145,7 +145,7 @@ const HomeScreen = () => {
   const [selectedJobs, setSelectedJobs] = useState([]);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [recentProjectOpened, setRecentProjectOpened] = useState(-1);
-  const [isFreeLancer, setIsFreeLancer] = useState(true);
+  const [isFreeLancer, setIsFreeLancer] = useState(false);
   const [isPopupOpen2, setIsPopupOpen2] = useState(false);
   const [callBack, setCallBack] = useState([]);
   const isSmallScreen = useMediaQuery({ query: "(max-width: 950px)" });

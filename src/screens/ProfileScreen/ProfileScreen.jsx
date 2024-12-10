@@ -19,7 +19,6 @@ import EducationForm from "../../components/EducationForm/EducationForm";
 import ProjectHistoryForm from "../../components/ProjectHistoryForm/ProjectHistoryForm"
 import ProfileLeft1 from "../../components/profileLeft1/profileLeft1"
 import SkilsSide from "../../components/Skils/skils"
-import SkillsForm from "../../components/SkillsForm/SkillsForm"
 
 
 const ProfileScreen = () => {
@@ -498,8 +497,6 @@ const ProfileScreen = () => {
             </div>
           </Container>
         </div>)}
-        {/* forms */}
-        <SkillsForm isOpen={true}/>
     </div>
   );
 };

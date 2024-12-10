@@ -176,8 +176,8 @@ const Header = ({ image = "none", name = "none", type = "none" }) => {
           </div>
         </div>
       </Container>
-      <div className={styles.footerOPtion} style={{display: isFreeLancer ? "flex" : "none"}}>
-        <div className={styles.option1}>
+      <div className={isFreeLancer ? styles.footerOPtionFreelancer : styles.footerOPtion}>
+        <div className={styles.option1} style={{ display: isFreeLancer ? "none" : "block" }}>
           <NavLink onClick={() => setcurrecntPageNumber(1)} to="/">
             {" "}
             <HomeIcon color={currecntPageNumber} />{" "}
@@ -187,13 +187,13 @@ const Header = ({ image = "none", name = "none", type = "none" }) => {
             <DashBord color={currecntPageNumber} />{" "}
           </NavLink>
         </div>
-        <div className={styles.insertPostIcon} >
+        <div className={styles.insertPostIcon} style={{ display: isFreeLancer ? "none" : "block" }}>
           {" "}
           <button onClick={() => setIsPopupOpen(true)}>
             <InsertPostIcon />{" "}
           </button>
         </div>
-        <div className={styles.option2}>
+        <div className={styles.option2} style={{ display: isFreeLancer ? "none" : "block" }}>
           <NavLink onClick={() => setcurrecntPageNumber(3)} to="/profile">
             {" "}
             <ProfileIcon color={currecntPageNumber} />{" "}
@@ -203,20 +203,24 @@ const Header = ({ image = "none", name = "none", type = "none" }) => {
             <SettingIcon color={currecntPageNumber} />{" "}
           </NavLink>
         </div>
-      </div>
-      <div className={styles.footerOPtionOfClient} style={{display: isFreeLancer ? "none" : "flex"}}>
+        <div className={styles.freeLancerFooter} style={{ display: isFreeLancer ? "flex" : "none" }}>
           <NavLink onClick={() => setcurrecntPageNumber(1)} to="/">
-            <HomeIcon color={currecntPageNumber} />
+            {" "}
+            <HomeIcon color={currecntPageNumber} />{" "}
           </NavLink>
           <NavLink onClick={() => setcurrecntPageNumber(2)} to="/dashboard">
-            <DashBord color={currecntPageNumber} />
+            {" "}
+            <DashBord color={currecntPageNumber} />{" "}
           </NavLink>
           <NavLink onClick={() => setcurrecntPageNumber(3)} to="/profile">
-            <ProfileIcon color={currecntPageNumber} />
+            {" "}
+            <ProfileIcon color={currecntPageNumber} />{" "}
           </NavLink>
           <NavLink onClick={() => setcurrecntPageNumber(4)} to="/setting">
-            <SettingIcon color={currecntPageNumber} />
+            {" "}
+            <SettingIcon color={currecntPageNumber} />{" "}
           </NavLink>
+        </div>
       </div>
     </div>
   );

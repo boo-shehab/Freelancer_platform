@@ -70,6 +70,9 @@
   opacity: 0px;
   background-color: #3c97af;
   margin-top: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .content .section1 .about .aboutHead {
@@ -229,7 +232,6 @@
   max-height: 300px;
 }
 
-
 .recentItem .recentHead {
   display: flex;
   width: 100%;
@@ -263,9 +265,9 @@
   transition: 0.5s;
   border-radius: 50%;
 }
-.ArrowTop{
+.ArrowTop {
   align-items: center;
-  }
+}
 .arrowBtn.active {
   transform: rotateZ(-180deg);
 }
@@ -462,7 +464,9 @@
   background-color: #3c97af;
   border: none;
 }
-.mobileSearch {display: none;}
+.mobileSearch {
+  display: none;
+}
 .showingUp {
   display: flex;
   align-items: center;
@@ -506,7 +510,7 @@
     display: none;
   }
   .FilterResponsiveBtn {
-    display: block ;
+    display: block;
   }
 }
 @media (max-width: 1240px) {
@@ -522,7 +526,6 @@
   .section2 {
     width: 100% !important;
   }
-
 }
 @media (max-width: 1202px) {
   .content .section3 {
@@ -592,23 +595,21 @@
   .coWorkerInfo b {
     font-size: 14px;
   }
- .projectPrice {
-  font-size: 10px;
- }
- .projectDescription {
-  font-size: 10px;
- }
- .time {
-  font-size: 10px;
- }
+  .projectPrice {
+    font-size: 10px;
+  }
+  .projectDescription {
+    font-size: 10px;
+  }
+  .time {
+    font-size: 10px;
+  }
 }
 @media (max-width: 1050px) {
   .section3 {
     display: none;
   }
-
 }
-
 
 @media (max-width: 950px) {
   .section3 {
@@ -624,14 +625,14 @@
     display: block;
   }
   .mobileSearch {
-   display: flex;
-   align-items: center;
-   gap: 14px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
   }
   .mobileInputForm {
     background-color: #fff;
     width: 90%;
-    box-shadow: 0px 2px 8px 0px #3C97AF14;
+    box-shadow: 0px 2px 8px 0px #3c97af14;
     height: 55px;
     border-radius: 16px;
     padding: 0 16px;
@@ -648,7 +649,7 @@
   }
   .moblieInput::placeholder {
     font-size: 16px;
-    color:#BFBFBF;
+    color: #bfbfbf;
   }
   .moblieInput:focus {
     outline: none;
@@ -656,7 +657,7 @@
   }
   .filterBtn {
     background-color: #fff;
-    box-shadow: 0px 2px 8px 0px #3C97AF14;
+    box-shadow: 0px 2px 8px 0px #3c97af14;
     width: 55px;
     height: 55px;
     border-radius: 16px;
@@ -665,10 +666,10 @@
     justify-content: center;
   }
   .filterBtn:hover {
-   background-color: #e1e1e1;
+    background-color: #e1e1e1;
   }
   .filterBtn:active {
-   background-color: #f1f1f1;
+    background-color: #f1f1f1;
   }
   .mobileDrawer {
     padding: 20px;
@@ -740,7 +741,7 @@
     justify-content: center;
     width: 20%;
     height: 5px;
-    background-color: #61646B;
+    background-color: #61646b;
     border-radius: 50px;
     margin-top: 12px;
   }

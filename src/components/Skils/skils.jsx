@@ -6,8 +6,10 @@ import UsersIcone from "../../CustomIcons/UsersIcon";
 import Styles from "./skils.module.css";
 import MicrosoftIcon from "../../CustomIcons/MicrosoftIcon";
 import SkillsForm from "../SkillsForm/SkillsForm";
+import CoursesAndCertificationsForm from "../CoursesAndCertificationsForm/CoursesAndCertificationsForm";
 const Skils = () => {
   const [isSkillsFormOpen, setIsSkillsFormOpen] = useState(false)
+  const [isCoursesOpen, setIsCoursesOpen] = useState(false)
   const Courses = [
     {
       id: 1,
@@ -37,7 +39,7 @@ const Skils = () => {
         <div className={Styles.skilsHead}>
           <h4 className={Styles.skilsTitil}> Skils</h4>
           <div className={Styles.actions}>
-            <PlusIcon onClick={() => setIsSkillsFormOpen(true)}/>
+            <PlusIcon onClick={() => setIsSkillsFormOpen(true)}  />
             <EditIcon onClick={() => setIsSkillsFormOpen(true)} />
           </div>
         </div>
@@ -52,11 +54,12 @@ const Skils = () => {
       </Card>
       <div className={Styles.skilsbody}>
         <Card>
+          <CoursesAndCertificationsForm isOpen={isCoursesOpen} onClose={()=>setIsCoursesOpen(false)} />
           <div className={Styles.skilsHead}>
             <h4 className={Styles.skilsTitil}> Courses & Certifications</h4>
             <div className={Styles.actions}>
-              <PlusIcon />
-              <EditIcon />
+              <PlusIcon onClick={()=>(setIsCoursesOpen(true))} />
+              <EditIcon onClick={()=>(setIsCoursesOpen(true))}/>
             </div>
           </div>
           <ul>

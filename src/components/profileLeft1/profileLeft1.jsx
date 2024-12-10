@@ -4,7 +4,12 @@ import EditIcon from "./edit-02.png";
 import AddIcon from "./add.png";
 import UniversityIcon from "./university.png";
 import SelfieImage from "./Ellipse.png";
-import Card from "../Card/card"
+import Card from "../Card/card";
+import EditAboutPopup from "../EditAboutPopup/EditAboutPopup";
+import WorkExperienceForm from "../WorkExperienceForm/WorkExperienceForm";
+import EducationForm from "../EducationForm/EducationForm";
+import EditProfilePopup from "../EditProfilePopup/EditProfilePopup";
+import ProjectHistoryForm from "../ProjectHistoryForm/ProjectHistoryForm";
 const userData = {
   profile: {
     name: "Abdullah Ali",
@@ -26,25 +31,29 @@ const userData = {
     {
       name: "project Name",
       date: "22 Jan 2023 - 11 May 2032",
-      description: "Developed a task management web application designed to help users organize, prioritize, and track their daily tasks efficiently.",
+      description:
+        "Developed a task management web application designed to help users organize, prioritize, and track their daily tasks efficiently.",
     },
     {
       name: "project Name",
       date: "01 June 2022 - 20 Oct 2023",
-      description: "Built an e-commerce platform with features such as product listing, cart, checkout, and payment gateway integration.",
-    }
+      description:
+        "Built an e-commerce platform with features such as product listing, cart, checkout, and payment gateway integration.",
+    },
   ],
   workExperience: [
     {
       name: "project Name",
       date: "01 Feb 2020 - 01 Jan 2023",
-      description: "Worked on building scalable web applications and improving user interface designs for various clients.",
+      description:
+        "Worked on building scalable web applications and improving user interface designs for various clients.",
     },
     {
       name: "project Name",
       date: "01 Mar 2018 - 01 Jan 2020",
-      description: "Focused on frontend development using React.js, HTML, CSS, and JavaScript to enhance user experience.",
-    }
+      description:
+        "Focused on frontend development using React.js, HTML, CSS, and JavaScript to enhance user experience.",
+    },
   ],
 };
 
@@ -52,6 +61,11 @@ function ProfileLeft1() {
   const { profile, about, education, projects, workExperience } = userData;
 
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isAboutFormOpen, setIsAboutFormOpen] = useState(false);
+  const [isEducationOpen, setIsEducationOpen] = useState(false);
+  const [isWorkExperienceOpen, setIsWorkExperienceOpen] = useState(false);
+  const [isProfileFormOpen, setIsProfileFormOpen] = useState(false);
+  const [isProjectHistoryOpen, setIsProjectHistoryOpen] = useState(false);
 
   const handleToggleExpand = () => {
     setIsExpanded(!isExpanded);
@@ -61,32 +75,53 @@ function ProfileLeft1() {
     <div className={styles.container}>
       {/* Profile Section */}
       <Card>
+        <EditProfilePopup
+          isOpen={isProfileFormOpen}
+          onClose={() => setIsProfileFormOpen(false)}
+        />
         <div className={styles.box1}>
           <img className={styles.selfie} src={profile.selfie} alt="Profile" />
           <div className={styles.nameSpecialization}>
             <p className={styles.name}>{profile.name}</p>
             <p className={styles.specialization}>{profile.specialization}</p>
           </div>
-          <button className={styles.edit}>
+          <button
+            className={styles.edit}
+            onClick={() => setIsProfileFormOpen(true)}
+          >
             <img className={styles.editIcon} src={EditIcon} alt="Edit" />
           </button>
         </div>
       </Card>
 
       <Card marginTop={10}>
+        <EditAboutPopup
+          isOpen={isAboutFormOpen}
+          onClose={() => setIsAboutFormOpen(false)}
+        />
         <div className={styles.box2About}>
           <div className={styles.aboutEdit}>
             <p className={styles.about}>About</p>
-            <button className={styles.edit}>
+            <button
+              className={styles.edit}
+              onClick={() => setIsAboutFormOpen(true)}
+            >
               <img className={styles.editIcon} src={EditIcon} alt="Edit" />
             </button>
           </div>
           <div className={styles.descriptionAbout}>
             <p>
-              <span className={isExpanded ? styles.expandedText : styles.collapsedText}>
+              <span
+                className={
+                  isExpanded ? styles.expandedText : styles.collapsedText
+                }
+              >
                 {about.text}
               </span>
-              <button className={styles.seeMoreButton} onClick={handleToggleExpand}>
+              <button
+                className={styles.seeMoreButton}
+                onClick={handleToggleExpand}
+              >
                 {isExpanded ? "See Less" : "See More"}
               </button>
             </p>
@@ -95,14 +130,24 @@ function ProfileLeft1() {
       </Card>
 
       <Card marginTop={10}>
+        <EducationForm
+          isOpen={isEducationOpen}
+          onClose={() => setIsEducationOpen(false)}
+        />
         <div className={styles.box3}>
           <div className={styles.educationAddEdit}>
             <p>Education</p>
             <div className={styles.button}>
-              <button className={styles.add}>
+              <button
+                className={styles.add}
+                onClick={() => setIsEducationOpen(true)}
+              >
                 <img className={styles.addIcon} src={AddIcon} alt="Add" />
               </button>
-              <button className={styles.edit}>
+              <button
+                className={styles.edit}
+                onClick={() => setIsEducationOpen(true)}
+              >
                 <img className={styles.editIcon} src={EditIcon} alt="Edit" />
               </button>
             </div>
@@ -110,7 +155,11 @@ function ProfileLeft1() {
           {education.map((edu, index) => (
             <div key={index} className={styles.box3Part2}>
               <div className={styles.img}>
-                <img className={styles.universityIcon} src={UniversityIcon} alt="University" />
+                <img
+                  className={styles.universityIcon}
+                  src={UniversityIcon}
+                  alt="University"
+                />
               </div>
               <div className={styles.educationDetails}>
                 <p className={styles.university}>{edu.university}</p>
@@ -123,14 +172,33 @@ function ProfileLeft1() {
         </div>
       </Card>
       <Card marginTop={10}>
+        <ProjectHistoryForm
+          isOpen={isProjectHistoryOpen}
+          onClose={() => setIsProjectHistoryOpen(false)}
+        />
         <div className={styles.box4}>
           <div className={styles.projectAddEdit}>
             <p>Projects History</p>
             <div className={styles.button}>
-              <button className={styles.add}>
-                <img className={styles.addIcon} src={AddIcon} alt="Add" />
+              <button
+                className={styles.add}
+                onclick={() => {
+                  console.log(isProjectHistoryOpen);
+
+                  setIsProjectHistoryOpen(true);
+                }}
+              >
+                <img
+                  className={styles.addIcon}
+                  src={AddIcon}
+                  alt="Add"
+                  onClick={() => setIsProjectHistoryOpen(true)}
+                />
               </button>
-              <button className={styles.edit}>
+              <button
+                className={styles.edit}
+                onClick={() => setIsProjectHistoryOpen(true)}
+              >
                 <img className={styles.editIcon} src={EditIcon} alt="Edit" />
               </button>
             </div>
@@ -139,7 +207,6 @@ function ProfileLeft1() {
           {projects.map((project, index) => (
             <div className={styles.box4Part2}>
               <div className={styles.box4Part2Part1}>
-
                 <div className={styles.circle}></div>
                 <div className={styles.line1}></div>
                 <div className={styles.circle}></div>
@@ -153,20 +220,33 @@ function ProfileLeft1() {
                 </div>
               </div>
             </div>
-
           ))}
         </div>
-      </Card >
-      <Card marginTop={10} >
+      </Card>
+      <Card marginTop={10}>
+        <WorkExperienceForm
+          isOpen={isWorkExperienceOpen}
+          onClose={() => setIsWorkExperienceOpen(false)}
+        />
         <div className={styles.box4}>
           <div className={styles.workAddEdit}>
             <p>Work Experience</p>
             <div className={styles.button}>
               <button className={styles.add}>
-                <img className={styles.addIcon} src={AddIcon} alt="Add" />
+                <img
+                  className={styles.addIcon}
+                  src={AddIcon}
+                  alt="Add"
+                  onClick={() => setIsWorkExperienceOpen(true)}
+                />
               </button>
               <button className={styles.edit}>
-                <img className={styles.editIcon} src={EditIcon} alt="Edit" />
+                <img
+                  className={styles.editIcon}
+                  src={EditIcon}
+                  alt="Edit"
+                  onClick={() => setIsWorkExperienceOpen(true)}
+                />
               </button>
             </div>
           </div>

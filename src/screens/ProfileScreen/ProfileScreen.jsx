@@ -19,6 +19,8 @@ import EducationForm from "../../components/EducationForm/EducationForm";
 import ProjectHistoryForm from "../../components/ProjectHistoryForm/ProjectHistoryForm"
 import ProfileLeft1 from "../../components/profileLeft1/profileLeft1"
 import SkilsSide from "../../components/Skils/skils"
+import SkillsForm from "../../components/SkillsForm/SkillsForm"
+
 
 const ProfileScreen = () => {
   const [isUserInfoOpen, setIsUserInfoOpen] = useState(false)
@@ -97,10 +99,10 @@ const ProfileScreen = () => {
       {isFreeLancer ? (<div >
         <Container >
           <div className={styles.profilePageOFFreelancer}>
-            <ProfileLeft1 />
-            < SkilsSide />
-            <section className={styles.section2}>
-              <Card paddingx={24} isProfilePage={true}>
+            <div className={styles.firstRow}><ProfileLeft1 /></div>
+            <div className={styles.secondRow}>< SkilsSide /></div>
+            <section className={styles.ThirdRow}>
+              <Card>
                 <div className={styles.ActivityBox}>
                   <h3 className={styles.ActivityHeader}>Your Activity</h3>
                   <div className={styles.Chart}>
@@ -148,9 +150,15 @@ const ProfileScreen = () => {
                       <div className={styles.label}>Project Posted</div>
                       <div className={styles.value}>14</div>
                     </div>
-                  </div></div>
+                    <div className={styles.infoItem}>
+                      <TaskDoneIcon />
+                      <div className={styles.label}>Project you work on it</div>
+                      <div className={styles.value}>34</div>
+                    </div>
+                  </div>
+                  </div>
               </Card>
-              <Card marginTop={24} paddingx={24} isProfilePage={true} >
+              <Card marginTop={24}  >
                 <div className={styles.rateTitleBox}>
                   <h3 className={styles.rateTitle}>Rating</h3>
                   <p className={styles.rateSubtitle}>Average Rating</p>
@@ -203,7 +211,7 @@ const ProfileScreen = () => {
                     </div>
                   </div></div>
               </Card>
-              <Card marginTop={24} paddingx={24} isProfilePage={true}>
+              <Card marginTop={24} >
                 <div className={styles.titleReviewsBox}>
                   <h3 className={styles.titleReviews}>Reviews</h3>
                   <p className={styles.subtitleReviews}>
@@ -490,6 +498,8 @@ const ProfileScreen = () => {
             </div>
           </Container>
         </div>)}
+        {/* forms */}
+        <SkillsForm isOpen={true}/>
     </div>
   );
 };

@@ -405,6 +405,13 @@
   justify-content: space-between;
   gap: 60px;
 }
+.firstRow{
+  width: 40%;
+}
+.secondRow{
+  width: 30%;
+}
+
 @media (max-width: 1400px) {
   .ChartInfo {
     flex-direction: column;
@@ -412,6 +419,17 @@ align-items: start;  }
 }
 
 @media (max-width: 950px) {
+  .firstRow{
+    width: 100%;
+  }
+  .secondRow{
+    width: 100%;
+  }
+  .ThirdRow{
+    width: 100%;
+    margin-bottom: 120px;
+  }
+  
   .profilePageOFFreelancer{
     flex-direction: column;
   }
@@ -495,20 +513,14 @@ align-items: start;  }
   }
 
   .ActivityBox {
-    background-color: white;
-    box-shadow: 0px 2px 8px 0px #3c97af14;
     border-radius: 16px;
     padding: 12px 16px;
   }
   .rateTitleBox {
-    background-color: white;
-    box-shadow: 0px 2px 8px 0px #3c97af14;
     border-radius: 16px;
     padding: 12px 16px;
   }
   .titleReviewsBox {
-    background-color: white;
-    box-shadow: 0px 2px 8px 0px #3c97af14;
     border-radius: 16px;
     padding: 12px 16px;
   }

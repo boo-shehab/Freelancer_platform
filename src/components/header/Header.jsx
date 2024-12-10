@@ -14,6 +14,7 @@ import TwoStageFormPopup from "../TwoStageFormPopup/TwoStageFormPopup";
 const Header = ({ image = "none", name = "none", type = "none" }) => {
   const [isOpenNotification, setIsOpenNotification] = useState(false);
   const [newNotification, setNewNotification] = useState(true);
+  const [isFreeLancer, setisFreeLancer] = useState(false);
   const [currecntPageNumber, setcurrecntPageNumber] = useState(1);
 
   const todayNotifications = [
@@ -175,7 +176,7 @@ const Header = ({ image = "none", name = "none", type = "none" }) => {
           </div>
         </div>
       </Container>
-      <div className={styles.footerOPtion}>
+      <div className={styles.footerOPtion} style={{display: isFreeLancer ? "flex" : "none"}}>
         <div className={styles.option1}>
           <NavLink onClick={() => setcurrecntPageNumber(1)} to="/">
             {" "}
@@ -186,7 +187,7 @@ const Header = ({ image = "none", name = "none", type = "none" }) => {
             <DashBord color={currecntPageNumber} />{" "}
           </NavLink>
         </div>
-        <div className={styles.insertPostIcon}>
+        <div className={styles.insertPostIcon} >
           {" "}
           <button onClick={() => setIsPopupOpen(true)}>
             <InsertPostIcon />{" "}
@@ -202,6 +203,20 @@ const Header = ({ image = "none", name = "none", type = "none" }) => {
             <SettingIcon color={currecntPageNumber} />{" "}
           </NavLink>
         </div>
+      </div>
+      <div className={styles.footerOPtionOfClient} style={{display: isFreeLancer ? "none" : "flex"}}>
+          <NavLink onClick={() => setcurrecntPageNumber(1)} to="/">
+            <HomeIcon color={currecntPageNumber} />
+          </NavLink>
+          <NavLink onClick={() => setcurrecntPageNumber(2)} to="/dashboard">
+            <DashBord color={currecntPageNumber} />
+          </NavLink>
+          <NavLink onClick={() => setcurrecntPageNumber(3)} to="/profile">
+            <ProfileIcon color={currecntPageNumber} />
+          </NavLink>
+          <NavLink onClick={() => setcurrecntPageNumber(4)} to="/setting">
+            <SettingIcon color={currecntPageNumber} />
+          </NavLink>
       </div>
     </div>
   );

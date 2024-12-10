@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import Card from "../Card/card";
 import PlusIcon from "../../CustomIcons/PlusIcon";
 import EditIcon from "../../CustomIcons/EditIcon";
 import UsersIcone from "../../CustomIcons/UsersIcon";
 import Styles from "./skils.module.css";
 import MicrosoftIcon from "../../CustomIcons/MicrosoftIcon";
+import SkillsForm from "../SkillsForm/SkillsForm";
 const Skils = () => {
+  const [isSkillsFormOpen, setIsSkillsFormOpen] = useState(false)
   const Courses = [
     {
       id: 1,
@@ -26,26 +28,26 @@ const Skils = () => {
       desc: " Microsoft ",
     },
   ];
+
+  const [Skills, setSkills] = useState(['Figma (Software)', 'Adobe Illustrator (Software)', 'Sketch (Software)'])
   return (
     <div className={Styles.skilsCard}>
+      <SkillsForm isOpen={isSkillsFormOpen} onClose={() => setIsSkillsFormOpen(false)} initialData={Skills} onSave={(handleNewSkills) => { setSkills(handleNewSkills)}} />
       <Card>
         <div className={Styles.skilsHead}>
           <h4 className={Styles.skilsTitil}> Skils</h4>
           <div className={Styles.actions}>
-            <PlusIcon />
-            <EditIcon />
+            <PlusIcon onClick={() => setIsSkillsFormOpen(true)}/>
+            <EditIcon onClick={() => setIsSkillsFormOpen(true)} />
           </div>
         </div>
         <div className={Styles.skilsList}>
-          <div className={Styles.skillItem}>
-            <UsersIcone /> <p>Figma (Software)</p>
-          </div>
-          <div className={Styles.skillItem}>
-            <UsersIcone /> <p>Adobe Illustrator (Software)</p>
-          </div>
-          <div className={Styles.skillItem}>
-            <UsersIcone /> <p>Sketch (Software)</p>
-          </div>
+          {Skills.map((skill) => (
+            <div className={Styles.skillItem} key={skill}>
+              <UsersIcone /> <p>{skill}</p>
+            </div>
+
+          ))}
         </div>
       </Card>
       <div className={Styles.skilsbody}>

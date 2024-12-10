@@ -8,9 +8,12 @@ import ProtectedRoute from './components/ProtectedRoute';
 import HomeScreen from './screens/HomeScreen/homeScreen';
 import ProfileScreen from './screens/ProfileScreen/ProfileScreen';
 import Login from './screens/login/login';
+import Setting from './screens/SettingScreen/Setting';
+
+
 
 function App() {
-  
+
   const router = createBrowserRouter([
     {
       path: "/register",
@@ -31,8 +34,9 @@ function App() {
           path: "/",
           element: (
             // <ProtectedRoute isProtected={true}>
-              <HomeScreen />
+              <HomeScreen  />
             // </ProtectedRoute>
+            
           ),
         },
         {
@@ -51,21 +55,24 @@ function App() {
             // </ProtectedRoute>
           ),
         },
-        // {
-        //   path: "/setting",
-        //   element: (
-        //     <ProtectedRoute isProtected={true}>
-        //       <Home />
-        //     </ProtectedRoute>
-        //   ),
-        // },
+        {
+          path: "/setting",
+          element: (
+            // <ProtectedRoute isProtected={true}>
+            <Setting/>
+            // </ProtectedRoute>
+          ),
+        },
       ],
     },
   ]);
   return (
     <>
       <RouterProvider router={router} />
-    </>
+        
+
+     
+</>
   )
 }
 

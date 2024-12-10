@@ -1,6 +1,7 @@
 .header {
     background-color: #F7FDFD;
-    padding: 16px;
+    padding-top: 16px;
+    padding-bottom: 16px;
     margin-bottom: 16px;
     position: relative;
 }
@@ -29,7 +30,18 @@
     box-shadow: 0px 2px 8px 0px #3C97AF14;
     padding: 8px;
     gap: 2px;
-    border-radius: 8px;
+    border-radius: 16px;
+}
+.header .nav-bar .search input::placeholder {
+    font-family: Source Sans Pro;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 27px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: #BFBFBF;
+    
 }
 
 .header .nav-menu {
@@ -74,6 +86,9 @@
     border-radius: 50%;
     box-shadow: 1px 2px 8px 0px #21868E36;
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .header button.have-messages::after{
@@ -99,7 +114,7 @@
     overflow: auto;
     border-radius: 12px;
     box-shadow: 1px 2px 8px 0px #21868E40;
-    z-index: 9999;
+    z-index: 99;
 }
 
 .header .notifications h3 {
@@ -138,4 +153,141 @@
 .header ul li img {
     width: 50px;
     height: 50px;
+}
+.footerOPtion{
+    display: none;
+    width: 100%;
+    height: 94px;
+    background: var(--Colors-Primary-300, rgba(160, 210, 223, 1));
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    padding: 24px ;
+    z-index: 100;
+    
+}
+.mobileTitle{
+    display: none;
+}
+.mobileTitle .infoUserTitle{
+    display: flex;
+    align-items: center;
+    justify-content: start;
+}
+.mobileTitle .infoUserTitle .userData{
+    margin-left: 10px;
+}
+.mobileTitle .infoUserTitle p{
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 20px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;    
+}
+.mobileTitle .infoUserTitle small{
+    color: var(--Color-Text-Secondary, rgba(153, 153, 153, 1));
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 18px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+}
+.mobileTitle img{
+    width: 55px;
+    height: 55px;
+}
+.footerOPtion .option1 , .footerOPtion .option2 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    z-index:400;
+}
+.insertPostIcon{
+    position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.insertPostIcon button{
+    background-color: transparent;
+    border: none;
+    width: 140px;
+    top: -42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding:0px ;
+z-index:300;
+  
+}
+.mobileTitle h1{
+    font-family: 'Poppins', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 30px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+}
+.notificationsTitle{
+    display: flex;
+    align-items: center;
+    justify-content: start;
+}
+.notificationsTitle button {
+    background: transparent;
+    border: none;
+    padding: 0;
+    box-shadow: none;
+    font-size: 30px;
+    width: 15px;
+    margin-right: 12px;
+}
+@media screen and (max-width:950px){
+    .header{
+        margin-top: 34px;
+    }
+    .header .content {
+        border: none;
+    }
+    .header .logo , .header .nav-menu ,  .header .nav-bar .search {
+       display: none;
+    }
+    .footerOPtion{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .mobileTitle{
+        display: block;
+    }
+    .header .notifications{
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+    }
+    .notificationsTitle button{
+        display: block;
+    }
+    .insertPostIcon {
+        left: 50%;
+        transform: translateX(-50%); 
+    }
+}
+
+@media screen and (max-width:400px){
+    .footerOPtion{
+       padding: 24px 2px;
+    }
+    .footerOPtion .option1 , .footerOPtion .option2 {
+        gap: 2px;
+    }
 }

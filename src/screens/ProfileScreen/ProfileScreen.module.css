@@ -1,15 +1,21 @@
 .content {
-    display: flex;
-    gap: 16px;
-    margin-top: 30px;
+  display: flex;
+  gap: 40px;
+  margin-top: 30px;
 }
 
 .content .section1 {
-    width: 66%;
+  width: 66%;
+  height: 80vh;
+  overflow-y: auto;
+  scrollbar-width: none;
 }
 .content .section2 {
-    width: 34%;
-    min-width: 300px;
+  width: 34%;
+  /* min-width: 300px; */
+  height: 80vh;
+  overflow-y: auto;
+  scrollbar-width: none;
 }
 
 .section1 .userProfile {
@@ -17,7 +23,7 @@
   align-items: center;
   justify-content: space-between;
   padding-bottom: 32px;
-  border-bottom: 1px solid #BFBFBF;
+  border-bottom: 1px solid #bfbfbf;
 }
 
 .section1 .userInfo {
@@ -27,354 +33,572 @@
 }
 
 .section1 .userInfo img {
-    width: 164px;
-    height: 164px;
-    border-radius: 50%;
+  width: 164px;
+  height: 164px;
+  border-radius: 50%;
 }
 
 .section1 .userInfo h2 {
-    font-size: 32px;
+  font-size: 32px;
 }
 
 .section1 .userInfo p {
-    font-size: 20px;
-    color: #888;
+  font-size: 20px;
+  color: #888;
 }
 
 .section1 .about {
-    margin-top: 24px;
+  margin-top: 24px;
 }
 
 .section1 .about .aboutHead {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .section1 .about .aboutHead b {
-    font-size: 24px;
+  font-size: 24px;
 }
 
 .section1 .about p {
-    color: #999;
-    margin-top: 12px;
-    font-size: 18px;
-    line-height: 1.4;
+  color: #999;
+  margin-top: 12px;
+  font-size: 18px;
+  line-height: 1.4;
 }
 
 .content .section1 .history .historyHead {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 40px;
 }
 
 .content .section1 .history .historyHead b {
-    font-size: 24px;
+  font-size: 24px;
 }
 
 .content .section1 .history .historyHead .actions {
-    display: flex;
-    align-items: center;
-    gap: 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 
 .content .section1 .history .projectItem {
-    display: flex;
-    gap: 16px;
-    margin-top: 24px;
+  display: flex;
+  gap: 16px;
+  margin-top: 24px;
 }
 
 .content .section1 .history .projectItem .guid {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .content .section1 .history .projectItem .guid .dot {
-    width: 12px;
-    height: 12px;
-    background-color: #3c97af;
-    border-radius: 50%;
+  width: 12px;
+  height: 12px;
+  background-color: #3c97af;
+  border-radius: 50%;
 }
-  
+
 .content .section1 .history .projectItem .guid .line {
-    width: 2px;
-    height: 100%;
-    background-color: #3c97af;
-    margin-bottom: 4px;
-    flex: 1;
-    margin-top: 4px;
+  width: 2px;
+  height: 100%;
+  background-color: #3c97af;
+  margin-bottom: 4px;
+  flex: 1;
+  margin-top: 4px;
 }
-  
+
 .content .section1 .history .projectItem .itemInfo h4 {
-    font-size: 16px;
+  font-size: 16px;
 }
 .content .section1 .history .projectItem .itemInfo small {
-    color: #999;
+  color: #999;
 }
 .content .section1 .history .projectItem .itemInfo .itemDesc {
-    color: #0a0a0a;
-    font-size: 14px;
-    line-height: 1.3;
-    margin-top: 16px;
-    max-width: 80%;
+  color: #0a0a0a;
+  font-size: 14px;
+  line-height: 1.3;
+  margin-top: 16px;
+  max-width: 80%;
 }
 
-
 .content .section1 .posts .postsHead {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 40px;
 }
 
 .content .section1 .posts .postsHead b {
-    font-size: 24px;
+  font-size: 24px;
 }
 
 .content .section1 .posts .postsHead .actions {
-    display: flex;
-    align-items: center;
-    gap: 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
-
 
 .section1 .postItem .postHead {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
-  
+
 .section1 .postItem .postHead .postClient {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
-  
+
 .section1 .postItem .postHead .postAvatar {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background-color: #ebebeb;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #ebebeb;
 }
-  
+
 .section1 .postItem .postHead .postClientName {
-    font-size: 18px;
+  font-size: 18px;
 }
 .section1 .postItem .postHead .postClientDate {
-    font-size: 12px;
-    color: #999;
-    margin-top: 4px;
-    display: block;
+  font-size: 12px;
+  color: #999;
+  margin-top: 4px;
+  display: block;
 }
-  
+
 .section1 .postItem .postHead .tag {
-    padding: 12px 16px;
-    background-color: #ddf8e7;
-    border-radius: 24px;
-    color: #4db251;
+  padding: 12px 16px;
+  background-color: #ddf8e7;
+  border-radius: 24px;
+  color: #4db251;
 }
 .section1 .postItem .postHead .postClientAction {
-    display: flex;
-    align-items: center;
-    gap: 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
-  
+
 .postBody {
-    margin-top: 24px;
+  margin-top: 24px;
 }
-  
+
 .postBody .postTitle {
-    font-size: 18px;
-    max-width: 300px;
-    display: block;
-    line-height: 1.4;
+  font-size: 18px;
+  max-width: 300px;
+  display: block;
+  line-height: 1.4;
 }
 .postBody .postDesc {
-    font-size: 16px;
-    color: #999;
-    margin-top: 8px;
-    line-height: 1.4;
+  font-size: 16px;
+  color: #999;
+  margin-top: 8px;
+  line-height: 1.4;
 }
-  
-.postFooter{
-    display: flex;
-    align-items: center;
-    gap: 24px;
-    margin-top: 16px;
+
+.postFooter {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-top: 16px;
 }
-  
-.footerItem{
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: #808080;
+
+.footerItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #808080;
 }
-  
-.moreInfo{
-    margin-top: 16px;
+
+.moreInfo {
+  margin-top: 16px;
 }
-  
-.moreInfo .infoTitle{
-    font-size: 16px;
+
+.moreInfo .infoTitle {
+  font-size: 16px;
 }
-.moreInfo .infoValue{
-    font-size: 14px;
-    color: #999;
-    margin-top: 8px;
+.moreInfo .infoValue {
+  font-size: 14px;
+  color: #999;
+  margin-top: 8px;
 }
-  
-.postImage{
-    width: 100%;
-    margin-top: 16px;
+
+.postImage {
+  width: 100%;
+  margin-top: 16px;
 }
-  
+
 .ActivityHeader {
-    font-size: 24px;
-    margin-bottom: 32px;
+  font-size: 24px;
+  margin-bottom: 32px;
 }
 
 .Chart {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .ChartInfo {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 24px 0px;
-    border-bottom: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+  padding: 24px 0px;
+  border-bottom: 1px solid #eee;
 }
 
 .ChartInfoItem {
-    display: flex;
-    align-items: center;
-    gap: 4px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
-.ChartInfoItem .dot{
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
+.ChartInfoItem .dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
 }
 
 .ChartInfoItem p {
-    font-size: 12px;
+  font-size: 12px;
 }
 
 .infoList {
-    padding-top: 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+  padding-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .infoList .infoItem {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
 }
 
 .infoList .infoItem svg {
 }
 
 .infoList .infoItem .label {
-    flex: 1;
+  flex: 1;
 }
-  
+
 .infoList .infoItem .value {
-    color: #888;
+  color: #888;
 }
 
 .rateTitle {
-    font-size: 24px;
+  font-size: 24px;
 }
 
 .rateSubtitle {
-    font-size: 14px;
-    color: #808080;
-    padding: 8px 0px;
+  font-size: 14px;
+  color: #808080;
+  padding: 8px 0px;
 }
 
 .ratingStars {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .ratingStars b {
-    font-size: 20px;
-    font-weight: 600;
+  font-size: 20px;
+  font-weight: 600;
 }
 
 .ratingStars div {
-    display: flex;
-    align-items: center;
-    gap: 4px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
 .ratingBar {
-    margin-top: 24px;
+  margin-top: 24px;
 }
 
 .ratingBar .barItem {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .ratingBar .barItem b {
-    font-size: 14px;
-    font-weight: 400;
+  font-size: 14px;
+  font-weight: 400;
 }
 
 .ratingBar .barItem .bar {
-    flex: 1;
-    height: 8px;
-    background-color: #d1d1d1;
-    border-radius: 8px;
+  flex: 1;
+  height: 8px;
+  background-color: #d1d1d1;
+  border-radius: 8px;
 }
-.ratingBar .barItem .bar div{
-    height: 100%;
-    border-radius: 8px;
+.ratingBar .barItem .bar div {
+  height: 100%;
+  border-radius: 8px;
 }
 
 .ratingBar .barItem p {
-    font-size: 12px;
-    color: #808080;
+  font-size: 12px;
+  color: #808080;
 }
 
 .titleReviews {
-    font-size: 24px;
+  font-size: 24px;
 }
 
 .subtitleReviews {
-    font-size: 14px;
-    color: #808080;
-    padding: 8px 0px;
+  font-size: 14px;
+  color: #808080;
+  padding: 8px 0px;
 }
 
 .reviews {
-    font-size: 18px;
-    color: #808080;
+  font-size: 18px;
+  color: #808080;
 }
 
 .reviews b {
-    font-size: 32px;
-    color: #0a0a0a;
+  font-size: 32px;
+  color: #0a0a0a;
 }
 
 .seeAllReviews {
-    border: none;
-    background: none;
-    color: #3C97AF;
-    font-size: 14px;
-    padding: 4px 0px;
-    border-bottom: 1px solid;
-    display: block;
-    margin-left: auto;
-    cursor: pointer;
+  border: none;
+  background: none;
+  color: #3c97af;
+  font-size: 14px;
+  padding: 4px 0px;
+  border-bottom: 1px solid;
+  display: block;
+  margin-left: auto;
+  cursor: pointer;
+  font-weight: 600;
 }
+.LineInBottom {
+  width: 100%;
+  height: 1px;
+  background-color: #bfbfbf;
+  margin: 24px 0px;
+}
+.seeMoreAbout {
+  font-family: Poppins;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 27px;
+  color: #3c97af;
+  cursor: pointer;
+}
+.profilePageOFFreelancer{
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 60px;
+}
+@media (max-width: 1400px) {
+  .ChartInfo {
+    flex-direction: column;
+align-items: start;  }
+}
+
+@media (max-width: 950px) {
+  .profilePageOFFreelancer{
+    flex-direction: column;
+  }
+  .section2{
+    width: 100%;
+  }
+  .content {
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+    gap: 24px;
+  }
+
+  .content .section1 {
+    width: 100%;
+    height: 100%;
+  }
+  .content .section2 {
+    width: 100%;
+    height: 100%;
+    margin-bottom: 150px;
+  }
+
+  .section1 .userProfile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    border-bottom: none;
+  }
+
+  .section1 .userInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .section1 .userInfo h2 {
+    text-align: center;
+  }
+
+  .section1 .userInfo p {
+    text-align: center;
+  }
+
+  .section1 .about {
+    background-color: #ecf6f9;
+    padding: 12px 16px;
+    border-radius: 12px;
+  }
+
+  .section1 .about .aboutHead {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .section1 .about .aboutHead b {
+    font-size: 24px;
+  }
+
+  .section1 .about p {
+    color: #999;
+    margin-top: 12px;
+    font-size: 18px;
+    line-height: 1.4;
+  }
+
+  .content .section1 .history {
+    margin-top: 16px;
+    background-color: #ecf6f9;
+    padding: 12px 16px;
+    border-radius: 12px;
+  }
+
+  .content .section1 .history .historyHead {
+    margin-top: 0px;
+  }
+
+  .ActivityBox {
+    background-color: white;
+    box-shadow: 0px 2px 8px 0px #3c97af14;
+    border-radius: 16px;
+    padding: 12px 16px;
+  }
+  .rateTitleBox {
+    background-color: white;
+    box-shadow: 0px 2px 8px 0px #3c97af14;
+    border-radius: 16px;
+    padding: 12px 16px;
+  }
+  .titleReviewsBox {
+    background-color: white;
+    box-shadow: 0px 2px 8px 0px #3c97af14;
+    border-radius: 16px;
+    padding: 12px 16px;
+  }
+  .ChartInfo {
+    flex-direction: row;
+align-items: center;  }
+
+}
+@media (max-width:455px) {
+  .ChartInfo {
+    flex-direction: column;
+align-items: start;  }
+
+}
+@media (max-width:400px) {
+  .section1 .about p {
+    font-size: 14px;
+  }
+  .section1 .about span {
+    font-size: 14px;
+  }
+
+}
+@media (max-width:380px) {
+  .section1 .postItem .postHead .tag {
+    padding: 8px 10px;
+font-size: 12px;
+  }
+
+  .postBody .postTitle {
+    font-size: 14px;
+  }
+  .postBody .postDesc {
+    font-size: 12px;
+    
+  }
+  .moreInfo .infoTitle {
+    font-size: 12px;
+  }
+  .moreInfo .infoValue {
+    font-size: 10px;
+    color: #999;
+    margin-top: 8px;
+  }
+  
+
+
+}
+@media (max-width:350px) {
+  .section1 .postItem .postHead .tag {
+    padding: 8px 10px;
+font-size: 12px;
+
+  }
+
+
+  .section1 .postItem .postHead .postAvatar {
+    width: 45px;
+    height: 45px;
+  }
+  
+  .section1 .postItem .postHead .postClientName {
+    font-size: 14px;
+  }
+  .section1 .postItem .postHead .postClientDate {
+    font-size: 10px;
+   
+  }
+
+}
+@media (max-width:320px) {
+  .section1 .postItem .postHead .tag {
+    padding: 6px 8px;
+font-size: 10px;
+
+  }
+
+
+  .section1 .postItem .postHead .postAvatar {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .section1 .postItem .postHead .postClientName {
+    font-size: 12px;
+  }
+  .section1 .postItem .postHead .postClientDate {
+    font-size: 8px;
+   
+  }
+
+}
+

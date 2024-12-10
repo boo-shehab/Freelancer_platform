@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import styles from "./EditProfilePopup.module.css";
+import ContainerForm from "../ContainerForm/ContainerForm";
 
 const EditProfilePopup = ({ isOpen, onClose, initialData, onSave }) => {
-  const [firstName, setFirstName] = useState(initialData.firstName || "");
-  const [lastName, setLastName] = useState(initialData.lastName || "");
-  const [specialization, setSpecialization] = useState(initialData.specialization || "");
+  const [firstName, setFirstName] = useState(initialData?.firstName || "");
+  const [lastName, setLastName] = useState(initialData?.lastName || "");
+  const [specialization, setSpecialization] = useState(initialData?.specialization || "");
   const [errors, setErrors] = useState({});
 
   const handleSave = () => {
@@ -18,6 +19,7 @@ const EditProfilePopup = ({ isOpen, onClose, initialData, onSave }) => {
       return;
     }
 
+
     onSave({ firstName, lastName, specialization });
     onClose();
   };
@@ -25,14 +27,7 @@ const EditProfilePopup = ({ isOpen, onClose, initialData, onSave }) => {
   if (!isOpen) return null;
 
   return (
-    <div className={styles.overlay}>
-      <div className={styles.popup}>
-        <div className={styles.header}>
-          <h2>Edit Name and Specialization</h2>
-          <button onClick={onClose} className={styles.closeButton}>
-            X
-          </button>
-        </div>
+    <ContainerForm isOpen={isOpen} onClose={onClose} HeadName="Edit Name and Specialization">
         <div className={styles.body}>
           <label>
             First Name*
@@ -75,8 +70,7 @@ const EditProfilePopup = ({ isOpen, onClose, initialData, onSave }) => {
             Save
           </button>
         </div>
-      </div>
-    </div>
+    </ContainerForm>
   );
   
 };

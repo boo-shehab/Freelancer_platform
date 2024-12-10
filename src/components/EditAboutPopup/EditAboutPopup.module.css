@@ -1,0 +1,77 @@
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .header h2 {
+    font-size: 18px;
+    color: #333;
+    margin: 0;
+  }
+  
+  .closeButton {
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    color: #666;
+  }
+  
+  .body label {
+    display: block;
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 8px;
+    font-weight: bold;
+  }
+  
+  .footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+  
+  .popup textarea {
+    border: 0.3px solid #0000003d;
+    resize: none;
+    border-radius: 8px;
+    padding: 24px;
+    width: 100%;
+    height: 270px;
+  }
+
+  .popup span {
+    display: table;
+    margin-left: auto;
+    font-size: 16px;
+    color: #808080;
+    margin-bottom: 12px;
+  }
+  .saveButton {
+    padding: 10px 20px;
+    background-color: rgba(60, 151, 175, 1);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .saveButton:hover {
+    background-color: rgb(40, 118, 140);
+  }
+  
+  .errorMessage {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+  }
+  
+  .input.error {
+    border-color: red;
+    box-shadow: 0 0 4px rgba(255, 0, 0, 0.5);
+  }
+  

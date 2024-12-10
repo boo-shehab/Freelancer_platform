@@ -10,14 +10,16 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "antd": "^5.22.3",
     "react": "^18.3.1",
     "react-country-flag": "^3.1.0",
     "react-dom": "^18.3.1",
     "react-phone-number-input": "^3.4.9",
+    "react-responsive": "^10.0.0",
     "react-router-dom": "^7.0.2",
     "react-select": "^5.8.3",
     "reactjs-otp-input": "^2.0.10",
-    "zustand": "^5.0.1"
+    "zustand": "^5.0.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.13.0",
@@ -29,7 +31,7 @@
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.14",
     "globals": "^15.11.0",
-    "vite": "^5.4.10",
+    "vite": "^5.4.11",
     "vite-plugin-svgr": "^4.3.0"
   }
 }

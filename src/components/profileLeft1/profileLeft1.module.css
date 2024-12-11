@@ -335,6 +335,17 @@ button {
     justify-content: center;
     align-items: center;
   }
+  .date, .duration{
+    font-size:10px;
+
+  }
+  .duration{
+    margin-top:0px;
+  }
+  .description{
+    font-size:14px;
+    margin-top:8px;
+  }
 }
 
 

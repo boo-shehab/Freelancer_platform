@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styles from "./profileLeft1.module.css";
-import EditIcon from "./edit-02.png";
 import AddIcon from "./add.png";
 import UniversityIcon from "./university.png";
 import Card from "../Card/card";
@@ -9,6 +8,12 @@ import WorkExperienceForm from "../WorkExperienceForm/WorkExperienceForm";
 import EducationForm from "../EducationForm/EducationForm";
 import EditProfilePopup from "../EditProfilePopup/EditProfilePopup";
 import ProjectHistoryForm from "../ProjectHistoryForm/ProjectHistoryForm";
+import EditIcon from "../../CustomIcons/EditIcon";
+import Pluse2Icon from "../../CustomIcons/Pluse2Icon";
+import PlusIcon from "../../CustomIcons/PlusIcon";
+
+
+
 const userData = {
   profile: {
     name: "Abdullah Ali",
@@ -94,7 +99,7 @@ function ProfileLeft1() {
             className={styles.edit}
             onClick={() => setIsProfileFormOpen(true)}
           >
-            <img className={styles.editIcon} src={EditIcon} alt="Edit" />
+            <EditIcon /> {/* هذا يشير الآن إلى المكون React */}
           </button>
         </div>
 
@@ -112,7 +117,7 @@ function ProfileLeft1() {
               className={styles.edit}
               onClick={() => setIsAboutFormOpen(true)}
             >
-              <img className={styles.editIcon} src={EditIcon} alt="Edit" />
+              <EditIcon />  
             </button>
           </div>
           <div className={styles.descriptionAbout}>
@@ -148,13 +153,13 @@ function ProfileLeft1() {
                 className={styles.add}
                 onClick={() => setIsEducationOpen(true)}
               >
-                <img className={styles.addIcon} src={AddIcon} alt="Add" />
+                <PlusIcon />
               </button>
               <button
                 className={styles.edit}
                 onClick={() => setIsEducationOpen(true)}
               >
-                <img className={styles.editIcon} src={EditIcon} alt="Edit" />
+                <EditIcon />
               </button>
             </div>
           </div>
@@ -194,10 +199,7 @@ function ProfileLeft1() {
                   setIsProjectHistoryOpen(true);
                 }}
               >
-                <img
-                  className={styles.addIcon}
-                  src={AddIcon}
-                  alt="Add"
+                <PlusIcon
                   onClick={() => setIsProjectHistoryOpen(true)}
                 />
               </button>
@@ -205,7 +207,7 @@ function ProfileLeft1() {
                 className={styles.edit}
                 onClick={() => setIsProjectHistoryOpen(true)}
               >
-                <img className={styles.editIcon} src={EditIcon} alt="Edit" />
+                <EditIcon />
               </button>
             </div>
           </div>
@@ -247,20 +249,12 @@ function ProfileLeft1() {
             <p>Work Experience</p>
             <div className={styles.button}>
               <button className={styles.add}>
-                <img
-                  className={styles.addIcon}
-                  src={AddIcon}
-                  alt="Add"
+                <PlusIcon
                   onClick={() => setIsWorkExperienceOpen(true)}
                 />
               </button>
-              <button className={styles.edit}>
-                <img
-                  className={styles.editIcon}
-                  src={EditIcon}
-                  alt="Edit"
-                  onClick={() => setIsWorkExperienceOpen(true)}
-                />
+              <button className={styles.edit} onClick={() => setIsWorkExperienceOpen(true)}>
+                  <EditIcon />
               </button>
             </div>
           </div>

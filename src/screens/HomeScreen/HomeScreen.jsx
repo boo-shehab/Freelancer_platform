@@ -147,8 +147,15 @@ const HomeScreen = () => {
   const [recentProjectOpened, setRecentProjectOpened] = useState(-1);
   const [isFreeLancer, setIsFreeLancer] = useState(false);
   const [isPopupOpen2, setIsPopupOpen2] = useState(false);
+<<<<<<< HEAD
   const [callBack, setCallBack] = useState([]);
   const isSmallScreen = useMediaQuery({ query: "(max-width: 950px)" });
+=======
+  const [openDrawer, setOpenDrawer] = useState(false);
+
+  const drawerHeight = 455;
+
+>>>>>>> 58a1dc4b31342244e5d3a3716517c80b8ff5f3d1
   const clearAllSelections = () => {
     setSelectedJobs([]);
   };
@@ -164,17 +171,76 @@ const HomeScreen = () => {
   const handleNewProject = () => {
     setIsPopupOpen(true);
   };
+<<<<<<< HEAD
   const callBackFun = (CB) => {
     setCallBack(CB);
     console.log(CB);
   };
+=======
+
+>>>>>>> 58a1dc4b31342244e5d3a3716517c80b8ff5f3d1
   return (
     <div style={styles.homeScreen}>
       <TwoStageFormPopup
         isOpen={isPopupOpen}
         onClose={() => setIsPopupOpen(false)}
       />
+<<<<<<< HEAD
       <Container >
+=======
+      <MobileDrawer
+        height={drawerHeight}
+        isOpen={openDrawer}
+        onClose={() => setOpenDrawer(false)}
+      >
+        <div className={styles.mobileDrawerCont}>
+          <div className={styles.drwerTopLine}></div>
+          <div className={styles.mobileDrawer}>
+            <div className={styles.drawerHeadr}>
+              <button
+                onClick={() => setOpenDrawer(false)}
+                className={styles.closeBtn}
+              >
+                <CloseIcon />
+              </button>
+              <h3>Filter Projects</h3>
+              <gap></gap>
+            </div>
+            <div className={styles.filterCont}>
+              <div className={styles.specializationFilter}>
+                <div className={styles.specializationBody}>
+                  <div className={styles.spacing}>
+                    {optionOfFreelancing.map((job) => (
+                      <div key={job.id} className={styles.Options}>
+                        <button
+                          className={`${styles.btn} 
+                          ${
+                            selectedJobs.includes(job.id) ? styles.btnGreen : ""
+                          }
+                          `}
+                          onClick={() => handleJobSelection(job.id)}
+                        ></button>
+                        <p>{job.Job}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className={styles.drawerBtn}>
+              <button
+                onClick={() => setOpenDrawer(false)}
+                className={styles.cancelSort}
+              >
+                Cancel Sort
+              </button>
+              <button className={styles.apply}>Apply</button>
+            </div>
+          </div>
+        </div>
+      </MobileDrawer>
+      <Container>
+>>>>>>> 58a1dc4b31342244e5d3a3716517c80b8ff5f3d1
         <div className={styles.content}>
           {/* MuhammedLami */}
           {isFreeLancer ? (
@@ -268,6 +334,7 @@ const HomeScreen = () => {
           )}
           <section className={styles.section2} style={{marginBottom:`${isSmallScreen ? "130px":"0px"}`}}>
             {isFreeLancer ? (
+<<<<<<< HEAD
               <>
                 <div className={styles.mainFreeLancerScreenSearch}>
                   <div className={styles.FreeLancerScreenSearch}>
@@ -312,6 +379,67 @@ const HomeScreen = () => {
                   </div>
                 </div>
               </Card>
+=======
+              <div className={styles.mainFreeLancerScreenSearch}>
+                <div className={styles.FreeLancerScreenSearch}>
+                  <SearchIcon />
+                  <input
+                    className={styles.SearchInput}
+                    placeholder="Search"
+                    type="text"
+                  />
+                </div>
+                <button className={styles.SearchBtn}>Search</button>
+                <button
+                  className={styles.FilterResponsiveBtn}
+                  onClick={() => setIsPopupOpen2(true)}
+                >
+                  <FilterResponsive />
+                </button>
+              </div>
+            ) : (
+              <>
+                <div>
+                  <div className={styles.mobileSearch}>
+                    <div className={styles.mobileInputForm}>
+                      <SearchIcon />
+
+                      <input
+                        className={styles.moblieInput}
+                        type="text"
+                        placeholder="search"
+                      />
+                    </div>
+
+                    <div
+                      className={styles.filterBtn}
+                      onClick={() => setOpenDrawer(true)}
+                    >
+                      <FilterIcon />
+                    </div>
+                  </div>
+                </div>
+
+                <div className={styles.postBoxCont}>
+                  <Card>
+                    <div className={styles.postBox}>
+                      <img src="/avatar.png" />
+                      <div
+                        className={styles.postInput}
+                        onClick={handleNewProject}
+                      >
+                        <p className={styles.postInputHint}>
+                          Mustafa Let’s Create a Project !
+                        </p>
+                        <button className={styles.addBtn}>
+                          <Pluse2Icon />
+                        </button>
+                      </div>
+                    </div>
+                  </Card>
+                </div>
+              </>
+>>>>>>> 58a1dc4b31342244e5d3a3716517c80b8ff5f3d1
             )}
             {posts?.map((post) => (
               <ProjectPost
@@ -343,7 +471,15 @@ const HomeScreen = () => {
                           <div>
                             <b>{recentProject.projectName}</b>
                             <br />
+<<<<<<< HEAD
                             <small>{recentProject.projectPrice}</small>
+=======
+                            <small>
+                              <p className={styles.projectPrice}>
+                                {recentProject.projectPrice}
+                              </p>
+                            </small>
+>>>>>>> 58a1dc4b31342244e5d3a3716517c80b8ff5f3d1
                           </div>
                         </div>
 
@@ -385,7 +521,13 @@ const HomeScreen = () => {
                         <div>
                           <b>{coWorker.name}</b>
                           <br />
+<<<<<<< HEAD
                           <small>{coWorker.time}</small>
+=======
+                          <small>
+                            <p className={styles.time}>{coWorker.time}</p>
+                          </small>
+>>>>>>> 58a1dc4b31342244e5d3a3716517c80b8ff5f3d1
                         </div>
                       </div>
                       <div className={styles.rate}>

@@ -5,8 +5,6 @@ import MessageEdit from '../../CustomIcons/MessageEdit';
 import DeleteIcon from '../../CustomIcons/DeleteIcon';
 import InProgressIcon from '../../CustomIcons/InProgressIcon';
 import InReviewIcon from '../../CustomIcons/InReviewIcon';
-import ToDoIcon from '../../CustomIcons/ToDoIcon';
-import TwoStageFormPopup from "../TwoStageFormPopup/TwoStageFormPopup";
 import DonutChart from "../../components/charts/DonutChart";
 import SubList from './SubList';
 

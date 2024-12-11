@@ -14,7 +14,7 @@ import ProjectPost from "../../components/ProjectPost/ProjectPost";
 import FreeLancerScreen from "../freeLancerScreen/freeLancerScreen";
 import FilterResponsive from "../../CustomIcons/filterResponsive";
 import { useMediaQuery } from "react-responsive";
-import CommentForm from "../../components/CommentForm/CommentForm";
+
 const projects = [
   {
     id: 1,
@@ -148,7 +148,6 @@ const HomeScreen = () => {
   const [isFreeLancer, setIsFreeLancer] = useState(false);
   const [isPopupOpen2, setIsPopupOpen2] = useState(false);
   const [callBack, setCallBack] = useState([]);
-  const [isCommentForm, setIsCommentForm] = useState(false);
   const isSmallScreen = useMediaQuery({ query: "(max-width: 950px)" });
   const clearAllSelections = () => {
     setSelectedJobs([]);
@@ -170,12 +169,13 @@ const HomeScreen = () => {
     console.log(CB);
   };
   return (
+    
     <div style={styles.homeScreen}>
       <TwoStageFormPopup
         isOpen={isPopupOpen}
         onClose={() => setIsPopupOpen(false)}
       />
-      <Container>
+      <Container >
         <div className={styles.content}>
           {/* MuhammedLami */}
           {isFreeLancer ? (
@@ -302,7 +302,26 @@ const HomeScreen = () => {
                 </div>
               </>
             ) : (
-              <Card>
+         
+              <>
+              <div>
+             
+              <div className={styles.mobileSearch}>
+                <div className={styles.mobileInputForm}>
+                  
+                <SearchIcon/>
+                
+                <input className={styles.moblieInput} type="text" placeholder="search" />
+                </div>
+                
+                  <div className={styles.filterBtn} onClick={() =>  setOpenDrawer(true)}><FilterMoboIcon/></div>
+                 
+              </div>
+            
+              </div>
+              
+                <div className={styles.postBoxCont}>   
+                  <Card>
                 <div className={styles.postBox}>
                   <img src="/avatar.png" />
                   <div className={styles.postInput} onClick={handleNewProject}>
@@ -315,6 +334,9 @@ const HomeScreen = () => {
                   </div>
                 </div>
               </Card>
+              </div>
+              </>
+     
             )}
             {posts?.map((post) => (
               <ProjectPost

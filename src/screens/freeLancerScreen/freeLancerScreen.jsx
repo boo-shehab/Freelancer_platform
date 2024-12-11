@@ -198,7 +198,7 @@ const freeLancerScreen = ({
             <div className={styles.editProfileFreeLancerSideContent}>
               <img
                 className={styles.FreeLancerSideContentImg}
-                src="/public/avatar.png"
+                src="/avatar.png"
                 alt=""
               />
               {nameOfFreeLancer.map((i) => (

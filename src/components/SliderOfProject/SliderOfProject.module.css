@@ -278,16 +278,16 @@ button.declineFreeLancer {
     text-decoration: none;
     color: #0A0A0A;
     border: 1px solid transparent;
-    border-radius: 4px;
+    border-radius: 24px;
     font-size: 12px;
     font-weight: 500;
-    line-height: 18px;
+    line-height: 16px;
     height: 50px;
 
 }
 
 .tab:hover {
-    background: #d9d9d9;
+    background: #CCE7ED;
 }
 
 .activeTab {

@@ -84,7 +84,7 @@ const CommentForm = ({ isOpen, onClose }) => {
       isOpen={isOpen}
       onClose={onClose}
       Hight="60%"
-      HeadName="Comment Form"
+      HeadName="Comments"
     >
       <div className={styles.commentList}>
         {Comment.map((i) => (
@@ -108,6 +108,14 @@ const CommentForm = ({ isOpen, onClose }) => {
             </div>
           </div>
         ))}
+      </div>
+      <div className={styles.postComment}>
+        <input
+          className={styles.postCommentInput}
+          placeholder=" Enter comment"
+          type=""
+        />{" "}
+        <button className={styles.postCommentBtn}>Post</button>
       </div>
     </ContainerForm>
   );

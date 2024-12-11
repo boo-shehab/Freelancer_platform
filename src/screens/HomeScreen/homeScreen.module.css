@@ -685,7 +685,7 @@
     margin-top: 2px;
   }
   .specializationFilter {
-    padding-top: 24px;
+    padding-top: 1px;
   }
   .specializationHead {
     color: #808080;
@@ -750,6 +750,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    display: block;
   }
+  
 }

@@ -14,6 +14,9 @@ import ProjectPost from "../../components/ProjectPost/ProjectPost";
 import FreeLancerScreen from "../freeLancerScreen/freeLancerScreen";
 import FilterResponsive from "../../CustomIcons/filterResponsive";
 import { useMediaQuery } from "react-responsive";
+import MobileDrawer from "../../components/MobileDrawer/MobileDrawer";
+import CloseIcon from "../../CustomIcons/CloseIcon";
+import FilterMoboIcon from "../../CustomIcons/FilterMoboIcon";
 
 const projects = [
   {
@@ -148,6 +151,10 @@ const HomeScreen = () => {
   const [isFreeLancer, setIsFreeLancer] = useState(false);
   const [isPopupOpen2, setIsPopupOpen2] = useState(false);
   const [callBack, setCallBack] = useState([]);
+const [openDrawer, setOpenDrawer] = useState(false);
+
+const drawerHeight = 500;
+
   const isSmallScreen = useMediaQuery({ query: "(max-width: 950px)" });
   const clearAllSelections = () => {
     setSelectedJobs([]);
@@ -169,12 +176,54 @@ const HomeScreen = () => {
     console.log(CB);
   };
   return (
+    
     <div style={styles.homeScreen}>
       <TwoStageFormPopup
         isOpen={isPopupOpen}
         onClose={() => setIsPopupOpen(false)}
       />
+            <MobileDrawer height={drawerHeight} isOpen={openDrawer} onClose={() => setOpenDrawer(false)}>
+        <div className={styles.mobileDrawerCont}>
+       <div className={styles.drwerTopLine}></div>
+              <div className={styles.mobileDrawer}>
+                   <div className={styles.drawerHeadr}> 
+                    <button  onClick={() => setOpenDrawer(false)}  className={styles.closeBtn}>
+                   <CloseIcon/>
+                   </button>
+                   <h3>Filter Projects</h3>
+                   <gap></gap>
+                   </div>
+                   <div className={styles.filterCont}>
+                <div className={styles.specializationFilter}>
+
+                  <div className={styles.specializationBody}>
+                    <div className={styles.spacing}>
+                      {optionOfFreelancing.map((job) => (
+                        <div key={job.id} className={styles.Options}>
+                          <button
+                            className={`${styles.btn} 
+                          ${
+                            selectedJobs.includes(job.id) ? styles.btnGreen : ""
+                          }
+                          `}
+                            onClick={() => handleJobSelection(job.id)}
+                          ></button>
+                          <p>{job.Job}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                   </div>
+                   <div className={styles.drawerBtn}>
+                    <button onClick={() => setOpenDrawer(false)} className={styles.cancelSort}>Cancel Sort</button>
+                    <button className={styles.apply}>Apply</button>
+                   </div>
+              </div>
+              </div>
+        </MobileDrawer>
       <Container >
+
         <div className={styles.content}>
           {/* MuhammedLami */}
           {isFreeLancer ? (
@@ -299,7 +348,26 @@ const HomeScreen = () => {
                 ))}{" "} </div>
               </>
             ) : (
-              <Card>
+         
+              <>
+              <div>
+             
+              <div className={styles.mobileSearch}>
+                <div className={styles.mobileInputForm}>
+                  
+                <SearchIcon/>
+                
+                <input className={styles.moblieInput} type="text" placeholder="search" />
+                </div>
+                
+                  <div className={styles.filterBtn} onClick={() =>  setOpenDrawer(true)}><FilterMoboIcon/></div>
+                 
+              </div>
+            
+              </div>
+              
+                <div className={styles.postBoxCont}>   
+                  <Card>
                 <div className={styles.postBox}>
                   <img src="/avatar.png" />
                   <div className={styles.postInput} onClick={handleNewProject}>
@@ -312,6 +380,9 @@ const HomeScreen = () => {
                   </div>
                 </div>
               </Card>
+              </div>
+              </>
+     
             )}
             {posts?.map((post) => (
               <ProjectPost

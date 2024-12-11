@@ -84,6 +84,20 @@ const recentProjects = [
       "This Project Involves implementing both frontend and back-end functionalities ,as  well as integrating with third-party Apls.",
   },
 ];
+const WorkFor = [
+  {
+    id: 1,
+    title: "company Name One",
+    createdAt: "22 Jan 2024 - 11 May  2024.",
+    desc: "Developed a task management web application designed to help users organize, prioritize, and track their daily tasks efficiently. ",
+  },
+  {
+    id: 2,
+    title: "company Name Two",
+    createdAt: "22 Jan 2024 - 11 May  2024.",
+    desc: "Developed a task management web application designed to help users organize, prioritize, and track their daily tasks efficiently. ",
+  },
+];
 
 const optionOfFreelancing = [
   {
@@ -150,7 +164,7 @@ const HomeScreen = () => {
   const [selectedJobs, setSelectedJobs] = useState([]);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [recentProjectOpened, setRecentProjectOpened] = useState(-1);
-  const [isFreeLancer, setIsFreeLancer] = useState(false);
+  const [isFreeLancer, setIsFreeLancer] = useState(true);
   const [isPopupOpen2, setIsPopupOpen2] = useState(false);
   const [callBack, setCallBack] = useState([]);
   const [isCommentForm, setIsCommentForm] = useState(false);
@@ -292,12 +306,32 @@ const HomeScreen = () => {
                   <div className={styles.history}>
                     <div className={styles.historyHead}>
                       <b>Projects History</b>
-                      <div className={styles.actions}>
-                        <PlusIcon />
-                        <EditIcon />
-                      </div>
                     </div>
                     {projects?.map((p) => (
+                      <div className={styles.projectItem} key={p.id}>
+                        <div className={styles.guid}>
+                          <div className={styles.dot}></div>
+                          <div className={styles.line}></div>
+                        </div>
+                        <div className={styles.itemInfo}>
+                          <h4>{p.title}</h4>
+                          <small>{p.createdAt}</small>
+                          <p className={styles.itemDesc}>{p.desc}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </Card>
+                <Card marginTop={16}>
+                  <div className={styles.history}>
+                    <div className={styles.historyHead}>
+                      <b>Work For</b>
+                      <div className={styles.actions}>
+                      <PlusIcon />
+                      <EditIcon />
+                    </div>
+                    </div>
+                    {WorkFor?.map((p) => (
                       <div className={styles.projectItem} key={p.id}>
                         <div className={styles.guid}>
                           <div className={styles.dot}></div>

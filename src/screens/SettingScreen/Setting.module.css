@@ -1,0 +1,218 @@
+.settingCont {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+}
+.options {
+  width: 40%;
+  background-color: #ecf6f9;
+  padding: 20px;
+  border-radius: 16px;
+}
+.options ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+.options ul li {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 14px;
+  transition: 0.3s;
+}
+.options ul li:hover {
+  background-color: #ccedf8d3;
+}
+.options ul li:active {
+  background-color: #ffffff;
+}
+.options ul li a {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  align-items: center;
+}
+
+.logoutModal {
+}
+.modalHeader {
+  display: flex;
+  gap: 30px;
+}
+.modalHeader h3 {
+  width: 250px;
+  text-align: center;
+}
+.closeBtn {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+.btnCont {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 50px;
+}
+.logout {
+  border: none;
+  background-color: #3c97af;
+  width: 100%;
+  height: 45px;
+  border-radius: 18px;
+  color: #fff;
+  cursor: pointer;
+}
+.cancel {
+  border: none;
+  border: 1px solid #3c97af;
+  background-color: #fff;
+  width: 100%;
+  height: 45px;
+  border-radius: 18px;
+  color: #3c97af;
+  cursor: pointer;
+}
+.logout:hover {
+  background-color: #3c96afca;
+}
+.logout:active {
+  background-color: #3c96af;
+}
+.cancel:hover {
+  background-color: #f3f3f3;
+}
+.cancel:active {
+  background-color: #ffffff;
+}
+
+.deleteModalHeader {
+  display: flex;
+  gap: 22px;
+}
+.deleteModalHeader {
+  display: flex;
+  gap: 22px;
+}
+.closeBtn {
+  display: flex;
+  margin-top: 5px;
+}
+.deleteModalHeader p {
+  width: 350px;
+  color: #999999;
+  font-size: 13px;
+}
+.radio {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  margin-top: 20px;
+  margin-bottom: 36px;
+}
+.deleteAccount {
+  /* position: fixed;
+  bottom: 15px;
+  left: 0; */
+  border: none;
+  width: 100%;
+  background-color: #ebebeb;
+  color: #999999;
+  cursor: not-allowed;
+  height: 45px;
+  border-radius: 18px;
+  cursor: not-allowed;
+}
+.activeButton {
+  border: none;
+  width: 100%;
+  background-color: #eb0000;
+  color: #fff;
+  cursor: pointer;
+  height: 45px;
+  border-radius: 18px;
+}
+.activeButton:hover {
+  background-color: #ff2222;
+  color: #ebebeb;
+}
+.activeButton:active {
+  background-color: #910000;
+  color: #ebebeb;
+}
+
+.MobileDrawer {
+  display: none;
+}
+.mobileDelete {
+  display: none !important;
+}
+@media (max-width: 950px) {
+  .deleteModalHeader button ,  .deleteModalHeader h3 {
+    display: none;
+  }
+  .deleteAccount{
+    position: fixed;
+    bottom: 60px;
+    left: 0;
+    width: 80%;
+    margin-left: 10%;
+  }
+  .options {
+    width: 90%;
+    background-color: #ecf6f9;
+    padding: 20px;
+    border-radius: 16px;
+  }
+  .logoutCont {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .logoutModal {
+    padding: 20px;
+    width: 100%;
+  }
+  .modalHeader {
+    display: flex;
+    justify-content: space-between;
+  }
+  .modalHeader h3 {
+    width: 250px;
+    text-align: center;
+  }
+  .closeBtn {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+  }
+  .btnCont {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    margin-top: 50px;
+  }
+  .drwerTopLine {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20%;
+    height: 5px;
+    background-color: #61646B;
+    border-radius: 50px;
+    margin-top: 12px;
+  }
+  .mobileDelete {
+    display: block !important;
+    display: flex !important;
+    justify-content: space-between !important;
+  }
+
+}

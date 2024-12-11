@@ -5,12 +5,15 @@ import UserInfo from './screens/userInfo/UserInfo';
 import DashboardScreen from './screens/dashboardScreen/DashboardScreen';
 import MainLayout from './layout/MainLayout';
 import ProtectedRoute from './components/ProtectedRoute';
-import HomeScreen from './screens/HomeScreen/homeScreen';
+import HomeScreen from './screens/HomeScreen/HomeScreen';
 import ProfileScreen from './screens/ProfileScreen/ProfileScreen';
 import Login from './screens/login/login';
+import Setting from './screens/SettingScreen/Setting';
+
+
 
 function App() {
-  
+
   const router = createBrowserRouter([
     {
       path: "/register",
@@ -31,8 +34,9 @@ function App() {
           path: "/",
           element: (
             // <ProtectedRoute isProtected={true}>
-              <HomeScreen />
+              <HomeScreen  />
             // </ProtectedRoute>
+            
           ),
         },
         {
@@ -54,9 +58,9 @@ function App() {
         {
           path: "/setting",
           element: (
-            <ProtectedRoute isProtected={true}>
-              
-            </ProtectedRoute>
+            // <ProtectedRoute isProtected={true}>
+            <Setting/>
+            // </ProtectedRoute>
           ),
         },
       ],
@@ -65,7 +69,10 @@ function App() {
   return (
     <>
       <RouterProvider router={router} />
-    </>
+        
+
+     
+</>
   )
 }
 

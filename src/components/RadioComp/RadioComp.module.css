@@ -1,0 +1,28 @@
+.radio {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 18px;
+  }
+  
+  .container {
+    height: 24px;
+    width: 24px;
+    padding: 2px;
+    border-radius: 50%;
+    border: 2px solid #eee;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .radio:active .container {
+    transform: scale(1.2);
+  }
+  
+  .toggle {
+    border-radius: 50%;
+   
+  }

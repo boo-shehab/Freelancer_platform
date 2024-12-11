@@ -1,24 +1,25 @@
-import { useEffect, useState } from 'react';
-import styles from './TwoStageFormPopup.module.css'
-import CustomButton from '../customButton/CustomButton';
-import Dropbutton from '../../CustomIcons/Dropbutton';
-import MediaIcon from '../../CustomIcons/MediaIcon';
-import DocumentIcon from '../../CustomIcons/DocumentIcon';
+import { useEffect, useState } from "react";
+import styles from "./TwoStageFormPopup.module.css";
+import CustomButton from "../customButton/CustomButton";
+import Dropbutton from "../../CustomIcons/Dropbutton";
+import MediaIcon from "../../CustomIcons/MediaIcon";
+import DocumentIcon from "../../CustomIcons/DocumentIcon";
+import RedCross from "../../CustomIcons/redCross";
 
-import { useAppStore } from '../../store';
+import { useAppStore } from "../../store";
 const options = ["UIUX Designer", "Back-end", "Front-end", "Mobile app"];
 const TwoStageFormPopup = ({ isOpen, onClose }) => {
-  const {projectsPosts, addNewProjectPost} = useAppStore((state) => state)
+  const { projectsPosts, addNewProjectPost } = useAppStore((state) => state);
   const [stage, setStage] = useState(1);
   const [CurrentOption, setCurrentOption] = useState("Select option");
   const [showSelectoption, setshowSelectoption] = useState(false);
-  const [formData, setFormData] = useState({ 
-    qualification: '', 
-    description: '', 
+  const [formData, setFormData] = useState({
+    qualification: "",
+    description: "",
     files: [],
     duration: "",
     pricingType: 0,
-    price: ""
+    price: "",
   });
 
   const handleNext = () => setStage(stage + 1);
@@ -32,54 +33,80 @@ const TwoStageFormPopup = ({ isOpen, onClose }) => {
   };
 
   const handleSave = (e) => {
-    addNewProjectPost(formData)
-    setFormData({ 
-      qualification: '', 
-      description: '', 
+    addNewProjectPost(formData);
+    setFormData({
+      qualification: "",
+      description: "",
       files: [],
       duration: "",
       pricingType: 0,
-      price: ""
-    })
-    onClose()
-  }
-  useEffect(()=> {
+      price: "",
+    });
+    onClose();
+  };
+  useEffect(() => {
     console.log(projectsPosts);
-  }, [projectsPosts])
-  
+  }, [projectsPosts]);
+
   if (!isOpen) return null;
 
   return (
     <div id={styles["popup-overlay"]}>
       <div className={styles["popup-content"]}>
         <div className={styles.header}>
-            <h2>Create a project</h2>
-            <button onClick={onClose} className={styles["close-btn"]}>X</button>
+          <h2>Create a project</h2>
+          <button onClick={onClose} className={styles["close-btn"]}>
+            <RedCross />
+          </button>
         </div>
         <div className={styles["progress-bar"]}>
-          <div className={`${styles['progress-segment']} ${stage >= 1 ? styles.active : ''}`}></div>
-          <div className={`${styles['progress-segment']} ${stage >= 2 ? styles.active : ''}`}></div>
+          <div
+            className={`${styles["progress-segment"]} ${
+              stage >= 1 ? styles.active : ""
+            }`}
+          ></div>
+          <div
+            className={`${styles["progress-segment"]} ${
+              stage >= 2 ? styles.active : ""
+            }`}
+          ></div>
         </div>
 
         {stage === 1 && (
           <form>
-            <label>
-              Select Required Qualifications
-            </label>
-            <button className={ CurrentOption === "Select option" ? styles.Selectoption : styles.SelectoptionWithactive} onClick={()=>setshowSelectoption(!showSelectoption)}>
-                    {CurrentOption}
-                   <Dropbutton />
-              </button>
-              <div className={styles.Selectoptionchose} style={{display: showSelectoption ? "block" : "none"}}>
-                    {options.map((option) => (
-                      <button
-                        key={option}
-                        className={CurrentOption === option ? styles.SelectoptionchoseActive : ''}
-                        onClick={() => setCurrentOption(option)}
-                      >
-                        {option}
-                      </button>
-                    ))}</div>
+            <label>Select Required Qualifications</label>
+            <button
+              className={
+                CurrentOption === "Select option"
+                  ? styles.Selectoption
+                  : styles.SelectoptionWithactive
+              }
+              onClick={() => setshowSelectoption(!showSelectoption)}
+            >
+              {CurrentOption}
+              <Dropbutton />
+            </button>
+            <div
+              className={styles.Selectoptionchose}
+              style={{ display: showSelectoption ? "block" : "none" }}
+            >
+              {options.map((option) => (
+                <button
+                  key={option}
+                  className={
+                    CurrentOption === option
+                      ? styles.SelectoptionchoseActive
+                      : ""
+                  }
+                  onClick={() => {
+                    setCurrentOption(option);
+                    setshowSelectoption(false);
+                  }}
+                >
+                  {option}
+                </button>
+              ))}
+            </div>
             <label>
               Description
               <textarea
@@ -94,24 +121,39 @@ const TwoStageFormPopup = ({ isOpen, onClose }) => {
             <div className={styles.spacer} />
             <div className={styles["file-buttons"]}>
               <button type="button" className={styles.Uploadfile}>
-                 <MediaIcon />
+                <MediaIcon />
               </button>
               <button type="button" className={styles.Uploadfile}>
-                 <DocumentIcon />
+                <DocumentIcon />
               </button>
-              <input id="mediaUpload" type="file" onChange={handleFileUpload} style={{ display: 'none' }} />
-              <input id="documentUpload" type="file" onChange={handleFileUpload} style={{ display: 'none' }} />
-              <button type="button" onClick={handleNext} className={styles["next-btn"]}>Next &gt;</button>
+              <input
+                id="mediaUpload"
+                type="file"
+                onChange={handleFileUpload}
+                style={{ display: "none" }}
+              />
+              <input
+                id="documentUpload"
+                type="file"
+                onChange={handleFileUpload}
+                style={{ display: "none" }}
+              />
+              <button
+                type="button"
+                onClick={handleNext}
+                className={styles["next-btn"]}
+              >
+                Next &gt;
+              </button>
             </div>
-
           </form>
         )}
         {stage === 2 && (
-            <form>
+          <form>
             <label>
               Description
               <input
-                type='text'
+                type="text"
                 name="duration"
                 placeholder="duration of the project"
                 value={formData.duration}
@@ -119,13 +161,19 @@ const TwoStageFormPopup = ({ isOpen, onClose }) => {
                 required
               ></input>
             </label>
-                <label>
-                     Price Per Hour
-                    <input name='price' value={formData.price} onChange={handleChange} type="text" placeholder='Enter price' />
-                </label>
+            <label>
+              Price Per Hour
+              <input
+                name="price"
+                value={formData.price}
+                onChange={handleChange}
+                type="text"
+                placeholder="Enter price"
+              />
+            </label>
             <div className={styles.spacer} />
-                <CustomButton onClick={(handleSave)}>Add Project +</CustomButton>
-            </form>
+            <CustomButton onClick={handleSave}>Add Project +</CustomButton>
+          </form>
         )}
       </div>
     </div>

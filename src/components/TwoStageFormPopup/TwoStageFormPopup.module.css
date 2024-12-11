@@ -1,28 +1,26 @@
 #popup-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.6);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-  }
-  
-#popup-overlay .popup-content {
-    background: #F8FBFC;
-    padding: 20px;
-    border-radius: 12px;
-    width: 90%;
-    max-width: 700px;
-    height: 90%;
-    position: relative;
-    display: flex;
-    flex-direction: column;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
 }
 
+#popup-overlay .popup-content {
+  background: #F8FBFC;
+  padding: 20px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 700px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
 #popup-overlay .popup-content .header {
     display: flex;
     align-items: center;
@@ -32,6 +30,9 @@
 }
 
 #popup-overlay .close-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
     font-size: 18px;
     background-color: #FFE5E5;
     border: 1px solid #EB0000;
@@ -53,13 +54,13 @@
   
   #popup-overlay .progress-segment {
     flex: 1;
-    height: 4px;
+    height: 6px;
     background: #e0e0e0;
-    border-radius: 2px;
+    border-radius: 8px;
   }
   
   #popup-overlay .progress-segment.active {
-    background: #2196F3;
+    background: #3C97AF;
   }
 
 #popup-overlay form {
@@ -95,11 +96,14 @@
     background-color: #F8FBFC;
     border-radius: 4px;
     margin-bottom: 16px;
+    margin-top: 8px;
+    outline: none;
   }
   
   #popup-overlay textarea {
     height: 100px;
     margin-top: 6px;
+    resize: none;
   }
   
   #popup-overlay .file-buttons {
@@ -136,7 +140,7 @@
     background: var(--Color-Primary-Primary, rgba(60, 151, 175, 1));
     color: white;
     border: none;
-    border-radius: 8px;
+    border-radius: 16px;
     cursor: pointer;
     font-family: 'Poppins', sans-serif; 
     font-size: 16px;
@@ -147,9 +151,7 @@
     text-decoration-skip-ink: none;
   }
   
-  #popup-overlay .next-btn:hover {
-    background-color: #1976D2;
-  }
+ 
   #popup-overlay label .sacred-code button {
     width: 100%;
     border: 1px solid #BFBFBF;
@@ -199,6 +201,10 @@
     text-align: left;
     text-underline-position: from-font;
     text-decoration-skip-ink: none;
+    cursor: pointer;
+  }
+  .Selectoptionchose button:hover{
+color: #3C97AF;
   }
 
   textarea:focus{
@@ -220,3 +226,62 @@
     align-items: center;
     background-color: transparent;
   }
+/* ////////////////////////////////////////////////////////// */
+
+#popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+#popup-overlay .popup-content {
+  background: #F8FBFC;
+  padding: 20px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 700px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+#popup-overlay .popup-content .headOfResponsive{
+display: none;
+font-family: 'Poppins', sans-serif;
+margin-top: 62px;
+}
+#popup-overlay .popup-content .headOfResponsive h1{
+font-family: Poppins;
+font-size: 60px;
+font-weight: 700;
+line-height: 30px;
+text-align: left;
+text-underline-position: from-font;
+text-decoration-skip-ink: none;
+}
+#popup-overlay .popup-content .headOfResponsive button{
+background-color: transparent;
+border: none;
+font-size: 60px;
+}
+@media screen and (max-width:700px){
+  #popup-overlay .popup-content {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    max-width: 100%;
+    height: 100% !important;
+}
+#popup-overlay .popup-content .headOfResponsive{
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 26px;
+}
+}

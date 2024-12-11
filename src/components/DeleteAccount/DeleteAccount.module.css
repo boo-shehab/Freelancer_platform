@@ -1,0 +1,50 @@
+.deleteModalHeader {
+    display: flex;
+    gap: 22px;
+  }
+  .deleteModalHeader {
+    display: flex;
+    gap: 22px;
+  }
+  .closeBtn {
+    display: flex;
+    margin-top: 5px;
+  }
+  .deleteModalHeader p {
+    width: 350px;
+    color: #999999;
+    font-size: 13px;
+  }
+  .radio {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 20px;
+  }
+  .deleteAccount {
+    border: none;
+    width: 100%;
+    background-color: #ebebeb;
+    color: #999999;
+    cursor: not-allowed;
+    height: 45px;
+    border-radius: 18px;
+    cursor: not-allowed;
+  }
+  .activeButton {
+    border: none;
+    width: 100%;
+    background-color: #eb0000;
+    color: #fff;
+    cursor: pointer;
+    height: 45px;
+    border-radius: 18px;
+  }
+  .activeButton:hover {
+    background-color: #ff2222;
+    color: #ebebeb;
+  }
+  .activeButton:active {
+    background-color: #910000;
+    color: #ebebeb;
+  }

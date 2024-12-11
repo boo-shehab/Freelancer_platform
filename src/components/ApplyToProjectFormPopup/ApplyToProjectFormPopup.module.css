@@ -1,0 +1,50 @@
+
+
+   .image-div {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin: auto;
+  }
+  
+   .image {
+    width: 100%;
+  }
+  h3 {
+    text-align: center;
+    margin-top: 8px;
+    margin-bottom: 40px;
+  }
+   .form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+   .form label {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 8px;
+  
+  }
+   .form input,textarea {
+    height: 48px;
+    padding-left: 10px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    font-size: 14px;
+    font-weight: 400;
+    border:1px solid  #BFBFBF ;
+    background-color: transparent;
+    outline: none;
+  }
+   textarea{
+    padding: 12px;
+    height: 117px;
+    border: 1px solid #bfbfbf;
+    border-radius: 8px;
+  }
+  
+   .apply-btn{
+  }
+  

@@ -1,0 +1,68 @@
+.skilsCard {
+  width: 100%;
+}
+.skilsHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.skilsList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.skillItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 50px;
+  border-top: 1px solid rgba(191, 191, 191, 1);
+  margin-top: 8px;
+}
+.skillItem:first-child {
+  border-top: none;
+}
+.skillItem p {
+  margin-top: 16x;
+}
+.skilsbody {
+  margin-top: 10px;
+}
+ul {
+  list-style: none;
+}
+ li{
+
+    border-top: 1px solid rgba(191, 191, 191, 1);
+
+}
+li:first-child {
+    border-top:none ;
+}
+.Item {
+  display: flex;
+  gap: 8px;
+  margin-top: 20px;
+ 
+ 
+}
+
+.Item p {
+  font-size: 16px;
+  color: rgba(31, 31, 31, 1);
+}
+.subItem {
+  display: flex;
+  flex-direction: column;
+  margin-left: 38px;
+  color: rgba(153, 153, 153, 1);
+  font-size: 12px;
+  padding-bottom: 20px;
+}

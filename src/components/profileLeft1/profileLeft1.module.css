@@ -1,0 +1,355 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background-color: #F8FBFC;
+  font-size: 16px;
+  color: #333;
+}
+
+.box1 {
+  height: 160px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #FFFFFF;
+  border-radius: 12px;
+  margin-left:10px;
+  margin-right:10px;
+
+}
+
+.part1PictureName{
+  display: flex;
+  align-items: center;
+  gap:20px;
+
+}
+
+.selfie {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 2px solid #1C4752;
+}
+
+.nameSpecialization .name {
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+}
+
+.nameSpecialization .specialization {
+  font-size: 18px;
+  font-weight: 500;
+  color: #999999;
+}
+
+.edit {
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.box1 .editIcon {
+  width: 26px;
+  height: 26px;
+}
+
+
+.editIcon {
+  width: 20px;
+  height: 20px;
+}
+
+
+.box2About {
+  margin-bottom: 20px;
+  background-color: #FFFFFF;
+  border-radius: 12px;
+  margin-left:10px;
+  margin-right:10px;
+
+}
+
+.aboutEdit {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+.about, .educationAddEdit p, .projectAddEdit p, .workAddEdit p {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 22.5px;
+  color: #000000;
+}
+
+
+
+.descriptionAbout {
+  padding-top: 10px;
+  max-height: 230px;
+  overflow-y: auto;
+  border-radius: 8px;
+  padding-right: 10px;
+  color: #808080;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+
+}
+
+.descriptionAbout::-webkit-scrollbar {
+  width: 8px;
+}
+
+.descriptionAbout::-webkit-scrollbar-thumb {
+  background-color: #14B6DA;
+  border-radius: 8px;
+}
+
+.descriptionAbout::-webkit-scrollbar-track {
+  border-radius: 8px; 
+}
+
+.collapsedText {
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.expandedText {
+  display: block;
+}
+
+.seeMoreButton {
+  background-color: white;
+  border: none;
+  color: #5376AC;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+
+}
+
+
+.box3, .box4 {
+  margin-bottom: 20px;
+  background-color: #FFFFFF;
+  border-radius: 12px;
+  margin-left:10px;
+  margin-right:10px;
+
+}
+
+.educationAddEdit, .projectAddEdit, .workAddEdit {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.button {
+  display: flex;
+  gap: 20px;
+}
+
+button {
+  background-color: #FFFFFF;
+  border: none;
+  cursor: pointer;
+}
+.img{
+  width:58px;
+  height: 38px;
+  margin-right:20px;
+
+}
+
+
+.universityIcon{
+  width:38px;
+  height: 38px;
+
+
+}
+
+
+
+.box3Part2 {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-radius: 12px;
+}
+.university  ,.projectName ,.workName{
+  font-size: 16px;
+  font-weight: 500px;
+  line-height: 24px;
+  color:#000000;
+}
+
+.projectDetails, .workDetails {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 24px;
+  color: #808080;
+  flex-grow: 0;
+}
+
+.line {
+  height: 0.5px;
+  background-color: #BFBFBF;
+  margin: 15px 0;
+  width: 100%; 
+
+}
+.date ,.duration{
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  color:#999999;
+  margin-top:4px;
+
+}
+
+.college{
+  margin-top:12px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  color:#1f1f1f;
+
+}
+
+.description{
+  margin-top:12px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 21px;
+  color:#1f1f1f;
+
+}
+
+.postOfProject{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width:100%;
+
+}
+
+.box4Part2{
+  display: flex;
+  width:100%;
+  align-items: stretch;
+
+
+}
+
+.box4Part2Part1 {
+
+  display: flex;
+  justify-content: space-between; 
+  flex-direction: column;
+  align-items: center;
+  margin-right:10px;
+  flex-grow: 1;
+  
+}
+
+
+.circle {
+  width: 10px; 
+  height: 10px; 
+  border-radius: 50%; 
+  background-color: #5376AC;
+  margin: 5px 0px; 
+}
+
+
+.line1 {
+  width: 2px;
+  background-color: #5376AC; 
+  margin: 0 0px;
+  flex-grow: 1; 
+}
+
+@media (max-width:550px){
+  .selfie{
+    width:80px;
+    height:80px;
+  }
+  .box1{
+    height:100px;
+  }
+
+  .nameSpecialization .name{
+    font-size:16px;
+  }
+
+  .nameSpecialization  .specialization{
+    font-size:14px;
+  }
+
+  .workAddEdit p,.projectAddEdit p,.educationAddEdit p,.aboutEdit p{
+    font-size:16px;
+
+  }
+
+
+
+
+}
+
+@media (max-width:400px){
+
+  .box1{
+    height:160px;
+  }
+
+
+
+  .part1PictureName{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width:260px;
+
+  }
+
+  .nameSpecialization{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .date, .duration{
+    font-size:10px;
+
+  }
+  .duration{
+    margin-top:0px;
+  }
+  .description{
+    font-size:14px;
+    margin-top:8px;
+  }
+}
+
+
+
+
+
+

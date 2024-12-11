@@ -6,8 +6,9 @@ import DeleteIcon from '../../CustomIcons/DeleteIcon';
 import InProgressIcon from '../../CustomIcons/InProgressIcon';
 import InReviewIcon from '../../CustomIcons/InReviewIcon';
 import ToDoIcon from '../../CustomIcons/ToDoIcon';
+import TwoStageFormPopup from "../TwoStageFormPopup/TwoStageFormPopup";
 import DonutChart from "../../components/charts/DonutChart";
-import SubList from './SubList'; 
+import SubList from './SubList';
 
 
 
@@ -21,15 +22,17 @@ const SliderOfProject = ({
     tasks,
     handleEdit,
     handleDelete,
-    taskStatus,
-    onStatusChange
+    // taskStatus,
+    onStatusChange,
+    addTask
 
 }) => {
     if (!show) return null;
 
     const [selectedTab, setSelectedTab] = useState("To Do");
-    const [isFreeLancer, setIsFreeLancer] = useState(false);
+    const [isFreeLancer, setIsFreeLancer] = useState(true);
     const [isSubListVisible, setIsSubListVisible] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
 
     const handleTabClick = (tabName) => {
         setSelectedTab(tabName);
@@ -44,7 +47,7 @@ const SliderOfProject = ({
 
     const handleStatusChange = (taskId, newStatus) => {
         onStatusChange(taskId, newStatus);
-        setSelectedTab(newStatus);  
+        setSelectedTab(newStatus);
         console.log("Task status changed. New status:", newStatus);
     };
 
@@ -135,8 +138,25 @@ const SliderOfProject = ({
                 )}
 
                 {projectStatus === "In Progress" && (
-                    <div>
-                        <h3>{isFreeLancer ? "Freelancer Tasks" : "My Tasks"}</h3>
+                    <div className={styles.tasksSection}>
+
+                        <h3 className={styles.titelText}>
+                            {isFreeLancer ? "Freelancer Tasks" : "My Tasks"}
+                        </h3>
+                        <div style={{ display: isFreeLancer ? "block" : "none" }}>
+                            <button
+                                className={styles.addTaskButton}
+                                onClick={() => {
+                                    const newTaskName = prompt("Enter task name:"); 
+                                    if (newTaskName) {
+                                        addTask(newTaskName, "To Do"); 
+                                    }
+                                }}
+                            >
+                                +
+                            </button>
+                        </div>
+
                         <div className={styles.taskTabs}>
 
                             <a
@@ -183,7 +203,7 @@ const SliderOfProject = ({
                                                     type="checkbox"
                                                     id={`task-${task.id}`}
                                                     className={styles.checkbox}
-                                                    
+
                                                 />
                                             </div>
                                         )}

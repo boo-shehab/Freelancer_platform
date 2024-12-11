@@ -1,0 +1,74 @@
+.handelInput {
+  display: inline-block;
+  position: relative;
+}
+.commentList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.CommentCardSpaceBetween {
+  display: flex;
+  gap: 12px;
+}
+.CommentCard {
+  display: flex;
+  gap: 10px;
+  padding: 10px 10px;
+  align-items: center;
+  min-height: 10px;
+  width: 100%;
+  box-shadow: 0px 2px 8px 0px #3c97af14;
+  border-radius: 16px;
+  justify-content: space-between;
+}
+
+.date {
+  color: #999999;
+}
+
+.CommentCardImg {
+  width: 40px;
+  height: 40px;
+}
+.btnsEditAndDelete {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.editIcons {
+  cursor: pointer;
+}
+.postComment {
+  width: 100%;
+  height: 40px;
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.postCommentInput {
+  border-radius: 12px;
+  border: none;
+  width: 80%;
+  height: 100%;
+  background-color: #ebebeb;
+  padding-left: 6px;
+  color: #0a0a0a;
+  box-shadow: 0px 2px 8px 0px #3c97af14;
+}
+.postCommentInput:focus {
+  outline: #3c97af;
+}
+.postCommentBtn {
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #3c97af;
+  height: 40px;
+  color: #ffffff;
+  width: 20%;
+}

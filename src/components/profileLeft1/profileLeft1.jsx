@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styles from "./profileLeft1.module.css";
-import AddIcon from "./add.png";
 import UniversityIcon from "./university.png";
 import Card from "../Card/card";
 import EditAboutPopup from "../EditAboutPopup/EditAboutPopup";
@@ -9,7 +8,6 @@ import EducationForm from "../EducationForm/EducationForm";
 import EditProfilePopup from "../EditProfilePopup/EditProfilePopup";
 import ProjectHistoryForm from "../ProjectHistoryForm/ProjectHistoryForm";
 import EditIcon from "../../CustomIcons/EditIcon";
-import Pluse2Icon from "../../CustomIcons/Pluse2Icon";
 import PlusIcon from "../../CustomIcons/PlusIcon";
 
 

@@ -285,6 +285,58 @@ button {
   flex-grow: 1; 
 }
 
+@media (max-width:550px){
+  .selfie{
+    width:80px;
+    height:80px;
+  }
+  .box1{
+    height:100px;
+  }
+
+  .nameSpecialization .name{
+    font-size:16px;
+  }
+
+  .nameSpecialization  .specialization{
+    font-size:14px;
+  }
+
+  .workAddEdit p,.projectAddEdit p,.educationAddEdit p,.aboutEdit p{
+    font-size:16px;
+
+  }
+
+
+
+
+}
+
+@media (max-width:400px){
+
+  .box1{
+    height:160px;
+  }
+
+
+
+  .part1PictureName{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width:260px;
+
+  }
+
+  .nameSpecialization{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
 
 
 

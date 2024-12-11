@@ -72,6 +72,7 @@ const EditProfilePopup = ({ isOpen, onClose, initialData, onSave }) => {
         </div>
     </ContainerForm>
   );
+  
 };
 
 export default EditProfilePopup;

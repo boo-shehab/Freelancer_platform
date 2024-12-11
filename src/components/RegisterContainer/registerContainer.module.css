@@ -45,7 +45,7 @@
     padding-top: 48px;
   }
 }
-@media (max-width: 950px) {
+@media (max-width: 780px) {
   .left {
     display: none;
   }
@@ -56,6 +56,11 @@
 }
 @media (max-width: 660px) {
   .register-container {
+ 
     padding: 16px 12px;
+  
+   
+
+ 
   }
 }

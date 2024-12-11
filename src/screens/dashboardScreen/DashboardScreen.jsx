@@ -140,7 +140,17 @@ const DashboardScreen = () => {
       );
     }
   };
-
+  const addTask = (name, status) => {
+    setTasks((prevTasks) => [
+      ...prevTasks,
+      {
+        id: prevTasks.length + 1, // Simple unique ID generation
+        name,
+        status,
+      },
+    ]);
+  };
+  
   const handleDelete = (taskId) => {
     if (window.confirm("Are you sure you want to delete this task?")) {
       setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
@@ -318,6 +328,7 @@ const DashboardScreen = () => {
         handleDelete={handleDelete}
         taskStatus={selectedProject ? tasks.map((task) => task.status) : []}
         onStatusChange={handleTaskStatusChange}
+        addTask={addTask}
       />
     </div>
   );

@@ -20,6 +20,21 @@ import ProjectHistoryForm from "../../components/ProjectHistoryForm/ProjectHisto
 import ProfileLeft1 from "../../components/profileLeft1/profileLeft1"
 import SkilsSide from "../../components/Skils/skils"
 
+const WorkFor = [
+  {
+    id: 1,
+    title: "company Name One",
+    createdAt: "22 Jan 2024 - 11 May  2024.",
+    desc: "Developed a task management web application designed to help users organize, prioritize, and track their daily tasks efficiently. ",
+  },
+  {
+    id: 2,
+    title: "company Name Two",
+    createdAt: "22 Jan 2024 - 11 May  2024.",
+    desc: "Developed a task management web application designed to help users organize, prioritize, and track their daily tasks efficiently. ",
+  },
+];
+
 const ProfileScreen = () => {
   const [isUserInfoOpen, setIsUserInfoOpen] = useState(false)
   const [isAboutPopupOpen, setIsAboutPopupOpen] = useState(false)
@@ -97,10 +112,10 @@ const ProfileScreen = () => {
       {isFreeLancer ? (<div >
         <Container >
           <div className={styles.profilePageOFFreelancer}>
-            <ProfileLeft1 />
-            < SkilsSide />
-            <section className={styles.section2}>
-              <Card paddingx={24} isProfilePage={true}>
+            <div className={styles.firstRow}><ProfileLeft1 /></div>
+            <div className={styles.secondRow}>< SkilsSide /></div>
+            <section className={styles.ThirdRow}>
+              <Card>
                 <div className={styles.ActivityBox}>
                   <h3 className={styles.ActivityHeader}>Your Activity</h3>
                   <div className={styles.Chart}>
@@ -148,9 +163,15 @@ const ProfileScreen = () => {
                       <div className={styles.label}>Project Posted</div>
                       <div className={styles.value}>14</div>
                     </div>
-                  </div></div>
+                    <div className={styles.infoItem}>
+                      <TaskDoneIcon />
+                      <div className={styles.label}>Project you work on it</div>
+                      <div className={styles.value}>34</div>
+                    </div>
+                  </div>
+                  </div>
               </Card>
-              <Card marginTop={24} paddingx={24} isProfilePage={true} >
+              <Card marginTop={24}  >
                 <div className={styles.rateTitleBox}>
                   <h3 className={styles.rateTitle}>Rating</h3>
                   <p className={styles.rateSubtitle}>Average Rating</p>
@@ -203,7 +224,7 @@ const ProfileScreen = () => {
                     </div>
                   </div></div>
               </Card>
-              <Card marginTop={24} paddingx={24} isProfilePage={true}>
+              <Card marginTop={24} >
                 <div className={styles.titleReviewsBox}>
                   <h3 className={styles.titleReviews}>Reviews</h3>
                   <p className={styles.subtitleReviews}>
@@ -280,13 +301,33 @@ const ProfileScreen = () => {
                   <div className={styles.history}>
                     <div className={styles.historyHead}>
                       <b>Projects History</b>
+                     
+                    </div>
+
+                    {projects?.map((p) => (
+                      <div className={styles.projectItem} key={p.id}>
+                        <div className={styles.guid}>
+                          <div className={styles.dot}></div>
+                          <div className={styles.line}></div>
+                        </div>
+                        <div className={styles.itemInfo}>
+                          <h4>{p.title}</h4>
+                          <small>{p.createdAt}</small>
+                          <p className={styles.itemDesc}>{p.desc}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  <div className={styles.history}>
+                    <div className={styles.historyHead}>
+                      <b>Work For</b>
                       <div className={styles.actions}>
                         <PlusIcon />
                         <EditIcon />
                       </div>
                     </div>
 
-                    {projects?.map((p) => (
+                    {WorkFor?.map((p) => (
                       <div className={styles.projectItem} key={p.id}>
                         <div className={styles.guid}>
                           <div className={styles.dot}></div>

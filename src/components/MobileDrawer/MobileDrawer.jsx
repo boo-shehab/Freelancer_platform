@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from "./MobileDrawer.module.css";
 
-function MobileDrawer({ isOpen, onClose, height = 280, children }) {
+function MobileDrawer({ isOpen, onClose, height = 315, children }) {
   return (
     <div className={styles.modal}>
       <div

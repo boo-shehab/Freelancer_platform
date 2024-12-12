@@ -247,6 +247,8 @@ button.declineFreeLancer {
     position: relative;
 }
 
+
+
 .addTaskButton {
     position: absolute;
     top: 0;
@@ -260,6 +262,11 @@ button.declineFreeLancer {
     font-size: 1.5rem;
     cursor: pointer;
 }
+
+.titelText{
+    margin-top: 10px;
+}
+
 
 .taskTabs {
     display: flex;
@@ -288,6 +295,12 @@ button.declineFreeLancer {
 
 .tab:hover {
     background: #CCE7ED;
+    background: #d9d9d9;
+    border-radius: 40px;
+    height: 40px;
+    padding-top: 8px;
+    gap: 10px;
+    margin: auto;
 }
 
 .activeTab {

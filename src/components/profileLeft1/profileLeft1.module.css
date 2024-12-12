@@ -12,15 +12,25 @@ body {
 }
 
 .box1 {
-  margin-bottom: 20px;
   height: 160px;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   background-color: #FFFFFF;
   border-radius: 12px;
   gap: 20px;
   padding: 15px;
+  
+  margin-left:10px;
+  margin-right:10px;
+
+}
+
+.part1PictureName{
+  display: flex;
+  align-items: center;
+  gap:20px;
+
 }
 
 .selfie {
@@ -46,7 +56,6 @@ body {
   background: none;
   border: none;
   cursor: pointer;
-  padding: 5px;
   transition: transform 0.2s;
 }
 .box1 .editIcon {
@@ -65,7 +74,8 @@ body {
   margin-bottom: 20px;
   background-color: #FFFFFF;
   border-radius: 12px;
-  padding: 20px;
+  margin-left:10px;
+  margin-right:10px;
 
 }
 
@@ -140,8 +150,8 @@ body {
   margin-bottom: 20px;
   background-color: #FFFFFF;
   border-radius: 12px;
-  padding: 20px;
-
+  margin-left:10px;
+  margin-right:10px;
 
 }
 
@@ -184,7 +194,6 @@ button {
   justify-content: space-between;
   padding: 10px;
   border-radius: 12px;
-  margin-bottom: 10px;
 }
 .university  ,.projectName ,.workName{
   font-size: 16px;
@@ -198,12 +207,15 @@ button {
   font-weight: 400;
   line-height: 24px;
   color: #808080;
+  flex-grow: 0;
 }
 
 .line {
-  height: 1px;
+  height: 0.5px;
   background-color: #BFBFBF;
-  margin: 10px 0;
+  margin: 15px 0;
+  width: 100%; 
+
 }
 .date ,.duration{
   font-size: 12px;
@@ -232,19 +244,31 @@ button {
 
 }
 
-.box4Part2{
+.postOfProject{
   display: flex;
+  flex-direction: column;
+  align-items: center;
   width:100%;
 
 }
 
-.box4Part2Part1 {
-  width:200px;
+.box4Part2{
   display: flex;
+  width:100%;
+  align-items: stretch;
+
+
+}
+
+.box4Part2Part1 {
+
+  display: flex;
+  justify-content: space-between; 
   flex-direction: column;
   align-items: center;
-  justify-content: center; 
-  gap: 5px;
+  margin-right:10px;
+  flex-grow: 1;
+  
 }
 
 
@@ -253,15 +277,78 @@ button {
   height: 10px; 
   border-radius: 50%; 
   background-color: #5376AC;
-  margin: 0 10px; 
+  margin: 5px 0px; 
 }
 
 
 .line1 {
   width: 2px;
-  height: 90px; 
   background-color: #5376AC; 
-  margin: 0 10px;
+  margin: 0 0px;
+  flex-grow: 1; 
+}
+
+@media (max-width:550px){
+  .selfie{
+    width:80px;
+    height:80px;
+  }
+  .box1{
+    height:100px;
+  }
+
+  .nameSpecialization .name{
+    font-size:16px;
+  }
+
+  .nameSpecialization  .specialization{
+    font-size:14px;
+  }
+
+  .workAddEdit p,.projectAddEdit p,.educationAddEdit p,.aboutEdit p{
+    font-size:16px;
+
+  }
+
+
+
+
+}
+
+@media (max-width:400px){
+
+  .box1{
+    height:160px;
+  }
+
+
+
+  .part1PictureName{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width:260px;
+
+  }
+
+  .nameSpecialization{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .date, .duration{
+    font-size:10px;
+
+  }
+  .duration{
+    margin-top:0px;
+  }
+  .description{
+    font-size:14px;
+    margin-top:8px;
+  }
 }
 
 

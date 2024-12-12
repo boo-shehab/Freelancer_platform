@@ -1,5 +1,5 @@
 .skilsCard {
-  width: 30%;
+  width: 100%;
 }
 .skilsHead {
   display: flex;
@@ -65,10 +65,4 @@ li:first-child {
   color: rgba(153, 153, 153, 1);
   font-size: 12px;
   padding-bottom: 20px;
-}
-
-@media  screen and (max-width: 950px) {
-  .skilsCard{
-    width: 100%;
-  }
 }

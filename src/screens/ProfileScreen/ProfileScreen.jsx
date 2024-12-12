@@ -127,27 +127,46 @@ const ProfileScreen = () => {
                       <div>Progress</div>
                     </DonutChart>
                   </div>
-                  <div className={styles.ChartInfo}>
-                    <div className={styles.ChartInfoItem}>
+                  <div className={styles.ChartInfo} style={{ display: 'flex', flexDirection: 'column' , alignItems:'start'}}>                    <div className={styles.ChartInfoItem}>
                       <div
                         className={styles.dot}
                         style={{ backgroundColor: "#D9D9D9" }}
                       ></div>
-                      <p>Posted projects</p>
+                      <p>
+                        {isFreeLancer ? "In-Review" : "Posted projects"}
+                      </p>
+                    </div>
+                    {isFreeLancer ? (
+                      <div className={styles.ChartInfoItem}>
+                        <div
+                          className={styles.dot}
+                          style={{ backgroundColor: "#86C6F8" }}
+                        ></div>
+                        <p>
+                          To-Do
+                        </p>
+                      </div>) : null}
+                    <div className={styles.ChartInfoItem}>
+                      <div
+                        className={styles.dot}
+                        style={{
+                          backgroundColor: isFreeLancer ? "#7FC882" : "#FFDB70"
+                        }}
+                      ></div>
+                      <p>
+                        {isFreeLancer ? "Completed projects" : "Pending projects"}
+                      </p>
                     </div>
                     <div className={styles.ChartInfoItem}>
                       <div
                         className={styles.dot}
-                        style={{ backgroundColor: "#FFDB70" }}
+                        style={{
+                          backgroundColor: isFreeLancer ? "#FFDB70" : "#7FC882"
+                        }}
                       ></div>
-                      <p>Pending projects</p>
-                    </div>
-                    <div className={styles.ChartInfoItem}>
-                      <div
-                        className={styles.dot}
-                        style={{ backgroundColor: "#7FC882" }}
-                      ></div>
-                      <p>Completed projects</p>
+                      <p>
+                      {isFreeLancer ? "InProgress projects" : "Completed projects"}
+                      </p>
                     </div>
                   </div>
                   <div className={styles.infoList}>

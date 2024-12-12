@@ -86,7 +86,7 @@ body {
 }
 
 
-.about, .educationAddEdit p, .projectAddEdit p, .workAddEdit p {
+.about, .educationAddEdit p, .projectAddEdit p, .workAddEdit p ,.workForAddEdit p{
   font-size: 18px;
   font-weight: 700;
   line-height: 22.5px;
@@ -155,7 +155,7 @@ body {
 
 }
 
-.educationAddEdit, .projectAddEdit, .workAddEdit {
+.educationAddEdit, .projectAddEdit, .workAddEdit ,.workForAddEdit {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -195,14 +195,14 @@ button {
   padding: 10px;
   border-radius: 12px;
 }
-.university  ,.projectName ,.workName{
+.university  ,.projectName ,.workName, .workForName{
   font-size: 16px;
   font-weight: 500px;
   line-height: 24px;
   color:#000000;
 }
 
-.projectDetails, .workDetails {
+.projectDetails, .workDetails, .workForDetails {
   font-size: 14px;
   font-weight: 400;
   line-height: 24px;
@@ -305,7 +305,7 @@ button {
     font-size:14px;
   }
 
-  .workAddEdit p,.projectAddEdit p,.educationAddEdit p,.aboutEdit p{
+  .workAddEdit p,.projectAddEdit p,.educationAddEdit p,.aboutEdit p ,.workForAddEdit p{
     font-size:16px;
 
   }

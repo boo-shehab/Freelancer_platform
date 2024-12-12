@@ -6,7 +6,8 @@ import EditAboutPopup from "../EditAboutPopup/EditAboutPopup";
 import WorkExperienceForm from "../WorkExperienceForm/WorkExperienceForm";
 import EducationForm from "../EducationForm/EducationForm";
 import EditProfilePopup from "../EditProfilePopup/EditProfilePopup";
-import ProjectHistoryForm from "../ProjectHistoryForm/ProjectHistoryForm";
+// import ProjectHistoryForm from "../ProjectHistoryForm/ProjectHistoryForm";
+import WorkForForm from "../WorkForForm/WorkForForm";
 import EditIcon from "../../CustomIcons/EditIcon";
 import PlusIcon from "../../CustomIcons/PlusIcon";
 
@@ -40,7 +41,7 @@ const userData = {
     {
       name: "project Name",
       date: "01 June 2022 - 20 Oct 2023",
-      duration: "1 year 4 months", 
+      duration: "1 year 4 months",
       description:
         "Built an e-commerce platform with features such as product listing, cart, checkout, and payment gateway integration.",
     },
@@ -62,6 +63,20 @@ const userData = {
     },
   ],
 };
+const WorkFor = [
+  {
+    name: "company Name One",
+    date: "22 Jan 2024 - 11 May  2024.",
+    duration: "3 months",
+    description: "Developed a task management web application designed to help users organize, prioritize, and track their daily tasks efficiently. ",
+  },
+  {
+    name: "company Name Two",
+    date: "22 Jan 2024 - 11 May  2024.",
+    duration: "3 months",
+    description: "Developed a task management web application designed to help users organize, prioritize, and track their daily tasks efficiently. ",
+  },
+];
 
 function ProfileLeft1() {
   const { profile, about, education, projects, workExperience } = userData;
@@ -72,6 +87,7 @@ function ProfileLeft1() {
   const [isWorkExperienceOpen, setIsWorkExperienceOpen] = useState(false);
   const [isProfileFormOpen, setIsProfileFormOpen] = useState(false);
   const [isProjectHistoryOpen, setIsProjectHistoryOpen] = useState(false);
+  const [isWorkForOpen, setIsWorkForOpen] = useState(false);
 
   const handleToggleExpand = () => {
     setIsExpanded(!isExpanded);
@@ -115,7 +131,7 @@ function ProfileLeft1() {
               className={styles.edit}
               onClick={() => setIsAboutFormOpen(true)}
             >
-              <EditIcon />  
+              <EditIcon />
             </button>
           </div>
           <div className={styles.descriptionAbout}>
@@ -181,33 +197,15 @@ function ProfileLeft1() {
         </div>
       </Card>
       <Card marginTop={10}>
-        <ProjectHistoryForm
+        {/* <ProjectHistoryForm
           isOpen={isProjectHistoryOpen}
           onClose={() => setIsProjectHistoryOpen(false)}
-        />
+        /> */}
         <div className={styles.box4}>
+
           <div className={styles.projectAddEdit}>
             <p>Projects History</p>
-            <div className={styles.button}>
-              <button
-                className={styles.add}
-                onclick={() => {
-                  console.log(isProjectHistoryOpen);
 
-                  setIsProjectHistoryOpen(true);
-                }}
-              >
-                <PlusIcon
-                  onClick={() => setIsProjectHistoryOpen(true)}
-                />
-              </button>
-              <button
-                className={styles.edit}
-                onClick={() => setIsProjectHistoryOpen(true)}
-              >
-                <EditIcon />
-              </button>
-            </div>
           </div>
 
           {projects.map((project, index) => (
@@ -252,7 +250,7 @@ function ProfileLeft1() {
                 />
               </button>
               <button className={styles.edit} onClick={() => setIsWorkExperienceOpen(true)}>
-                  <EditIcon />
+                <EditIcon />
               </button>
             </div>
           </div>
@@ -267,6 +265,59 @@ function ProfileLeft1() {
               </div>
             </div>
           ))}
+        </div>
+      </Card>
+
+      <Card marginTop={10}>
+        <WorkForForm
+          isOpen={isWorkForOpen}
+          onClose={() => setIsWorkForOpen(false)}
+        />
+        <div className={styles.box4}>
+          <div className={styles.workForAddEdit}>
+            <p>Work For</p>
+            <div className={styles.button}>
+              <button
+                className={styles.add}
+                onclick={() => {
+                  console.log(isWorkForOpen);
+
+                  setIsWorkForOpen(true);
+                }}
+              >
+                <PlusIcon
+                  onClick={() => setIsWorkForOpen(true)}
+                />
+              </button>
+              <button
+                className={styles.edit}
+                onClick={() => setIsWorkForOpen(true)}
+              >
+                <EditIcon />
+              </button>
+            </div>
+          </div>
+
+          {WorkFor?.map((workFor, index) => (
+            <div key={index} className={styles.workForItem} >
+              {index > 0 && <div className={styles.line}></div>}
+              <div className={styles.box4Part2}>
+              <div className={styles.box4Part2Part1}>
+                  <div className={styles.circle}></div>
+                  <div className={styles.line1}></div>
+                  <div className={styles.circle}></div>
+                </div>
+                <div className={styles.workForDetails}>
+                  <p className={styles.workForName}>{workFor.name}</p>
+                  <p className={styles.date}>{workFor.date}</p>
+                  <p className={styles.duration}>{workFor.duration}</p>
+                  <p className={styles.description}>{workFor.description}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+
+
         </div>
       </Card>
     </div>

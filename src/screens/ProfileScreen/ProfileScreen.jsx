@@ -19,6 +19,8 @@ import EducationForm from "../../components/EducationForm/EducationForm";
 import ProjectHistoryForm from "../../components/ProjectHistoryForm/ProjectHistoryForm"
 import ProfileLeft1 from "../../components/profileLeft1/profileLeft1"
 import SkilsSide from "../../components/Skils/skils"
+import WorkForForm from "../../components/WorkForForm/WorkForForm";
+
 
 const WorkFor = [
   {
@@ -38,6 +40,7 @@ const WorkFor = [
 const ProfileScreen = () => {
   const [isUserInfoOpen, setIsUserInfoOpen] = useState(false)
   const [isAboutPopupOpen, setIsAboutPopupOpen] = useState(false)
+  const [isWorkForOpen, setIsWorkForOpen] = useState(false);
   const [aboutValue, setAboutValue] = useState("As a software manager with a passion for technology and team development, I specialize in guiding projects from concept to completion. With a strong focus on collaboration and clear communication, I work closely with clients and developers to ensure we deliver high-quality solutions that meet our stakeholders' needs. My goal is to bridge the gap between technical expertise and client vision, helping teams create innovative software that drives results and keeps pace with industry demands,Developed a task management web application designed to help users organize");
 
   const isSmallScreen = useMediaQuery({ query: "(max-width: 950px)" });
@@ -124,27 +127,46 @@ const ProfileScreen = () => {
                       <div>Progress</div>
                     </DonutChart>
                   </div>
-                  <div className={styles.ChartInfo}>
-                    <div className={styles.ChartInfoItem}>
+                  <div className={styles.ChartInfo} style={{ display: 'flex', flexDirection: 'column' , alignItems:'start'}}>                    <div className={styles.ChartInfoItem}>
                       <div
                         className={styles.dot}
                         style={{ backgroundColor: "#D9D9D9" }}
                       ></div>
-                      <p>Posted projects</p>
+                      <p>
+                        {isFreeLancer ? "In-Review" : "Posted projects"}
+                      </p>
+                    </div>
+                    {isFreeLancer ? (
+                      <div className={styles.ChartInfoItem}>
+                        <div
+                          className={styles.dot}
+                          style={{ backgroundColor: "#86C6F8" }}
+                        ></div>
+                        <p>
+                          To-Do
+                        </p>
+                      </div>) : null}
+                    <div className={styles.ChartInfoItem}>
+                      <div
+                        className={styles.dot}
+                        style={{
+                          backgroundColor: isFreeLancer ? "#7FC882" : "#FFDB70"
+                        }}
+                      ></div>
+                      <p>
+                        {isFreeLancer ? "Completed projects" : "Pending projects"}
+                      </p>
                     </div>
                     <div className={styles.ChartInfoItem}>
                       <div
                         className={styles.dot}
-                        style={{ backgroundColor: "#FFDB70" }}
+                        style={{
+                          backgroundColor: isFreeLancer ? "#FFDB70" : "#7FC882"
+                        }}
                       ></div>
-                      <p>Pending projects</p>
-                    </div>
-                    <div className={styles.ChartInfoItem}>
-                      <div
-                        className={styles.dot}
-                        style={{ backgroundColor: "#7FC882" }}
-                      ></div>
-                      <p>Completed projects</p>
+                      <p>
+                      {isFreeLancer ? "InProgress projects" : "Completed projects"}
+                      </p>
                     </div>
                   </div>
                   <div className={styles.infoList}>
@@ -169,7 +191,7 @@ const ProfileScreen = () => {
                       <div className={styles.value}>34</div>
                     </div>
                   </div>
-                  </div>
+                </div>
               </Card>
               <Card marginTop={24}  >
                 <div className={styles.rateTitleBox}>
@@ -301,7 +323,7 @@ const ProfileScreen = () => {
                   <div className={styles.history}>
                     <div className={styles.historyHead}>
                       <b>Projects History</b>
-                     
+
                     </div>
 
                     {projects?.map((p) => (
@@ -319,11 +341,31 @@ const ProfileScreen = () => {
                     ))}
                   </div>
                   <div className={styles.history}>
+                    <WorkForForm
+                      isOpen={isWorkForOpen}
+                      onClose={() => setIsWorkForOpen(false)}
+                    />
                     <div className={styles.historyHead}>
                       <b>Work For</b>
                       <div className={styles.actions}>
-                        <PlusIcon />
-                        <EditIcon />
+                        <button
+                          className={styles.add}
+                          onclick={() => {
+                            console.log(isWorkForOpen);
+
+                            setIsWorkForOpen(true);
+                          }}
+                        >
+                          <PlusIcon
+                            onClick={() => setIsWorkForOpen(true)}
+                          />
+                        </button>
+                        <button
+                          className={styles.edit}
+                          onClick={() => setIsWorkForOpen(true)}
+                        >
+                          <EditIcon />
+                        </button>
                       </div>
                     </div>
 

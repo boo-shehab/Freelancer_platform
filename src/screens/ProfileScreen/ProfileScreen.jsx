@@ -50,8 +50,8 @@ const ProfileScreen = () => {
   const [dotsAbout, setDotsAbout] = useState("....");
   const [seeAction, setSeeAction] = useState("See More");
 
-  const [isFreeLancer, setIsFreeLancer] = useState(true);
-  
+  const [isFreeLancer, setIsFreeLancer] = useState(false);
+
   const chartData = [
     
     { value: 25, color: "#FFDB70" },

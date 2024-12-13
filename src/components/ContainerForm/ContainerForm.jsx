@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import styles from './ContainerForm.module.css';
+import CloseIcon from '../../CustomIcons/CloseIcon';
 
 const ContainerForm = ({ isOpen, onClose, Hight = 'auto' , HeadName="" , children}) => {
   if (!isOpen) return null;
@@ -10,7 +11,7 @@ const ContainerForm = ({ isOpen, onClose, Hight = 'auto' , HeadName="" , childre
           <div className={styles.headOfResponsive}>
                <button onClick={onClose} className={styles.mobileClose}>&lt;</button>
               <h1>{HeadName}</h1>
-              <button onClick={onClose} className={styles.webClose}>X</button>
+              <button onClick={onClose} className={styles.webClose}><CloseIcon /></button>
           </div>
           {children}
       </div>

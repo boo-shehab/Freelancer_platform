@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import styles from "./CommentForm.module.css";
 import ContainerForm from "../ContainerForm/ContainerForm";
-import DeleteIcon from "../../CustomIcons/DeleteIcon.jsx";
-import EditIcon from "../../CustomIcons/EditIcon.jsx";
 const Comment = [
   {
     id: 1,
@@ -95,15 +93,6 @@ const CommentForm = ({ isOpen, onClose }) => {
                 <h4>{i.name}</h4>
                 <p>{i.Comment}</p>
                 <p className={styles.date}>{i.date}</p>
-              </div>
-            </div>
-            <div className={styles.btnsEditAndDelete}>
-              {" "}
-              <div className={styles.editIcons}>
-                <EditIcon />
-              </div>
-              <div className={styles.editIcons}>
-                <DeleteIcon />
               </div>
             </div>
           </div>

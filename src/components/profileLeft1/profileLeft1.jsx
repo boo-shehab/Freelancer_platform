@@ -10,7 +10,7 @@ import EditProfilePopup from "../EditProfilePopup/EditProfilePopup";
 import WorkForForm from "../WorkForForm/WorkForForm";
 import EditIcon from "../../CustomIcons/EditIcon";
 import PlusIcon from "../../CustomIcons/PlusIcon";
-
+import DeleteIcon from "../../CustomIcons/DeleteIcon";
 
 
 const userData = {
@@ -63,20 +63,20 @@ const userData = {
     },
   ],
 };
-const WorkFor = [
-  {
-    name: "company Name One",
-    date: "22 Jan 2024 - 11 May  2024.",
-    duration: "3 months",
-    description: "Developed a task management web application designed to help users organize, prioritize, and track their daily tasks efficiently. ",
-  },
-  {
-    name: "company Name Two",
-    date: "22 Jan 2024 - 11 May  2024.",
-    duration: "3 months",
-    description: "Developed a task management web application designed to help users organize, prioritize, and track their daily tasks efficiently. ",
-  },
-];
+// const WorkFor = [
+//   {
+//     name: "company Name One",
+//     date: "22 Jan 2024 - 11 May  2024.",
+//     duration: "3 months",
+//     description: "Developed a task management web application designed to help users organize, prioritize, and track their daily tasks efficiently. ",
+//   },
+//   {
+//     name: "company Name Two",
+//     date: "22 Jan 2024 - 11 May  2024.",
+//     duration: "3 months",
+//     description: "Developed a task management web application designed to help users organize, prioritize, and track their daily tasks efficiently. ",
+//   },
+// ];
 
 function ProfileLeft1() {
   const { profile, about, education, projects, workExperience } = userData;
@@ -87,7 +87,8 @@ function ProfileLeft1() {
   const [isWorkExperienceOpen, setIsWorkExperienceOpen] = useState(false);
   const [isProfileFormOpen, setIsProfileFormOpen] = useState(false);
   const [isProjectHistoryOpen, setIsProjectHistoryOpen] = useState(false);
-  const [isWorkForOpen, setIsWorkForOpen] = useState(false);
+  // const [isWorkForOpen, setIsWorkForOpen] = useState(false);
+  const [openDrawer, setOpenDrawer] = useState(true);
 
   const handleToggleExpand = () => {
     setIsExpanded(!isExpanded);
@@ -169,12 +170,6 @@ function ProfileLeft1() {
               >
                 <PlusIcon />
               </button>
-              <button
-                className={styles.edit}
-                onClick={() => setIsEducationOpen(true)}
-              >
-                <EditIcon />
-              </button>
             </div>
           </div>
           {education.map((edu, index) => (
@@ -187,7 +182,20 @@ function ProfileLeft1() {
                 />
               </div>
               <div className={styles.educationDetails}>
-                <p className={styles.university}>{edu.university}</p>
+                <div className={styles.titleOfEducation}>
+                  <p className={styles.university}>{edu.university}</p>
+                  <div className={styles.educationAction}>
+                    <button
+                      className={styles.edit}
+                      onClick={() => setIsEducationOpen(true)}
+                    >
+                      <EditIcon />
+                    </button>
+                    <button >
+                      <DeleteIcon />
+                    </button>
+                  </div>
+                </div>
                 <p className={styles.date}>{edu.date}</p>
                 <p className={styles.duration}>{edu.duration}</p>
                 <p className={styles.college}>{edu.college}</p>
@@ -205,12 +213,10 @@ function ProfileLeft1() {
 
           <div className={styles.projectAddEdit}>
             <p>Projects History</p>
-
           </div>
-
           {projects.map((project, index) => (
             <div key={index} className={styles.postOfProject} >
-              {index > 0 && <div className={styles.line}></div>} {/* التأكد من وجود أكثر من مشروع لعرض الخط */}
+              {index > 0 && <div className={styles.line}></div>} 
               <div className={styles.box4Part2}>
                 <div className={styles.box4Part2Part1}>
                   <div className={styles.circle}></div>
@@ -226,13 +232,6 @@ function ProfileLeft1() {
               </div>
             </div>
           ))}
-
-
-
-
-
-
-
         </div>
       </Card>
       <Card marginTop={10}>
@@ -249,16 +248,23 @@ function ProfileLeft1() {
                   onClick={() => setIsWorkExperienceOpen(true)}
                 />
               </button>
-              <button className={styles.edit} onClick={() => setIsWorkExperienceOpen(true)}>
-                <EditIcon />
-              </button>
             </div>
           </div>
           {workExperience.map((work, index) => (
             <div key={index} className={styles.workContainer}>
               {index > 0 && <div className={styles.line}></div>}
               <div className={styles.workDetails}>
-                <p className={styles.workName}>{work.name}</p>
+              <div className={styles.titleWorkDetails}>
+                  <p className={styles.workName}>{work.name}</p>
+                  <div className={styles.workAction}>
+                      <button  onClick={() => setIsWorkExperienceOpen(true)}>
+                        <EditIcon />
+                      </button>
+                      <button >
+                              <DeleteIcon />
+                      </button>
+                  </div>
+              </div>
                 <p className={styles.date}>{work.date}</p>
                 <p className={styles.duration}>{work.duration}</p>
                 <p className={styles.description}>{work.description}</p>
@@ -268,7 +274,7 @@ function ProfileLeft1() {
         </div>
       </Card>
 
-      <Card marginTop={10}>
+      {/* <Card marginTop={10}>
         <WorkForForm
           isOpen={isWorkForOpen}
           onClose={() => setIsWorkForOpen(false)}
@@ -319,7 +325,8 @@ function ProfileLeft1() {
 
 
         </div>
-      </Card>
+      </Card> */}
+            
     </div>
   );
 }

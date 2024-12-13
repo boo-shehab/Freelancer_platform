@@ -50,7 +50,7 @@ const ProfileScreen = () => {
   const [dotsAbout, setDotsAbout] = useState("....");
   const [seeAction, setSeeAction] = useState("See More");
 
-  const [isFreeLancer, setIsFreeLancer] = useState(true);
+  const [isFreeLancer, setIsFreeLancer] = useState(false);
   
   const chartData = [
     
@@ -117,7 +117,10 @@ const ProfileScreen = () => {
   const handleEditProfile = () => {
 
   }
-  
+  const [isListVisible, setVisiblePostId] = useState(null);
+  const idShow = (id) => {
+    setVisiblePostId((prevId) => (prevId === id ? null : id));
+  };
   return (
     <div >
       {isFreeLancer ? (<div >
@@ -348,7 +351,7 @@ const ProfileScreen = () => {
                       </div>
                     ))}
                   </div>
-                  <div className={styles.history}>
+                  {/* <div className={styles.history}>
                     <WorkForForm
                       isOpen={isWorkForOpen}
                       onClose={() => setIsWorkForOpen(false)}
@@ -390,13 +393,12 @@ const ProfileScreen = () => {
                         </div>
                       </div>
                     ))}
-                  </div>
+                  </div> */}
                   <div className={styles.posts}>
                     <div className={styles.postsHead}>
                       <b>Your Activity</b>
                       <div className={styles.actions}>
                         <PlusIcon />
-                        <EditIcon />
                       </div>
                     </div>
                     {posts?.map((post) => (
@@ -418,7 +420,16 @@ const ProfileScreen = () => {
 
                             <div className={styles.postClientAction}>
                               <div className={styles.tag}>Available</div>
-                              <MoreIcon />
+                                  <MoreIcon onClick={() => idShow(post.id)} />
+                                    {isListVisible === post.id && (
+                                      <div
+                                        className={styles.list}
+                                        style={{ marginTop: "220px", position: "absolute" }}>
+                                        <button>Copy link</button>
+                                        <button>Edit</button>
+                                        <button>{isFreeLancer ? "report" : "delete"}</button>
+                                      </div>
+                                    )}
                             </div>
                           </div>
 

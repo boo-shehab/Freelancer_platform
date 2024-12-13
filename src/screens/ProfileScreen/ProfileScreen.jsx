@@ -19,8 +19,8 @@ import EducationForm from "../../components/EducationForm/EducationForm";
 import ProjectHistoryForm from "../../components/ProjectHistoryForm/ProjectHistoryForm"
 import ProfileLeft1 from "../../components/profileLeft1/profileLeft1"
 import SkilsSide from "../../components/Skils/skils"
-import WorkForForm from "../../components/WorkForForm/WorkForForm";
-
+// import WorkForForm from "../../components/WorkForForm/WorkForForm";
+import DeleteComponent from "../../components/DeleteComponent/DeleteComponent"
 
 const WorkFor = [
   {
@@ -51,7 +51,14 @@ const ProfileScreen = () => {
   const [seeAction, setSeeAction] = useState("See More");
 
   const [isFreeLancer, setIsFreeLancer] = useState(false);
-  
+  const [showDelete, setshowDelete] = useState(false)
+  const [messageDelete, setmessageDelete] = useState("")
+
+  function ShowDelete (message){
+    setmessageDelete(message);
+    setshowDelete(true)
+  }
+
   const chartData = [
     
     { value: 25, color: "#FFDB70" },
@@ -427,7 +434,7 @@ const ProfileScreen = () => {
                                         style={{ marginTop: "220px", position: "absolute" }}>
                                         <button>Copy link</button>
                                         <button>Edit</button>
-                                        <button>{isFreeLancer ? "report" : "delete"}</button>
+                                        <button onClick={()=> ShowDelete("Are you sure u want to delete this Post")}>delete</button>
                                       </div>
                                     )}
                             </div>
@@ -591,6 +598,7 @@ const ProfileScreen = () => {
               </section>
             </div>
           </Container>
+          <DeleteComponent  isOpen={showDelete} message={messageDelete} onClose={ ()=> setshowDelete(false)}/>
         </div>)}
     </div>
   );

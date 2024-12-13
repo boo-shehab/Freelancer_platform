@@ -11,6 +11,7 @@ import WorkForForm from "../WorkForForm/WorkForForm";
 import EditIcon from "../../CustomIcons/EditIcon";
 import PlusIcon from "../../CustomIcons/PlusIcon";
 import DeleteIcon from "../../CustomIcons/DeleteIcon";
+import DeleteComponent from "../../components/DeleteComponent/DeleteComponent"
 
 
 const userData = {
@@ -89,7 +90,13 @@ function ProfileLeft1() {
   const [isProjectHistoryOpen, setIsProjectHistoryOpen] = useState(false);
   // const [isWorkForOpen, setIsWorkForOpen] = useState(false);
   const [openDrawer, setOpenDrawer] = useState(true);
+  const [showDelete, setshowDelete] = useState(false)
+  const [messageDelete, setmessageDelete] = useState("")
 
+  function ShowDelete (message){
+    setmessageDelete(message);
+    setshowDelete(true)
+  }
   const handleToggleExpand = () => {
     setIsExpanded(!isExpanded);
   };
@@ -191,8 +198,8 @@ function ProfileLeft1() {
                     >
                       <EditIcon />
                     </button>
-                    <button >
-                      <DeleteIcon />
+                    <button  onClick={()=> ShowDelete("Are you sure u want to delete this Education")} >
+                      <DeleteIcon  />
                     </button>
                   </div>
                 </div>
@@ -260,7 +267,7 @@ function ProfileLeft1() {
                       <button  onClick={() => setIsWorkExperienceOpen(true)}>
                         <EditIcon />
                       </button>
-                      <button >
+                      <button  onClick={()=> ShowDelete("Are you sure u want to delete this Work kExperience")} >
                               <DeleteIcon />
                       </button>
                   </div>
@@ -326,7 +333,7 @@ function ProfileLeft1() {
 
         </div>
       </Card> */}
-            
+                  <DeleteComponent  isOpen={showDelete} message={messageDelete} onClose={ ()=> setshowDelete(false)}/>
     </div>
   );
 }

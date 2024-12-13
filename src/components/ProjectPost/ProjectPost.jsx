@@ -42,8 +42,7 @@ const projectPost = ({
               {isListVisible === post.id && (
                 <div
                   className={styles.list}
-                  style={{ marginTop: "220px", position: "absolute" }}
-                >
+                  style={{ marginTop: "220px", position: "absolute" }}>
                   <button>Share</button>
                   <button>Copy link</button>
                   <button>{isFreeLancer ? "report" : "delete"}</button>

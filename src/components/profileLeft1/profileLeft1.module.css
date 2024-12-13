@@ -287,7 +287,17 @@ button {
   margin: 0 0px;
   flex-grow: 1; 
 }
-
+.titleOfEducation , .titleWorkDetails{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.titleOfEducation .educationAction , .titleWorkDetails .workAction{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
 @media (max-width:550px){
   .selfie{
     width:80px;

@@ -7,6 +7,8 @@ import Styles from "./skils.module.css";
 import MicrosoftIcon from "../../CustomIcons/MicrosoftIcon";
 import SkillsForm from "../SkillsForm/SkillsForm";
 import CoursesAndCertificationsForm from "../CoursesAndCertificationsForm/CoursesAndCertificationsForm";
+import DeleteIcon from "../../CustomIcons/DeleteIcon";
+
 const Skils = () => {
   const [isSkillsFormOpen, setIsSkillsFormOpen] = useState(false)
   const [isCoursesOpen, setIsCoursesOpen] = useState(false)
@@ -34,41 +36,51 @@ const Skils = () => {
   const [Skills, setSkills] = useState(['Figma (Software)', 'Adobe Illustrator (Software)', 'Sketch (Software)'])
   return (
     <div className={Styles.skilsCard}>
-      <SkillsForm isOpen={isSkillsFormOpen} onClose={() => setIsSkillsFormOpen(false)} initialData={Skills} onSave={(handleNewSkills) => { setSkills(handleNewSkills)}} />
+      <SkillsForm isOpen={isSkillsFormOpen} onClose={() => setIsSkillsFormOpen(false)} initialData={Skills} onSave={(handleNewSkills) => { setSkills(handleNewSkills) }} />
       <Card>
         <div className={Styles.skilsHead}>
           <h4 className={Styles.skilsTitil}> Skils</h4>
           <div className={Styles.actions}>
-            <PlusIcon onClick={() => setIsSkillsFormOpen(true)}  />
-            <EditIcon onClick={() => setIsSkillsFormOpen(true)} />
+            <PlusIcon onClick={() => setIsSkillsFormOpen(true)} />
           </div>
         </div>
         <div className={Styles.skilsList}>
           {Skills.map((skill) => (
-            <div className={Styles.skillItem} key={skill}>
-              <UsersIcone /> <p>{skill}</p>
+            <div className={Styles.displayTHeSkills}>
+              <div className={Styles.skillItem} key={skill}>
+                <UsersIcone /> <p>{skill}</p>
+              </div>
+              <div className={Styles.skilssAction}>
+                <EditIcon onClick={() => setIsSkillsFormOpen(true)} />
+                <DeleteIcon />
+              </div>
             </div>
-
           ))}
         </div>
       </Card>
       <div className={Styles.skilsbody}>
         <Card>
-          <CoursesAndCertificationsForm isOpen={isCoursesOpen} onClose={()=>setIsCoursesOpen(false)} />
+          <CoursesAndCertificationsForm isOpen={isCoursesOpen} onClose={() => setIsCoursesOpen(false)} />
           <div className={Styles.skilsHead}>
             <h4 className={Styles.skilsTitil}> Courses & Certifications</h4>
             <div className={Styles.actions}>
-              <PlusIcon onClick={()=>(setIsCoursesOpen(true))} />
-              <EditIcon onClick={()=>(setIsCoursesOpen(true))}/>
+              <PlusIcon onClick={() => (setIsCoursesOpen(true))} />
             </div>
           </div>
           <ul>
             {Courses.map((course) => (
               <li key={course.id}>
                 <div className={Styles.Item}>
+                 <div >
                   <MicrosoftIcon />
                   <p>{course.title}</p>
+                 </div>
+                 <div className={Styles.coursesAction}>
+                <EditIcon onClick={() => setIsCoursesOpen(true)} />
+                <DeleteIcon />
                 </div>
+                </div>
+                
                 <div className={Styles.subItem}>
                   <small>{course.date}</small>
                   <small>{course.desc}</small>

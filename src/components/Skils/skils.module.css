@@ -17,7 +17,11 @@
   align-items: center;
   gap: 16px;
 }
-
+.displayTHeSkills{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 .skillItem {
   display: flex;
   align-items: center;
@@ -25,6 +29,11 @@
   height: 50px;
   border-top: 1px solid rgba(191, 191, 191, 1);
   margin-top: 8px;
+}
+.skilssAction , .coursesAction{
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 .skillItem:first-child {
   border-top: none;
@@ -50,8 +59,7 @@ li:first-child {
   display: flex;
   gap: 8px;
   margin-top: 20px;
- 
- 
+  justify-content: space-between;
 }
 
 .Item p {

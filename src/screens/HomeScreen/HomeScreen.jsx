@@ -19,6 +19,8 @@ import MobileDrawer from "../../components/MobileDrawer/MobileDrawer";
 import CloseIcon from "../../CustomIcons/CloseIcon";
 import FilterMoboIcon from "../../CustomIcons/FilterMoboIcon";
 import WorkForForm from "../../components/WorkForForm/WorkForForm";
+import EditAboutPopup from "../../components/EditAboutPopup/EditAboutPopup";
+
 
 
 
@@ -86,20 +88,20 @@ const recentProjects = [
       "This Project Involves implementing both frontend and back-end functionalities ,as  well as integrating with third-party Apls.",
   },
 ];
-const WorkFor = [
-  {
-    id: 1,
-    title: "company Name One",
-    createdAt: "22 Jan 2024 - 11 May  2024.",
-    desc: "Developed a task management web application designed to help users organize, prioritize, and track their daily tasks efficiently. ",
-  },
-  {
-    id: 2,
-    title: "company Name Two",
-    createdAt: "22 Jan 2024 - 11 May  2024.",
-    desc: "Developed a task management web application designed to help users organize, prioritize, and track their daily tasks efficiently. ",
-  },
-];
+// const WorkFor = [
+//   {
+//     id: 1,
+//     title: "company Name One",
+//     createdAt: "22 Jan 2024 - 11 May  2024.",
+//     desc: "Developed a task management web application designed to help users organize, prioritize, and track their daily tasks efficiently. ",
+//   },
+//   {
+//     id: 2,
+//     title: "company Name Two",
+//     createdAt: "22 Jan 2024 - 11 May  2024.",
+//     desc: "Developed a task management web application designed to help users organize, prioritize, and track their daily tasks efficiently. ",
+//   },
+// ];
 
 const optionOfFreelancing = [
   {
@@ -166,12 +168,13 @@ const HomeScreen = () => {
   const [selectedJobs, setSelectedJobs] = useState([]);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [recentProjectOpened, setRecentProjectOpened] = useState(-1);
-  const [isFreeLancer, setIsFreeLancer] = useState(false);
+  const [isFreeLancer, setIsFreeLancer] = useState(true);
   const [isPopupOpen2, setIsPopupOpen2] = useState(false);
   const [callBack, setCallBack] = useState([]);
   const [isCommentForm, setIsCommentForm] = useState(false);
   const [openDrawer, setOpenDrawer] = useState(false);
   const [isWorkForOpen, setIsWorkForOpen] = useState(false);
+  const [isAboutPopupOpen, setIsAboutPopupOpen] = useState(false)
 
 
   const drawerHeight = 500;
@@ -297,7 +300,7 @@ const HomeScreen = () => {
                 <div className={styles.about}>
                   <div className={styles.aboutHead}>
                     <b>About</b>
-                    <EditIcon />
+                    <EditIcon onClick={() => setIsAboutPopupOpen(true)} />
                   </div>
                   <p>
                     GreenTech Solutions Inc. Renewable Energy & Technology San
@@ -326,7 +329,7 @@ const HomeScreen = () => {
                   ))}
                 </div>
               </Card>
-              <Card marginTop={16}>
+              {/* <Card marginTop={16}>
                 <div className={styles.history}>
                   <WorkForForm
                     isOpen={isWorkForOpen}
@@ -369,7 +372,7 @@ const HomeScreen = () => {
                     </div>
                   ))}
                 </div>
-              </Card>
+              </Card> */}
             </section>
           )}
           <section
@@ -534,6 +537,7 @@ const HomeScreen = () => {
         isOpen={isCommentForm}
         onClose={() => setIsCommentForm(!isCommentForm)}
       />
+      <EditAboutPopup isOpen={isAboutPopupOpen} onClose={() => setIsAboutPopupOpen(false)} />
     </div>
   );
 };

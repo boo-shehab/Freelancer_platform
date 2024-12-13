@@ -18,7 +18,7 @@ const Register = () => {
   const handlePhoneNumber = (phone) => {
     setPhoneNumber(phone);
     alert("otp: 000000");
-
+    
     setStage(3);
   };
 

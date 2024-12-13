@@ -8,10 +8,18 @@ import MicrosoftIcon from "../../CustomIcons/MicrosoftIcon";
 import SkillsForm from "../SkillsForm/SkillsForm";
 import CoursesAndCertificationsForm from "../CoursesAndCertificationsForm/CoursesAndCertificationsForm";
 import DeleteIcon from "../../CustomIcons/DeleteIcon";
+import DeleteComponent from "../../components/DeleteComponent/DeleteComponent"
 
 const Skils = () => {
   const [isSkillsFormOpen, setIsSkillsFormOpen] = useState(false)
   const [isCoursesOpen, setIsCoursesOpen] = useState(false)
+  const [showDelete, setshowDelete] = useState(false)
+  const [messageDelete, setmessageDelete] = useState("")
+
+  function ShowDelete (message){
+    setmessageDelete(message);
+    setshowDelete(true)
+  }
   const Courses = [
     {
       id: 1,
@@ -52,7 +60,7 @@ const Skils = () => {
               </div>
               <div className={Styles.skilssAction}>
                 <EditIcon onClick={() => setIsSkillsFormOpen(true)} />
-                <DeleteIcon />
+                <DeleteIcon onClick={()=> ShowDelete("Are you sure u want to delete this skill")} />
               </div>
             </div>
           ))}
@@ -77,7 +85,7 @@ const Skils = () => {
                  </div>
                  <div className={Styles.coursesAction}>
                 <EditIcon onClick={() => setIsCoursesOpen(true)} />
-                <DeleteIcon />
+                <DeleteIcon onClick={()=> ShowDelete("Are you sure u want to delete this skill")} />
                 </div>
                 </div>
                 
@@ -90,6 +98,7 @@ const Skils = () => {
           </ul>
         </Card>
       </div>
+      <DeleteComponent message={messageDelete} isOpen={showDelete} onClose={ ()=> setshowDelete(false)}/>
     </div>
   );
 };

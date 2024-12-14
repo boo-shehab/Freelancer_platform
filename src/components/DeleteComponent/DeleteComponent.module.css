@@ -1,91 +1,108 @@
+/* General Modal Styles */
 
 
+/* Modal Header */
 .modalHeader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.modalHeader h3 {
+  width: 100%;
+  font-size: 1.5rem;
+  text-align: center;
+  color: #333;
+}
+
+.closeBtn {
+  border: none;
+  background-color: transparent;
+  font-size: 1.5rem;
+  color: #333;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.closeBtn:hover {
+  transform: scale(1.1);
+}
+
+.btnCont {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin-top: 20px;
+  width: 100%;
+}
+/* 
+.logout:hover {
+  background-color: #3c96afca;
+}
+
+.logout:active {
+  background-color: #3c96af;
+} */
+
+.cancel {
+  border: 1px solid #3c97af;
+  background-color: #fff;
+  color: #3c97af;
+  width: 100%;
+  height: 45px;
+  border-radius: 18px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+.deleteBtn{
+  border: 1px solid #af4d3c;
+  background-color: #fff;
+  color: #af4d3c;
+  width: 100%;
+  height: 45px;
+  border-radius: 18px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.cancel:hover , .deleteBtn:hover{
+  background-color: #f3f3f3;
+}
+
+.cancel:active , .deleteBtn:hover {
+  background-color: #ffffff;
+}
+
+/* Responsive Design */
+@media (max-width: 950px) {
+  .logoutModal {
+    padding: 20px;
+    width: 90%;
+  }
+
+  .modalHeader {
     display: flex;
-    gap: 30px;
+    justify-content: space-between;
   }
-  .modalHeader h3 {
-    width: 250px;
-    text-align: center;
-  }
-  .closeBtn {
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-  }
+
   .btnCont {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .drwerTopLine {
     display: flex;
     align-items: center;
-    gap: 6px;
-    margin-top: 50px;
+    justify-content: center;
+    width: 20%;
+    height: 5px;
+    background-color: #61646B;
+    border-radius: 50px;
+    margin-top: 12px;
   }
-  .logout {
-    border: none;
-    background-color: #3c97af;
-    width: 100%;
-    height: 45px;
-    border-radius: 18px;
-    color: #fff;
-    cursor: pointer;
-  }
-  .cancel {
-    border: none;
-    border: 1px solid #3c97af;
-    background-color: #fff;
-    width: 100%;
-    height: 45px;
-    border-radius: 18px;
-    color: #3c97af;
-    cursor: pointer;
-  }
-  .logout:hover {
-    background-color: #3c96afca;
-  }
-  .logout:active {
-    background-color: #3c96af;
-  }
-  .cancel:hover {
-    background-color: #f3f3f3;
-  }
-  .cancel:active {
-    background-color: #ffffff;
-  }
-
-
-@media (max-width: 950px) {
-    .logoutModal {
-        padding: 20px;
-        width: 100%;
-    }
-    
-    .modalHeader {
-        display: flex;
-        justify-content: space-between;
-    }
-    .modalHeader h3 {
-        width: 250px;
-        text-align: center;
-    }
-    .closeBtn {
-        border: none;
-        background-color: transparent;
-        cursor: pointer;
-    }
-    .btnCont {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 6px;
-        margin-top: 50px;
-    }
-    .drwerTopLine {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 20%;
-        height: 5px;
-        background-color: #61646B;
-        border-radius: 50px;
-        margin-top: 12px;
-    }
 }

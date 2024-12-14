@@ -23,7 +23,7 @@ const AddTaskForm = ({ isOpen, onClose, addTask }) => {
         <div className={styles.header}>
           <h2>Add a Task</h2>
           <button onClick={onClose} className={styles["close-btn"]}>
-            Close
+            X
           </button>
         </div>
         <div className={styles.form}>
@@ -40,7 +40,7 @@ const AddTaskForm = ({ isOpen, onClose, addTask }) => {
           <button
             type="button"
             onClick={handleAddTask}
-            className={styles["add-task-btn"]}
+            className={styles.addTaskBtn}
           >
             Add Task
           </button>

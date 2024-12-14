@@ -32,7 +32,7 @@ const SliderOfProject = ({
     if (!show) return null;
 
     const [selectedTab, setSelectedTab] = useState("To Do");
-    const [isFreeLancer, setIsFreeLancer] = useState(true);
+    const [isFreeLancer, setIsFreeLancer] = useState(false);
     const [isSubListVisible, setIsSubListVisible] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
 

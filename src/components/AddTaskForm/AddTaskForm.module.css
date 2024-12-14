@@ -42,37 +42,14 @@
       height: 44px;
   }
     
-    #popup-overlay  h2 {
-      font-size: 32px;
-    }
-    
-    #popup-overlay .progress-bar {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 20px;
-    }
-    
-    #popup-overlay .progress-segment {
-      flex: 1;
-      height: 6px;
-      background: #e0e0e0;
-      border-radius: 8px;
-    }
-    
-    #popup-overlay .progress-segment.active {
-      background: #3C97AF;
-    }
+
   
-  #popup-overlay form {
+  #popup-overlay .form {
       flex-grow: 1;
       display: flex;
       flex-direction: column;
   }
   
-  #popup-overlay .spacer {
-      flex-grow: 1;
-  }
-    
     #popup-overlay label {
       font-size: 14px;
       display: block;
@@ -80,15 +57,6 @@
       margin-bottom: 8px;
     }
   
-    #popup-overlay label .sacred-code {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-    }
-    
-    #popup-overlay select,
-    #popup-overlay textarea,
     #popup-overlay input {
       width: 100%;
       padding: 8px;
@@ -100,41 +68,9 @@
       outline: none;
     }
     
-    #popup-overlay textarea {
-      height: 100px;
-      margin-top: 6px;
-      resize: none;
-    }
     
-    #popup-overlay .file-buttons {
-      display: flex;
-      gap: 16px;
-      margin-bottom: 16px;
-    }
-    
-    #popup-overlay .file-btn {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 10px;
-      color: #3C97AF;
-      border-radius: 8px;
-      cursor: pointer;
-      background-color: white;
-      border: 1px solid white;
-      transition: 0.3s;
-      box-shadow: 0px 2px 12px 0px #3C97AF14;
-    }
-    
-    #popup-overlay .file-btn:hover {
-      background-color: #B2EBF2;
-      border: 1px solid #2196F3;
-    }
-    
-    #popup-overlay .next-btn {
+    #popup-overlay .addTaskBtn {
       display: block;
-      margin-left: 50px;
       width: 100%;
       padding: 10px;
       background: var(--Color-Primary-Primary, rgba(60, 151, 175, 1));
@@ -151,125 +87,7 @@
       text-decoration-skip-ink: none;
     }
     
-   
-    #popup-overlay label .sacred-code button {
-      width: 100%;
-      border: 1px solid #BFBFBF;
-      background: var(--Color-Background-Primary, rgba(248, 251, 252, 1));
-      color: #D9D9D9;
-      border-radius: 8px;
-      padding: 12px 10px;
-      border: 1px solid var(--Color-Border-Neutral, rgba(191, 191, 191, 1))
-    }
-    button.Selectoption , button.SelectoptionWithactive{
-      width: 100%;
-      height: 48px;
-      border: none;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px;
-      margin-bottom: 16px;
-      border-radius: 10px;
-      background: var(--Color-Background-Primary, rgba(248, 251, 252, 1));
-      border: 1px solid var(--Color-Border-Neutral, rgba(191, 191, 191, 1));
-      color: rgba(191, 191, 191, 1);
-    }
-    .Selectoptionchose{
-      width: 100%;
-      background-color: white;
-      border-radius: 10px;
-      box-shadow: 1px 2px 8px 0px rgba(33, 134, 142, 0.12);
-      display: flex;
-      align-items: center;
-      justify-content: start;
-      flex-direction: column;
-      margin-bottom: 16px;
-    }
-    .Selectoptionchose button{
-      width: 100%;
-      border: none;
-      background: white;
-      height: 32;
-      text-align: start;
-      color: var(--Color-Text-Secondary, rgba(153, 153, 153, 1));
-      padding: 10px;
-      font-family: 'Poppins', sans-serif;
-      font-size: 14px;
-      font-weight: 400;
-      line-height: 21px;
-      text-align: left;
-      text-underline-position: from-font;
-      text-decoration-skip-ink: none;
-      cursor: pointer;
-    }
-    .Selectoptionchose button:hover{
-  color: #3C97AF;
-    }
-  
-    textarea:focus{
-      outline: none;
-      border: none;
-    }
-    button.SelectoptionchoseActive{
-      color: var(--Color-Primary-Primary, rgba(60, 151, 175, 1));
-    }
-    button.SelectoptionWithactive{
-      color: var(--Color-Primary-Primary, rgba(60, 151, 175, 1));
-      border: 1px solid var(--Color-Primary-Primary, rgba(60, 151, 175, 1));
-    }
-    button.Uploadfile{
-      padding: 0;
-      border: none;
-      height: 50px;
-      display: flex;
-      align-items: center;
-      background-color: transparent;
-    }
-  /* ////////////////////////////////////////////////////////// */
-  
-  #popup-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.6);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-  }
-  
-  #popup-overlay .popup-content {
-    background: #F8FBFC;
-    padding: 20px;
-    border-radius: 12px;
-    width: 90%;
-    max-width: 700px;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-  }
-  #popup-overlay .popup-content .headOfResponsive{
-  display: none;
-  font-family: 'Poppins', sans-serif;
-  margin-top: 62px;
-  }
-  #popup-overlay .popup-content .headOfResponsive h1{
-  font-family: Poppins;
-  font-size: 60px;
-  font-weight: 700;
-  line-height: 30px;
-  text-align: left;
-  text-underline-position: from-font;
-  text-decoration-skip-ink: none;
-  }
-  #popup-overlay .popup-content .headOfResponsive button{
-  background-color: transparent;
-  border: none;
-  font-size: 60px;
-  }
+
   @media screen and (max-width:700px){
     #popup-overlay .popup-content {
       width: 100%;

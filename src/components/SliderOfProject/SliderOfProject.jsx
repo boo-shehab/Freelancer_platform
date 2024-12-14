@@ -206,7 +206,7 @@ const SliderOfProject = ({
                         {selectedTab === "To Do" && (
                             <div className={styles.taskList}>
                                 {tasks.filter((task) => task.status === "To Do").map((task) => (
-                                    <div key={task.id} className={styles.task}>
+                                    <div key={task.id} className={`${styles.task} ${!isFreeLancer ? styles.withJustifyContent : ''}`}>
                                         {isFreeLancer && (
                                             <div>
                                                 <input
@@ -227,14 +227,15 @@ const SliderOfProject = ({
                                             <SubList taskId={task.id} onStatusChange={handleStatusChange} />
                                         )}
                                         {!isFreeLancer && (
-                                            <>
+                                            <div className={styles.buttonContainer}>
+
                                                 <button onClick={() => handleEdit(task.id)} className={styles.editButton}>
                                                     <MessageEdit />
                                                 </button>
                                                 <button onClick={() => handleDelete(task.id)} className={styles.deleteButton}>
                                                     <DeleteIcon />
                                                 </button>
-                                            </>
+                                            </div>
                                         )}
                                     </div>
                                 ))}
@@ -244,7 +245,7 @@ const SliderOfProject = ({
                         {selectedTab === "In Progress" && (
                             <div className={styles.taskList}>
                                 {tasks.filter((task) => task.status === "In Progress").map((task) => (
-                                    <div key={task.id} className={styles.task}>
+                                    <div key={task.id} className={`${styles.task} ${!isFreeLancer ? styles.withJustifyContent : ''}`}>
                                         {isFreeLancer && <InProgressIcon />}
                                         <p
                                             onClick={isFreeLancer ? () => handleToggleSubList(task.id) : undefined}
@@ -262,7 +263,7 @@ const SliderOfProject = ({
                         {selectedTab === "In Review" && (
                             <div className={styles.taskList}>
                                 {tasks.filter((task) => task.status === "In Review").map((task) => (
-                                    <div key={task.id} className={styles.task}>
+                                    <div key={task.id} className={`${styles.task} ${!isFreeLancer ? styles.withJustifyContent : ''}`}>
                                         {isFreeLancer && <InReviewIcon />}
                                         <p
                                             onClick={isFreeLancer ? () => handleToggleSubList(task.id) : undefined}
@@ -281,7 +282,7 @@ const SliderOfProject = ({
                         {selectedTab === "Done" && (
                             <div className={styles.taskList}>
                                 {tasks.filter((task) => task.status === "Done").map((task) => (
-                                    <div key={task.id} className={styles.task}>
+                                    <div key={task.id} className={`${styles.task} ${!isFreeLancer ? styles.withJustifyContent : ''}`}>
                                         <input
                                             type="checkbox"
                                             id={`task-${task.id}`}

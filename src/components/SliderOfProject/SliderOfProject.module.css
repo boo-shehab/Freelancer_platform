@@ -318,7 +318,9 @@ button.declineFreeLancer {
     margin-bottom: 10px;
     position: relative;
     cursor: pointer;
-
+}
+.task.withJustifyContent {
+    justify-content: space-between;
 }
 
 .task p {
@@ -379,6 +381,9 @@ button.declineFreeLancer {
 
 .doneTask {
     text-decoration: line-through;
+}
+.buttonContainer{
+    display: flex;
 }
 
 .subList {

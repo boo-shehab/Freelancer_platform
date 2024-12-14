@@ -9,7 +9,7 @@ import PlusIcon from "../../CustomIcons/PlusIcon";
 import UserIcon from "../../CustomIcons/UserIcon";
 import TaskDoneIcon from "../../CustomIcons/TaskDoneIcon";
 import styles from "./ProfileScreen.module.css";
-import EmptyStarIcon from "../../CustomIcons/emptyStarIcon";
+import EmptyStarIcon from "../../CustomIcons/EmptyStarIcon";
 import Star2Icon from "../../CustomIcons/Star2Icon";
 import { useMediaQuery } from "react-responsive";
 import { useState } from "react";

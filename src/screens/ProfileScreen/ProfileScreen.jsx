@@ -12,10 +12,9 @@ import styles from "./ProfileScreen.module.css";
 import EmptyStarIcon from "../../CustomIcons/emptyStarIcon";
 import Star2Icon from "../../CustomIcons/Star2Icon";
 import { useMediaQuery } from "react-responsive";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import EditProfilePopup from "../../components/EditProfilePopup/EditProfilePopup";
 import EditAboutPopup from "../../components/EditAboutPopup/EditAboutPopup";
-import EducationForm from "../../components/EducationForm/EducationForm";
 import ProjectHistoryForm from "../../components/ProjectHistoryForm/ProjectHistoryForm"
 import ProfileLeft1 from "../../components/profileLeft1/profileLeft1"
 import SkilsSide from "../../components/Skils/skils"

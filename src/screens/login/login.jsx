@@ -15,10 +15,10 @@ const Login = () => {
 
   const handleLogin = async () => {
     try {
-      const response = await fetch("/api/web/v1/auth/login", {
-        method: "POST",
+      const response = await fetch('/api/web/v1/auth/login', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           email: phoneNumber,
@@ -27,14 +27,14 @@ const Login = () => {
       });
   
       if (!response.ok) {
-        throw new Error("Login failed. Please check your credentials.");
+        throw new Error('Login failed. Please check your credentials.');
       }
   
       const data = await response.json();
-        console.log("Login successful:", data);
-      navigate("/");
+      console.log('Login successful:', data);
+      navigate('/');
     } catch (error) {
-      console.error("Login error:", error);
+      console.error('Login error:', error);
       setErrorMessage(error.message);
     }
   };

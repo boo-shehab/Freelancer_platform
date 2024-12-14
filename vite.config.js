@@ -1,9 +1,16 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import svgr from 'vite-plugin-svgr';
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
-// https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), svgr()],
-  
-})
+  plugins: [react()],
+  server: {
+    proxy: {
+      // Redirect API requests to your proxy
+      '/api': {
+        target: 'http://16.170.247.41', // Backend server URL
+        changeOrigin: true, // Update the origin of the request to the target
+        rewrite: (path) => path.replace(/^\/api/, ''), // Remove '/api' prefix before forwarding
+      },
+    },
+  },
+});

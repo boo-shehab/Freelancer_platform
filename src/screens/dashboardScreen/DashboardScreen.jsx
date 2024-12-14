@@ -15,12 +15,12 @@ const DashboardScreen = () => {
     { id: 1, name: "Design Registration Screen", status: "To Do" },
     { id: 2, name: "Design Registration Screen", status: "To Do" },
     { id: 3, name: "Design Registration Screen", status: "To Do" },
-    // { id: 4, name: "Design Registration Screen", status: "In Progress" },
-    // { id: 5, name: "Design Registration Screen", status: "In Progress" },
-    // { id: 6, name: "Design Registration Screen", status: "In Progress" },
-    // { id: 7, name: "Design Registration Screen", status: "In Review" },
-    // { id: 8, name: "Design Registration Screen", status: "In Review" },
-    // { id: 9, name: "Design Registration Screen", status: "In Review" },
+    { id: 4, name: "Design Registration Screen", status: "In Progress" },
+    { id: 5, name: "Design Registration Screen", status: "In Progress" },
+    { id: 6, name: "Design Registration Screen", status: "In Progress" },
+    { id: 7, name: "Design Registration Screen", status: "In Review" },
+    { id: 8, name: "Design Registration Screen", status: "In Review" },
+    { id: 9, name: "Design Registration Screen", status: "In Review" },
     { id: 10, name: "Design Registration Screen", status: "Done" },
     { id: 11, name: "Design Registration Screen", status: "Done" },
     { id: 12, name: "Design Registration Screen", status: "Done" },
@@ -167,7 +167,7 @@ const DashboardScreen = () => {
   };
 
   const handleCompleteProject = (projectId) => {
-    console.log("Complete project clicked for projectId:", projectId); // Log the projectId when the complete button is clicked
+    console.log("Complete project clicked for projectId:", projectId); 
     setProjects((prevProjects) =>
       prevProjects.map((project) =>
         project.id === projectId

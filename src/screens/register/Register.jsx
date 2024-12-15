@@ -14,7 +14,7 @@ import fetchData from "../../utility/fetchData";
 const Register = () => {
   const [accountType, setAccountType] = useState("");
   const [isLoading, setIsLoading] = useState(false)
-  const [stage, setStage] = useState(1);
+  const [stage, setStage] = useState(4);
   const [phoneNumber, setPhoneNumber] = useState("");
   const navigate = useNavigate();
 
@@ -26,7 +26,7 @@ const Register = () => {
   const handleOTP = () => {
     console.log('otp next stage:');
     
-    stage(4)
+    setStage(4)
     // navigate("/user-info");
   };
 
@@ -46,8 +46,7 @@ const Register = () => {
       await fetchData("auth/complete-registration", { 
         method: "POST", 
         body: JSON.stringify(bodyData)})
-        console.log('Submission response:', response);
-      const response = await fetchData('')
+        navigate('/login')
     } catch(e) {
       console.log(e);
     } finally {
@@ -57,7 +56,7 @@ const Register = () => {
 
   return (
     <>
-    {stage <= 2? (
+    {stage < 3? (
       <RegisterContainer>
         <div className={styles["Account-type"]}>
           <div className={styles.steps}>

@@ -103,14 +103,8 @@ function Setting() {
         <ContainerForm isOpen={openDelete} onClose={() => setOpenDelete(false)} HeadName="Delete Account">
           <div className={styles.deleteModal}>
             <div className={styles.deleteModalHeader}>
-              <button
-                className={styles.closeBtn}
-                onClick={() => setOpenDelete(false)}
-              >
-                <CloseIcon />
-              </button>
+            
               <div>
-                <h3>Delete Account</h3>
                 <p>
                   We’re really Sorry To See You To Go, are you sure you want to
                   delete your account ? Once you confirm Your data will gone.

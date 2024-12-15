@@ -4,41 +4,50 @@ import "react-phone-number-input/style.css";
 import styles from "./login.module.css";
 import CustomButton from "../../components/customButton/CustomButton";
 import { useNavigate } from "react-router-dom";
-
+import FetchData from "../../utility/fetchData";
+import useUserinfoStore from '../../useUserinfoStore';
 
 const Login = () => {
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const { setUsername, setIsFreelancer, setName, setPhoneNumber } = useUserinfoStore();
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
-  const isFormValid = phoneNumber.length === 10 && password.length >= 8;
+
+  const validateEmail = (email) => {
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    return emailRegex.test(email);
+  };
 
   const handleLogin = async () => {
     try {
-      const response = await fetch('/api/web/v1/auth/login', {
+      const data = await FetchData('auth/login', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
         body: JSON.stringify({
-          email: phoneNumber,
-          password: password,
+          email,
+          password,
         }),
       });
+      setLoading(true);
+        const { accessToken, userDetails } = data.results;
+        const { username, name, phoneNumber, role } = userDetails;
   
-      if (!response.ok) {
-        throw new Error('Login failed. Please check your credentials.');
-      }
-  
-      const data = await response.json();
-      console.log('Login successful:', data);
-      navigate('/');
+        localStorage.setItem('accessToken', accessToken);
+
+        setUsername(username);
+        setName(name);
+        setPhoneNumber(phoneNumber);
+        setIsFreelancer(role === "freelancer");
+
+        navigate('/');
     } catch (error) {
-      console.error('Login error:', error);
-      setErrorMessage(error.message);
+      setErrorMessage('Login failed. Please try again.');
+      setLoading(false);
     }
+    setLoading(false);
   };
-  
 
   return (
     <>
@@ -50,13 +59,13 @@ const Login = () => {
           </div>
           <div className={styles.form}>
             <div className={styles.LoginForm}>
-              <p>Phone number</p>
+              <p>Email</p>
               <input
-                type="text"
-                className={phoneNumber.length === 10 ? styles.activeinput : ""}
-                placeholder="Enter Phone number"
-                value={phoneNumber}
-                onChange={(e) => setPhoneNumber(e.target.value)}
+                type="email"
+                className={styles.activeinput}
+                placeholder="Enter Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
               <p>Password</p>
               <input
@@ -67,12 +76,12 @@ const Login = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            {errorMessage && <p className={styles.error}>{errorMessage}</p>}
-            <CustomButton 
+            {errorMessage && <h4 className={styles.error}>{errorMessage}</h4>}
+            <CustomButton
               onClick={handleLogin}
-              // disabled={!isFormValid}
+              disabled={(!(password.length >= 8)) || (!validateEmail(email))}
             >
-              Login &gt;
+              {loading ? "loading . . . " : "Login >"}
             </CustomButton>
           </div>
         </div>

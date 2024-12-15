@@ -5,6 +5,7 @@
     display: flex;
     flex-direction: column;
 }
+
 .Account-type h1 {
     padding-bottom: 8px;
     font-size: 40px;
@@ -130,4 +131,9 @@
         text-align: start;
     }
     
+}
+h4.error {
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
 }

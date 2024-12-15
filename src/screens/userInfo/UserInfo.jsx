@@ -4,7 +4,7 @@ import RegisterContainer from "../../components/RegisterContainer/RegisterContai
 import styles from "./UserInfo.module.css";
 import { useNavigate } from "react-router-dom";
 
-const UserInfo = () => {
+const UserInfo = ({data, isLoading}) => {
   const [isDisabled, setIsDisabled] = useState(true);
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState({
@@ -33,20 +33,21 @@ const UserInfo = () => {
   }, [userInfo]);
 
   const handleUserInfo = () => {
-    const storedData = JSON.parse(localStorage.getItem("userInfo")) || {};
+    data(userInfo)
+    // const storedData = JSON.parse(localStorage.getItem("userInfo")) || {};
 
-    const newData = {
-      ...storedData,
-      userInfo: {
-        name: userInfo.name,
-        email: userInfo.email,
-        password: userInfo.password,
-      },
-    };
+    // const newData = {
+    //   ...storedData,
+    //   userInfo: {
+    //     name: userInfo.name,
+    //     email: userInfo.email,
+    //     password: userInfo.password,
+    //   },
+    // };
 
-    localStorage.setItem("userInfo", JSON.stringify(newData));
-    console.log("User Info Submitted:", newData);
-    navigate("/");
+    // localStorage.setItem("userInfo", JSON.stringify(newData));
+    // console.log("User Info Submitted:", newData);
+    // navigate("/");
   };
 
   return (
@@ -100,7 +101,7 @@ const UserInfo = () => {
               />
             </label>
           </div>
-          <CustomButton onClick={handleUserInfo} disabled={isDisabled}>
+          <CustomButton onClick={handleUserInfo} disabled={isDisabled} isLoading={isLoading}>
             Complete Registration
           </CustomButton>
         </div>

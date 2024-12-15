@@ -62,6 +62,7 @@ const PhoneNumberInput = ({ handleNext }) => {
         method: "POST", 
         body: JSON.stringify(phoneNumber)})
         console.log('Submission response:', data);
+        handleNext(formatPhoneNumber())
     } catch(e) {
       console.log(e);
     } finally {

@@ -8,34 +8,56 @@ import OtpComponent from "../../components/OtpComponent/OtpComponent";
 import CustomButton from "../../components/customButton/CustomButton";
 import UserIcon from "../../CustomIcons/UserIcon";
 import UserSearchIcon from "../../CustomIcons/UserSearchIcon";
+import UserInfo from "../userInfo/UserInfo";
+import fetchData from "../../utility/fetchData";
 
 const Register = () => {
-  const [accountType, setAccountType] = useState(null);
+  const [accountType, setAccountType] = useState("");
+  const [isLoading, setIsLoading] = useState(false)
   const [stage, setStage] = useState(1);
   const [phoneNumber, setPhoneNumber] = useState("");
   const navigate = useNavigate();
 
   const handlePhoneNumber = (phone) => {
     setPhoneNumber(phone);
-    alert("otp: 000000");
-    
     setStage(3);
   };
 
   const handleOTP = () => {
-    const userInfo = {
-      phoneNumber,
-      accountType,
-      userInfo: null,
-    };
-    localStorage.setItem("userInfo", JSON.stringify(userInfo));
-    console.log(localStorage.getItem("userInfo"));
-
-    navigate("/user-info");
+    console.log('otp next stage:');
+    
+    stage(4)
+    // navigate("/user-info");
   };
+
+  const sendData = async(data) => {
+    console.log(data);
+    
+    setIsLoading(true)
+    const bodyData = {
+      "name": data.name,
+      "email": data.email,
+      "phoneNumber": phoneNumber,
+      "password": data.password,
+      "userType": accountType,
+    }
+    
+    try {
+      await fetchData("auth/complete-registration", { 
+        method: "POST", 
+        body: JSON.stringify(bodyData)})
+        console.log('Submission response:', response);
+      const response = await fetchData('')
+    } catch(e) {
+      console.log(e);
+    } finally {
+      setIsLoading(false)
+    }
+  }
 
   return (
     <>
+    {stage <= 2? (
       <RegisterContainer>
         <div className={styles["Account-type"]}>
           <div className={styles.steps}>
@@ -73,10 +95,10 @@ const Register = () => {
               <>
                 <div className={styles.type}>
                   <label
-                    onClick={() => setAccountType(1)}
-                    className={`${accountType === 1 ? styles.active : ""}`}
+                    onClick={() => setAccountType("freelancer")}
+                    className={`${accountType === "freelancer" ? styles.active : ""}`}
                   >
-                    <UserIcon color={accountType === 1 ? "#3C97AF" : "black"} />
+                    <UserIcon color={accountType === "freelancer" ? "#3C97AF" : "black"} />
                     <div>
                       <h2>freelance</h2>
                       <p>I’m a freelancer ready to work for projects</p>
@@ -85,17 +107,17 @@ const Register = () => {
                       type="type"
                       name="type"
                       id="freelance"
-                      value={1}
+                      value={"freelancer"}
                       style={{ display: "none" }}
                     />
                   </label>
 
                   <label
-                    onClick={() => setAccountType(2)}
-                    className={`${accountType === 2 ? styles.active : ""}`}
+                    onClick={() => setAccountType("client")}
+                    className={`${accountType === "client" ? styles.active : ""}`}
                   >
                     <UserSearchIcon
-                      color={accountType === 2 ? "#3C97AF" : "black"}
+                      color={accountType === "client" ? "#3C97AF" : "black"}
                     />
                     <div className="">
                       <h2>client</h2>
@@ -106,7 +128,7 @@ const Register = () => {
                       type="type"
                       name="type"
                       id="client"
-                      value={2}
+                      value={"client"}
                       style={{ display: "none" }}
                     />
                   </label>
@@ -128,10 +150,13 @@ const Register = () => {
                 handleNext={(phone) => handlePhoneNumber(phone)}
               />
             )}
-            {stage === 3 && <OtpComponent handleNext={() => handleOTP()} />}
+            {stage === 3 && <OtpComponent handleNext={() => handleOTP()} phone={phoneNumber} />}
           </div>
         </div>
       </RegisterContainer>
+    ) : (
+      <UserInfo data={(data) => sendData(data)} isLoading={isLoading} />
+    )}
     </>
   );
 };

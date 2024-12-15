@@ -4,9 +4,11 @@ import styles from './OtpComponent.module.css'
 import './OtpComponent.css'
 import CustomButton from '../customButton/CustomButton';
 import Timer from '../../CustomIcons/Timer';
+import fetchData from '../../utility/fetchData';
 
-const OtpComponent = ({handleNext}) => {
+const OtpComponent = ({handleNext, phone}) => {
   const [otp, setOtp] = useState('');
+  const [isLoading, setIsLoading] = useState(false)
   const [isValid, setIsValid] = useState(false);
   const [timer, setTimer] = useState(10);
   const [isResendDisabled, setIsResendDisabled] = useState(true);
@@ -38,9 +40,19 @@ const OtpComponent = ({handleNext}) => {
     console.log('Resend OTP');
   };
 
-  const handleOTP = () => {
-    if(true){
+  const handleOTP = async() => {
+    setIsLoading(true)
+    
+    try {
+      const data = await fetchData("auth/verify-phone-number", { 
+        method: "POST", 
+        body: JSON.stringify({phone, otp})})
+        console.log('Submission response:', data);
         handleNext()
+    } catch(e) {
+      console.log(e);
+    } finally {
+      setIsLoading(false)
     }
   }
 

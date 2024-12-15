@@ -140,7 +140,7 @@ const ProfileScreen = () => {
     setAboutState(value.slice(0, 492));
   };
 
-  const handleEditProfile = () => {};
+  const handleEditProfile = () => { };
   const [isListVisible, setVisiblePostId] = useState(null);
   const idShow = (id) => {
     setVisiblePostId((prevId) => (prevId === id ? null : id));
@@ -723,21 +723,19 @@ const ProfileScreen = () => {
               </section>
             </div>
           </Container>
-<<<<<<< HEAD
-          <DeleteComponent  isOpen={showDelete} message={messageDelete} onClose={ ()=> setshowDelete(false)} />
+
+          <DeleteComponent isOpen={showDelete} message={messageDelete} onClose={() => setshowDelete(false)} />
         </div>)}
-=======
-          <DeleteComponent
-            isOpen={showDelete}
-            message={messageDelete}
-            onClose={() => setshowDelete(false)}
-            TypeofDelete={`freelancers/certifications`}
-            id={80}
-          />
-        </div>
-      )}
->>>>>>> 21082afc354f1f28044e779b5e7880177214608a
+
+      <DeleteComponent
+        isOpen={showDelete}
+        message={messageDelete}
+        onClose={() => setshowDelete(false)}
+        TypeofDelete={`freelancers/certifications`}
+        id={80}
+      />
     </div>
-  );
-};
+  )
+}
+
 export default ProfileScreen;

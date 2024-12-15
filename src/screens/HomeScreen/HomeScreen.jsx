@@ -174,16 +174,8 @@ const HomeScreen = () => {
   const [isCommentForm, setIsCommentForm] = useState(false);
   const [openDrawer, setOpenDrawer] = useState(false);
   const [isWorkForOpen, setIsWorkForOpen] = useState(false);
-<<<<<<< HEAD
-  const [isAboutPopupOpen, setIsAboutPopupOpen] = useState(false)
-
-  
+  const [isAboutPopupOpen, setIsAboutPopupOpen] = useState(false)  
   const { about } = useUserinfoStore();
-
-=======
-  const [isAboutPopupOpen, setIsAboutPopupOpen] = useState(false);
->>>>>>> 21082afc354f1f28044e779b5e7880177214608a
-
   const drawerHeight = 500;
 
   const isSmallScreen = useMediaQuery({ query: "(max-width: 950px)" });
@@ -453,26 +445,9 @@ const HomeScreen = () => {
                   <div className={styles.mobileSearch}>
                     <div className={styles.mobileInputForm}>
                       <SearchIcon />
-<<<<<<< HEAD
                       <input className={styles.moblieInput} type="text" placeholder="search" />
                     </div>
                     <div className={styles.filterBtn} onClick={() => setOpenDrawer(true)}><FilterMoboIcon /></div>
-=======
-
-                      <input
-                        className={styles.moblieInput}
-                        type="text"
-                        placeholder="search"
-                      />
-                    </div>
-
-                    <div
-                      className={styles.filterBtn}
-                      onClick={() => setOpenDrawer(true)}
-                    >
-                      <FilterMoboIcon />
-                    </div>
->>>>>>> 21082afc354f1f28044e779b5e7880177214608a
                   </div>
                 </div>
                 <div className={styles.postBoxCont}>

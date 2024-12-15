@@ -1,11 +1,13 @@
 import React from "react";
 import ContainerForm from "../ContainerForm/ContainerForm";
 import styles from "./DeleteComponent.module.css";
+import FetchData from "../../utility/fetchData";
 
-const DeleteComponent = ({ isOpen, onClose, HeadText, message, onDelete }) => {
-  // Return null if the modal is not open
+const DeleteComponent = ({ isOpen, onClose, HeadText, message, TypeofDelete, id }) => {
   if (!isOpen) return null;
-
+   const deleteItem = async () =>{
+        
+   }
   return (
     <ContainerForm
       isOpen={isOpen}

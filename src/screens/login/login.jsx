@@ -33,9 +33,10 @@ const Login = () => {
         }),
       });
         const { accessToken, userDetails } = data.results;
-        const { username, name, phoneNumber, role } = userDetails;
+        const { id , username, name, phoneNumber, role } = userDetails;
   
         localStorage.setItem('accessToken', accessToken);
+        localStorage.setItem('id', id);
 
         setUsername(username);
         setName(name);

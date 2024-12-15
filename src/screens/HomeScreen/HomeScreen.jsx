@@ -21,9 +21,6 @@ import FilterMoboIcon from "../../CustomIcons/FilterMoboIcon";
 import WorkForForm from "../../components/WorkForForm/WorkForForm";
 import EditAboutPopup from "../../components/EditAboutPopup/EditAboutPopup";
 
-
-
-
 const projects = [
   {
     id: 1,
@@ -174,8 +171,7 @@ const HomeScreen = () => {
   const [isCommentForm, setIsCommentForm] = useState(false);
   const [openDrawer, setOpenDrawer] = useState(false);
   const [isWorkForOpen, setIsWorkForOpen] = useState(false);
-  const [isAboutPopupOpen, setIsAboutPopupOpen] = useState(false)
-
+  const [isAboutPopupOpen, setIsAboutPopupOpen] = useState(false);
 
   const drawerHeight = 500;
 
@@ -199,18 +195,27 @@ const HomeScreen = () => {
     setCallBack(CB);
     console.log(CB);
   };
+
+ 
   return (
-    <div style={styles.homeScreen}>
+    <div style={styles.homeScreen} >
       <TwoStageFormPopup
         isOpen={isPopupOpen}
         onClose={() => setIsPopupOpen(false)}
       />
-      <MobileDrawer height={drawerHeight} isOpen={openDrawer} onClose={() => setOpenDrawer(false)}>
+      <MobileDrawer
+        height={drawerHeight}
+        isOpen={openDrawer}
+        onClose={() => setOpenDrawer(false)}
+      >
         <div className={styles.mobileDrawerCont}>
           <div className={styles.drwerTopLine}></div>
           <div className={styles.mobileDrawer}>
             <div className={styles.drawerHeadr}>
-              <button onClick={() => setOpenDrawer(false)} className={styles.closeBtn}>
+              <button
+                onClick={() => setOpenDrawer(false)}
+                className={styles.closeBtn}
+              >
                 <CloseIcon />
               </button>
               <h3>Filter Projects</h3>
@@ -218,15 +223,15 @@ const HomeScreen = () => {
             </div>
             <div className={styles.filterCont}>
               <div className={styles.specializationFilter}>
-
                 <div className={styles.specializationBody}>
                   <div className={styles.spacing}>
                     {optionOfFreelancing.map((job) => (
                       <div key={job.id} className={styles.Options}>
                         <button
                           className={`${styles.btn} 
-                          ${selectedJobs.includes(job.id) ? styles.btnGreen : ""
-                            }
+                          ${
+                            selectedJobs.includes(job.id) ? styles.btnGreen : ""
+                          }
                           `}
                           onClick={() => handleJobSelection(job.id)}
                         ></button>
@@ -238,13 +243,18 @@ const HomeScreen = () => {
               </div>
             </div>
             <div className={styles.drawerBtn}>
-              <button onClick={() => setOpenDrawer(false)} className={styles.cancelSort}>Cancel Sort</button>
+              <button
+                onClick={() => setOpenDrawer(false)}
+                className={styles.cancelSort}
+              >
+                Cancel Sort
+              </button>
               <button className={styles.apply}>Apply</button>
             </div>
           </div>
         </div>
       </MobileDrawer>
-      <Container >
+      <Container>
         <div className={styles.content}>
           {/* MuhammedLami */}
           {isFreeLancer ? (
@@ -284,8 +294,9 @@ const HomeScreen = () => {
                         <div key={job.id} className={styles.Options}>
                           <button
                             className={`${styles.btn} 
-                          ${selectedJobs.includes(job.id) ? styles.btnGreen : ""
-                              }
+                          ${
+                            selectedJobs.includes(job.id) ? styles.btnGreen : ""
+                          }
                           `}
                             onClick={() => handleJobSelection(job.id)}
                           ></button>
@@ -410,29 +421,36 @@ const HomeScreen = () => {
                 </div>
               </>
             ) : (
-
               <>
                 <div>
-
                   <div className={styles.mobileSearch}>
                     <div className={styles.mobileInputForm}>
-
                       <SearchIcon />
 
-                      <input className={styles.moblieInput} type="text" placeholder="search" />
+                      <input
+                        className={styles.moblieInput}
+                        type="text"
+                        placeholder="search"
+                      />
                     </div>
 
-                    <div className={styles.filterBtn} onClick={() => setOpenDrawer(true)}><FilterMoboIcon /></div>
-
+                    <div
+                      className={styles.filterBtn}
+                      onClick={() => setOpenDrawer(true)}
+                    >
+                      <FilterMoboIcon />
+                    </div>
                   </div>
-
                 </div>
 
                 <div className={styles.postBoxCont}>
                   <Card>
                     <div className={styles.postBox}>
                       <img src="/avatar.png" />
-                      <div className={styles.postInput} onClick={handleNewProject}>
+                      <div
+                        className={styles.postInput}
+                        onClick={handleNewProject}
+                      >
                         <p className={styles.postInputHint}>
                           Mustafa Let’s Create a Project !
                         </p>
@@ -444,7 +462,6 @@ const HomeScreen = () => {
                   </Card>
                 </div>
               </>
-
             )}
             {posts?.map((post) => (
               <ProjectPost
@@ -467,9 +484,10 @@ const HomeScreen = () => {
                   {recentProjects.map((recentProject) => (
                     <div
                       key={recentProject.id}
-                      className={`${styles.recentItem} ${recentProjectOpened === recentProject.id &&
+                      className={`${styles.recentItem} ${
+                        recentProjectOpened === recentProject.id &&
                         styles.active
-                        }`}
+                      }`}
                     >
                       <div className={styles.recentHead}>
                         <div className={styles.recentItemInfo}>
@@ -482,12 +500,13 @@ const HomeScreen = () => {
                         </div>
 
                         <button
-                          className={`${styles.arrowBtn} ${recentProjectOpened === recentProject.id &&
+                          className={`${styles.arrowBtn} ${
+                            recentProjectOpened === recentProject.id &&
                             styles.active
-                            }`}
+                          }`}
                           onClick={() =>
                             recentProjectOpened === -1 ||
-                              recentProjectOpened !== recentProject.id
+                            recentProjectOpened !== recentProject.id
                               ? setRecentProjectOpened(recentProject.id)
                               : setRecentProjectOpened(-1)
                           }
@@ -537,7 +556,10 @@ const HomeScreen = () => {
         isOpen={isCommentForm}
         onClose={() => setIsCommentForm(!isCommentForm)}
       />
-      <EditAboutPopup isOpen={isAboutPopupOpen} onClose={() => setIsAboutPopupOpen(false)} />
+      <EditAboutPopup
+        isOpen={isAboutPopupOpen}
+        onClose={() => setIsAboutPopupOpen(false)}
+      />
     </div>
   );
 };

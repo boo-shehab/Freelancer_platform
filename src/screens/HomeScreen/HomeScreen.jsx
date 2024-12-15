@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Card from "../../components/Card/card";
 import Container from "../../components/Container/container";
 import ArrowTop from "../../CustomIcons/ArrowTop";
@@ -20,6 +20,8 @@ import CloseIcon from "../../CustomIcons/CloseIcon";
 import FilterMoboIcon from "../../CustomIcons/FilterMoboIcon";
 import WorkForForm from "../../components/WorkForForm/WorkForForm";
 import EditAboutPopup from "../../components/EditAboutPopup/EditAboutPopup";
+import fetchData from '../../utility/fetchData'
+import useUserinfoStore from "../../useUserinfoStore";
 
 
 
@@ -39,31 +41,31 @@ const projects = [
   },
 ];
 
-const posts = [
-  {
-    id: 1,
-    title: "Looking for Full-Sack Developer with experience +2 years",
-    desc: "to build a responsive, user-focused web application. Must be skilled in both front-end and back-end development",
-    duration: "4 Months",
-    image: "/post.png",
-    price: 50,
-    client: {
-      name: "Client Name",
-      createdAt: "Posted 2 hours ago  ",
-    },
-  },
-  {
-    id: 2,
-    title: "Looking for Full-Sack Developer with experience +2 years",
-    desc: "to build a responsive, user-focused web application. Must be skilled in both front-end and back-end development",
-    duration: "4 Months",
-    price: 50,
-    client: {
-      name: "Client Name",
-      createdAt: "Posted 2 hours ago  ",
-    },
-  },
-];
+// const posts = [
+//   {
+//     id: 1,
+//     title: "Looking for Full-Sack Developer with experience +2 years",
+//     desc: "to build a responsive, user-focused web application. Must be skilled in both front-end and back-end development",
+//     duration: "4 Months",
+//     image: "/post.png",
+//     price: 50,
+//     client: {
+//       name: "Client Name",
+//       createdAt: "Posted 2 hours ago  ",
+//     },
+//   },
+//   {
+//     id: 2,
+//     title: "Looking for Full-Sack Developer with experience +2 years",
+//     desc: "to build a responsive, user-focused web application. Must be skilled in both front-end and back-end development",
+//     duration: "4 Months",
+//     price: 50,
+//     client: {
+//       name: "Client Name",
+//       createdAt: "Posted 2 hours ago  ",
+//     },
+//   },
+// ];
 
 const recentProjects = [
   {
@@ -165,6 +167,7 @@ const formerCoworkers = [
 ];
 
 const HomeScreen = () => {
+  const [posts, setPosts] = useState([])
   const [selectedJobs, setSelectedJobs] = useState([]);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [recentProjectOpened, setRecentProjectOpened] = useState(-1);
@@ -175,6 +178,9 @@ const HomeScreen = () => {
   const [openDrawer, setOpenDrawer] = useState(false);
   const [isWorkForOpen, setIsWorkForOpen] = useState(false);
   const [isAboutPopupOpen, setIsAboutPopupOpen] = useState(false)
+
+  
+  const { about } = useUserinfoStore();
 
 
   const drawerHeight = 500;
@@ -191,6 +197,21 @@ const HomeScreen = () => {
         : [...prevSelected, jobId]
     );
   };
+
+  const getProject = async() => {
+    try{
+      const response = await fetchData(`projects/client-feed?page=0&pageSize=1`, {
+        method: 'GET',
+      });
+      console.log(response.results.result);
+      setPosts(response.results.result);
+    }catch(e) {
+      console.log(e);
+    }
+  }
+  useEffect(() => {
+    getProject()
+  }, [])
 
   const handleNewProject = () => {
     setIsPopupOpen(true);
@@ -303,9 +324,10 @@ const HomeScreen = () => {
                     <EditIcon onClick={() => setIsAboutPopupOpen(true)} />
                   </div>
                   <p>
-                    GreenTech Solutions Inc. Renewable Energy & Technology San
+                    {/* GreenTech Solutions Inc. Renewable Energy & Technology San
                     Francisco, California, with operations in North America and
-                    Europe
+                    Europe */}
+                    {about}
                   </p>
                 </div>
               </Card>
@@ -410,24 +432,16 @@ const HomeScreen = () => {
                 </div>
               </>
             ) : (
-
               <>
                 <div>
-
                   <div className={styles.mobileSearch}>
                     <div className={styles.mobileInputForm}>
-
                       <SearchIcon />
-
                       <input className={styles.moblieInput} type="text" placeholder="search" />
                     </div>
-
                     <div className={styles.filterBtn} onClick={() => setOpenDrawer(true)}><FilterMoboIcon /></div>
-
                   </div>
-
                 </div>
-
                 <div className={styles.postBoxCont}>
                   <Card>
                     <div className={styles.postBox}>
@@ -444,7 +458,6 @@ const HomeScreen = () => {
                   </Card>
                 </div>
               </>
-
             )}
             {posts?.map((post) => (
               <ProjectPost

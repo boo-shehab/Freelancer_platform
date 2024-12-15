@@ -2,6 +2,7 @@
 import InProgressIcon from '../../CustomIcons/InProgressIcon';
 import InReviewIcon from '../../CustomIcons/InReviewIcon';
 import ToDoIcon from '../../CustomIcons/ToDoIcon';
+import DoneTaskIcon from '../../CustomIcons/DoneTaskIcon';
 import styles from './SliderOfProject.module.css';
 
 const SubList = ({ taskId, onStatusChange }) => (
@@ -15,6 +16,9 @@ const SubList = ({ taskId, onStatusChange }) => (
             </li>
             <li onClick={() => onStatusChange(taskId, "In Review")}>
                 <InReviewIcon /> In Review
+            </li>
+            <li onClick={() => onStatusChange(taskId, "Done")}>
+                <DoneTaskIcon /> Done
             </li>
         </ul>
     </div>

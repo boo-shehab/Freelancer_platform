@@ -253,18 +253,12 @@ button.declineFreeLancer {
     position: absolute;
     top: 0;
     right: 0;
-    background: #3C97AF;
-    color: #fff;
-    border: none;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    font-size: 1.5rem;
     cursor: pointer;
 }
 
-.titelText{
+.titelText {
     margin-top: 10px;
+    text-align: start;
 }
 
 
@@ -324,13 +318,15 @@ button.declineFreeLancer {
     margin-bottom: 10px;
     position: relative;
     cursor: pointer;
-
+}
+.task.withJustifyContent {
+    justify-content: space-between;
 }
 
 .task p {
     margin-left: 10px;
     margin-right: 70px;
-    
+
 }
 
 
@@ -386,6 +382,9 @@ button.declineFreeLancer {
 .doneTask {
     text-decoration: line-through;
 }
+.buttonContainer{
+    display: flex;
+}
 
 .subList {
     width: Fixed 124px;
@@ -405,6 +404,33 @@ button.declineFreeLancer {
     list-style: none;
 }
 
+.taskList {
+    height: 200px; 
+    overflow-y: auto;  
+    padding-right: 10px; 
+    margin-bottom: 10px;
+}
+
+
+
+.taskList::-webkit-scrollbar-thumb {
+    background-color: #888; 
+    border-radius: 4px; 
+}
+
+.completeBtn {
+    background-color: #3c97af;
+    border: none;
+    border-radius: 16px;
+    padding: 10px 20px;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .completeBtn:hover {
+    background-color: #2a7b8c; /* Slightly darker shade on hover */
+  }
+  
 
 @media screen and (max-width: 400px) and (min-width:300px) {
     .sliderOFprojectinfo .slider {

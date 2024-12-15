@@ -26,7 +26,7 @@ const DashboardScreen = () => {
     { id: 12, name: "Design Registration Screen", status: "Done" },
   ]);
 
-  const projects = [
+  const [projects, setProjects] = useState([
     {
       id: 1,
       projectName: "ProjectName 1",
@@ -86,8 +86,10 @@ const DashboardScreen = () => {
         image: "./avatar.png",
         name: "Ahmed Abas",
       },
-    },
-  ];
+    }
+  ]);
+
+
   const rating = {
     starRate: "4.0",
     highRate: 53,
@@ -95,7 +97,7 @@ const DashboardScreen = () => {
     lowRate: 35,
   };
 
-  useEffect(() => {}, [filterType]);
+  useEffect(() => { }, [filterType]);
 
   const [freelancerApplied, setfreelancerApplied] = useState([
     {
@@ -144,13 +146,13 @@ const DashboardScreen = () => {
     setTasks((prevTasks) => [
       ...prevTasks,
       {
-        id: prevTasks.length + 1, // Simple unique ID generation
+        id: prevTasks.length + 1,
         name,
         status,
       },
     ]);
   };
-  
+
   const handleDelete = (taskId) => {
     if (window.confirm("Are you sure you want to delete this task?")) {
       setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
@@ -164,13 +166,24 @@ const DashboardScreen = () => {
     );
   };
 
+  const handleCompleteProject = (projectId) => {
+    console.log("Complete project clicked for projectId:", projectId); 
+    setProjects((prevProjects) =>
+      prevProjects.map((project) =>
+        project.id === projectId
+          ? { ...project, projectStatus: "Completed", progress: 100 }
+          : project
+      )
+    );
+  };
+
   return (
     <div className={styles.dashboardContainer}>
       <Container>
         <div className={styles.content}>
           <section className={styles.section1}>
             <div className={styles.projectsHeader}>
-                
+
               <button
                 onClick={() => setFilterType("All")}
                 className={filterType === "All" && styles.active}
@@ -194,13 +207,12 @@ const DashboardScreen = () => {
                 >
                   <div className={styles.projectInfo}>
                     <div
-                      className={`${styles.projectData} ${
-                        project.projectStatus === "Completed"
+                      className={`${styles.projectData} ${project.projectStatus === "Completed"
                           ? styles.completed
                           : project.projectStatus === "Pending"
-                          ? styles.pending
-                          : styles.inProgress
-                      }`}
+                            ? styles.pending
+                            : styles.inProgress
+                        }`}
                     >
                       <b>{project.projectName}</b>
                       <p>{project.projectStatus}</p>
@@ -329,6 +341,8 @@ const DashboardScreen = () => {
         taskStatus={selectedProject ? tasks.map((task) => task.status) : []}
         onStatusChange={handleTaskStatusChange}
         addTask={addTask}
+        onComplete={handleCompleteProject}
+        projectId={selectedProject ? selectedProject.id : ""}
       />
     </div>
   );

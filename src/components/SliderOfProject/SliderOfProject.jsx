@@ -6,6 +6,9 @@ import DeleteIcon from '../../CustomIcons/DeleteIcon';
 import InProgressIcon from '../../CustomIcons/InProgressIcon';
 import InReviewIcon from '../../CustomIcons/InReviewIcon';
 import DonutChart from "../../components/charts/DonutChart";
+import AddTaskForm from '../../components/AddTaskForm/AddTaskForm';
+
+import AddTaskIcon from "../../CustomIcons/AddTaskIcon";
 import SubList from './SubList';
 
 
@@ -20,15 +23,16 @@ const SliderOfProject = ({
     tasks,
     handleEdit,
     handleDelete,
-    // taskStatus,
     onStatusChange,
-    addTask
+    addTask,
+    onComplete,
+    projectId
 
 }) => {
     if (!show) return null;
 
     const [selectedTab, setSelectedTab] = useState("To Do");
-    const [isFreeLancer, setIsFreeLancer] = useState(true);
+    const [isFreeLancer, setIsFreeLancer] = useState(false);
     const [isSubListVisible, setIsSubListVisible] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
 
@@ -36,24 +40,35 @@ const SliderOfProject = ({
         setSelectedTab(tabName);
     };
     const handleToggleSubList = (taskId) => {
-        setIsSubListVisible(prevState => ({
-            ...prevState,
-            [taskId]: !prevState[taskId]
-        }));
+        setIsSubListVisible(prevState => {
+            const updatedState = { };  
+            updatedState[taskId] = !prevState[taskId]; 
+            return updatedState;  
+        });
         console.log("Sublist visibility toggled. Current state:", !isSubListVisible[taskId]);
     };
-
+    
+  
+    
     const handleStatusChange = (taskId, newStatus) => {
         onStatusChange(taskId, newStatus);
         setSelectedTab(newStatus);
         console.log("Task status changed. New status:", newStatus);
     };
 
+    const areAllTasksDone = tasks.every((task) => task.status === "Done");
 
 
     return (
 
         <div className={styles.sliderOFprojectinfo}>
+            <AddTaskForm
+                isOpen={isOpen}
+                onClose={() => setIsOpen(false)}
+                addTask={addTask}
+                tasks={tasks}
+
+            />
             <div className={styles.slider}>
                 <div className={styles.projectName}>
                     <button onClick={onClose}>
@@ -139,20 +154,17 @@ const SliderOfProject = ({
                     <div className={styles.tasksSection}>
 
                         <h3 className={styles.titelText}>
-                            {isFreeLancer ? "Freelancer Tasks" : "My Tasks"}
+                            {isFreeLancer ? "My Tasks" : "Freelancer Tasks"}
                         </h3>
-                        <div style={{ display: isFreeLancer ? "block" : "none" }}>
+                        <div style={{ display: isFreeLancer ? "none" : "block" }}>
                             <button
                                 className={styles.addTaskButton}
-                                onClick={() => {
-                                    const newTaskName = prompt("Enter task name:"); 
-                                    if (newTaskName) {
-                                        addTask(newTaskName, "To Do"); 
-                                    }
-                                }}
+                                onClick={() => setIsOpen(true)}
                             >
-                                +
+                                <AddTaskIcon
+                                     />
                             </button>
+
                         </div>
 
                         <div className={styles.taskTabs}>
@@ -194,7 +206,7 @@ const SliderOfProject = ({
                         {selectedTab === "To Do" && (
                             <div className={styles.taskList}>
                                 {tasks.filter((task) => task.status === "To Do").map((task) => (
-                                    <div key={task.id} className={styles.task}>
+                                    <div key={task.id} className={`${styles.task} ${!isFreeLancer ? styles.withJustifyContent : ''}`}>
                                         {isFreeLancer && (
                                             <div>
                                                 <input
@@ -215,14 +227,15 @@ const SliderOfProject = ({
                                             <SubList taskId={task.id} onStatusChange={handleStatusChange} />
                                         )}
                                         {!isFreeLancer && (
-                                            <>
+                                            <div className={styles.buttonContainer}>
+
                                                 <button onClick={() => handleEdit(task.id)} className={styles.editButton}>
                                                     <MessageEdit />
                                                 </button>
                                                 <button onClick={() => handleDelete(task.id)} className={styles.deleteButton}>
                                                     <DeleteIcon />
                                                 </button>
-                                            </>
+                                            </div>
                                         )}
                                     </div>
                                 ))}
@@ -232,7 +245,7 @@ const SliderOfProject = ({
                         {selectedTab === "In Progress" && (
                             <div className={styles.taskList}>
                                 {tasks.filter((task) => task.status === "In Progress").map((task) => (
-                                    <div key={task.id} className={styles.task}>
+                                    <div key={task.id} className={`${styles.task} ${!isFreeLancer ? styles.withJustifyContent : ''}`}>
                                         {isFreeLancer && <InProgressIcon />}
                                         <p
                                             onClick={isFreeLancer ? () => handleToggleSubList(task.id) : undefined}
@@ -250,7 +263,7 @@ const SliderOfProject = ({
                         {selectedTab === "In Review" && (
                             <div className={styles.taskList}>
                                 {tasks.filter((task) => task.status === "In Review").map((task) => (
-                                    <div key={task.id} className={styles.task}>
+                                    <div key={task.id} className={`${styles.task} ${!isFreeLancer ? styles.withJustifyContent : ''}`}>
                                         {isFreeLancer && <InReviewIcon />}
                                         <p
                                             onClick={isFreeLancer ? () => handleToggleSubList(task.id) : undefined}
@@ -269,7 +282,7 @@ const SliderOfProject = ({
                         {selectedTab === "Done" && (
                             <div className={styles.taskList}>
                                 {tasks.filter((task) => task.status === "Done").map((task) => (
-                                    <div key={task.id} className={styles.task}>
+                                    <div key={task.id} className={`${styles.task} ${!isFreeLancer ? styles.withJustifyContent : ''}`}>
                                         <input
                                             type="checkbox"
                                             id={`task-${task.id}`}
@@ -280,8 +293,16 @@ const SliderOfProject = ({
                                         <p className={styles.doneTask}>{task.name}</p>
                                     </div>
                                 ))}
+                                
                             </div>
                         )}
+                        {areAllTasksDone && (
+                                    <button className={styles.completeBtn} onClick={() => onComplete(projectId)}>
+                                    Project Complete
+                                  </button>
+                                  
+                                )}
+
 
                     </>
                 )}

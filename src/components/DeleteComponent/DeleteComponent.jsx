@@ -3,10 +3,20 @@ import ContainerForm from "../ContainerForm/ContainerForm";
 import styles from "./DeleteComponent.module.css";
 import FetchData from "../../utility/fetchData";
 
-const DeleteComponent = ({ isOpen, onClose, HeadText, message, TypeofDelete, id }) => {
+const DeleteComponent = ({ isOpen, onClose, HeadText, message, TypeofDelete , id}) => {
   if (!isOpen) return null;
    const deleteItem = async () =>{
-        
+    try {
+      const data = await FetchData(TypeofDelete, {
+        method: 'DELETE',
+        body: JSON.stringify({
+          certificationId : id,
+        }),
+      });
+
+    } catch (error) {
+
+    }
    }
   return (
     <ContainerForm
@@ -19,7 +29,7 @@ const DeleteComponent = ({ isOpen, onClose, HeadText, message, TypeofDelete, id 
           <h3>{message}</h3>
         </div>
         <div className={styles.btnCont}>
-          <button className={styles.deleteBtn} onClick={onDelete}>
+          <button className={styles.deleteBtn} onClick={deleteItem}>
             Delete
           </button>
           <button onClick={onClose} className={styles.cancel}>

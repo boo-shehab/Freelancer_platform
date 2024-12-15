@@ -596,7 +596,7 @@ const ProfileScreen = () => {
               </section>
             </div>
           </Container>
-          <DeleteComponent  isOpen={showDelete} message={messageDelete} onClose={ ()=> setshowDelete(false)}/>
+          <DeleteComponent  isOpen={showDelete} message={messageDelete} onClose={ ()=> setshowDelete(false)}   TypeofDelete={`freelancers/certifications`} id ={80}/>
         </div>)}
     </div>
   );

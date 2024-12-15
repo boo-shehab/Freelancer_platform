@@ -1,6 +1,20 @@
 import VectorIcon from '../../CustomIcons/VectorIcon';
 import styles from './registerContainer.module.css'
+import { useState, useEffect } from "react";
 const RegisterContainer = ({children}) => {
+    const [currentPath, setCurrentPath] = useState(window.location.pathname);
+
+    useEffect(() => {
+        const handleLocationChange = () => {
+          setCurrentPath(window.location.pathname);
+        };
+            window.addEventListener("popstate", handleLocationChange);
+    
+        return () => {
+          window.removeEventListener("popstate", handleLocationChange);
+        };
+      }, []);
+
     return (
         <div className={styles["register-container"]}>
             <div className={styles.left}>
@@ -12,7 +26,7 @@ const RegisterContainer = ({children}) => {
             </div>
             <div className={styles.right}>
                 {children}
-                {window.location.pathname === '/Login' ?    <p className={styles.loginLink}>Create new Acount ? <a href="register">SingUp</a></p>
+                {currentPath  === '/Login' ?    <p className={styles.loginLink}>Create new Acount ? <a href="register">register</a></p>
                                                        :    <p className={styles.loginLink}>you already have Acount ? <a href="Login">Login</a></p>
                 }
               

@@ -22,6 +22,8 @@ const Login = () => {
   };
 
   const handleLogin = async () => {
+    setLoading(true);
+
     try {
       const data = await FetchData('auth/login', {
         method: 'POST',
@@ -30,7 +32,6 @@ const Login = () => {
           password,
         }),
       });
-      setLoading(true);
         const { accessToken, userDetails } = data.results;
         const { username, name, phoneNumber, role } = userDetails;
   

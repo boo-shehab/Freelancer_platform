@@ -33,34 +33,34 @@ function App() {
         {
           path: "/",
           element: (
-            // <ProtectedRoute isProtected={true}>
+            <ProtectedRoute isProtected={true}>
               <HomeScreen  />
-            // </ProtectedRoute>
+             </ProtectedRoute>
             
           ),
         },
         {
           path: "/profile",
           element: (
-            // <ProtectedRoute isProtected={true}>
+            <ProtectedRoute isProtected={true}>
               <ProfileScreen />
-            // </ProtectedRoute>
+             </ProtectedRoute>
           ),
         },
         {
           path: "/dashboard",
           element: (
-            // <ProtectedRoute isProtected={true}>
+            <ProtectedRoute isProtected={true}>
               <DashboardScreen />
-            // </ProtectedRoute>
+             </ProtectedRoute>
           ),
         },
         {
           path: "/setting",
           element: (
-            // <ProtectedRoute isProtected={true}>
+            <ProtectedRoute isProtected={true}>
             <Setting/>
-            // </ProtectedRoute>
+             </ProtectedRoute>
           ),
         },
       ],

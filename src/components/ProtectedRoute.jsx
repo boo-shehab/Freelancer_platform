@@ -1,14 +1,13 @@
 import { Navigate } from "react-router-dom";
 
 const ProtectedRoute = ({ isProtected, children }) => {
-    const userinfo = localStorage.getItem('userInfo');
-  const isRegistered = !!userinfo;
-  const hasCompletedInfo = userinfo?.userInfo !== null;
-console.log(isRegistered, hasCompletedInfo);
+    const userinfo = localStorage.getItem('accessToken');
+    const isRegistered = !!userinfo;
+    const hasCompletedInfo = userinfo?.userInfo !== null;
 
   if (isProtected) {
     if (!isRegistered) {
-      return <Navigate to="/register" />;
+      return <Navigate to="/login" />;
     }
     if (isRegistered && !hasCompletedInfo) {
       return <Navigate to="/user-info" />;

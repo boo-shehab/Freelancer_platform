@@ -39,7 +39,7 @@ const projectPost = ({
             <div className={styles.postClientAction}>
               <div className={styles.tag}>Available</div>
               <MoreIcon onClick={() => idShow(post.id)} />
-              {isListVisible === post.id && (
+              {/* {isListVisible === post.id && (
                 <div
                   className={styles.list}
                   style={{ marginTop: "220px", position: "absolute" }}>
@@ -47,7 +47,7 @@ const projectPost = ({
                   <button>Copy link</button>
                   <button>{isFreeLancer ? "report" : "delete"}</button>
                 </div>
-              )}
+              )} */}
             </div>
           </div>
           <div className={styles.postBody}>

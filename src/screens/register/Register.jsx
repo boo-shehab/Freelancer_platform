@@ -14,7 +14,7 @@ import fetchData from "../../utility/fetchData";
 const Register = () => {
   const [accountType, setAccountType] = useState("");
   const [isLoading, setIsLoading] = useState(false)
-  const [stage, setStage] = useState(4);
+  const [stage, setStage] = useState(1);
   const [phoneNumber, setPhoneNumber] = useState("");
   const navigate = useNavigate();
 
@@ -56,7 +56,7 @@ const Register = () => {
 
   return (
     <>
-    {stage < 3? (
+    {stage <= 3? (
       <RegisterContainer>
         <div className={styles["Account-type"]}>
           <div className={styles.steps}>

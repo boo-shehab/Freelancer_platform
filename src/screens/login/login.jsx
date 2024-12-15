@@ -80,7 +80,7 @@ const Login = () => {
             {errorMessage && <h4 className={styles.error}>{errorMessage}</h4>}
             <CustomButton
               onClick={handleLogin}
-              disabled={(!(password.length >= 8)) || (!validateEmail(email))}
+              disabled={(!(password.length >= 6)) || (!validateEmail(email))}
             >
               {loading ? "loading . . . " : "Login >"}
             </CustomButton>

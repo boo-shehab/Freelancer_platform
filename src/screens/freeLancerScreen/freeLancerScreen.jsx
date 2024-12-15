@@ -245,7 +245,6 @@ const freeLancerScreen = ({
               </button>
             ))}
           </div>
-         
           <div className={styles.timeLine}>
             <h3>Time Line</h3>
             <div className={styles.timeLineSelector}>

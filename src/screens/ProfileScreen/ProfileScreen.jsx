@@ -48,7 +48,6 @@ const ProfileScreen = () => {
   const [aboutState, setAboutState] = useState(aboutValue.slice(0, 492));
   const [dotsAbout, setDotsAbout] = useState("....");
   const [seeAction, setSeeAction] = useState("See More");
-
   const [isFreeLancer, setIsFreeLancer] = useState(false);
   const [showDelete, setshowDelete] = useState(false)
   const [messageDelete, setmessageDelete] = useState("")
@@ -58,7 +57,7 @@ const ProfileScreen = () => {
     setshowDelete(true)
   }
 
-  const chartData = [
+    const chartData = [
     
     { value: 25, color: "#FFDB70" },
     ...(isFreeLancer

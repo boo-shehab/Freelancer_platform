@@ -4,7 +4,7 @@ import RegisterContainer from "../../components/RegisterContainer/RegisterContai
 import styles from "./UserInfo.module.css";
 import { useNavigate } from "react-router-dom";
 
-const UserInfo = ({data, isLoading}) => {
+const UserInfo = ({data, isLoading, isClient}) => {
   const [isDisabled, setIsDisabled] = useState(true);
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState({
@@ -78,6 +78,21 @@ const UserInfo = ({data, isLoading}) => {
                 onChange={handleInputChange}
               />
             </label>
+            { isClient &&(
+              <label htmlFor="name">
+                <p>Company name</p>
+                <input
+                  className={styles.inputForm}
+                  type="text"
+                  id="companyName"
+                  placeholder="Enter your full company name"
+                  value={userInfo.companyName}
+                  onChange={handleInputChange}
+                />
+              </label>
+            )
+
+            }
             <label htmlFor="email">
               <p>Email</p>
               <input

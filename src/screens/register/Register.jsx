@@ -41,6 +41,10 @@ const Register = () => {
       "password": data.password,
       "userType": accountType,
     }
+
+    if(accountType === 'client') {
+      bodyData['companyName'] = data.companyName;
+    }
     
     try {
       await fetchData("auth/complete-registration", { 
@@ -154,7 +158,7 @@ const Register = () => {
         </div>
       </RegisterContainer>
     ) : (
-      <UserInfo data={(data) => sendData(data)} isLoading={isLoading} />
+      <UserInfo data={(data) => sendData(data)} isLoading={isLoading} isClient={accountType === 'client'} />
     )}
     </>
   );

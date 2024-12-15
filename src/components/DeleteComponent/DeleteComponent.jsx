@@ -9,9 +9,6 @@ const DeleteComponent = ({ isOpen, onClose, HeadText, message, TypeofDelete , id
     try {
       const data = await FetchData(TypeofDelete, {
         method: 'DELETE',
-        body: JSON.stringify({
-          certificationId : id,
-        }),
       });
 
     } catch (error) {

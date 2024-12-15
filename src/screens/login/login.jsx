@@ -28,15 +28,15 @@ const Login = () => {
       const data = await FetchData('auth/login', {
         method: 'POST',
         body: JSON.stringify({
-          email,
-          password,
+          email : email,
+          password : password,
         }),
       });
         const { accessToken, userDetails } = data.results;
         const { id , username, name, phoneNumber, role } = userDetails;
   
         localStorage.setItem('accessToken', accessToken);
-        localStorage.setItem('id', 170);
+        localStorage.setItem('id', id);
         setUsername(username);
         setName(name);
         setPhoneNumber(phoneNumber);

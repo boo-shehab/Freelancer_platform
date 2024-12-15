@@ -2,7 +2,8 @@ const fetchData = async (url, options = {}) => {
     try {
         const defaultOptions = {
             headers: {
-            "Content-Type": "application/json",
+                'Authorization': `Bearer ${localStorage.getItem('accessToken')}`, 
+                'Content-Type': 'application/json', 
             ...options.headers,
             },
         };

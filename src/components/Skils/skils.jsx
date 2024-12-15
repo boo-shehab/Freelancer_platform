@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState , useEffect} from "react";
 import Card from "../Card/card";
 import PlusIcon from "../../CustomIcons/PlusIcon";
 import EditIcon from "../../CustomIcons/EditIcon";
@@ -8,13 +8,16 @@ import MicrosoftIcon from "../../CustomIcons/MicrosoftIcon";
 import SkillsForm from "../SkillsForm/SkillsForm";
 import CoursesAndCertificationsForm from "../CoursesAndCertificationsForm/CoursesAndCertificationsForm";
 import DeleteIcon from "../../CustomIcons/DeleteIcon";
-import DeleteComponent from "../../components/DeleteComponent/DeleteComponent"
+import DeleteComponent from "../../components/DeleteComponent/DeleteComponent";
+import FetchData from "../../utility/fetchData";
+
 
 const Skils = () => {
   const [isSkillsFormOpen, setIsSkillsFormOpen] = useState(false)
   const [isCoursesOpen, setIsCoursesOpen] = useState(false)
   const [showDelete, setshowDelete] = useState(false)
   const [messageDelete, setmessageDelete] = useState("")
+  const [name, setname] = useState("")
 
   function ShowDelete (message){
     setmessageDelete(message);
@@ -40,6 +43,41 @@ const Skils = () => {
       desc: " Microsoft ",
     },
   ];
+  /// select skills 
+  const getAllSkills = async (id) => {
+    try {
+      const data = await FetchData(`skills/${id}/skills`, {
+        method: 'GET',
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const getAllCertifications = async (id) => {
+    try {
+      const data = await FetchData(`freelancers/${id}/certifications`, {
+        method: 'GET',
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const insertNewSkill = async (id) => {
+    try {
+      const data = await FetchData(`skills/${id}/skills`, {
+        method: 'POST',
+        body: JSON.stringify({
+          name,
+        }),
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getAllSkills(localStorage.getItem('id')); 
+    getAllCertifications(localStorage.getItem('id'));
+  }, []);
 
   const [Skills, setSkills] = useState(['Figma (Software)', 'Adobe Illustrator (Software)', 'Sketch (Software)'])
   return (

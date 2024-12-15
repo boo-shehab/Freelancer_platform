@@ -7,7 +7,7 @@ const ProtectedRoute = ({ isProtected, children }) => {
 
   if (isProtected) {
     if (!isRegistered) {
-      return <Navigate to="/login" />;
+      return <Navigate to="/register" />;
     }
     if (isRegistered && !hasCompletedInfo) {
       return <Navigate to="/user-info" />;

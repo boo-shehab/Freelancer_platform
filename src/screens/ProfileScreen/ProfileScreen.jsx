@@ -21,6 +21,7 @@ import SkilsSide from "../../components/Skils/skils";
 // import WorkForForm from "../../components/WorkForForm/WorkForForm";
 import DeleteComponent from "../../components/DeleteComponent/DeleteComponent";
 import FetchData from "../../utility/fetchData";
+import useUserinfoStore from "../../useUserinfoStore";
 const WorkFor = [
   {
     id: 1,
@@ -37,20 +38,20 @@ const WorkFor = [
 ];
 
 const ProfileScreen = () => {
+  const { about, setAbout } = useUserinfoStore();
+
   const [isUserInfoOpen, setIsUserInfoOpen] = useState(false);
   const [isAboutPopupOpen, setIsAboutPopupOpen] = useState(false);
   const [isWorkForOpen, setIsWorkForOpen] = useState(false);
-  const [aboutValue, setAboutValue] = useState(
-    "As a software manager with a passion for technology and team development, I specialize in guiding projects from concept to completion. With a strong focus on collaboration and clear communication, I work closely with clients and developers to ensure we deliver high-quality solutions that meet our stakeholders' needs. My goal is to bridge the gap between technical expertise and client vision, helping teams create innovative software that drives results and keeps pace with industry demands,Developed a task management web application designed to help users organize"
-  );
+  
 
   const isSmallScreen = useMediaQuery({ query: "(max-width: 950px)" });
   const isTooSmallScreen = useMediaQuery({ query: "(max-width: 390px)" });
 
-  const [aboutState, setAboutState] = useState(aboutValue.slice(0, 492));
+  const [aboutState, setAboutState] = useState(about.slice(0, 492));
   const [dotsAbout, setDotsAbout] = useState("....");
   const [seeAction, setSeeAction] = useState("See More");
-  const [isFreeLancer, setIsFreeLancer] = useState(true);
+  const [isFreeLancer, setIsFreeLancer] = useState(false);
   const [showDelete, setshowDelete] = useState(false);
   const [messageDelete, setmessageDelete] = useState("");
   // Muhammed state:
@@ -130,6 +131,7 @@ const ProfileScreen = () => {
     handleEditProfileCircle();
   }, []);
 
+
   const rating = {
     starRate: "4.0",
     highRate: 82,
@@ -137,8 +139,32 @@ const ProfileScreen = () => {
     lowRate: 6,
   };
 
+  const handleSeeMore =() => {
+    if (about.length < 400) {
+      setDotsAbout("");
+      setSeeAction("");
+      setAboutState(about);
+    } else if (
+      dotsAbout === "...." &&
+      seeAction === "See More"
+    ) {
+      setAboutState(about);
+      setDotsAbout("");
+      setSeeAction("Show Less");
+    } else {
+      setAboutState(about.slice(0, 492));
+      setDotsAbout("....");
+      setSeeAction("See More");
+    }
+  }
+
+  useEffect(() => {
+    setAboutState(about.slice(0, 492))
+    handleSeeMore()
+  }, [about]);
+
   const handleEditAbout = (value) => {
-    setAboutValue(value);
+    setAbout(value);
     setAboutState(value.slice(0, 492));
   };
 
@@ -397,24 +423,7 @@ const ProfileScreen = () => {
                       {dotsAbout}{" "}
                       <span
                         className={styles.seeMoreAbout}
-                        onClick={() => {
-                          if (aboutValue.length < 400) {
-                            setDotsAbout("");
-                            setSeeAction("");
-                            setAboutState(aboutValue);
-                          } else if (
-                            dotsAbout === "...." &&
-                            seeAction === "See More"
-                          ) {
-                            setAboutState(aboutValue);
-                            setDotsAbout("");
-                            setSeeAction("Show Less");
-                          } else {
-                            setAboutState(aboutValue.slice(0, 492));
-                            setDotsAbout("....");
-                            setSeeAction("See More");
-                          }
-                        }}
+                        onClick={handleSeeMore}
                       >
                         {seeAction}
                       </span>

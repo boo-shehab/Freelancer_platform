@@ -58,6 +58,12 @@ const ProfileScreen = () => {
   const [isWorkedWith, setIsWorkedWith] = useState(0);
   const [isProjectPosted, setIsProjectPosted] = useState(0);
   const [isGivenLikes, setIsGivenLikes] = useState(0);
+  //Muhammed 2
+  const [lowRating, setLowRating] = useState(11);
+  const [midRating, setMidRating] = useState(11);
+  const [highRating, setHighRating] = useState(11);
+  const [totalRating, setTotalRating] = useState(11);
+  const [averageRating, setAverageRating] = useState(11);
   function ShowDelete(message) {
     setmessageDelete(message);
     setshowDelete(true);
@@ -112,11 +118,12 @@ const ProfileScreen = () => {
 
   const handleEditProfileCircle = async () => {
     try {
-      const data = await FetchData(`clients/${localStorage.getItem('id')}/activities`, {
-        method: "GET",
-      }, {
-        'Content-Type': 'application/json'
-      });
+      const data = await FetchData(
+        `clients/${localStorage.getItem("id")}/activities`,
+        {
+          method: "GET",
+        }
+      );
 
       const { freelancersWorkedWith, projectPosted, givenLikes } = data.results;
       setIsWorkedWith(freelancersWorkedWith);
@@ -126,9 +133,54 @@ const ProfileScreen = () => {
       console.log("Login failed. Please try again.");
     }
   };
+  //Muhammed
+  const fetchRatings = async (userId) => {
+    try {
+      const { results } = await FetchData(
+        `ratings/rating-summary?userId=${userId}`,
+        {
+          method: "GET",
+        }
+      );
+
+      const processedRatings = {
+        averageRating: parseInt(results.averageRating, 10),
+        totalRating: results.totalRating,
+        highRating: results.highRating,
+        midRating: results.midRating,
+        lowRating: results.lowRating,
+      };
+
+      return processedRatings;
+    } catch (error) {
+      console.error("Failed to fetch ratings:", error);
+      throw error;
+    }
+  };
+
+  const ratings = async () => {
+    try {
+      const userId = localStorage.getItem("id");
+      if (!userId) {
+        throw new Error("User ID not found");
+      }
+
+      const { averageRating, totalRating, highRating, midRating, lowRating } =
+        await fetchRatings(userId);
+
+      setAverageRating(averageRating);
+      setTotalRating(totalRating);
+      setHighRating(highRating);
+      setMidRating(midRating);
+      setLowRating(lowRating);
+    } catch (error) {
+      console.error("Error processing ratings:", error.message);
+    }
+  };
 
   useEffect(() => {
     handleEditProfileCircle();
+    ratings();
   }, []);
 
 
@@ -168,7 +220,7 @@ const ProfileScreen = () => {
     setAboutState(value.slice(0, 492));
   };
 
-  const handleEditProfile = () => { };
+  const handleEditProfile = () => {};
   const [isListVisible, setVisiblePostId] = useState(null);
   const idShow = (id) => {
     setVisiblePostId((prevId) => (prevId === id ? null : id));
@@ -650,7 +702,7 @@ const ProfileScreen = () => {
                     <h3 className={styles.rateTitle}>Rating</h3>
                     <p className={styles.rateSubtitle}>Average Rating</p>
                     <div className={styles.ratingStars}>
-                      <b>{rating.starRate}</b>
+                      <b>{averageRating}</b>
                       <div>
                         {+rating.starRate >= 1 ? (
                           <Star2Icon />
@@ -690,7 +742,7 @@ const ProfileScreen = () => {
                             }}
                           ></div>
                         </div>
-                        <p>{rating.highRate}%</p>
+                        <p>{highRating}</p>
                       </div>
                       <div className={styles.barItem}>
                         <b>Mid rate</b>
@@ -702,7 +754,7 @@ const ProfileScreen = () => {
                             }}
                           ></div>
                         </div>
-                        <p>{rating.midRate}%</p>
+                        <p>{midRating}</p>
                       </div>
                       <div className={styles.barItem}>
                         <b>low rate</b>
@@ -714,7 +766,7 @@ const ProfileScreen = () => {
                             }}
                           ></div>
                         </div>
-                        <p>{rating.lowRate}%</p>
+                        <p>{lowRating}</p>
                       </div>
                     </div>
                   </div>
@@ -726,7 +778,7 @@ const ProfileScreen = () => {
                       Total People who visited your profile
                     </p>
                     <p className={styles.reviews}>
-                      <b>70</b> review
+                      <b>{totalRating}</b> review
                     </p>
                     <button className={styles.seeAllReviews}>See all</button>
                   </div>
@@ -735,8 +787,13 @@ const ProfileScreen = () => {
             </div>
           </Container>
 
-          <DeleteComponent isOpen={showDelete} message={messageDelete} onClose={() => setshowDelete(false)} />
-        </div>)}
+          <DeleteComponent
+            isOpen={showDelete}
+            message={messageDelete}
+            onClose={() => setshowDelete(false)}
+          />
+        </div>
+      )}
 
       <DeleteComponent
         isOpen={showDelete}
@@ -746,7 +803,7 @@ const ProfileScreen = () => {
         id={80}
       />
     </div>
-  )
-}
+  );
+};
 
 export default ProfileScreen;

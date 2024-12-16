@@ -51,6 +51,8 @@ const Skils = () => {
     try {
       const data = await FetchData(`skills/${id}/skills?pageSize=100`, {
         method: 'GET',
+      }, {
+        'Content-Type': 'application/json'
       });
         if (data.isSuccess) {
           setSkillsvalue(data.results.result);
@@ -63,6 +65,8 @@ const Skils = () => {
     try {
       const data = await FetchData(`freelancers/${id}/certifications`, {
         method: 'GET',
+      }, {
+        'Content-Type': 'application/json'
       });
     } catch (error) {
       console.log(error);

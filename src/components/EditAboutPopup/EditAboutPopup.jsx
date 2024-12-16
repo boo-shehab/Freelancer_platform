@@ -12,6 +12,8 @@ const EditAboutPopup = ({ isOpen, onClose }) => {
       await fetchData(`profiles/about`, {
         method: "PATCH",
         body: JSON.stringify({ about }),
+      }, {
+        'Content-Type': 'application/json'
       });
       onClose();
     } catch (e) {

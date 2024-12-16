@@ -9,6 +9,8 @@ const DeleteComponent = ({ isOpen, onClose, HeadText, message, TypeofDelete , id
     try {
       const data = await FetchData(TypeofDelete, {
         method: 'DELETE',
+      }, {
+        'Content-Type': 'application/json'
       });
       const id = localStorage.getItem('id'); 
       GetAllSkills(id);

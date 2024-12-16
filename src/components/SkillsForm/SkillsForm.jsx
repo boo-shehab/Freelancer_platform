@@ -18,6 +18,8 @@ const EditSkillsForm = ({ isOpen, onClose, GetAllSkills }) => {
         body: JSON.stringify({
           name: newSkill.trim(),
         }),
+      }, {
+        'Content-Type': 'application/json'
       });
 
       const id = localStorage.getItem('id'); 

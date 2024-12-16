@@ -31,6 +31,8 @@ const Login = () => {
           email : email,
           password : password,
         }),
+      }, {
+        'Content-Type': 'application/json'
       });
         const { accessToken, userDetails } = data.results;
         const { id , username, name, phoneNumber, role } = userDetails;

@@ -196,7 +196,7 @@ const HomeScreen = () => {
       const queryParams = selectedJobs
       .map((qualification) => `qualificationNames=${qualification}`)
       .join('&');
-      console.log(`projects/client-feed?page=0&pageSize=1&${queryParams}`);
+      console.log(`projects/client-feed?page=0&pageSize=10&${queryParams}`);
       
       const response = await fetchData(`projects/client-feed?page=0&pageSize=1&${queryParams}`, {
         method: 'GET',
@@ -539,7 +539,7 @@ const HomeScreen = () => {
                 <div className={styles.formerCoworkers}>
                   <div className={styles.formerCoworkersHead}>
                     <b className={styles.formerCoworkersTitle}>
-                      Your Recent Project
+                      Freelancers You Worked With
                     </b>
                     <a className={styles.more}>See All</a>
                   </div>

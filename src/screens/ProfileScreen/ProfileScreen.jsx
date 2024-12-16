@@ -113,6 +113,8 @@ const ProfileScreen = () => {
     try {
       const data = await FetchData(`clients/${localStorage.getItem('id')}/activities`, {
         method: "GET",
+      }, {
+        'Content-Type': 'application/json'
       });
 
       const { freelancersWorkedWith, projectPosted, givenLikes } = data.results;

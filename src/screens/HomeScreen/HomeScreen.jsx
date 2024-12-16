@@ -198,7 +198,7 @@ const HomeScreen = () => {
       .join('&');
       console.log(`projects/client-feed?page=0&pageSize=10&${queryParams}`);
       
-      const response = await fetchData(`projects/client-feed?page=0&pageSize=1&${queryParams}`, {
+      const response = await fetchData(`projects/client-feed?page=0&pageSize=10&${queryParams}`, {
         method: 'GET',
       });
       console.log(response.results.result);
@@ -210,6 +210,11 @@ const HomeScreen = () => {
   useEffect(() => {
     getProject()
   }, [selectedJobs])
+
+  useEffect(() => {
+    console.log('about: ', about);
+    
+  }, [about])
 
   const handleNewProject = () => {
     setIsPopupOpen(true);

@@ -133,24 +133,47 @@ const ProfileScreen = () => {
     }
   };
   //Muhammed
-  const ratings = async () => {
+  const fetchRatings = async (userId) => {
     try {
-      const data = await FetchData(
-        `ratings/rating-summary?userId=${localStorage.getItem("id")}`,
+      const { results } = await FetchData(
+        `ratings/rating-summary?userId=${userId}`,
         {
           method: "GET",
         }
       );
 
-      const { averageRating, highRating, midRating, lowRating, totalRating } =
-        data.results;
-      setAverageRating(parseInt(averageRating, 10));
+      const processedRatings = {
+        averageRating: parseInt(results.averageRating, 10),
+        totalRating: results.totalRating,
+        highRating: results.highRating,
+        midRating: results.midRating,
+        lowRating: results.lowRating,
+      };
+
+      return processedRatings;
+    } catch (error) {
+      console.error("Failed to fetch ratings:", error);
+      throw error;
+    }
+  };
+
+  const ratings = async () => {
+    try {
+      const userId = localStorage.getItem("id");
+      if (!userId) {
+        throw new Error("User ID not found");
+      }
+
+      const { averageRating, totalRating, highRating, midRating, lowRating } =
+        await fetchRatings(userId);
+
+      setAverageRating(averageRating);
       setTotalRating(totalRating);
       setHighRating(highRating);
       setMidRating(midRating);
       setLowRating(lowRating);
     } catch (error) {
-      console.log("Login failed. Please try again.");
+      console.error("Error processing ratings:", error.message);
     }
   };
 

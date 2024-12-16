@@ -16,12 +16,15 @@ const Skils = () => {
   const [isSkillsFormOpen, setIsSkillsFormOpen] = useState(false)
   const [isCoursesOpen, setIsCoursesOpen] = useState(false)
   const [showDelete, setshowDelete] = useState(false)
+  const [urlapi, seturlapi] = useState("")
   const [messageDelete, setmessageDelete] = useState("")
   const [name, setname] = useState("")
+  const [skills, setSkillsvalue] = useState([]); 
 
-  function ShowDelete (message){
+  function ShowDelete (message , urlapi){
     setmessageDelete(message);
-    setshowDelete(true)
+    setshowDelete(true);
+    seturlapi(urlapi);
   }
   const Courses = [
     {
@@ -46,9 +49,12 @@ const Skils = () => {
   /// select skills 
   const getAllSkills = async (id) => {
     try {
-      const data = await FetchData(`skills/${id}/skills`, {
+      const data = await FetchData(`skills/${id}/skills?pageSize=100`, {
         method: 'GET',
       });
+        if (data.isSuccess) {
+          setSkillsvalue(data.results.result);
+        } 
     } catch (error) {
       console.log(error);
     }
@@ -62,27 +68,16 @@ const Skils = () => {
       console.log(error);
     }
   };
-  const insertNewSkill = async (id) => {
-    try {
-      const data = await FetchData(`skills/${id}/skills`, {
-        method: 'POST',
-        body: JSON.stringify({
-          name,
-        }),
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+
   useEffect(() => {
     getAllSkills(localStorage.getItem('id')); 
     getAllCertifications(localStorage.getItem('id'));
   }, []);
 
-  const [Skills, setSkills] = useState(['Figma (Software)', 'Adobe Illustrator (Software)', 'Sketch (Software)'])
+
   return (
     <div className={Styles.skilsCard}>
-      <SkillsForm isOpen={isSkillsFormOpen} onClose={() => setIsSkillsFormOpen(false)} initialData={Skills} onSave={(handleNewSkills) => { setSkills(handleNewSkills) }} />
+      <SkillsForm isOpen={isSkillsFormOpen} onClose={() => setIsSkillsFormOpen(false)}  GetAllSkills={(id) => getAllSkills(id)}/>
       <Card>
         <div className={Styles.skilsHead}>
           <h4 className={Styles.skilsTitil}> Skils</h4>
@@ -91,14 +86,14 @@ const Skils = () => {
           </div>
         </div>
         <div className={Styles.skilsList}>
-          {Skills.map((skill) => (
+          {skills.map((sk) => (
             <div className={Styles.displayTHeSkills}>
-              <div className={Styles.skillItem} key={skill}>
-                <UsersIcone /> <p>{skill}</p>
+              <div className={Styles.skillItem} key={sk.id}>
+                <UsersIcone /> <p>{sk.name}</p>
               </div>
               <div className={Styles.skilssAction}>
-                <EditIcon onClick={() => setIsSkillsFormOpen(true)} />
-                <DeleteIcon onClick={()=> ShowDelete("Are you sure u want to delete this skill")} />
+                {/* <EditIcon onClick={() => setIsSkillsFormOpen(true)} /> */}
+                <DeleteIcon onClick={()=> ShowDelete("Are you sure u want to delete this skill" , `skills/${sk.id}`) } />
               </div>
             </div>
           ))}
@@ -122,7 +117,7 @@ const Skils = () => {
                   <p>{course.title}</p>
                  </div>
                  <div className={Styles.coursesAction}>
-                <EditIcon onClick={() => setIsCoursesOpen(true)} />
+                {/* <EditIcon onClick={() => setIsCoursesOpen(true)} /> */}
                 <DeleteIcon onClick={()=> ShowDelete("Are you sure u want to delete this skill")} />
                 </div>
                 </div>
@@ -136,7 +131,7 @@ const Skils = () => {
           </ul>
         </Card>
       </div>
-      <DeleteComponent message={messageDelete} isOpen={showDelete} onClose={ ()=> setshowDelete(false)}/>
+      <DeleteComponent message={messageDelete} isOpen={showDelete} onClose={ ()=> setshowDelete(false)} TypeofDelete={urlapi} GetAllSkills={(id) => getAllSkills(id)}/>
     </div>
   );
 };

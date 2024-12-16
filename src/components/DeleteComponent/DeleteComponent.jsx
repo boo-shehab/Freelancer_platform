@@ -3,14 +3,16 @@ import ContainerForm from "../ContainerForm/ContainerForm";
 import styles from "./DeleteComponent.module.css";
 import FetchData from "../../utility/fetchData";
 
-const DeleteComponent = ({ isOpen, onClose, HeadText, message, TypeofDelete , id}) => {
+const DeleteComponent = ({ isOpen, onClose, HeadText, message, TypeofDelete , id , GetAllSkills}) => {
   if (!isOpen) return null;
    const deleteItem = async () =>{
     try {
       const data = await FetchData(TypeofDelete, {
         method: 'DELETE',
       });
-
+      const id = localStorage.getItem('id'); 
+      GetAllSkills(id);
+      onClose();
     } catch (error) {
 
     }

@@ -1,73 +1,58 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "./SkillsForm.module.css";
 import ContainerForm from "../ContainerForm/ContainerForm";
-import CloseIcon from "../../CustomIcons/CloseIcon";
+import FetchData from "../../utility/fetchData";
 
-const SkillsForm = ({isOpen, onClose, initialData = [], onSave}) => {
-  
-  const [formData, setFormData] = useState([]);
+const EditSkillsForm = ({ isOpen, onClose, GetAllSkills }) => {
   const [newSkill, setNewSkill] = useState('');
-  useEffect(() => {
-    if (initialData) {
-      setFormData(initialData);
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const addNewSkill = async () => {
+    if (!newSkill.trim()) {
+      setErrorMessage('Skill name is required.');
+      return;
     }
-  }, [initialData]);
+    try {
+      await FetchData('skills', {
+        method: 'POST',
+        body: JSON.stringify({
+          name: newSkill.trim(),
+        }),
+      });
 
+      const id = localStorage.getItem('id'); 
+      GetAllSkills(id);
 
-  const handleChange = (e) => {
-    setNewSkill(e.target.value);
+      setNewSkill('');
+      onClose();
+    } catch (error) {
+      setErrorMessage('Failed to add the skill. Please try again.');
+      console.error(error);
+    }
   };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setFormData([...formData, newSkill])
-    setNewSkill('')
-    console.log("Form Data Submitted:", formData);
-  };
-
-  const handleDelete = (s) => {
-    setFormData(formData.filter((skill) => skill !== s))
-  }
-  
-  if(!isOpen) return null;
 
   return (
-    <ContainerForm isOpen={isOpen} onClose={onClose} HeadName={`Edit Skills`}>
-        <form onSubmit={handleSubmit} className={styles.form}>
-        <label className={styles.label}>
-            Skill’s Name*
-            <input
-            type="text"
-            name="skill"
-            value={newSkill}
-            placeholder="enter skill’s name"
-            onChange={handleChange}
-            className={styles.input}
-            required
-            />
-        </label>
-
-        {formData.length > 0 && (
-          <div className={styles.listContainer}>
-            {formData.map((skill) => (
-              <div key={skill} className={styles.item}>
-                <button onClick={() => handleDelete(skill)}><CloseIcon /></button>
-                <span>
-                  {skill}
-                </span>
-              </div>
-            ))}
-          </div>
-        )}
-
-        <div className={styles.buttonContainer}>
-          <button type="submit" className={styles.button}>
-              add
-          </button>
-        </div>
-        </form>
+    <ContainerForm isOpen={isOpen} onClose={onClose} HeadName="Edit Skills">
+      <label className={styles.label}>
+        Skill’s Name*
+        <input
+          type="text"
+          name="skill"
+          value={newSkill}
+          placeholder="Enter skill’s name"
+          onChange={(e) => setNewSkill(e.target.value)}
+          className={styles.input}
+          required
+        />
+      </label>
+      {errorMessage && <p className={styles.error}>{errorMessage}</p>}
+      <div className={styles.buttonContainer}>
+        <button onClick={addNewSkill} className={styles.button}>
+          Add
+        </button>
+      </div>
     </ContainerForm>
   );
 };
 
-export default SkillsForm;
+export default EditSkillsForm;

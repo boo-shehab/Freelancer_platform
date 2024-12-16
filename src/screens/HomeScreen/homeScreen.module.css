@@ -399,6 +399,14 @@
   border-radius: 16px;
   display: none;
 }
+.seeMoreAbout {
+  font-family: Poppins;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 27px;
+  color: #3c97af;
+  cursor: pointer;
+}
 
 .freeLancerHeader {
   display: flex;

@@ -8,7 +8,7 @@ import FetchData from "../../utility/fetchData";
 import useUserinfoStore from '../../useUserinfoStore';
 
 const Login = () => {
-  const { setUsername, setIsFreelancer, setName, setPhoneNumber } = useUserinfoStore();
+  const { addUserInfo } = useUserinfoStore();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -31,17 +31,24 @@ const Login = () => {
           email : email,
           password : password,
         }),
+      }, {
+        'Content-Type': 'application/json'
       });
         const { accessToken, userDetails } = data.results;
-        const { id , username, name, phoneNumber, role } = userDetails;
+        const { id , username, name, phoneNumber, role, companyName } = userDetails;
   
         localStorage.setItem('accessToken', accessToken);
         localStorage.setItem('id', id);
-        setUsername(username);
-        setName(name);
-        setPhoneNumber(phoneNumber);
-        setIsFreelancer(role === "freelancer");
-
+        // setUsername(username);
+        // setName(name);
+        // setPhoneNumber(phoneNumber);
+        // setIsFreelancer(role === "freelancer");
+        // if(role === 'client') {
+        //   setCompanyName()
+        // }
+        addUserInfo(userDetails)
+        console.log('userDetails:', userDetails);
+        
         navigate('/');
     } catch (error) {
       setErrorMessage('Login failed. Please try again.');
@@ -70,7 +77,7 @@ const Login = () => {
               />
               <p>Password</p>
               <input
-                className={password.length >= 8 ? styles.activeinput : ""}
+                className={password.length >= 6 ? styles.activeinput : ""}
                 type="password"
                 placeholder="Enter Password"
                 value={password}

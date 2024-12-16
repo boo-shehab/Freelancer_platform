@@ -60,7 +60,10 @@ const PhoneNumberInput = ({ handleNext }) => {
     try {
       const data = await fetchData("auth/send-verification-code", { 
         method: "POST", 
-        body: JSON.stringify(phoneNumber)})
+        body: JSON.stringify(phoneNumber)
+      }, {
+        'Content-Type': 'application/json'
+      })
         console.log('Submission response:', data);
         handleNext(formatPhoneNumber())
     } catch(e) {

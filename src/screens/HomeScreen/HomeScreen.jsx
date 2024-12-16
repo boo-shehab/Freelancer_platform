@@ -20,7 +20,7 @@ import CloseIcon from "../../CustomIcons/CloseIcon";
 import FilterMoboIcon from "../../CustomIcons/FilterMoboIcon";
 import WorkForForm from "../../components/WorkForForm/WorkForForm";
 import EditAboutPopup from "../../components/EditAboutPopup/EditAboutPopup";
-import fetchData from '../../utility/fetchData'
+import fetchData from "../../utility/fetchData";
 import useUserinfoStore from "../../useUserinfoStore";
 
 const projects = [
@@ -164,7 +164,7 @@ const formerCoworkers = [
 ];
 
 const HomeScreen = () => {
-  const [posts, setPosts] = useState([])
+  const [posts, setPosts] = useState([]);
   const [selectedJobs, setSelectedJobs] = useState([]);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [recentProjectOpened, setRecentProjectOpened] = useState(-1);
@@ -174,8 +174,11 @@ const HomeScreen = () => {
   const [isCommentForm, setIsCommentForm] = useState(false);
   const [openDrawer, setOpenDrawer] = useState(false);
   const [isWorkForOpen, setIsWorkForOpen] = useState(false);
-  const [isAboutPopupOpen, setIsAboutPopupOpen] = useState(false)  
+  const [isAboutPopupOpen, setIsAboutPopupOpen] = useState(false);
   const { about } = useUserinfoStore();
+  const [aboutState, setAboutState] = useState(about.slice(0, 200));
+  const [dotsAbout, setDotsAbout] = useState("....");
+  const [seeAction, setSeeAction] = useState("See More");
   const drawerHeight = 500;
 
   const isSmallScreen = useMediaQuery({ query: "(max-width: 950px)" });
@@ -191,25 +194,60 @@ const HomeScreen = () => {
     );
   };
 
-  const getProject = async() => {
-    try{
+  const getProject = async () => {
+    try {
       const queryParams = selectedJobs
-      .map((qualification) => `qualificationNames=${qualification}`)
-      .join('&');
-      console.log(`projects/client-feed?page=0&pageSize=1&${queryParams}`);
-      
-      const response = await fetchData(`projects/client-feed?page=0&pageSize=1&${queryParams}`, {
-        method: 'GET',
-      });
+        .map((qualification) => `qualificationNames=${qualification}`)
+        .join("&");
+      console.log(`projects/client-feed?page=0&pageSize=10&${queryParams}`);
+
+      const response = await fetchData(
+        `projects/client-feed?page=0&pageSize=1&${queryParams}`,
+        {
+          method: "GET",
+        }
+      );
       console.log(response.results.result);
       setPosts(response.results.result);
-    }catch(e) {
+    } catch (e) {
       console.log(e);
     }
-  }
+  };
+
+  const handleSeeMore = () => {
+    if (about.length < 200) {
+      setDotsAbout("");
+      setSeeAction("");
+      setAboutState(about);
+    } else if (dotsAbout === "...." && seeAction === "See More") {
+      setAboutState(about);
+      setDotsAbout("");
+      setSeeAction("Show Less");
+    } else {
+      setAboutState(about.slice(0, 200));
+      setDotsAbout("....");
+      setSeeAction("See More");
+    }
+  };
+
   useEffect(() => {
-    getProject()
-  }, [selectedJobs])
+    setAboutState(about.slice(0, 200));
+    handleSeeMore();
+  }, [about]);
+
+  const handleEditAbout = (value) => {
+    setAbout(value);
+    setAboutState(value.slice(0, 492));
+  };
+
+  useEffect(() => {
+    getProject();
+  }, [selectedJobs]);
+
+  useEffect(() => {
+    console.log('about: ', about);
+    
+  }, [about])
 
   const handleNewProject = () => {
     setIsPopupOpen(true);
@@ -219,9 +257,8 @@ const HomeScreen = () => {
     console.log(CB);
   };
 
- 
   return (
-    <div style={styles.homeScreen} >
+    <div style={styles.homeScreen}>
       <TwoStageFormPopup
         isOpen={isPopupOpen}
         onClose={() => setIsPopupOpen(false)}
@@ -253,7 +290,9 @@ const HomeScreen = () => {
                         <button
                           className={`${styles.btn} 
                           ${
-                            selectedJobs.includes(job.Job)? styles.btnGreen : ""
+                            selectedJobs.includes(job.Job)
+                              ? styles.btnGreen
+                              : ""
                           }
                           `}
                           onClick={() => handleJobSelection(job.Job)}
@@ -318,7 +357,9 @@ const HomeScreen = () => {
                           <button
                             className={`${styles.btn} 
                           ${
-                            selectedJobs.includes(job.Job) ? styles.btnGreen : ""
+                            selectedJobs.includes(job.Job)
+                              ? styles.btnGreen
+                              : ""
                           }
                           `}
                             onClick={() => handleJobSelection(job.Job)}
@@ -337,10 +378,14 @@ const HomeScreen = () => {
                     <EditIcon onClick={() => setIsAboutPopupOpen(true)} />
                   </div>
                   <p>
-                    {/* GreenTech Solutions Inc. Renewable Energy & Technology San
-                    Francisco, California, with operations in North America and
-                    Europe */}
-                    {about}
+                    {aboutState}
+                    {dotsAbout}{" "}
+                    <span
+                      className={styles.seeMoreAbout}
+                      onClick={handleSeeMore}
+                    >
+                      {seeAction}
+                    </span>
                   </p>
                 </div>
               </Card>
@@ -450,9 +495,18 @@ const HomeScreen = () => {
                   <div className={styles.mobileSearch}>
                     <div className={styles.mobileInputForm}>
                       <SearchIcon />
-                      <input className={styles.moblieInput} type="text" placeholder="search" />
+                      <input
+                        className={styles.moblieInput}
+                        type="text"
+                        placeholder="search"
+                      />
                     </div>
-                    <div className={styles.filterBtn} onClick={() => setOpenDrawer(true)}><FilterMoboIcon /></div>
+                    <div
+                      className={styles.filterBtn}
+                      onClick={() => setOpenDrawer(true)}
+                    >
+                      <FilterMoboIcon />
+                    </div>
                   </div>
                 </div>
                 <div className={styles.postBoxCont}>
@@ -539,7 +593,7 @@ const HomeScreen = () => {
                 <div className={styles.formerCoworkers}>
                   <div className={styles.formerCoworkersHead}>
                     <b className={styles.formerCoworkersTitle}>
-                      Your Recent Project
+                      Freelancers You Worked With
                     </b>
                     <a className={styles.more}>See All</a>
                   </div>

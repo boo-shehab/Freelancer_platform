@@ -37,9 +37,19 @@ const TwoStageFormPopup = ({ isOpen, onClose }) => {
   const handleSave = async(e) => {
     addNewProjectPost(formData);
     try{
+      const dataSending = new FormData();
+      dataSending.append('Title', 'string');
+      dataSending.append('Description', 'string');
+      dataSending.append('QualificationName', 'frontend');
+      dataSending.append('Duration', '12');
+      dataSending.append('PriceType', 'fixed');
+      dataSending.append('Budget', '21');
+
       await fetchData(`projects`, {
         method: 'POST',
-        body: JSON.stringify(formData)
+        body: dataSending
+      }, {
+          'Accept': '*/*',
       });
     }catch(e) {
       console.log(e);
@@ -51,12 +61,51 @@ const TwoStageFormPopup = ({ isOpen, onClose }) => {
       Duration: "",
       PriceType: 'fixed',
       Budget: "",
+      
     });
+    setStage(1)
     onClose();
   };
   useEffect(() => {
     console.log(projectsPosts);
   }, [projectsPosts]);
+
+  const test = () => {
+    // Create the FormData object
+    const formData = new FormData();
+    formData.append('Title', 'string');
+    formData.append('Description', 'string');
+    formData.append('QualificationName', 'frontend');
+    formData.append('Duration', '12');
+    formData.append('PriceType', 'fixed');
+    formData.append('Budget', '21');
+
+    // If you have a file input, you can append the file here
+    // Example: formData.append('ImageFile', fileInput.files[0]);
+
+    // Make the POST request
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`, // Add the Bearer token
+        'Accept': '*/*',
+        // 'Content-Type': 'multipart/form-data' is not explicitly set because the browser automatically handles it when using FormData.
+      },
+      body: formData, // Attach the FormData object
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log('Success:', data);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  }
 
   if (!isOpen) return null;
 

@@ -77,7 +77,7 @@ const Login = () => {
               />
               <p>Password</p>
               <input
-                className={password.length >= 8 ? styles.activeinput : ""}
+                className={password.length >= 6 ? styles.activeinput : ""}
                 type="password"
                 placeholder="Enter Password"
                 value={password}

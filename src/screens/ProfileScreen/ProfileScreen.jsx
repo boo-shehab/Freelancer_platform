@@ -43,7 +43,6 @@ const ProfileScreen = () => {
   const [isUserInfoOpen, setIsUserInfoOpen] = useState(false);
   const [isAboutPopupOpen, setIsAboutPopupOpen] = useState(false);
   const [isWorkForOpen, setIsWorkForOpen] = useState(false);
-  
 
   const isSmallScreen = useMediaQuery({ query: "(max-width: 950px)" });
   const isTooSmallScreen = useMediaQuery({ query: "(max-width: 390px)" });
@@ -64,16 +63,21 @@ const ProfileScreen = () => {
   const [highRating, setHighRating] = useState(11);
   const [totalRating, setTotalRating] = useState(11);
   const [averageRating, setAverageRating] = useState(11);
+  //circl
+  const [posted, setPosted] = useState(25);
+  const [pending, setPending] = useState(25);
+  const [completed, setCompleted] = useState(25);
+
   function ShowDelete(message) {
     setmessageDelete(message);
     setshowDelete(true);
   }
 
   const chartData = [
-    { value: 25, color: "#FFDB70" },
+    { value: pending, color: "#FFDB70" },
     ...(isFreeLancer ? [{ value: 15, color: "#86C6F8" }] : []),
-    { value: 25, color: "#D9D9D9" },
-    { value: 25, color: "#7FC882" },
+    { value: posted, color: "#D9D9D9" },
+    { value: completed, color: "#7FC882" },
   ];
   const posts = [
     {
@@ -116,7 +120,7 @@ const ProfileScreen = () => {
     },
   ];
 
-  const handleEditProfileCircle = async () => {
+  const handleInfoProfileAndRating = async () => {
     try {
       const data = await FetchData(
         `clients/${localStorage.getItem("id")}/activities`,
@@ -129,6 +133,9 @@ const ProfileScreen = () => {
       setIsWorkedWith(freelancersWorkedWith);
       setIsGivenLikes(givenLikes);
       setIsProjectPosted(projectPosted);
+      setPosted();
+      setPending();
+      setCompleted();
     } catch (error) {
       console.log("Login failed. Please try again.");
     }
@@ -179,10 +186,9 @@ const ProfileScreen = () => {
   };
 
   useEffect(() => {
-    handleEditProfileCircle();
+    handleInfoProfileAndRating();
     ratings();
   }, []);
-
 
   const rating = {
     starRate: "4.0",
@@ -191,15 +197,12 @@ const ProfileScreen = () => {
     lowRate: 6,
   };
 
-  const handleSeeMore =() => {
+  const handleSeeMore = () => {
     if (about.length < 400) {
       setDotsAbout("");
       setSeeAction("");
       setAboutState(about);
-    } else if (
-      dotsAbout === "...." &&
-      seeAction === "See More"
-    ) {
+    } else if (dotsAbout === "...." && seeAction === "See More") {
       setAboutState(about);
       setDotsAbout("");
       setSeeAction("Show Less");
@@ -208,11 +211,11 @@ const ProfileScreen = () => {
       setDotsAbout("....");
       setSeeAction("See More");
     }
-  }
+  };
 
   useEffect(() => {
-    setAboutState(about.slice(0, 492))
-    handleSeeMore()
+    setAboutState(about.slice(0, 492));
+    handleSeeMore();
   }, [about]);
 
   const handleEditAbout = (value) => {

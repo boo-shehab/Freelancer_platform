@@ -1,10 +1,10 @@
-const fetchData = async (url, options = {}) => {
+const fetchData = async (url, options = {}, headers = {}) => {
     try {
+        const token = localStorage.getItem('accessToken');
         const defaultOptions = {
             headers: {
-                'Authorization': `Bearer ${localStorage.getItem('accessToken')}`, 
-                'Content-Type': 'application/json', 
-            ...options.headers,
+                'Authorization': `Bearer ${token}`, 
+            ...headers,
             },
         };
   
@@ -14,8 +14,8 @@ const fetchData = async (url, options = {}) => {
             const errorBody = await response.json();
             throw new Error(errorBody.message || `HTTP error! status: ${response.status}`);
         }
-  
-        return await response.json();
+        const text = await response.text(); 
+        return text ? JSON.parse(text) : {}; 
     } catch (error) {
         console.error("Fetch Error:", error);
         throw error; 

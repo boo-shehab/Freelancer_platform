@@ -18,8 +18,8 @@ const projectPost = ({
 
   const isSmallScreen = useMediaQuery({ query: "(max-width: 750px)" });
 
-  const idShow = (id) => {
-    setVisiblePostId((prevId) => (prevId === id ? null : id));
+  const idShow = (i) => {
+    setVisiblePostId((prevId) => (prevId === i ? null : i));
   };
   return (
     <>

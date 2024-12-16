@@ -46,7 +46,10 @@ const OtpComponent = ({handleNext, phone}) => {
     try {
       const data = await fetchData("auth/verify-phone-number", { 
         method: "POST", 
-        body: JSON.stringify({phone, otp})})
+        body: JSON.stringify({phone, otp})
+      }, {
+        'Content-Type': 'application/json'
+      })
         console.log('Submission response:', data);
         handleNext()
     } catch(e) {

@@ -49,7 +49,7 @@ const Register = () => {
     try {
       await fetchData("auth/complete-registration", { 
         method: "POST", 
-        body: JSON.stringify(bodyData)})
+        body: JSON.stringify(bodyData)}, {'Content-Type': 'application/json'})
         navigate('/login')
     } catch(e) {
       console.log(e);

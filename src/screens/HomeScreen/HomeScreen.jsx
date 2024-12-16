@@ -105,23 +105,23 @@ const recentProjects = [
 const optionOfFreelancing = [
   {
     id: 1,
-    Job: "Full-Stack",
+    Job: "fullstack",
   },
   {
     id: 2,
-    Job: "Front End ",
+    Job: "frontend ",
   },
   {
     id: 3,
-    Job: "Mobile Developer",
+    Job: "mobile",
   },
   {
     id: 4,
-    Job: "UI UX Designer",
+    Job: "uiux",
   },
   {
     id: 5,
-    Job: "Back End",
+    Job: "backend",
   },
 ];
 
@@ -193,7 +193,12 @@ const HomeScreen = () => {
 
   const getProject = async() => {
     try{
-      const response = await fetchData(`projects/client-feed?page=0&pageSize=1`, {
+      const queryParams = selectedJobs
+      .map((qualification) => `qualificationNames=${qualification}`)
+      .join('&');
+      console.log(`projects/client-feed?page=0&pageSize=1&${queryParams}`);
+      
+      const response = await fetchData(`projects/client-feed?page=0&pageSize=1&${queryParams}`, {
         method: 'GET',
       });
       console.log(response.results.result);
@@ -204,7 +209,7 @@ const HomeScreen = () => {
   }
   useEffect(() => {
     getProject()
-  }, [])
+  }, [selectedJobs])
 
   const handleNewProject = () => {
     setIsPopupOpen(true);
@@ -248,10 +253,10 @@ const HomeScreen = () => {
                         <button
                           className={`${styles.btn} 
                           ${
-                            selectedJobs.includes(job.id) ? styles.btnGreen : ""
+                            selectedJobs.includes(job.Job)? styles.btnGreen : ""
                           }
                           `}
-                          onClick={() => handleJobSelection(job.id)}
+                          onClick={() => handleJobSelection(job.Job)}
                         ></button>
                         <p>{job.Job}</p>
                       </div>
@@ -313,10 +318,10 @@ const HomeScreen = () => {
                           <button
                             className={`${styles.btn} 
                           ${
-                            selectedJobs.includes(job.id) ? styles.btnGreen : ""
+                            selectedJobs.includes(job.Job) ? styles.btnGreen : ""
                           }
                           `}
-                            onClick={() => handleJobSelection(job.id)}
+                            onClick={() => handleJobSelection(job.Job)}
                           ></button>
                           <p>{job.Job}</p>
                         </div>

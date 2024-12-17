@@ -76,7 +76,19 @@
   outline: none;
 }
 
-.header button {
+.nav-bar button {
+  background-color: white;
+  border: none;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  box-shadow: 1px 2px 8px 0px #21868e36;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.insertPostIcon button{
   background-color: white;
   border: none;
   width: 45px;
@@ -104,15 +116,16 @@
   position: absolute;
   background-color: white;
   padding: 24px;
-  right: 18px;
-  top: 50px;
+  right: 44px;
+  top: 65px;
   text-align: start;
   width: 500px;
   max-height: calc(100vh - 100px);
   overflow: auto;
+  scrollbar-width: none;
   border-radius: 12px;
   box-shadow: 1px 2px 8px 0px #21868e40;
-  z-index: 99;
+  z-index: 2000;
 }
 
 .header .notifications h3 {
@@ -243,6 +256,10 @@
   align-items: center;
   justify-content: start;
 }
+.header .notifications h3 {
+margin: 0;
+}
+
 .notificationsTitle button {
   background: transparent;
   border: none;
@@ -251,6 +268,7 @@
   font-size: 30px;
   width: 15px;
   margin-right: 12px;
+  display: none;
 }
 @media screen and (max-width: 950px) {
   .header {

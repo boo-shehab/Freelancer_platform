@@ -7,7 +7,7 @@ const useUserinfoStore = create((set) => ({
   name: '',
   phoneNumber: '',
   companyName: '',
-  projects: '',
+  projects: [],
   profilePicture: '',
   email: '',
   about: '',

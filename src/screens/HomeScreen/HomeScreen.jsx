@@ -23,20 +23,20 @@ import EditAboutPopup from "../../components/EditAboutPopup/EditAboutPopup";
 import fetchData from "../../utility/fetchData";
 import useUserinfoStore from "../../useUserinfoStore";
 
-const projects = [
-  {
-    id: 1,
-    title: "Project Name One",
-    createdAt: "22 Jan 2024 - 11 May  2024.",
-    desc: "Developed a task management web application designed to help users organize, prioritize, and track their daily tasks efficiently. ",
-  },
-  {
-    id: 2,
-    title: "Project Name Two",
-    createdAt: "22 Jan 2024 - 11 May  2024.",
-    desc: "Developed a task management web application designed to help users organize, prioritize, and track their daily tasks efficiently. ",
-  },
-];
+// const projects = [
+//   {
+//     id: 1,
+//     title: "Project Name One",
+//     createdAt: "22 Jan 2024 - 11 May  2024.",
+//     desc: "Developed a task management web application designed to help users organize, prioritize, and track their daily tasks efficiently. ",
+//   },
+//   {
+//     id: 2,
+//     title: "Project Name Two",
+//     createdAt: "22 Jan 2024 - 11 May  2024.",
+//     desc: "Developed a task management web application designed to help users organize, prioritize, and track their daily tasks efficiently. ",
+//   },
+// ];
 
 // const posts = [
 //   {
@@ -175,7 +175,7 @@ const HomeScreen = () => {
   const [openDrawer, setOpenDrawer] = useState(false);
   const [isWorkForOpen, setIsWorkForOpen] = useState(false);
   const [isAboutPopupOpen, setIsAboutPopupOpen] = useState(false);
-  const { about } = useUserinfoStore();
+  const { about, projects } = useUserinfoStore();
   const [aboutState, setAboutState] = useState(about.slice(0, 200));
   const [dotsAbout, setDotsAbout] = useState("....");
   const [seeAction, setSeeAction] = useState("See More");
@@ -199,10 +199,9 @@ const HomeScreen = () => {
       const queryParams = selectedJobs
         .map((qualification) => `qualificationNames=${qualification}`)
         .join("&");
-      console.log(`projects/client-feed?page=0&pageSize=10&${queryParams}`);
 
       const response = await fetchData(
-        `projects/client-feed?page=0&pageSize=1&${queryParams}`,
+        `projects/client-feed?page=0&pageSize=10&${queryParams}`,
         {
           method: "GET",
         }
@@ -403,7 +402,7 @@ const HomeScreen = () => {
                       <div className={styles.itemInfo}>
                         <h4>{p.title}</h4>
                         <small>{p.createdAt}</small>
-                        <p className={styles.itemDesc}>{p.desc}</p>
+                        <p className={styles.itemDesc}>{p.description}</p>
                       </div>
                     </div>
                   ))}

@@ -187,11 +187,12 @@
 }
 .list {
   position: absolute;
-  background-color: #ded7d7;
-  border-radius: 8px;
+  background-color: #ffffff;
+  border-radius: 16px;
+  right: 0px;
   padding: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  min-width: 110px;
+  box-shadow: 1px 2px 8px 0px #21868E40;
+  min-width: 150px;
   z-index: 10;
 }
 
@@ -199,27 +200,23 @@
   width: 100%;
   padding: 8px 12px;
   margin: 5px 0;
-  background-color: #0056b3;
-  color: white;
-  border: none;
-  border-radius: 4px;
+  background-color: #ddf8e7;
+  color: hsl(122, 40%, 50%);
+  border: 1px solid #4db251;
+  border-radius: 8px;
   cursor: pointer;
   font-size: 14px;
   text-align: center;
 }
-
-.list button:hover {
-  background-color: #180c32;
+.list button.deletebtnForPost{
+  background-color: #f8e5dd;
+  color: hsl(14, 40%, 50%);
+  border: 1px solid #b24d4d;
 }
 .active button {
-  background-color: rgb(40, 40, 41);
+  background-color: rgb(0, 0, 0);
 }
-.list button:last-child {
-  background-color: #b30000;
-}
-.list button:last-child:hover {
-  background-color: #410606;
-}
+
 .postBody {
   margin-top: 24px;
 }

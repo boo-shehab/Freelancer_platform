@@ -1,9 +1,17 @@
 import React, { useEffect, useState } from "react";
 import styles from "./EducationForm.module.css";
 import ContainerForm from "../ContainerForm/ContainerForm";
+import dayjs from "dayjs";
+import fetchData from "../../utility/fetchData";
 
-const EducationForm = ({isOpen, onClose, initialData, onSave}) => {
-  
+const EducationForm = ({ isOpen, onClose, initialData, onSave }) => {
+  const [school, setSchool] = useState("");
+  const [degree, setDegree] = useState("");
+  const [startMonth, setStartMonth] = useState("");
+  const [startYear, setstartYear] = useState("");
+  const [endMonth, setendMonth] = useState("");
+  const [endYear, setendYear] = useState("");
+
   const [formData, setFormData] = useState({
     school: "",
     degree: "",
@@ -35,144 +43,198 @@ const EducationForm = ({isOpen, onClose, initialData, onSave}) => {
     }
   }, [initialData]);
 
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+
+
+
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const startDate = new Date(`${formData.startMonth} 1, ${formData.startYear}`);
-    const endDate = new Date(`${formData.endMonth} 1, ${formData.endYear}`);
-
-    if (startDate > endDate) {
-      alert("Start date must be before the end date.");
-      return;
+  
+    const formData = new FormData();
+    formData.append("Institution", school);
+    formData.append("Degree", degree);
+    formData.append(
+      "StartDate",
+      dayjs(`${startYear}-${startMonth}-01`).format("YYYY-MM-DDTHH:mm:ss.SSS[Z]")
+    );
+    formData.append(
+      "EndDate",
+      dayjs(`${endYear}-${endMonth}-01`).format("YYYY-MM-DDTHH:mm:ss.SSS[Z]")
+    );
+  
+    try {
+      const resp = await fetch(
+        "http://16.170.247.41/api/web/v1/freelancers/education",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`, 
+          },
+          body: formData,
+        }
+      );
+      if (!resp.ok) {
+        const errorText = await resp.text();
+        console.error(`Error! Status: ${resp.status}`, errorText);
+        alert(`Submission failed! Status: ${resp.status}`);
+        return;
+      }
+      const contentType = resp.headers.get("Content-Type");
+      if (contentType && contentType.includes("application/json")) {
+        const responseData = await resp.json();
+        console.log("Response Data:", responseData);
+        alert("Education details submitted successfully!");
+      } else {
+        console.log("No valid JSON response received.");
+        alert("Education details submitted successfully! (No content returned)");
+      }
+    } catch (error) {
+      console.error("Request failed:", error);
+      alert("An error occurred. Please try again later.");
     }
+  };
+  
+  
+ 
 
-    console.log("Form Data Submitted:", formData);
+
+
+  if (!isOpen) return null;
+  
+  const handleAddEducation = async () => {
+    console.log({
+      school,
+      degree,
+      startDate: dayjs(startYear, startMonth, 1),
+      endDate: dayjs(endYear, endMonth, 1),
+    });
   };
 
-  
-  if(!isOpen) return null;
-
   return (
-    <ContainerForm isOpen={isOpen} onClose={onClose} HeadName={`${initialData? "Add Eduction" : "Edit Education"}`}>
-        <form onSubmit={handleSubmit} className={styles.form}>
+    <ContainerForm
+      isOpen={isOpen}
+      onClose={onClose}
+      HeadName={`${initialData ? "Add Eduction" : "Edit Education"}`}
+    >
+      <div onSubmit={handleSubmit} className={styles.form}>
         <label className={styles.label}>
-            School*
-            <input
+          School*
+          <input
             type="text"
             name="school"
-            value={formData.school}
-            onChange={handleChange}
+            value={school}
+            onChange={(e) => setSchool(e.target.value)}
             className={styles.input}
             required
-            />
+          />
         </label>
 
         <label className={styles.label}>
-            Degree*
-            <input
+          Degree*
+          <input
             type="text"
             name="degree"
-            value={formData.degree}
-            onChange={handleChange}
+            value={degree}
+            onChange={(e) => setDegree(e.target.value)}
             className={styles.input}
             required
-            />
+          />
         </label>
 
         <div className={styles.row}>
-            <div className={styles.col}>
+          <div className={styles.col}>
             <label className={styles.label}>
-                Start Month
-                <select
+              Start Month
+              <select
                 name="startMonth"
-                value={formData.startMonth}
-                onChange={handleChange}
+                value={startMonth}
+                onChange={(e) => setStartMonth(e.target.value)}
                 className={styles.select}
                 required
-                >
+              >
                 <option value="">Select Month</option>
                 {months.map((month) => (
-                    <option key={month} value={month}>
+                  <option key={month} value={month}>
                     {month}
-                    </option>
+                  </option>
                 ))}
-                </select>
+              </select>
             </label>
-            </div>
+          </div>
 
-            <div className={styles.col}>
+          <div className={styles.col}>
             <label className={styles.label}>
-                Start Year
-                <select
+              Start Year
+              <select
                 name="startYear"
-                value={formData.startYear}
-                onChange={handleChange}
+                value={startYear}
+                onChange={(e) => setstartYear(e.target.value)}
                 className={styles.select}
                 required
-                >
+              >
                 <option value="">Select Year</option>
                 {years.map((year) => (
-                    <option key={year} value={year}>
+                  <option key={year} value={year}>
                     {year}
-                    </option>
+                  </option>
                 ))}
-                </select>
+              </select>
             </label>
-            </div>
+          </div>
         </div>
 
         <div className={styles.row}>
-            <div className={styles.col}>
+          <div className={styles.col}>
             <label className={styles.label}>
-                End Month
-                <select
+              End Month
+              <select
                 name="endMonth"
-                value={formData.endMonth}
-                onChange={handleChange}
+                value={endMonth}
+                onChange={(e) => setendMonth(e.target.value)}
                 className={styles.select}
                 required
-                >
+              >
                 <option value="">Select Month</option>
                 {months.map((month) => (
-                    <option key={month} value={month}>
+                  <option key={month} value={month}>
                     {month}
-                    </option>
+                  </option>
                 ))}
-                </select>
+              </select>
             </label>
-            </div>
+          </div>
 
-            <div className={styles.col}>
+          <div className={styles.col}>
             <label className={styles.label}>
-                End Year
-                <select
+              End Year
+              <select
                 name="endYear"
-                value={formData.endYear}
-                onChange={handleChange}
+                value={endYear}
+                onChange={(e) => setendYear(e.target.value)}
                 className={styles.select}
                 required
-                >
+              >
                 <option value="">Select Year</option>
                 {years.map((year) => (
-                    <option key={year} value={year}>
+                  <option key={year} value={year}>
                     {year}
-                    </option>
+                  </option>
                 ))}
-                </select>
+              </select>
             </label>
-            </div>
+          </div>
         </div>
         <div className={styles.buttonContainer}>
-          <button type="submit" className={styles.button}>
-              Save
+          <button onClick={handleSubmit} className={styles.button}>
+            Save
           </button>
         </div>
-        </form>
+      </div>
     </ContainerForm>
   );
 };

@@ -19,9 +19,15 @@ import ProjectHistoryForm from "../../components/ProjectHistoryForm/ProjectHisto
 import ProfileLeft1 from "../../components/profileLeft1/profileLeft1";
 import SkilsSide from "../../components/Skils/skils";
 // import WorkForForm from "../../components/WorkForForm/WorkForForm";
+<<<<<<< HEAD
 import DeleteComponent from "../../components/DeleteComponent/DeleteComponent";
 import FetchData from "../../utility/fetchData";
 import useUserinfoStore from "../../useUserinfoStore";
+=======
+import DeleteComponent from "../../components/DeleteComponent/DeleteComponent"
+import fetchData from "../../utility/fetchData";
+
+>>>>>>> 0848ba515a3105f1256fce55b17c28a25997fd07
 const WorkFor = [
   {
     id: 1,
@@ -50,6 +56,7 @@ const ProfileScreen = () => {
   const [aboutState, setAboutState] = useState(about.slice(0, 492));
   const [dotsAbout, setDotsAbout] = useState("....");
   const [seeAction, setSeeAction] = useState("See More");
+<<<<<<< HEAD
   const [isFreeLancer, setIsFreeLancer] = useState(false);
   const [showDelete, setshowDelete] = useState(false);
   const [messageDelete, setmessageDelete] = useState("");
@@ -67,6 +74,12 @@ const ProfileScreen = () => {
   const [posted, setPosted] = useState(25);
   const [pending, setPending] = useState(25);
   const [completed, setCompleted] = useState(25);
+=======
+  const [isFreeLancer, setIsFreeLancer] = useState(true);
+  const [showDelete, setshowDelete] = useState(false)
+  const [messageDelete, setmessageDelete] = useState("")
+  const [loading, setLoading] = useState(false)
+>>>>>>> 0848ba515a3105f1256fce55b17c28a25997fd07
 
   function ShowDelete(message) {
     setmessageDelete(message);
@@ -228,6 +241,9 @@ const ProfileScreen = () => {
   const idShow = (id) => {
     setVisiblePostId((prevId) => (prevId === id ? null : id));
   };
+
+
+
   return (
     <div>
       {isFreeLancer ? (

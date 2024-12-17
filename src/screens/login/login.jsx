@@ -39,6 +39,7 @@ const Login = () => {
   
         localStorage.setItem('accessToken', accessToken);
         localStorage.setItem('id', id);
+<<<<<<< HEAD
         // setUsername(username);
         // setName(name);
         // setPhoneNumber(phoneNumber);
@@ -49,6 +50,13 @@ const Login = () => {
         addUserInfo(userDetails)
         console.log('userDetails:', userDetails);
         
+=======
+        setUsername(username);
+        setName(name);
+        setPhoneNumber(phoneNumber);
+        setIsFreelancer(role === "freelancer");
+
+>>>>>>> 0848ba515a3105f1256fce55b17c28a25997fd07
         navigate('/');
     } catch (error) {
       setErrorMessage('Login failed. Please try again.');

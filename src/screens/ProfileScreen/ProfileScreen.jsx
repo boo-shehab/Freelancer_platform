@@ -50,7 +50,7 @@ const ProfileScreen = () => {
   const [aboutState, setAboutState] = useState(about.slice(0, 492));
   const [dotsAbout, setDotsAbout] = useState("....");
   const [seeAction, setSeeAction] = useState("See More");
-  const [isFreeLancer, setIsFreeLancer] = useState(false);
+  const { isFreelancer } = useUserinfoStore();
   const [showDelete, setshowDelete] = useState(false);
   const [messageDelete, setmessageDelete] = useState("");
   // Muhammed state:
@@ -64,9 +64,10 @@ const ProfileScreen = () => {
   const [totalRating, setTotalRating] = useState(11);
   const [averageRating, setAverageRating] = useState(11);
   //circl
-  const [posted, setPosted] = useState(0);
-  const [pending, setPending] = useState(0);
-  const [completed, setCompleted] = useState(0);
+  const [posted, setPosted] = useState(25);
+  const [pending, setPending] = useState(25);
+  const [completed, setCompleted] = useState(25);
+  const [loading, setLoading] = useState(false)
 
   function ShowDelete(message) {
     setmessageDelete(message);
@@ -75,7 +76,7 @@ const ProfileScreen = () => {
 
   const chartData = [
     { value: pending, color: "#FFDB70" },
-    ...(isFreeLancer ? [{ value: 15, color: "#86C6F8" }] : []),
+    ...(isFreelancer ? [{ value: 15, color: "#86C6F8" }] : []),
     { value: posted, color: "#D9D9D9" },
     { value: completed, color: "#7FC882" },
   ];
@@ -235,9 +236,12 @@ const ProfileScreen = () => {
   const idShow = (id) => {
     setVisiblePostId((prevId) => (prevId === id ? null : id));
   };
+
+
+
   return (
     <div>
-      {isFreeLancer ? (
+      {isFreelancer ? (
         <div>
           <Container>
             <div className={styles.profilePageOFFreelancer}>
@@ -275,9 +279,9 @@ const ProfileScreen = () => {
                           className={styles.dot}
                           style={{ backgroundColor: "#D9D9D9" }}
                         ></div>
-                        <p>{isFreeLancer ? "In-Review" : "Posted projects"}</p>
+                        <p>{isFreelancer ? "In-Review" : "Posted projects"}</p>
                       </div>
-                      {isFreeLancer ? (
+                      {isFreelancer ? (
                         <div className={styles.ChartInfoItem}>
                           <div
                             className={styles.dot}
@@ -290,13 +294,13 @@ const ProfileScreen = () => {
                         <div
                           className={styles.dot}
                           style={{
-                            backgroundColor: isFreeLancer
+                            backgroundColor: isFreelancer
                               ? "#7FC882"
                               : "#FFDB70",
                           }}
                         ></div>
                         <p>
-                          {isFreeLancer
+                          {isFreelancer
                             ? "Completed projects"
                             : "Pending projects"}
                         </p>
@@ -305,13 +309,13 @@ const ProfileScreen = () => {
                         <div
                           className={styles.dot}
                           style={{
-                            backgroundColor: isFreeLancer
+                            backgroundColor: isFreelancer
                               ? "#FFDB70"
                               : "#7FC882",
                           }}
                         ></div>
                         <p>
-                          {isFreeLancer
+                          {isFreelancer
                             ? "InProgress projects"
                             : "Completed projects"}
                         </p>
@@ -352,7 +356,7 @@ const ProfileScreen = () => {
                     <div className={styles.ratingStars}>
                       <b>{rating.starRate}</b>
                       <div>
-                        {+rating.starRate >= 1 ? (
+                        {+rating.starRate >= averageRating ? (
                           <Star2Icon />
                         ) : (
                           <EmptyStarIcon />

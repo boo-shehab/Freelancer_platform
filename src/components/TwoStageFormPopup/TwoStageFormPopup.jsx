@@ -9,12 +9,34 @@ import RedCross from "../../CustomIcons/redCross";
 import { useAppStore } from "../../store";
 import fetchData from "../../utility/fetchData";
 const options = [
-  "UIUX Designer",
-  "Back-end",
-  "Front-end",
-  "Full-Stack",
-  "Mobile app",
+  {
+    value: "uiux",
+    label: "UIUX Designer",
+  },
+  {
+    value: "backend",
+    label: "Back-end",
+  },
+  {
+    value: "frontend",
+    label: "Front-end",
+  },
+  {
+    value: "fullstack",
+    label: "Full-Stack",
+  },
+  {
+    value: "mobile",
+    label: "Mobile app",
+  },
 ];
+// const options = [
+//   "uiux",
+//   "backend",
+//   "frontend",
+//   "fullstack",
+//   "mobile",
+// ];
 const TwoStageFormPopup = ({ isOpen, onClose }) => {
   const { projectsPosts, addNewProjectPost } = useAppStore((state) => state);
   const [stage, setStage] = useState(1);
@@ -160,19 +182,19 @@ const handlePost=()=>{
             >
               {options.map((option) => (
                 <button
-                  key={option}
+                  key={option.value}
                   className={
-                    CurrentOption === option
+                    CurrentOption === option.value
                       ? styles.SelectoptionchoseActive
                       : ""
                   }
                   onClick={() => {
-                    setFormData({ ...formData, ["QualificationName"]: option });
-                    setCurrentOption(option);
+                    setFormData({ ...formData, ["QualificationName"]: option.value });
+                    setCurrentOption(option.value);
                     setshowSelectoption(false);
                   }}
                 >
-                  {option}
+                  {option.label}
                 </button>
               ))}
             </div>

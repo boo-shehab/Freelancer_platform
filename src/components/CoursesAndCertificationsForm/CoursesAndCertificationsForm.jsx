@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "./CoursesAndCertificationsForm.module.css";
 import ContainerForm from "../ContainerForm/ContainerForm";
+import FetchData from "../../utility/fetchData";
 
-const CoursesAndCertificationsForm = ({isOpen, onClose, initialData, onSave}) => {
-  
+const CoursesAndCertificationsForm = ({ isOpen, onClose }) => {
   const [formData, setFormData] = useState({
-    jobTitle: "",
-    employmentType: "",
-    clientName: "",
+    Name: "",
+    Issuer: "",
+    CredentialId: "",
+    CredentialUrl: "",
     startMonth: "",
     startYear: "",
     endMonth: "",
@@ -28,165 +29,202 @@ const CoursesAndCertificationsForm = ({isOpen, onClose, initialData, onSave}) =>
     "November",
     "December",
   ];
-  const years = Array.from({ length: 50 }, (_, i) => `${1975 + i}`);
+  const addNewCertifications = async () => {
+    try {
+      await FetchData(`freelancers/certifications`, {
+        method: 'POST',
+        body: JSON.stringify({
+          name : formData.Name ,
+          issuer : formData.Issuer  ,
+          credentialId : formData.CredentialId ,
+          credentialUrl : formData.CredentialUrl ,
+          issueDate : formData.startMonth +"-"+formData.startYear,
+          expiryDate : formData.endMonth +"-"+formData.endYear,
+        }),
+      }, {
+        'Content-Type': 'application/json'
+      });
 
-  useEffect(() => {
-    if (initialData) {
-      setFormData(initialData);
+    } catch (error) {
+      setErrorMessage('Failed to add the skill. Please try again.');
+      console.error(error);
     }
-  }, [initialData]);
-
+  }
+  const years = Array.from({ length: 50 }, (_, i) => `${1975 + i}`);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    console.log(formData);
-    
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const startDate = new Date(`${formData.startMonth} 1, ${formData.startYear}`);
-    const endDate = new Date(`${formData.endMonth} 1, ${formData.endYear}`);
+  const handleSubmit = async () => {
+    const { startMonth, startYear, endMonth, endYear, Name, Issuer, CredentialId, CredentialUrl } = formData;
+
+    if (!Name || !Issuer || !CredentialId || !CredentialUrl || !startMonth || !startYear || !endMonth || !endYear) {
+      alert("Please fill out all required fields.");
+      return;
+    }
+
+    const startDate = new Date(`${startMonth} ${startYear}`);
+    const endDate = new Date(`${endMonth} ${endYear}`);
 
     if (startDate > endDate) {
       alert("Start date must be before the end date.");
       return;
     }
+    addNewCertifications();
 
-    console.log("Form Data Submitted:", formData);
+    console.log("Submitted Data:", {
+      ...formData
+    });
+
+    onClose();
   };
 
-  
-  if(!isOpen) return null;
+  if (!isOpen) return null;
 
   return (
-    <ContainerForm isOpen={isOpen} onClose={onClose} HeadName={`${initialData? "Create Project History" : "Edit Project History"}`}>
-        <form onSubmit={handleSubmit} className={styles.form}>
-        <label className={styles.label}>
-            Job Title*
-            <input
-            type="text"
-            name="jobTitle"
-            value={formData.jobTitle}
-            onChange={handleChange}
-            className={styles.input}
-            required
-            />
-        </label>
+    <ContainerForm isOpen={isOpen} onClose={onClose} HeadName="Edit Courses and Certifications">
+      <label className={styles.label}>
+        Name*
+        <input
+          type="text"
+          name="Name"
+          placeholder="Enter course or certification name"
+          value={formData.Name}
+          onChange={handleChange}
+          className={styles.input}
+          required
+        />
+      </label>
 
-        <label className={styles.label}>
-            Employment Type*
-            <input
-            name="employmentType"
-            value={formData.employmentType}
-            onChange={handleChange}
-            className={styles.input}
-            required
-            />
-        </label>
+      <label className={styles.label}>
+        Issuing organization*
+        <input
+          placeholder="Enter the organization"
+          name="Issuer"
+          value={formData.Issuer}
+          onChange={handleChange}
+          className={styles.input}
+          required
+        />
+      </label>
 
-        <label className={styles.label}>
-            company/client Name*
-            <input
-            type="text"
-            name="clientName"
-            value={formData.clientName}
-            onChange={handleChange}
-            className={styles.input}
-            required
-            />
-        </label>
+      <label className={styles.label}>
+        Credential ID*
+        <input
+          type="text"
+          name="CredentialId"
+          placeholder="Enter ID"
+          value={formData.CredentialId}
+          onChange={handleChange}
+          className={styles.input}
+          required
+        />
+      </label>
 
-        <div className={styles.row}>
-            <div className={styles.col}>
-            <label className={styles.label}>
-                Start Month
-                <select
-                name="startMonth"
-                value={formData.startMonth}
-                onChange={handleChange}
-                className={styles.select}
-                required
-                >
-                <option value="">Select Month</option>
-                {months.map((month) => (
-                    <option key={month} value={month}>
-                    {month}
-                    </option>
-                ))}
-                </select>
-            </label>
-            </div>
-
-            <div className={styles.col}>
-            <label className={styles.label}>
-                Start Year
-                <select
-                name="startYear"
-                value={formData.startYear}
-                onChange={handleChange}
-                className={styles.select}
-                required
-                >
-                <option value="">Select Year</option>
-                {years.map((year) => (
-                    <option key={year} value={year}>
-                    {year}
-                    </option>
-                ))}
-                </select>
-            </label>
-            </div>
+      <div className={styles.row}>
+        <div className={styles.col}>
+          <label className={styles.label}>
+            Start Month
+            <select
+              name="startMonth"
+              value={formData.startMonth}
+              onChange={handleChange}
+              className={styles.select}
+              required
+            >
+              <option value="">Select Month</option>
+              {months.map((month) => (
+                <option key={month} value={month}>
+                  {month}
+                </option>
+              ))}
+            </select>
+          </label>
         </div>
 
-        <div className={styles.row}>
-            <div className={styles.col}>
-            <label className={styles.label}>
-                End Month
-                <select
-                name="endMonth"
-                value={formData.endMonth}
-                onChange={handleChange}
-                className={styles.select}
-                required
-                >
-                <option value="">Select Month</option>
-                {months.map((month) => (
-                    <option key={month} value={month}>
-                    {month}
-                    </option>
-                ))}
-                </select>
-            </label>
-            </div>
+        <div className={styles.col}>
+          <label className={styles.label}>
+            Start Year
+            <select
+              name="startYear"
+              value={formData.startYear}
+              onChange={handleChange}
+              className={styles.select}
+              required
+            >
+              <option value="">Select Year</option>
+              {years.map((year) => (
+                <option key={year} value={year}>
+                  {year}
+                </option>
+              ))}
+            </select>
+          </label>
+        </div>
+      </div>
 
-            <div className={styles.col}>
-            <label className={styles.label}>
-                End Year
-                <select
-                name="endYear"
-                value={formData.endYear}
-                onChange={handleChange}
-                className={styles.select}
-                required
-                >
-                <option value="">Select Year</option>
-                {years.map((year) => (
-                    <option key={year} value={year}>
-                    {year}
-                    </option>
-                ))}
-                </select>
-            </label>
-            </div>
+      <div className={styles.row}>
+        <div className={styles.col}>
+          <label className={styles.label}>
+            End Month
+            <select
+              name="endMonth"
+              value={formData.endMonth}
+              onChange={handleChange}
+              className={styles.select}
+              required
+            >
+              <option value="">Select Month</option>
+              {months.map((month) => (
+                <option key={month} value={month}>
+                  {month}
+                </option>
+              ))}
+            </select>
+          </label>
         </div>
-        <div className={styles.buttonContainer}>
-          <button type="submit" className={styles.button}>
-              Save
-          </button>
+
+        <div className={styles.col}>
+          <label className={styles.label}>
+            End Year
+            <select
+              name="endYear"
+              value={formData.endYear}
+              onChange={handleChange}
+              className={styles.select}
+              required
+            >
+              <option value="">Select Year</option>
+              {years.map((year) => (
+                <option key={year} value={year}>
+                  {year}
+                </option>
+              ))}
+            </select>
+          </label>
         </div>
-        </form>
+      </div>
+
+      <label className={styles.label}>
+        Credential URL*
+        <input
+          type="text"
+          name="CredentialUrl"
+          placeholder="Enter URL"
+          value={formData.CredentialUrl}
+          onChange={handleChange}
+          className={styles.input}
+          required
+        />
+      </label>
+
+      <div className={styles.buttonContainer}>
+        <button className={styles.button} onClick={handleSubmit}>
+          Save
+        </button>
+      </div>
     </ContainerForm>
   );
 };

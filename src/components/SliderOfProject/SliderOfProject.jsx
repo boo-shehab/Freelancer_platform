@@ -27,8 +27,7 @@ const SliderOfProject = ({
     addTask,
     onComplete,
     projectId
-
-}) => {
+    }) => {
     if (!show) return null;
 
     const [selectedTab, setSelectedTab] = useState("To Do");
@@ -84,8 +83,7 @@ const SliderOfProject = ({
                             <p>Status:</p>
                             <a
                                 href="#"
-
-                                style={{ color: projectStatus === "In Progress" ? '#D69E2E' : '#3182CE' }}
+                        style={{ color: projectStatus === "In Progress" ? '#D69E2E' : '#3182CE' }}
                             >{projectStatus}</a>
                         </label>
                         <label>

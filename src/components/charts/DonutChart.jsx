@@ -52,7 +52,7 @@ const DonutChart = ({
               strokeDasharray={`${dashArray} ${circleCircumference}`}
               strokeDashoffset={-accumulatedOffset + dashArray}
               style={{
-                transform: `rotate(-260deg)`,
+                transform: `rotate(-269deg)`,
                 transformOrigin: "center",
               }}
             />

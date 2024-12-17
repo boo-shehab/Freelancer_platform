@@ -7,15 +7,13 @@ import InProgressIcon from '../../CustomIcons/InProgressIcon';
 import InReviewIcon from '../../CustomIcons/InReviewIcon';
 import DonutChart from "../../components/charts/DonutChart";
 import AddTaskForm from '../../components/AddTaskForm/AddTaskForm';
-
-import AddTaskIcon from "../../CustomIcons/AddTaskIcon";
+import AddTaskIcon from '../../CustomIcons/AddTaskIcon';
 import SubList from './SubList';
-
-
 
 const SliderOfProject = ({
     show,
     onClose,
+<<<<<<< HEAD
     freelancers,
     onRemoveFreelancer,
     projectStatus,
@@ -28,45 +26,57 @@ const SliderOfProject = ({
     onComplete,
     projectId
     }) => {
+=======
+    projectData, 
+    callbacks, 
+}) => {
+>>>>>>> e56d32c785b4976d16fb53cbf6521c0a295ab5ab
     if (!show) return null;
 
     const [selectedTab, setSelectedTab] = useState("To Do");
-    const [isFreeLancer, setIsFreeLancer] = useState(false);
+    const [isFreeLancer, setIsFreeLancer] = useState(true);
     const [isSubListVisible, setIsSubListVisible] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
 
-    const handleTabClick = (tabName) => {
-        setSelectedTab(tabName);
-    };
+    const handleTabClick = (tabName) => setSelectedTab(tabName);
+
     const handleToggleSubList = (taskId) => {
-        setIsSubListVisible(prevState => {
-            const updatedState = { };  
-            updatedState[taskId] = !prevState[taskId]; 
-            return updatedState;  
-        });
-        console.log("Sublist visibility toggled. Current state:", !isSubListVisible[taskId]);
+        setIsSubListVisible((prevState) => ({
+            ...prevState,
+            [taskId]: !prevState[taskId],
+        }));
     };
-    
-  
-    
+
     const handleStatusChange = (taskId, newStatus) => {
-        onStatusChange(taskId, newStatus);
+        callbacks.onStatusChange(taskId, newStatus);
         setSelectedTab(newStatus);
-        console.log("Task status changed. New status:", newStatus);
     };
 
-    const areAllTasksDone = tasks.every((task) => task.status === "Done");
+    const areAllTasksDone = projectData.tasks.every((task) => task.status === "Done");
 
+    const {
+        projectStatus,
+        progress,
+        tasks,
+        freelancers,
+        projectId
+    } = projectData;
+
+    const {
+        onRemoveFreelancer,
+        handleEdit,
+        handleDelete,
+        addTask,
+        onComplete
+    } = callbacks;
 
     return (
-
         <div className={styles.sliderOFprojectinfo}>
             <AddTaskForm
                 isOpen={isOpen}
                 onClose={() => setIsOpen(false)}
                 addTask={addTask}
                 tasks={tasks}
-
             />
             <div className={styles.slider}>
                 <div className={styles.projectName}>
@@ -83,8 +93,15 @@ const SliderOfProject = ({
                             <p>Status:</p>
                             <a
                                 href="#"
+<<<<<<< HEAD
                         style={{ color: projectStatus === "In Progress" ? '#D69E2E' : '#3182CE' }}
                             >{projectStatus}</a>
+=======
+                                style={{ color: projectStatus === "In Progress" ? '#D69E2E' : '#3182CE' }}
+                            >
+                                {projectStatus}
+                            </a>
+>>>>>>> e56d32c785b4976d16fb53cbf6521c0a295ab5ab
                         </label>
                         <label>
                             <div className={styles.dote}></div>
@@ -94,7 +111,6 @@ const SliderOfProject = ({
                     </div>
 
                     <div className={styles.chartContainer}>
-                        {projectStatus === "In Progress" && (
                             <DonutChart
                                 data={[{ value: progress, color: projectStatus === 'Completed' ? '#1FAD58' : '#FFBF00' }]}
                                 total={100}
@@ -103,7 +119,6 @@ const SliderOfProject = ({
                             >
                                 <p className={styles.ChartText}>{progress}%</p>
                             </DonutChart>
-                        )}
                     </div>
                 </div>
 
@@ -113,30 +128,29 @@ const SliderOfProject = ({
                         Develop an app for daily task management ..... <button>see more</button>
                     </p>
                 </div>
+
                 {projectStatus === "Pending" && (
-
                     <div className={styles.freeLancerList}>
-
                         <h1>{freelancers.length} Freelancer Applied:</h1>
                         <div className={styles.freelancerApplied}>
-                            {freelancers.map((freelancer) => (
-                                <div key={freelancer.id} className={styles.singleFreeLancer}>
+                            {freelancers.map(({ id, name, type, imag }) => (
+                                <div key={id} className={styles.singleFreeLancer}>
                                     <div className={styles.freeLancerInfo}>
-                                        <img src={freelancer.imag} alt="" />
+                                        <img src={imag} alt={`${name}'s profile`} />
                                         <div className={styles.freeLancerText}>
-                                            <h1>{freelancer.name}</h1>
-                                            <p>{freelancer.type}</p>
+                                            <h1>{name}</h1>
+                                            <p>{type}</p>
                                         </div>
                                     </div>
                                     <div className={styles.freeLancerAction}>
                                         <button
-                                            onClick={() => onRemoveFreelancer(freelancer.id)}
+                                            onClick={() => callbacks.onAcceptFreelancer(id)}
                                             className={styles.acceptFreeLancer}
                                         >
                                             Accept
                                         </button>
                                         <button
-                                            onClick={() => onRemoveFreelancer(freelancer.id)}
+                                            onClick={() => onRemoveFreelancer(id)}
                                             className={styles.declineFreeLancer}
                                         >
                                             Decline
@@ -149,165 +163,94 @@ const SliderOfProject = ({
                 )}
 
                 {projectStatus === "In Progress" && (
-                    <div className={styles.tasksSection}>
-
-                        <h3 className={styles.titelText}>
-                            {isFreeLancer ? "My Tasks" : "Freelancer Tasks"}
-                        </h3>
-                        <div style={{ display: isFreeLancer ? "none" : "block" }}>
-                            <button
-                                className={styles.addTaskButton}
-                                onClick={() => setIsOpen(true)}
-                            >
-                                <AddTaskIcon
-                                     />
-                            </button>
-
-                        </div>
-
-                        <div className={styles.taskTabs}>
-
-                            <a
-                                href="#todo"
-                                className={`${styles.tab} ${selectedTab === "To Do" ? styles.activeTab : ""}`}
-                                onClick={() => handleTabClick("To Do")}
-                            >
-                                To Do
-                            </a>
-                            <a
-                                href="#inprogress"
-                                className={`${styles.tab} ${selectedTab === "In Progress" ? styles.activeTab : ""}`}
-                                onClick={() => handleTabClick("In Progress")}
-                            >
-                                In Progress
-                            </a>
-                            <a
-                                href="#inreview"
-                                className={`${styles.tab} ${selectedTab === "In Review" ? styles.activeTab : ""}`}
-                                onClick={() => handleTabClick("In Review")}
-                            >
-                                In Review
-                            </a>
-                            <a
-                                href="#done"
-                                className={`${styles.tab} ${selectedTab === "Done" ? styles.activeTab : ""}`}
-                                onClick={() => handleTabClick("Done")}
-                            >
-                                Done
-                            </a>
-                        </div>
-                    </div>
-                )}
-
-                {(projectStatus === "In Progress") && (
                     <>
-                        {selectedTab === "To Do" && (
-                            <div className={styles.taskList}>
-                                {tasks.filter((task) => task.status === "To Do").map((task) => (
-                                    <div key={task.id} className={`${styles.task} ${!isFreeLancer ? styles.withJustifyContent : ''}`}>
-                                        {isFreeLancer && (
-                                            <div>
-                                                <input
-                                                    type="checkbox"
-                                                    id={`task-${task.id}`}
-                                                    className={styles.checkbox}
+                        <div className={styles.tasksSection}>
+                            <h3 className={styles.titelText}>
+                                {isFreeLancer ? "My Tasks" : "Freelancer Tasks"}
+                            </h3>
+                            {!isFreeLancer && (
+                                <button className={styles.addTaskButton} onClick={() => setIsOpen(true)}>
+                                    <AddTaskIcon />
+                                </button>
+                            )}
+                            <div className={styles.taskTabs}>
+                                {["To Do", "In Progress", "In Review", "Done"].map((tab) => (
+                                    <a
+                                        key={tab}
+                                        href={`#${tab.toLowerCase().replace(" ", "")}`}
+                                        className={`${styles.tab} ${selectedTab === tab ? styles.activeTab : ""}`}
+                                        onClick={() => handleTabClick(tab)}
+                                    >
+                                        {tab}
+                                    </a>
+                                ))}
+                            </div>
+                        </div>
 
-                                                />
-                                            </div>
+                        <div className={styles.taskList}>
+                            {tasks
+                                .filter((task) => task.status === selectedTab)
+                                .map(({ id, name }) => (
+                                    <div
+                                        key={id}
+                                        className={`${styles.task} ${!isFreeLancer ? styles.withJustifyContent : ""}`}
+                                    >
+                                        {selectedTab === "Done" && isFreeLancer && (
+                                            <input
+                                                type="checkbox"
+                                                id={`task-${id}`}
+                                                checked
+                                                readOnly
+                                                className={`${styles.checkbox} ${styles.checked}`}
+                                            />
                                         )}
+                                        <div className={styles.iconContainer}>
+                                            {isFreeLancer && selectedTab === "In Progress" && (
+                                                <InProgressIcon className={styles.inProgressIcon} />
+                                            )}
+                                            {isFreeLancer && selectedTab === "In Review" && (
+                                                <InReviewIcon className={styles.inReviewIcon} />
+                                            )}
+                                        </div>
 
                                         <p
-                                            onClick={isFreeLancer ? () => handleToggleSubList(task.id) : undefined}
+                                            onClick={
+                                                isFreeLancer && selectedTab !== "Done"
+                                                    ? () => handleToggleSubList(id)
+                                                    : undefined
+                                            }
+                                            className={selectedTab === "Done" ? styles.doneTask : ""}
                                         >
-                                            {task.name}
+                                            {name}
                                         </p>
-                                        {isFreeLancer && isSubListVisible[task.id] && (
-                                            <SubList taskId={task.id} onStatusChange={handleStatusChange} />
-                                        )}
-                                        {!isFreeLancer && (
-                                            <div className={styles.buttonContainer}>
 
-                                                <button onClick={() => handleEdit(task.id)} className={styles.editButton}>
+                                        {isFreeLancer && isSubListVisible[id] && selectedTab !== "Done" && (
+                                            <SubList taskId={id} onStatusChange={handleStatusChange} />
+                                        )}
+
+                                        {!isFreeLancer && selectedTab === "To Do" && (
+                                            <div className={styles.buttonContainer}>
+                                                <button onClick={() => handleEdit(id)} className={styles.editButton}>
                                                     <MessageEdit />
                                                 </button>
-                                                <button onClick={() => handleDelete(task.id)} className={styles.deleteButton}>
+                                                <button onClick={() => handleDelete(id)} className={styles.deleteButton}>
                                                     <DeleteIcon />
                                                 </button>
                                             </div>
                                         )}
                                     </div>
                                 ))}
-                            </div>
-                        )}
+                        </div>
 
-                        {selectedTab === "In Progress" && (
-                            <div className={styles.taskList}>
-                                {tasks.filter((task) => task.status === "In Progress").map((task) => (
-                                    <div key={task.id} className={`${styles.task} ${!isFreeLancer ? styles.withJustifyContent : ''}`}>
-                                        {isFreeLancer && <InProgressIcon />}
-                                        <p
-                                            onClick={isFreeLancer ? () => handleToggleSubList(task.id) : undefined}
-                                        >
-                                            {task.name}
-                                        </p>
-                                        {isFreeLancer && isSubListVisible[task.id] && (
-                                            <SubList taskId={task.id} onStatusChange={handleStatusChange} />
-                                        )}
-                                    </div>
-                                ))}
-                            </div>
-                        )}
-
-                        {selectedTab === "In Review" && (
-                            <div className={styles.taskList}>
-                                {tasks.filter((task) => task.status === "In Review").map((task) => (
-                                    <div key={task.id} className={`${styles.task} ${!isFreeLancer ? styles.withJustifyContent : ''}`}>
-                                        {isFreeLancer && <InReviewIcon />}
-                                        <p
-                                            onClick={isFreeLancer ? () => handleToggleSubList(task.id) : undefined}
-                                        >
-                                            {task.name}
-                                        </p>
-                                        {isFreeLancer && isSubListVisible[task.id] && (
-                                            <SubList taskId={task.id} onStatusChange={handleStatusChange} />
-                                        )}
-
-                                    </div>
-                                ))}
-                            </div>
-                        )}
-
-                        {selectedTab === "Done" && (
-                            <div className={styles.taskList}>
-                                {tasks.filter((task) => task.status === "Done").map((task) => (
-                                    <div key={task.id} className={`${styles.task} ${!isFreeLancer ? styles.withJustifyContent : ''}`}>
-                                        <input
-                                            type="checkbox"
-                                            id={`task-${task.id}`}
-                                            checked
-                                            readOnly
-                                            className={`${styles.checkbox} ${styles.checked}`}
-                                        />
-                                        <p className={styles.doneTask}>{task.name}</p>
-                                    </div>
-                                ))}
-                                
-                            </div>
-                        )}
                         {areAllTasksDone && (
-                                    <button className={styles.completeBtn} onClick={() => onComplete(projectId)}>
-                                    Project Complete
-                                  </button>
-                                  
-                                )}
-
-
+                            <button className={styles.completeBtn} onClick={() => onComplete(projectId)}>
+                                Project Complete
+                            </button>
+                        )}
                     </>
                 )}
-
             </div>
-        </div >
-
+        </div>
     );
 };
 

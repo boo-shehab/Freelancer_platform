@@ -1,17 +1,43 @@
+import { useEffect } from "react";
 import { Navigate } from "react-router-dom";
+import useUserinfoStore from "../useUserinfoStore";
+import fetchData from "../utility/fetchData";
 
 const ProtectedRoute = ({ isProtected, children }) => {
-    const userinfo = localStorage.getItem('accessToken');
-    const isRegistered = !!userinfo;
-    const hasCompletedInfo = userinfo?.userInfo !== null;
+  const { addUserInfo } = useUserinfoStore();
 
-  if (isProtected) {
-    if (!isRegistered) {
-      return <Navigate to="/register" />;
-    }
-    if (isRegistered && !hasCompletedInfo) {
-      return <Navigate to="/user-info" />;
-    }
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      const accessToken = localStorage.getItem('accessToken');
+      const id = localStorage.getItem('id');
+      if (accessToken) {
+        try {
+          const response = await fetchData(`profiles/${id}`);
+          const data = await response.results;
+
+          console.log("user info: ", data);
+          
+          // Update Zustand store with fetched data
+
+          // setUsername(data.username || '');
+          // setIsFreelancer(data.isFreelancer || false);
+          // setName(data.name || '');
+          // setPhoneNumber(data.phoneNumber || '');
+          // setAbout(data.about || '');
+          addUserInfo(data)
+        } catch (error) {
+          console.error("Failed to fetch user info:", error);
+        }
+      }
+    };
+
+    fetchUserInfo();
+  }, []);
+
+  const isRegistered = !!localStorage.getItem('accessToken');
+
+  if (isProtected && !isRegistered) {
+    return <Navigate to="/register" />;
   }
 
   return children;

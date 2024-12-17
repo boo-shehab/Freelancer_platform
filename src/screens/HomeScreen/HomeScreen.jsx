@@ -244,6 +244,11 @@ const HomeScreen = () => {
     getProject();
   }, [selectedJobs]);
 
+  useEffect(() => {
+    console.log('about: ', about);
+    
+  }, [about])
+
   const handleNewProject = () => {
     setIsPopupOpen(true);
   };

@@ -6,17 +6,17 @@ import useUserinfoStore from "../../useUserinfoStore";
 
 const EditAboutPopup = ({ isOpen, onClose }) => {
   const { about, setAbout } = useUserinfoStore();
-  const [aboutInput , setAboutInput] = useState("")
+  const [ aboutInput, setAboutInput] = useState(about)
 
   const handleSave = async () => {
     try {
       await fetchData(`profiles/about`, {
         method: "PATCH",
-        body: JSON.stringify({ about }),
+        body: JSON.stringify({ about: aboutInput }),
       }, {
         'Content-Type': 'application/json'
       });
-      setAbout(aboutInput)
+      setAbout(aboutInput);
       onClose();
     } catch (e) {
       console.error("Error updating about:", e);
@@ -33,7 +33,6 @@ const EditAboutPopup = ({ isOpen, onClose }) => {
 
   if (!isOpen) return null;
 
-  
   return (
     <ContainerForm isOpen={isOpen} onClose={onClose} HeadName="Edit About">
       <div className={styles.popup}>

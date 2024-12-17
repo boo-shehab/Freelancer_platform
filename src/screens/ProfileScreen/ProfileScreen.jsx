@@ -20,6 +20,7 @@ import ProfileLeft1 from "../../components/profileLeft1/profileLeft1"
 import SkilsSide from "../../components/Skils/skils"
 // import WorkForForm from "../../components/WorkForForm/WorkForForm";
 import DeleteComponent from "../../components/DeleteComponent/DeleteComponent"
+import fetchData from "../../utility/fetchData";
 
 const WorkFor = [
   {
@@ -48,9 +49,10 @@ const ProfileScreen = () => {
   const [aboutState, setAboutState] = useState(aboutValue.slice(0, 492));
   const [dotsAbout, setDotsAbout] = useState("....");
   const [seeAction, setSeeAction] = useState("See More");
-  const [isFreeLancer, setIsFreeLancer] = useState(false);
+  const [isFreeLancer, setIsFreeLancer] = useState(true);
   const [showDelete, setshowDelete] = useState(false)
   const [messageDelete, setmessageDelete] = useState("")
+  const [loading, setLoading] = useState(false)
 
   function ShowDelete (message){
     setmessageDelete(message);
@@ -126,6 +128,9 @@ const ProfileScreen = () => {
   const idShow = (id) => {
     setVisiblePostId((prevId) => (prevId === id ? null : id));
   };
+
+
+
   return (
     <div >
       {isFreeLancer ? (<div >

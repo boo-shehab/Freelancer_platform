@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./profileLeft1.module.css";
 import UniversityIcon from "./university.png";
 import Card from "../Card/card";
@@ -11,8 +11,9 @@ import WorkForForm from "../WorkForForm/WorkForForm";
 import EditIcon from "../../CustomIcons/EditIcon";
 import PlusIcon from "../../CustomIcons/PlusIcon";
 import DeleteIcon from "../../CustomIcons/DeleteIcon";
-import DeleteComponent from "../../components/DeleteComponent/DeleteComponent"
-
+import DeleteComponent from "../../components/DeleteComponent/DeleteComponent";
+import fetchData from "../../utility/fetchData";
+import dayjs from "dayjs";
 
 const userData = {
   profile: {
@@ -80,7 +81,8 @@ const userData = {
 // ];
 
 function ProfileLeft1() {
-  const { profile, about, education, projects, workExperience } = userData;
+  const [education, setEducation] = useState([]);
+  const { profile, about, projects, workExperience } = userData;
 
   const [isExpanded, setIsExpanded] = useState(false);
   const [isAboutFormOpen, setIsAboutFormOpen] = useState(false);
@@ -90,16 +92,39 @@ function ProfileLeft1() {
   const [isProjectHistoryOpen, setIsProjectHistoryOpen] = useState(false);
   // const [isWorkForOpen, setIsWorkForOpen] = useState(false);
   const [openDrawer, setOpenDrawer] = useState(true);
-  const [showDelete, setshowDelete] = useState(false)
-  const [messageDelete, setmessageDelete] = useState("")
+  const [showDelete, setshowDelete] = useState(false);
+  const [messageDelete, setmessageDelete] = useState("");
 
-  function ShowDelete (message){
+  function ShowDelete(message) {
     setmessageDelete(message);
-    setshowDelete(true)
+    setshowDelete(true);
   }
   const handleToggleExpand = () => {
     setIsExpanded(!isExpanded);
   };
+
+  const handleGet = async () => {
+    try {
+      const data = await fetchData(
+        `freelancers/${localStorage.getItem("id")}/education?page=0&pageSize=4`,
+        {
+          method: "GET",
+        }
+      );
+      console.log(data);
+      setEducation(data.results.result);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    handleGet();
+  }, []);
+
+  useEffect(() => {
+    console.log("education", education);
+  }, [education]);
 
   return (
     <div className={styles.container}>
@@ -124,7 +149,6 @@ function ProfileLeft1() {
             <EditIcon /> {/* هذا يشير الآن إلى المكون React */}
           </button>
         </div>
-
       </Card>
 
       <Card marginTop={10}>
@@ -162,6 +186,8 @@ function ProfileLeft1() {
         </div>
       </Card>
 
+      {/* EducationForm */}
+
       <Card marginTop={10}>
         <EducationForm
           isOpen={isEducationOpen}
@@ -179,36 +205,68 @@ function ProfileLeft1() {
               </button>
             </div>
           </div>
-          {education.map((edu, index) => (
-            <div key={index} className={styles.box3Part2}>
-              <div className={styles.img}>
-                <img
-                  className={styles.universityIcon}
-                  src={UniversityIcon}
-                  alt="University"
-                />
-              </div>
-              <div className={styles.educationDetails}>
-                <div className={styles.titleOfEducation}>
-                  <p className={styles.university}>{edu.university}</p>
-                  <div className={styles.educationAction}>
-                    <button
-                      className={styles.edit}
-                      onClick={() => setIsEducationOpen(true)}
-                    >
-                      <EditIcon />
-                    </button>
-                    <button  onClick={()=> ShowDelete("Are you sure u want to delete this Education")} >
-                      <DeleteIcon  />
-                    </button>
-                  </div>
+          {/* {
+      university: "University of Baghdad",
+      date: "22 Jan 2023 - 11 May 2032",
+      duration: "3 mos 20 days",
+      college: "Information & Communication Engineering, Al-Khwarizmi College",
+    }, */}
+          {education?.map((edu, index) => {
+            const startDate = dayjs(edu.startDate);
+            const endDate = dayjs(edu.endDate);
+
+            // Calculate months and days difference
+            const months = endDate.diff(startDate, "month");
+            const remainingDays = endDate
+              .subtract(months, "month")
+              .diff(startDate, "day");
+
+            return (
+              <div key={index} className={styles.box3Part2}>
+                <div className={styles.boxInfo}>
+                <div className={styles.img}>
+                  <img
+                    className={styles.universityIcon}
+                    src={UniversityIcon}
+                    alt="University"
+                  />
                 </div>
-                <p className={styles.date}>{edu.date}</p>
-                <p className={styles.duration}>{edu.duration}</p>
-                <p className={styles.college}>{edu.college}</p>
+                <div className={styles.educationDetails}>
+                  <div className={styles.titleOfEducation}>
+                    <p className={styles.university}>{edu.institution}</p>
+                 
+                  </div>
+
+                  <p className={styles.date}>
+                    {startDate.format("DD MMM YYYY")} -{" "}
+                    {endDate.format("DD MMM YYYY")}
+                  </p>
+                  <p className={styles.duration}>
+                    {months} mos {remainingDays} days
+                  </p>
+                  <p className={styles.college}>{edu.degree}</p>
+                </div>
+                </div>
+                <div className={styles.educationAction}>
+                      <button
+                        className={styles.edit}
+                        onClick={() => setIsEducationOpen(true)}
+                      >
+                        <EditIcon />
+                      </button>
+                      <button
+                        onClick={() =>
+                          ShowDelete(
+                            "Are you sure u want to delete this Education"
+                          )
+                        }
+                      >
+                        <DeleteIcon />
+                      </button>
+                    </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </Card>
       <Card marginTop={10}>
@@ -217,13 +275,12 @@ function ProfileLeft1() {
           onClose={() => setIsProjectHistoryOpen(false)}
         /> */}
         <div className={styles.box4}>
-
           <div className={styles.projectAddEdit}>
             <p>Projects History</p>
           </div>
           {projects.map((project, index) => (
-            <div key={index} className={styles.postOfProject} >
-              {index > 0 && <div className={styles.line}></div>} 
+            <div key={index} className={styles.postOfProject}>
+              {index > 0 && <div className={styles.line}></div>}
               <div className={styles.box4Part2}>
                 <div className={styles.box4Part2Part1}>
                   <div className={styles.circle}></div>
@@ -251,9 +308,7 @@ function ProfileLeft1() {
             <p>Work Experience</p>
             <div className={styles.button}>
               <button className={styles.add}>
-                <PlusIcon
-                  onClick={() => setIsWorkExperienceOpen(true)}
-                />
+                <PlusIcon onClick={() => setIsWorkExperienceOpen(true)} />
               </button>
             </div>
           </div>
@@ -261,17 +316,23 @@ function ProfileLeft1() {
             <div key={index} className={styles.workContainer}>
               {index > 0 && <div className={styles.line}></div>}
               <div className={styles.workDetails}>
-              <div className={styles.titleWorkDetails}>
+                <div className={styles.titleWorkDetails}>
                   <p className={styles.workName}>{work.name}</p>
                   <div className={styles.workAction}>
-                      <button  onClick={() => setIsWorkExperienceOpen(true)}>
-                        <EditIcon />
-                      </button>
-                      <button  onClick={()=> ShowDelete("Are you sure u want to delete this Work kExperience")} >
-                              <DeleteIcon />
-                      </button>
+                    <button onClick={() => setIsWorkExperienceOpen(true)}>
+                      <EditIcon />
+                    </button>
+                    <button
+                      onClick={() =>
+                        ShowDelete(
+                          "Are you sure u want to delete this Work kExperience"
+                        )
+                      }
+                    >
+                      <DeleteIcon />
+                    </button>
                   </div>
-              </div>
+                </div>
                 <p className={styles.date}>{work.date}</p>
                 <p className={styles.duration}>{work.duration}</p>
                 <p className={styles.description}>{work.description}</p>
@@ -333,7 +394,11 @@ function ProfileLeft1() {
 
         </div>
       </Card> */}
-                  <DeleteComponent  isOpen={showDelete} message={messageDelete} onClose={ ()=> setshowDelete(false)}/>
+      <DeleteComponent
+        isOpen={showDelete}
+        message={messageDelete}
+        onClose={() => setshowDelete(false)}
+      />
     </div>
   );
 }

@@ -36,7 +36,7 @@ const Login = () => {
         const { id , username, name, phoneNumber, role } = userDetails;
   
         localStorage.setItem('accessToken', accessToken);
-        localStorage.setItem('id', 170);
+        localStorage.setItem('id', id);
         setUsername(username);
         setName(name);
         setPhoneNumber(phoneNumber);

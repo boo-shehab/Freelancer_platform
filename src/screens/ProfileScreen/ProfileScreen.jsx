@@ -784,9 +784,7 @@ const ProfileScreen = () => {
                 <Card marginTop={24} paddingx={24} isProfilePage={true}>
                   <div className={styles.titleReviewsBox}>
                     <h3 className={styles.titleReviews}>Reviews</h3>
-                    <p className={styles.subtitleReviews}>
-                      Total People who visited your profile
-                    </p>
+                    <p className={styles.subtitleReviews}>Total Reviews</p>
                     <p className={styles.reviews}>
                       <b>{totalRating}</b> review
                     </p>

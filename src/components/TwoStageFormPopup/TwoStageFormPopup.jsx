@@ -132,11 +132,7 @@ const handlePost=()=>{
         {stage === 1 && (
           <form>
             <label>
-<<<<<<< HEAD
-              Title
-=======
             Title of the project
->>>>>>> f6d1a51a40533fdff4950fb62bc722e03a9a01c8
               <input
                 type="text"
                 name="Title"
@@ -224,11 +220,7 @@ const handlePost=()=>{
         {stage === 2 && (
           <form>
             <label>
-<<<<<<< HEAD
-              Duration
-=======
             Project Duration
->>>>>>> f6d1a51a40533fdff4950fb62bc722e03a9a01c8
               <input
                 type="text"
                 name="Duration"

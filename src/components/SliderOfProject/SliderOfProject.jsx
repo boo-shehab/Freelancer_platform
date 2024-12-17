@@ -13,24 +13,9 @@ import SubList from './SubList';
 const SliderOfProject = ({
     show,
     onClose,
-<<<<<<< HEAD
-    freelancers,
-    onRemoveFreelancer,
-    projectStatus,
-    progress,
-    tasks,
-    handleEdit,
-    handleDelete,
-    onStatusChange,
-    addTask,
-    onComplete,
-    projectId
-    }) => {
-=======
     projectData, 
     callbacks, 
 }) => {
->>>>>>> e56d32c785b4976d16fb53cbf6521c0a295ab5ab
     if (!show) return null;
 
     const [selectedTab, setSelectedTab] = useState("To Do");
@@ -93,15 +78,10 @@ const SliderOfProject = ({
                             <p>Status:</p>
                             <a
                                 href="#"
-<<<<<<< HEAD
-                        style={{ color: projectStatus === "In Progress" ? '#D69E2E' : '#3182CE' }}
-                            >{projectStatus}</a>
-=======
                                 style={{ color: projectStatus === "In Progress" ? '#D69E2E' : '#3182CE' }}
                             >
                                 {projectStatus}
                             </a>
->>>>>>> e56d32c785b4976d16fb53cbf6521c0a295ab5ab
                         </label>
                         <label>
                             <div className={styles.dote}></div>

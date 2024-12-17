@@ -64,9 +64,9 @@ const ProfileScreen = () => {
   const [totalRating, setTotalRating] = useState(11);
   const [averageRating, setAverageRating] = useState(11);
   //circl
-  const [posted, setPosted] = useState(25);
-  const [pending, setPending] = useState(25);
-  const [completed, setCompleted] = useState(25);
+  const [posted, setPosted] = useState(0);
+  const [pending, setPending] = useState(0);
+  const [completed, setCompleted] = useState(0);
 
   function ShowDelete(message) {
     setmessageDelete(message);
@@ -129,13 +129,20 @@ const ProfileScreen = () => {
         }
       );
 
-      const { freelancersWorkedWith, projectPosted, givenLikes } = data.results;
+      const {
+        freelancersWorkedWith,
+        projectPosted,
+        givenLikes,
+        projectsPending,
+        projectsInProgress,
+        projectsCompleted,
+      } = data.results;
       setIsWorkedWith(freelancersWorkedWith);
       setIsGivenLikes(givenLikes);
       setIsProjectPosted(projectPosted);
-      setPosted();
-      setPending();
-      setCompleted();
+      setPosted(projectsInProgress);
+      setPending(projectsPending);
+      setCompleted(projectsCompleted);
     } catch (error) {
       console.log("Login failed. Please try again.");
     }
@@ -151,7 +158,7 @@ const ProfileScreen = () => {
       );
 
       const processedRatings = {
-        averageRating: parseInt(results.averageRating, 10),
+        averageRating: parseFloat(results.averageRating, 10),
         totalRating: results.totalRating,
         highRating: results.highRating,
         midRating: results.midRating,
@@ -740,36 +747,36 @@ const ProfileScreen = () => {
                         <div className={styles.bar}>
                           <div
                             style={{
-                              width: `${rating.highRate}%`,
+                              width: `${highRating}`,
                               backgroundColor: "#4DB251",
                             }}
                           ></div>
                         </div>
-                        <p>{highRating}</p>
+                        <p>{`${highRating}%`}</p>
                       </div>
                       <div className={styles.barItem}>
                         <b>Mid rate</b>
                         <div className={styles.bar}>
                           <div
                             style={{
-                              width: `${rating.midRate}%`,
+                              width: `${midRating}`,
                               backgroundColor: "#FFBF00",
                             }}
                           ></div>
                         </div>
-                        <p>{midRating}</p>
+                        <p>{`${midRating}%`}</p>
                       </div>
                       <div className={styles.barItem}>
                         <b>low rate</b>
                         <div className={styles.bar}>
                           <div
                             style={{
-                              width: `${rating.lowRate}%`,
+                              width: `${lowRating}%`,
                               backgroundColor: "#E4636F",
                             }}
                           ></div>
                         </div>
-                        <p>{lowRating}</p>
+                        <p>{`${lowRating}%`}</p>
                       </div>
                     </div>
                   </div>

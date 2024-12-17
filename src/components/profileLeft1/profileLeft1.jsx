@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./profileLeft1.module.css";
 import UniversityIcon from "./university.png";
 import Card from "../Card/card";
@@ -6,7 +6,6 @@ import EditAboutPopup from "../EditAboutPopup/EditAboutPopup";
 import WorkExperienceForm from "../WorkExperienceForm/WorkExperienceForm";
 import EducationForm from "../EducationForm/EducationForm";
 import EditProfilePopup from "../EditProfilePopup/EditProfilePopup";
-// import ProjectHistoryForm from "../ProjectHistoryForm/ProjectHistoryForm";
 import WorkForForm from "../WorkForForm/WorkForForm";
 import EditIcon from "../../CustomIcons/EditIcon";
 import PlusIcon from "../../CustomIcons/PlusIcon";
@@ -80,29 +79,66 @@ const userData = {
 //   },
 // ];
 
-function ProfileLeft1() {
-  const [education, setEducation] = useState([]);
-  const { profile, about, projects, workExperience } = userData;
 
+
+function ProfileLeft1({ userId }) {
+  const [profile, setProfile] = useState(null);
+  const [about, setAbout] = useState(null);
+  const [education, setEducation] = useState([]);
+  const [projects, setProjects] = useState([]);
+  const [workExperience, setWorkExperience] = useState([]);
   const [isExpanded, setIsExpanded] = useState(false);
   const [isAboutFormOpen, setIsAboutFormOpen] = useState(false);
   const [isEducationOpen, setIsEducationOpen] = useState(false);
   const [isWorkExperienceOpen, setIsWorkExperienceOpen] = useState(false);
   const [isProfileFormOpen, setIsProfileFormOpen] = useState(false);
   const [isProjectHistoryOpen, setIsProjectHistoryOpen] = useState(false);
-  // const [isWorkForOpen, setIsWorkForOpen] = useState(false);
   const [openDrawer, setOpenDrawer] = useState(true);
-  const [showDelete, setshowDelete] = useState(false);
-  const [messageDelete, setmessageDelete] = useState("");
+  const [showDelete, setShowDelete] = useState(false);
+  const [messageDelete, setMessageDelete] = useState("");
 
-  function ShowDelete(message) {
-    setmessageDelete(message);
-    setshowDelete(true);
-  }
+  // Fetch user data from API
+  useEffect(() => {
+    // Fetch profile data
+    fetch(`/api/web/v1/users/${userId}/profile`)
+      .then((response) => response.json())
+      .then((data) => setProfile(data))
+      .catch((error) => console.error("Error fetching profile:", error));
+
+    // Fetch about data
+    fetch(`/api/web/v1/users/${userId}/about`)
+      .then((response) => response.json())
+      .then((data) => setAbout(data))
+      .catch((error) => console.error("Error fetching about:", error));
+
+    // Fetch education data
+    fetch(`/api/web/v1/freelancers/${userId}/education`)
+      .then((response) => response.json())
+      .then((data) => setEducation(data))
+      .catch((error) => console.error("Error fetching education:", error));
+
+    // Fetch work experience data
+    fetch(`/api/web/v1/freelancers/${userId}/certifications`)
+      .then((response) => response.json())
+      .then((data) => setWorkExperience(data))
+      .catch((error) => console.error("Error fetching work experience:", error));
+
+    // Fetch projects data
+    fetch(`/api/web/v1/projects/freelancer-feed`)
+      .then((response) => response.json())
+      .then((data) => setProjects(data))
+      .catch((error) => console.error("Error fetching projects:", error));
+  }, [userId]);
+
+
   const handleToggleExpand = () => {
     setIsExpanded(!isExpanded);
   };
 
+  function ShowDelete(message) {
+    setMessageDelete(message);
+    setShowDelete(true);
+  }
   const handleGet = async () => {
     try {
       const data = await fetchData(
@@ -122,10 +158,6 @@ function ProfileLeft1() {
     handleGet();
   }, []);
 
-  useEffect(() => {
-    console.log("education", education);
-  }, [education]);
-
   return (
     <div className={styles.container}>
       {/* Profile Section */}
@@ -136,21 +168,22 @@ function ProfileLeft1() {
         />
         <div className={styles.box1}>
           <div className={styles.part1PictureName}>
-            <img className={styles.selfie} src="/avatar.png" alt="Profile" />
+            <img className={styles.selfie} src={profile?.selfie || "/avatar.png"} alt="Profile" />
             <div className={styles.nameSpecialization}>
-              <p className={styles.name}>{profile.name}</p>
-              <p className={styles.specialization}>{profile.specialization}</p>
+              <p className={styles.name}>{profile?.name}</p>
+              <p className={styles.specialization}>{profile?.specialization}</p>
             </div>
           </div>
           <button
             className={styles.edit}
             onClick={() => setIsProfileFormOpen(true)}
           >
-            <EditIcon /> {/* هذا يشير الآن إلى المكون React */}
+            <EditIcon />
           </button>
         </div>
       </Card>
 
+      {/* About Section */}
       <Card marginTop={10}>
         <EditAboutPopup
           isOpen={isAboutFormOpen}
@@ -173,7 +206,7 @@ function ProfileLeft1() {
                   isExpanded ? styles.expandedText : styles.collapsedText
                 }
               >
-                {about.text}
+                {about?.text}
               </span>
               <button
                 className={styles.seeMoreButton}
@@ -185,6 +218,7 @@ function ProfileLeft1() {
           </div>
         </div>
       </Card>
+      {/* Education Section */}
 
       {/* EducationForm */}
 
@@ -205,6 +239,7 @@ function ProfileLeft1() {
               </button>
             </div>
           </div>
+         
           {/* {
       university: "University of Baghdad",
       date: "22 Jan 2023 - 11 May 2032",
@@ -269,6 +304,7 @@ function ProfileLeft1() {
           })}
         </div>
       </Card>
+
       <Card marginTop={10}>
         {/* <ProjectHistoryForm
           isOpen={isProjectHistoryOpen}
@@ -298,6 +334,8 @@ function ProfileLeft1() {
           ))}
         </div>
       </Card>
+
+      {/* Work Experience Section */}
       <Card marginTop={10}>
         <WorkExperienceForm
           isOpen={isWorkExperienceOpen}
@@ -312,7 +350,7 @@ function ProfileLeft1() {
               </button>
             </div>
           </div>
-          {workExperience.map((work, index) => (
+          {workExperience?.map((work, index) => (
             <div key={index} className={styles.workContainer}>
               {index > 0 && <div className={styles.line}></div>}
               <div className={styles.workDetails}>
@@ -322,6 +360,7 @@ function ProfileLeft1() {
                     <button onClick={() => setIsWorkExperienceOpen(true)}>
                       <EditIcon />
                     </button>
+
                     <button
                       onClick={() =>
                         ShowDelete(

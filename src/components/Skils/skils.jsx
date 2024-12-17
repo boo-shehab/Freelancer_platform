@@ -1,4 +1,4 @@
-import React, { useState , useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Card from "../Card/card";
 import PlusIcon from "../../CustomIcons/PlusIcon";
 import EditIcon from "../../CustomIcons/EditIcon";
@@ -6,11 +6,10 @@ import UsersIcone from "../../CustomIcons/UsersIcon";
 import Styles from "./skils.module.css";
 import MicrosoftIcon from "../../CustomIcons/MicrosoftIcon";
 import SkillsForm from "../SkillsForm/SkillsForm";
-import CoursesAndCertificationsForm from "../CoursesAndCertificationsForm/CoursesAndCertificationsForm";
 import DeleteIcon from "../../CustomIcons/DeleteIcon";
 import DeleteComponent from "../../components/DeleteComponent/DeleteComponent";
 import FetchData from "../../utility/fetchData";
-
+import CoursesAndCertificationsForm from "../../components/CoursesAndCertificationsForm/CoursesAndCertificationsForm"
 
 const Skils = () => {
   const [isSkillsFormOpen, setIsSkillsFormOpen] = useState(false)
@@ -19,9 +18,9 @@ const Skils = () => {
   const [urlapi, seturlapi] = useState("")
   const [messageDelete, setmessageDelete] = useState("")
   const [name, setname] = useState("")
-  const [skills, setSkillsvalue] = useState([]); 
+  const [skills, setSkillsvalue] = useState([]);
 
-  function ShowDelete (message , urlapi){
+  function ShowDelete(message, urlapi) {
     setmessageDelete(message);
     setshowDelete(true);
     seturlapi(urlapi);
@@ -54,9 +53,9 @@ const Skils = () => {
       }, {
         'Content-Type': 'application/json'
       });
-        if (data.isSuccess) {
-          setSkillsvalue(data.results.result);
-        } 
+      if (data.isSuccess) {
+        setSkillsvalue(data.results.result);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -74,14 +73,14 @@ const Skils = () => {
   };
 
   useEffect(() => {
-    getAllSkills(localStorage.getItem('id')); 
+    getAllSkills(localStorage.getItem('id'));
     getAllCertifications(localStorage.getItem('id'));
   }, []);
 
 
   return (
     <div className={Styles.skilsCard}>
-      <SkillsForm isOpen={isSkillsFormOpen} onClose={() => setIsSkillsFormOpen(false)}  GetAllSkills={(id) => getAllSkills(id)}/>
+      <SkillsForm isOpen={isSkillsFormOpen} onClose={() => setIsSkillsFormOpen(false)} GetAllSkills={(id) => getAllSkills(id)} />
       <Card>
         <div className={Styles.skilsHead}>
           <h4 className={Styles.skilsTitil}> Skils</h4>
@@ -97,7 +96,7 @@ const Skils = () => {
               </div>
               <div className={Styles.skilssAction}>
                 {/* <EditIcon onClick={() => setIsSkillsFormOpen(true)} /> */}
-                <DeleteIcon onClick={()=> ShowDelete("Are you sure u want to delete this skill" , `skills/${sk.id}`) } />
+                <DeleteIcon onClick={() => ShowDelete("Are you sure u want to delete this skill", `skills/${sk.id}`)} />
               </div>
             </div>
           ))}
@@ -116,16 +115,16 @@ const Skils = () => {
             {Courses.map((course) => (
               <li key={course.id}>
                 <div className={Styles.Item}>
-                 <div >
-                  <MicrosoftIcon />
-                  <p>{course.title}</p>
-                 </div>
-                 <div className={Styles.coursesAction}>
-                {/* <EditIcon onClick={() => setIsCoursesOpen(true)} /> */}
-                <DeleteIcon onClick={()=> ShowDelete("Are you sure u want to delete this skill")} />
+                  <div >
+                    <MicrosoftIcon />
+                    <p>{course.title}</p>
+                  </div>
+                  <div className={Styles.coursesAction}>
+                    {/* <EditIcon onClick={() => setIsCoursesOpen(true)} /> */}
+                    <DeleteIcon onClick={() => ShowDelete("Are you sure u want to delete this skill")} />
+                  </div>
                 </div>
-                </div>
-                
+
                 <div className={Styles.subItem}>
                   <small>{course.date}</small>
                   <small>{course.desc}</small>
@@ -135,7 +134,7 @@ const Skils = () => {
           </ul>
         </Card>
       </div>
-      <DeleteComponent message={messageDelete} isOpen={showDelete} onClose={ ()=> setshowDelete(false)} TypeofDelete={urlapi} GetAllSkills={(id) => getAllSkills(id)}/>
+      <DeleteComponent message={messageDelete} isOpen={showDelete} onClose={() => setshowDelete(false)} TypeofDelete={urlapi} GetAllSkills={(id) => getAllSkills(id)} />
     </div>
   );
 };

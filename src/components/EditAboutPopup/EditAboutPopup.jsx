@@ -23,11 +23,13 @@ const EditAboutPopup = ({ isOpen, onClose }) => {
     }
   };
 
-  useEffect(() => {
-    setAboutInput(about)
-  }, [about])
 
-  const currentLength = about.length;
+  useEffect(()=>{
+    setAboutInput(about)
+  },[])
+
+  const currentLength = aboutInput.length;
+
 
   if (!isOpen) return null;
 

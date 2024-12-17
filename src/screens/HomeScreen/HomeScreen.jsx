@@ -20,23 +20,23 @@ import CloseIcon from "../../CustomIcons/CloseIcon";
 import FilterMoboIcon from "../../CustomIcons/FilterMoboIcon";
 import WorkForForm from "../../components/WorkForForm/WorkForForm";
 import EditAboutPopup from "../../components/EditAboutPopup/EditAboutPopup";
-import fetchData from '../../utility/fetchData'
+import fetchData from "../../utility/fetchData";
 import useUserinfoStore from "../../useUserinfoStore";
 
-const projects = [
-  {
-    id: 1,
-    title: "Project Name One",
-    createdAt: "22 Jan 2024 - 11 May  2024.",
-    desc: "Developed a task management web application designed to help users organize, prioritize, and track their daily tasks efficiently. ",
-  },
-  {
-    id: 2,
-    title: "Project Name Two",
-    createdAt: "22 Jan 2024 - 11 May  2024.",
-    desc: "Developed a task management web application designed to help users organize, prioritize, and track their daily tasks efficiently. ",
-  },
-];
+// const projects = [
+//   {
+//     id: 1,
+//     title: "Project Name One",
+//     createdAt: "22 Jan 2024 - 11 May  2024.",
+//     desc: "Developed a task management web application designed to help users organize, prioritize, and track their daily tasks efficiently. ",
+//   },
+//   {
+//     id: 2,
+//     title: "Project Name Two",
+//     createdAt: "22 Jan 2024 - 11 May  2024.",
+//     desc: "Developed a task management web application designed to help users organize, prioritize, and track their daily tasks efficiently. ",
+//   },
+// ];
 
 // const posts = [
 //   {
@@ -64,29 +64,29 @@ const projects = [
 //   },
 // ];
 
-const recentProjects = [
-  {
-    id: 1,
-    projectName: "Web Design Project",
-    projectPrice: "10$/Hour",
-    projectDescription:
-      "This Project Involves implementing both frontend and back-end functionalities ,as  well as integrating with third-party Apls.",
-  },
-  {
-    id: 2,
-    projectName: "Web Design Project",
-    projectPrice: "10$/Hour",
-    projectDescription:
-      "This Project Involves implementing both frontend and back-end functionalities ,as  well as integrating with third-party Apls.",
-  },
-  {
-    id: 3,
-    projectName: "Web Design Project",
-    projectPrice: "10$/Hour",
-    projectDescription:
-      "This Project Involves implementing both frontend and back-end functionalities ,as  well as integrating with third-party Apls.",
-  },
-];
+// const recentProjects = [
+//   {
+//     id: 1,
+//     projectName: "Web Design Project",
+//     projectPrice: "10$/Hour",
+//     projectDescription:
+//       "This Project Involves implementing both frontend and back-end functionalities ,as  well as integrating with third-party Apls.",
+//   },
+//   {
+//     id: 2,
+//     projectName: "Web Design Project",
+//     projectPrice: "10$/Hour",
+//     projectDescription:
+//       "This Project Involves implementing both frontend and back-end functionalities ,as  well as integrating with third-party Apls.",
+//   },
+//   {
+//     id: 3,
+//     projectName: "Web Design Project",
+//     projectPrice: "10$/Hour",
+//     projectDescription:
+//       "This Project Involves implementing both frontend and back-end functionalities ,as  well as integrating with third-party Apls.",
+//   },
+// ];
 // const WorkFor = [
 //   {
 //     id: 1,
@@ -164,18 +164,23 @@ const formerCoworkers = [
 ];
 
 const HomeScreen = () => {
-  const [posts, setPosts] = useState([])
+  const [posts, setPosts] = useState([]);
+  const [recentProjects, setRecentProjects]= useState([])
   const [selectedJobs, setSelectedJobs] = useState([]);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [recentProjectOpened, setRecentProjectOpened] = useState(-1);
-  const [isFreeLancer, setIsFreeLancer] = useState(false);
+  const { isFreelancer } = useUserinfoStore()
+  
   const [isPopupOpen2, setIsPopupOpen2] = useState(false);
   const [callBack, setCallBack] = useState([]);
   const [isCommentForm, setIsCommentForm] = useState(false);
   const [openDrawer, setOpenDrawer] = useState(false);
   const [isWorkForOpen, setIsWorkForOpen] = useState(false);
-  const [isAboutPopupOpen, setIsAboutPopupOpen] = useState(false)  
-  const { about } = useUserinfoStore();
+  const [isAboutPopupOpen, setIsAboutPopupOpen] = useState(false);
+  const { about, projects } = useUserinfoStore();
+  const [aboutState, setAboutState] = useState(about.slice(0, 200));
+  const [dotsAbout, setDotsAbout] = useState("....");
+  const [seeAction, setSeeAction] = useState("See More");
   const drawerHeight = 500;
 
   const isSmallScreen = useMediaQuery({ query: "(max-width: 950px)" });
@@ -191,30 +196,77 @@ const HomeScreen = () => {
     );
   };
 
-  const getProject = async() => {
-    try{
+  const getProject = async () => {
+    try {
       const queryParams = selectedJobs
-      .map((qualification) => `qualificationNames=${qualification}`)
-      .join('&');
-      console.log(`projects/client-feed?page=0&pageSize=10&${queryParams}`);
-      
-      const response = await fetchData(`projects/client-feed?page=0&pageSize=10&${queryParams}`, {
-        method: 'GET',
-      });
+        .map((qualification) => `qualificationNames=${qualification}`)
+        .join("&");
+        let response = '';
+        if(isFreelancer) {
+          response = await fetchData(
+            `projects/freelancer-feed?page=0&pageSize=10&${queryParams}`,
+            {
+              method: "GET",
+            }
+          );
+        } else {
+          response = await fetchData(
+            `projects/client-feed?page=0&pageSize=10&${queryParams}`,
+            {
+              method: "GET",
+            }
+          );
+        }
       console.log(response.results.result);
       setPosts(response.results.result);
-    }catch(e) {
+    } catch (e) {
       console.log(e);
     }
-  }
-  useEffect(() => {
-    getProject()
-  }, [selectedJobs])
+  };
+
+  const handleSeeMore = () => {
+    if (about.length < 200) {
+      setDotsAbout("");
+      setSeeAction("");
+      setAboutState(about);
+    } else if (dotsAbout === "...." && seeAction === "See More") {
+      setAboutState(about);
+      setDotsAbout("");
+      setSeeAction("Show Less");
+    } else {
+      setAboutState(about.slice(0, 200));
+      setDotsAbout("....");
+      setSeeAction("See More");
+    }
+  };
 
   useEffect(() => {
-    console.log('about: ', about);
-    
-  }, [about])
+    setAboutState(about.slice(0, 200));
+    handleSeeMore();
+  }, [about]);
+
+  useEffect(() => {
+    const getRecentProjects = async() => {
+      try{
+        const response = await fetchData(
+          `clients/recent-projects?page=0&pageSize=4`,
+          {
+            method: "GET",
+          }
+        );
+        setRecentProjects(response.results.result);
+      }catch(e) {
+        console.log(e);
+        
+      }
+    }
+    if(!isFreelancer)
+      getRecentProjects()
+  }, [])
+
+  useEffect(() => {
+    getProject();
+  }, [selectedJobs]);
 
   const handleNewProject = () => {
     setIsPopupOpen(true);
@@ -224,9 +276,8 @@ const HomeScreen = () => {
     console.log(CB);
   };
 
- 
   return (
-    <div style={styles.homeScreen} >
+    <div style={styles.homeScreen}>
       <TwoStageFormPopup
         isOpen={isPopupOpen}
         onClose={() => setIsPopupOpen(false)}
@@ -258,7 +309,9 @@ const HomeScreen = () => {
                         <button
                           className={`${styles.btn} 
                           ${
-                            selectedJobs.includes(job.Job)? styles.btnGreen : ""
+                            selectedJobs.includes(job.Job)
+                              ? styles.btnGreen
+                              : ""
                           }
                           `}
                           onClick={() => handleJobSelection(job.Job)}
@@ -285,7 +338,8 @@ const HomeScreen = () => {
       <Container>
         <div className={styles.content}>
           {/* MuhammedLami */}
-          {isFreeLancer ? (
+          {isFreelancer}
+          {isFreelancer ? (
             <FreeLancerScreen
               isPopupOpen2={isPopupOpen2}
               setIsPopupOpen2={setIsPopupOpen2}
@@ -323,7 +377,9 @@ const HomeScreen = () => {
                           <button
                             className={`${styles.btn} 
                           ${
-                            selectedJobs.includes(job.Job) ? styles.btnGreen : ""
+                            selectedJobs.includes(job.Job)
+                              ? styles.btnGreen
+                              : ""
                           }
                           `}
                             onClick={() => handleJobSelection(job.Job)}
@@ -342,10 +398,14 @@ const HomeScreen = () => {
                     <EditIcon onClick={() => setIsAboutPopupOpen(true)} />
                   </div>
                   <p>
-                    {/* GreenTech Solutions Inc. Renewable Energy & Technology San
-                    Francisco, California, with operations in North America and
-                    Europe */}
-                    {about}
+                    {aboutState}
+                    {dotsAbout}{" "}
+                    <span
+                      className={styles.seeMoreAbout}
+                      onClick={handleSeeMore}
+                    >
+                      {seeAction}
+                    </span>
                   </p>
                 </div>
               </Card>
@@ -363,7 +423,7 @@ const HomeScreen = () => {
                       <div className={styles.itemInfo}>
                         <h4>{p.title}</h4>
                         <small>{p.createdAt}</small>
-                        <p className={styles.itemDesc}>{p.desc}</p>
+                        <p className={styles.itemDesc}>{p.description}</p>
                       </div>
                     </div>
                   ))}
@@ -419,7 +479,7 @@ const HomeScreen = () => {
             className={styles.section2}
             style={{ marginBottom: `${isSmallScreen ? "130px" : "0px"}` }}
           >
-            {isFreeLancer ? (
+            {isFreelancer ? (
               <>
                 <div className={styles.mainFreeLancerScreenSearch}>
                   <div className={styles.FreeLancerScreenSearch}>
@@ -455,9 +515,18 @@ const HomeScreen = () => {
                   <div className={styles.mobileSearch}>
                     <div className={styles.mobileInputForm}>
                       <SearchIcon />
-                      <input className={styles.moblieInput} type="text" placeholder="search" />
+                      <input
+                        className={styles.moblieInput}
+                        type="text"
+                        placeholder="search"
+                      />
                     </div>
-                    <div className={styles.filterBtn} onClick={() => setOpenDrawer(true)}><FilterMoboIcon /></div>
+                    <div
+                      className={styles.filterBtn}
+                      onClick={() => setOpenDrawer(true)}
+                    >
+                      <FilterMoboIcon />
+                    </div>
                   </div>
                 </div>
                 <div className={styles.postBoxCont}>
@@ -482,7 +551,7 @@ const HomeScreen = () => {
             )}
             {posts?.map((post) => (
               <ProjectPost
-                isFreeLancer={isFreeLancer}
+              isFreelancer={isFreelancer}
                 IsCommentForm={isCommentForm}
                 SetIsCommentForm={() => setIsCommentForm(!isCommentForm)}
                 key={post.id}
@@ -490,7 +559,7 @@ const HomeScreen = () => {
               />
             ))}
           </section>
-          {!isFreeLancer && (
+          {!isFreelancer && (
             <section className={styles.section3}>
               <Card>
                 <div className={styles.recent}>
@@ -510,9 +579,9 @@ const HomeScreen = () => {
                         <div className={styles.recentItemInfo}>
                           <div className={styles.recentItemAvatar}></div>
                           <div>
-                            <b>{recentProject.projectName}</b>
+                            <b>{recentProject.title}</b>
                             <br />
-                            <small>{recentProject.projectPrice}</small>
+                            <small>{recentProject.budget}</small>
                           </div>
                         </div>
 
@@ -534,7 +603,7 @@ const HomeScreen = () => {
                         </button>
                       </div>
                       <p className={styles.projectDescription}>
-                        {recentProject.projectDescription}
+                        {recentProject.description}
                       </p>
                     </div>
                   ))}

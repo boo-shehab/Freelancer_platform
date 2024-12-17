@@ -3,11 +3,11 @@ import {create} from 'zustand';
 const useUserinfoStore = create((set) => ({
 
   username: '',
-  isFreelancer: false,
+  isFreelancer: true,
   name: '',
   phoneNumber: '',
   companyName: '',
-  projects: '',
+  projects: [],
   profilePicture: '',
   email: '',
   about: '',
@@ -35,7 +35,7 @@ const useUserinfoStore = create((set) => ({
       email: userData.email || '',
       about: userData.about || '',
       phoneNumber: userData.phoneNumber || '',
-      isFreelancer: userData.userType === 'freelancer' || false,
+      isFreelancer: userData.userType === 'freelancer',
 
     })),
 

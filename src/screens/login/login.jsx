@@ -8,97 +8,88 @@ import FetchData from "../../utility/fetchData";
 import useUserinfoStore from '../../useUserinfoStore';
 
 const Login = () => {
-  const { addUserInfo } = useUserinfoStore();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
-  const [loading, setLoading] = useState(false);
+    const { addUserInfo } = useUserinfoStore();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
+    const [loading, setLoading] = useState(false);
 
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
-  const validateEmail = (email) => {
-    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-    return emailRegex.test(email);
-  };
+    const validateEmail = (email) => {
+        const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+        return emailRegex.test(email);
+    };
 
-  const handleLogin = async () => {
-    setLoading(true);
+    const handleLogin = async () => {
+        setLoading(true);
+        setErrorMessage("");
 
-    try {
-      const data = await FetchData('auth/login', {
-        method: 'POST',
-        body: JSON.stringify({
-          email : email,
-          password : password,
-        }),
-      }, {
-        'Content-Type': 'application/json'
-      });
-        const { accessToken, userDetails } = data.results;
-        const { id , username, name, phoneNumber, role, companyName } = userDetails;
-  
-        localStorage.setItem('accessToken', accessToken);
-        localStorage.setItem('id', id);
-        // setUsername(username);
-        // setName(name);
-        // setPhoneNumber(phoneNumber);
-        // setIsFreelancer(role === "freelancer");
-        // if(role === 'client') {
-        //   setCompanyName()
-        // }
-        addUserInfo(userDetails)
-        console.log('userDetails:', userDetails);
-        setUsername(username);
-        setName(name);
-        setPhoneNumber(phoneNumber);
-        setIsFreelancer(role === "freelancer");
-        navigate('/');
-    } catch (error) {
-      setErrorMessage('Login failed. Please try again.');
-      setLoading(false);
-    }
-    setLoading(false);
-  };
+        try {
+            const data = await FetchData(
+                'auth/login',
+                {
+                    method: 'POST',
+                    body: JSON.stringify({ email, password }),
+                },
+                { 'Content-Type': 'application/json' }
+            );
 
-  return (
-    <>
-      <RegisterContainer>
-        <div className={styles["Account-type"]}>
-          <div className={styles.loginHeader}>
-            <h1>Login to get started!</h1>
-            <p>Enter your Freelancing Hub information!</p>
-          </div>
-          <div className={styles.form}>
-            <div className={styles.LoginForm}>
-              <p>Email</p>
-              <input
-                type="email"
-                className={styles.activeinput}
-                placeholder="Enter Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <p>Password</p>
-              <input
-                className={password.length >= 6 ? styles.activeinput : ""}
-                type="password"
-                placeholder="Enter Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
+            const { accessToken, userDetails } = data.results;
+            const { role } = userDetails;
+
+            // Save sensitive data securely
+            localStorage.setItem('accessToken', accessToken);
+            addUserInfo(userDetails);
+
+            console.log('User Details:', userDetails);
+
+            // Navigate based on role if needed
+            navigate('/');
+        } catch (error) {
+            setErrorMessage(error.message || 'Login failed. Please try again.');
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    return (
+        <RegisterContainer>
+            <div className={styles["Account-type"]}>
+                <div className={styles.loginHeader}>
+                    <h1>Login to get started!</h1>
+                    <p>Enter your Freelancing Hub information!</p>
+                </div>
+                <div className={styles.form}>
+                    <div className={styles.LoginForm}>
+                        <p>Email</p>
+                        <input
+                            type="email"
+                            className={styles.activeinput}
+                            placeholder="Enter Email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
+                        <p>Password</p>
+                        <input
+                            className={password.length >= 6 ? styles.activeinput : ""}
+                            type="password"
+                            placeholder="Enter Password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                    </div>
+                    {errorMessage && <h4 className={styles.error}>{errorMessage}</h4>}
+                    <CustomButton
+                        onClick={handleLogin}
+                        disabled={!validateEmail(email) || password.length < 6}
+                    >
+                        {loading ? "Loading..." : "Login >"}
+                    </CustomButton>
+                </div>
             </div>
-            {errorMessage && <h4 className={styles.error}>{errorMessage}</h4>}
-            <CustomButton
-              onClick={handleLogin}
-              disabled={(!(password.length >= 6)) || (!validateEmail(email))}
-            >
-              {loading ? "loading . . . " : "Login >"}
-            </CustomButton>
-          </div>
-        </div>
-      </RegisterContainer>
-    </>
-  );
+        </RegisterContainer>
+    );
 };
 
 export default Login;

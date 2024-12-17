@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./EducationForm.module.css";
 import ContainerForm from "../ContainerForm/ContainerForm";
 import dayjs from "dayjs";
-import fetchData from "../../utility/fetchData";
+import FetchData from "../../utility/fetchData";
 
 const EducationForm = ({ isOpen, onClose, initialData, onSave }) => {
   const [school, setSchool] = useState("");
@@ -55,27 +55,17 @@ const EducationForm = ({ isOpen, onClose, initialData, onSave }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
   
-    const formData = new FormData();
-    formData.append("Institution", school);
-    formData.append("Degree", degree);
-    formData.append(
-      "StartDate",
-      dayjs(`${startYear}-${startMonth}-01`).format("YYYY-MM-DDTHH:mm:ss.SSS[Z]")
-    );
-    formData.append(
-      "EndDate",
-      dayjs(`${endYear}-${endMonth}-01`).format("YYYY-MM-DDTHH:mm:ss.SSS[Z]")
-    );
-  
     try {
-      const resp = await fetch(
-        "http://16.170.247.41/api/web/v1/freelancers/education",
+      const resp = await FetchData(
+        "freelancers/education",
         {
           method: "POST",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`, 
-          },
-          body: formData,
+          body:  JSON.stringify({
+            institution: school,
+            degree: degree,
+            startDate: dayjs(`${startYear}-${startMonth}-01`).format("YYYY-MM-DDTHH:mm:ss.SSS[Z]"),
+            endDate: dayjs(`${endYear}-${endMonth}-01`).format("YYYY-MM-DDTHH:mm:ss.SSS[Z]"),
+          }),
         }
       );
       if (!resp.ok) {

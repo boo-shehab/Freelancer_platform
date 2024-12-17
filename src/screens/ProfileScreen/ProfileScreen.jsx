@@ -67,7 +67,7 @@ const ProfileScreen = () => {
   const [posted, setPosted] = useState(25);
   const [pending, setPending] = useState(25);
   const [completed, setCompleted] = useState(25);
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   function ShowDelete(message) {
     setmessageDelete(message);
@@ -199,7 +199,7 @@ const ProfileScreen = () => {
   }, []);
 
   const rating = {
-    starRate: "4.0",
+    starRate: averageRating,
     highRate: 82,
     midRate: 12,
     lowRate: 6,
@@ -356,7 +356,7 @@ const ProfileScreen = () => {
                     <div className={styles.ratingStars}>
                       <b>{rating.starRate}</b>
                       <div>
-                        {+rating.starRate >= averageRating ? (
+                        {+rating.starRate >= 1 ? (
                           <Star2Icon />
                         ) : (
                           <EmptyStarIcon />

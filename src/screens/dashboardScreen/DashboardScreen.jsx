@@ -12,6 +12,8 @@ const DashboardScreen = () => {
   const [showSlider, setshowSlider] = useState(0);
   const [filterType, setFilterType] = useState("All");
   const [selectedProject, setSelectedProject] = useState(null);
+  const [statistics, setStatistics] = useState({})
+  const [project, setProject] = useState({})
 
   const [tasks, setTasks] = useState([
     { id: 1, name: "Design Registration Screen", status: "To Do" },
@@ -97,6 +99,48 @@ const DashboardScreen = () => {
     midRate: 12,
     lowRate: 35,
   };
+
+  const getStatistics = async () => {
+    try {
+      const data = await FetchData(`profiles/statistics`, {
+        method: 'GET',
+      })
+      if (data.isSuccess) {
+        setStatistics(data.results); // Update state with fetched data
+      } else {
+        console.error("Failed to fetch statistics");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  useEffect(() => {
+    getStatistics();
+
+  }, []);
+
+  const getProject = async () => {
+    try {
+      const data = await FetchData(`profiles/projects?status=closed&page=0&pageSize=100`, {
+        method: 'GET',
+      })
+      if (data.isSuccess) {
+        setProject(data.results); // Update state with fetched data
+        console.log(data.results.result);
+
+      } else {
+        console.error("Failed to fetch projects");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  useEffect(() => {
+    getProject();
+
+  }, []);
+
+
 
   useEffect(() => { }, [filterType]);
 
@@ -247,43 +291,47 @@ const DashboardScreen = () => {
             {" "}
             <div className={styles.statistics}>
               <div className={styles.card}>
-                <p>total projects</p>
-                <b>7</b>
+                <p>Total Projects</p>
+                <b>{statistics?.projects?.total ?? 0}</b>
               </div>
               <div className={styles.card}>
-                <p>total projects</p>
-                <b>7</b>
+                <p>Pending</p>
+                <b>{statistics?.projects?.available ?? 0}</b>
+              </div>
+
+              <div className={styles.card}>
+                <p>In Progress</p>
+                <b>{statistics?.projects?.closed ?? 0}</b>
               </div>
               <div className={styles.card}>
-                <p>total projects</p>
-                <b>7</b>
-              </div>
-              <div className={styles.card}>
-                <p>total projects</p>
-                <b>7</b>
+                <p>Done</p>
+                <b>2</b>
               </div>
             </div>
             <Card marginTop={12}>
               <div className={styles.statisticsSection}>
                 <div className={styles.totalDonutChart}>
-                  <h2>Total Tasks - 21</h2>
+                  <h2>Total Tasks - <span>{statistics?.tasks?.total ?? 0}</span></h2>
                   <DonutChart
                     data={[{ value: 50, color: "#1FAD58" }]}
                     total={100}
                     size={150}
                     barSize={10}
+                    deg={-180}
                   >
                     <DonutChart
                       data={[{ value: 40, color: "#D69E2E" }]}
                       total={100}
                       size={110}
                       barSize={10}
+                      deg={-90}
                     >
                       <DonutChart
                         data={[{ value: 20, color: "#3C97AF" }]}
                         total={100}
                         size={70}
                         barSize={10}
+                        deg={0}
                       ></DonutChart>
                     </DonutChart>
                   </DonutChart>
@@ -291,33 +339,33 @@ const DashboardScreen = () => {
 
                 <div className={styles.ratingBar}>
                   <div className={styles.barItem}>
-                    <b>To Do 35%</b>
+                    <b>To Do <span>{statistics?.tasks?.toDo }</span>%</b>
                     <div className={styles.bar}>
                       <div
                         style={{
-                          width: `${rating.lowRate}%`,
+                          width: `${statistics?.tasks?.toDo}%`,
                           backgroundColor: "#3C97AF",
                         }}
                       ></div>
                     </div>
                   </div>
                   <div className={styles.barItem}>
-                    <b>In Progress 12%</b>
+                    <b>In Progress <span>{statistics?.tasks?.inProgress }</span>%</b>
                     <div className={styles.bar}>
                       <div
                         style={{
-                          width: `${rating.midRate}%`,
+                          width: `${statistics?.tasks?.inProgress}%`,
                           backgroundColor: "#D69E2E",
                         }}
                       ></div>
                     </div>
                   </div>
                   <div className={styles.barItem}>
-                    <b>Done 53%</b>
+                    <b>Done <span>{statistics?.tasks?.done }</span>%</b>
                     <div className={styles.bar}>
                       <div
                         style={{
-                          width: `${rating.highRate}%`,
+                          width: `${statistics?.tasks?.done}%`,
                           backgroundColor: "#1FAD58",
                         }}
                       ></div>

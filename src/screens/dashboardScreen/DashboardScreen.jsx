@@ -5,6 +5,8 @@ import Container from "../../components/Container/container";
 import Card from "../../components/Card/card";
 import DonutChart from "../../components/charts/DonutChart";
 import SliderOfProject from "../../components/SliderOfProject/SliderOfProject";
+import FetchData from "../../utility/fetchData";
+
 
 const DashboardScreen = () => {
   const [showSlider, setshowSlider] = useState(0);
@@ -89,7 +91,6 @@ const DashboardScreen = () => {
     }
   ]);
 
-
   const rating = {
     starRate: "4.0",
     highRate: 53,
@@ -167,7 +168,7 @@ const DashboardScreen = () => {
   };
 
   const handleCompleteProject = (projectId) => {
-    console.log("Complete project clicked for projectId:", projectId); 
+    console.log("Complete project clicked for projectId:", projectId);
     setProjects((prevProjects) =>
       prevProjects.map((project) =>
         project.id === projectId
@@ -199,7 +200,7 @@ const DashboardScreen = () => {
               </button>
             </div>
             <div className={styles.projects}>
-              {projects.map((project) => (
+              {Array.isArray(projects) && projects.map((project) => (
                 <button
                   className={styles.projectBtn}
                   key={project.id}
@@ -208,10 +209,10 @@ const DashboardScreen = () => {
                   <div className={styles.projectInfo}>
                     <div
                       className={`${styles.projectData} ${project.projectStatus === "Completed"
-                          ? styles.completed
-                          : project.projectStatus === "Pending"
-                            ? styles.pending
-                            : styles.inProgress
+                        ? styles.completed
+                        : project.projectStatus === "Pending"
+                          ? styles.pending
+                          : styles.inProgress
                         }`}
                     >
                       <b>{project.projectName}</b>
@@ -228,7 +229,7 @@ const DashboardScreen = () => {
                         },
                       ]}
                       total={100}
-                      size={70}
+                      size={71}
                       barSize={4}
                     >
                       <p className={styles.ChartText}>{project.progress}%</p>
@@ -331,19 +332,21 @@ const DashboardScreen = () => {
       <SliderOfProject
         show={!!showSlider}
         onClose={() => setshowSlider(0)}
-        freelancers={freelancerApplied}
-        onRemoveFreelancer={removeFreelancerById}
-        projectStatus={selectedProject ? selectedProject.projectStatus : ""}
-        progress={selectedProject ? selectedProject.progress : ""}
-        tasks={selectedProject ? tasks : []}
-        handleEdit={handleEdit}
-        handleDelete={handleDelete}
-        taskStatus={selectedProject ? tasks.map((task) => task.status) : []}
-        onStatusChange={handleTaskStatusChange}
-        addTask={addTask}
-        onComplete={handleCompleteProject}
-        projectId={selectedProject ? selectedProject.id : ""}
+        projectData={{
+          freelancers: freelancerApplied,
+          projectStatus: selectedProject?.projectStatus || "",
+          progress: selectedProject?.progress || "",
+          tasks: selectedProject ? tasks : [],
+        }}
+        callbacks={{
+          handleEdit,
+          handleDelete,
+          onStatusChange: handleTaskStatusChange,
+          addTask,
+          onComplete: handleCompleteProject,
+        }}
       />
+
     </div>
   );
 };

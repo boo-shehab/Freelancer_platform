@@ -211,7 +211,7 @@
 .list button.deletebtnForPost{
   background-color: #f8e5dd;
   color: hsl(14, 40%, 50%);
-  border: 1px solid #b25c4d;
+  border: 1px solid #b24d4d;
 }
 .active button {
   background-color: rgb(0, 0, 0);

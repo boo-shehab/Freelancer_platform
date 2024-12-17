@@ -1,10 +1,10 @@
-const fetchData = async (url, options = {}) => {
+const fetchData = async (url, options = {}, headers = {}) => {
     try {
+        const token = localStorage.getItem('accessToken');
         const defaultOptions = {
             headers: {
-                'Authorization': `Bearer ${localStorage.getItem('accessToken')}`, 
-                'Content-Type': 'application/json', 
-            ...options.headers,
+                'Authorization': `Bearer ${token}`, 
+            ...headers,
             },
         };
   

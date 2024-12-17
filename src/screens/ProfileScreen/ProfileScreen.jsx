@@ -12,15 +12,14 @@ import styles from "./ProfileScreen.module.css";
 import EmptyStarIcon from "../../CustomIcons/EmptyStarIcon";
 import Star2Icon from "../../CustomIcons/Star2Icon";
 import { useMediaQuery } from "react-responsive";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import EditProfilePopup from "../../components/EditProfilePopup/EditProfilePopup";
 import EditAboutPopup from "../../components/EditAboutPopup/EditAboutPopup";
-import ProjectHistoryForm from "../../components/ProjectHistoryForm/ProjectHistoryForm"
-import ProfileLeft1 from "../../components/profileLeft1/profileLeft1"
-import SkilsSide from "../../components/Skils/skils"
+import ProjectHistoryForm from "../../components/ProjectHistoryForm/ProjectHistoryForm";
+import ProfileLeft1 from "../../components/profileLeft1/profileLeft1";
+import SkilsSide from "../../components/Skils/skils";
 // import WorkForForm from "../../components/WorkForForm/WorkForForm";
 import DeleteComponent from "../../components/DeleteComponent/DeleteComponent"
-import fetchData from "../../utility/fetchData";
 
 const WorkFor = [
   {
@@ -38,36 +37,33 @@ const WorkFor = [
 ];
 
 const ProfileScreen = () => {
-  const [isUserInfoOpen, setIsUserInfoOpen] = useState(false)
-  const [isAboutPopupOpen, setIsAboutPopupOpen] = useState(false)
+  const [isUserInfoOpen, setIsUserInfoOpen] = useState(false);
+  const [isAboutPopupOpen, setIsAboutPopupOpen] = useState(false);
   const [isWorkForOpen, setIsWorkForOpen] = useState(false);
-  const [aboutValue, setAboutValue] = useState("As a software manager with a passion for technology and team development, I specialize in guiding projects from concept to completion. With a strong focus on collaboration and clear communication, I work closely with clients and developers to ensure we deliver high-quality solutions that meet our stakeholders' needs. My goal is to bridge the gap between technical expertise and client vision, helping teams create innovative software that drives results and keeps pace with industry demands,Developed a task management web application designed to help users organize");
+  const [aboutValue, setAboutValue] = useState(
+    "As a software manager with a passion for technology and team development, I specialize in guiding projects from concept to completion. With a strong focus on collaboration and clear communication, I work closely with clients and developers to ensure we deliver high-quality solutions that meet our stakeholders' needs. My goal is to bridge the gap between technical expertise and client vision, helping teams create innovative software that drives results and keeps pace with industry demands,Developed a task management web application designed to help users organize"
+  );
 
   const isSmallScreen = useMediaQuery({ query: "(max-width: 950px)" });
   const isTooSmallScreen = useMediaQuery({ query: "(max-width: 390px)" });
-  
+
   const [aboutState, setAboutState] = useState(aboutValue.slice(0, 492));
   const [dotsAbout, setDotsAbout] = useState("....");
   const [seeAction, setSeeAction] = useState("See More");
-  const [isFreeLancer, setIsFreeLancer] = useState(true);
+  const [isFreeLancer, setIsFreeLancer] = useState(false);
   const [showDelete, setshowDelete] = useState(false)
   const [messageDelete, setmessageDelete] = useState("")
-  const [loading, setLoading] = useState(false)
 
   function ShowDelete (message){
     setmessageDelete(message);
-    setshowDelete(true)
+    setshowDelete(true);
   }
 
-    const chartData = [
-    
+  const chartData = [
     { value: 25, color: "#FFDB70" },
-    ...(isFreeLancer
-      ? [{ value: 15, color: "#86C6F8" }] 
-      : []),
+    ...(isFreeLancer ? [{ value: 15, color: "#86C6F8" }] : []),
     { value: 25, color: "#D9D9D9" },
     { value: 25, color: "#7FC882" },
-    
   ];
   const posts = [
     {
@@ -109,6 +105,28 @@ const ProfileScreen = () => {
       desc: "Developed a task management web application designed to help users organize, prioritize, and track their daily tasks efficiently. ",
     },
   ];
+
+  const handleEditProfileCircle = async () => {
+    try {
+      const data = await FetchData(`clients/${localStorage.getItem('id')}/activities`, {
+        method: "GET",
+      }, {
+        'Content-Type': 'application/json'
+      });
+
+      const { freelancersWorkedWith, projectPosted, givenLikes } = data.results;
+      setIsWorkedWith(freelancersWorkedWith);
+      setIsGivenLikes(givenLikes);
+      setIsProjectPosted(projectPosted);
+    } catch (error) {
+      console.log("Login failed. Please try again.");
+    }
+  };
+
+  useEffect(() => {
+    handleEditProfileCircle();
+  }, []);
+
   const rating = {
     starRate: "4.0",
     highRate: 82,
@@ -117,13 +135,11 @@ const ProfileScreen = () => {
   };
 
   const handleEditAbout = (value) => {
-    setAboutValue(value)
-    setAboutState(value.slice(0, 492))
-  }
+    setAboutValue(value);
+    setAboutState(value.slice(0, 492));
+  };
 
-  const handleEditProfile = () => {
-
-  }
+  const handleEditProfile = () => { };
   const [isListVisible, setVisiblePostId] = useState(null);
   const idShow = (id) => {
     setVisiblePostId((prevId) => (prevId === id ? null : id));
@@ -132,163 +148,222 @@ const ProfileScreen = () => {
 
 
   return (
-    <div >
-      {isFreeLancer ? (<div >
-        <Container >
-          <div className={styles.profilePageOFFreelancer}>
-            <div className={styles.firstRow}><ProfileLeft1 /></div>
-            <div className={styles.secondRow}>< SkilsSide /></div>
-            <section className={styles.ThirdRow}>
-              <Card>
-                <div className={styles.ActivityBox}>
-                  <h3 className={styles.ActivityHeader}>Your Activity</h3>
-                  <div className={styles.Chart}>
-                    <DonutChart data={chartData} barSize={isTooSmallScreen ? 16 : 22} size={isTooSmallScreen ? 140 : 200}>
-                      <div>Projects</div>
-                      <div>Progress</div>
-                    </DonutChart>
-                  </div>
-                  <div className={styles.ChartInfo} style={{ display: 'flex', flexDirection: 'column' , alignItems:'start'}}>                    <div className={styles.ChartInfoItem}>
-                      <div
-                        className={styles.dot}
-                        style={{ backgroundColor: "#D9D9D9" }}
-                      ></div>
-                      <p>
-                        {isFreeLancer ? "In-Review" : "Posted projects"}
-                      </p>
+    <div>
+      {isFreeLancer ? (
+        <div>
+          <Container>
+            <div className={styles.profilePageOFFreelancer}>
+              <div className={styles.firstRow}>
+                <ProfileLeft1 />
+              </div>
+              <div className={styles.secondRow}>
+                <SkilsSide />
+              </div>
+              <section className={styles.ThirdRow}>
+                <Card>
+                  <div className={styles.ActivityBox}>
+                    <h3 className={styles.ActivityHeader}>Your Activity</h3>
+                    <div className={styles.Chart}>
+                      <DonutChart
+                        data={chartData}
+                        barSize={isTooSmallScreen ? 16 : 22}
+                        size={isTooSmallScreen ? 140 : 200}
+                      >
+                        <div>Projects</div>
+                        <div>Progress</div>
+                      </DonutChart>
                     </div>
-                    {isFreeLancer ? (
+                    <div
+                      className={styles.ChartInfo}
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "start",
+                      }}
+                    >
+                      {" "}
                       <div className={styles.ChartInfoItem}>
                         <div
                           className={styles.dot}
-                          style={{ backgroundColor: "#86C6F8" }}
+                          style={{ backgroundColor: "#D9D9D9" }}
+                        ></div>
+                        <p>{isFreeLancer ? "In-Review" : "Posted projects"}</p>
+                      </div>
+                      {isFreeLancer ? (
+                        <div className={styles.ChartInfoItem}>
+                          <div
+                            className={styles.dot}
+                            style={{ backgroundColor: "#86C6F8" }}
+                          ></div>
+                          <p>To-Do</p>
+                        </div>
+                      ) : null}
+                      <div className={styles.ChartInfoItem}>
+                        <div
+                          className={styles.dot}
+                          style={{
+                            backgroundColor: isFreeLancer
+                              ? "#7FC882"
+                              : "#FFDB70",
+                          }}
                         ></div>
                         <p>
-                          To-Do
+                          {isFreeLancer
+                            ? "Completed projects"
+                            : "Pending projects"}
                         </p>
-                      </div>) : null}
-                    <div className={styles.ChartInfoItem}>
-                      <div
-                        className={styles.dot}
-                        style={{
-                          backgroundColor: isFreeLancer ? "#7FC882" : "#FFDB70"
-                        }}
-                      ></div>
-                      <p>
-                        {isFreeLancer ? "Completed projects" : "Pending projects"}
-                      </p>
-                    </div>
-                    <div className={styles.ChartInfoItem}>
-                      <div
-                        className={styles.dot}
-                        style={{
-                          backgroundColor: isFreeLancer ? "#FFDB70" : "#7FC882"
-                        }}
-                      ></div>
-                      <p>
-                      {isFreeLancer ? "InProgress projects" : "Completed projects"}
-                      </p>
-                    </div>
-                  </div>
-                  <div className={styles.infoList}>
-                    <div className={styles.infoItem}>
-                      <UserIcon width={24} height={24} />
-                      <div className={styles.label}>freelancer worked with</div>
-                      <div className={styles.value}>8</div>
-                    </div>
-                    <div className={styles.infoItem}>
-                      <HeartIcon />
-                      <div className={styles.label}>Given Likes</div>
-                      <div className={styles.value}>32</div>
-                    </div>
-                    <div className={styles.infoItem}>
-                      <TaskDoneIcon />
-                      <div className={styles.label}>Project Posted</div>
-                      <div className={styles.value}>14</div>
-                    </div>
-                    <div className={styles.infoItem}>
-                      <TaskDoneIcon />
-                      <div className={styles.label}>Project you work on it</div>
-                      <div className={styles.value}>34</div>
-                    </div>
-                  </div>
-                </div>
-              </Card>
-              <Card marginTop={24}  >
-                <div className={styles.rateTitleBox}>
-                  <h3 className={styles.rateTitle}>Rating</h3>
-                  <p className={styles.rateSubtitle}>Average Rating</p>
-                  <div className={styles.ratingStars}>
-                    <b>{rating.starRate}</b>
-                    <div>
-                      {+rating.starRate >= 1 ? <Star2Icon /> : <EmptyStarIcon />}
-                      {+rating.starRate >= 2 ? <Star2Icon /> : <EmptyStarIcon />}
-                      {+rating.starRate >= 3 ? <Star2Icon /> : <EmptyStarIcon />}
-                      {+rating.starRate >= 4 ? <Star2Icon /> : <EmptyStarIcon />}
-                      {+rating.starRate >= 5 ? <Star2Icon /> : <EmptyStarIcon />}
-                    </div>
-                  </div>
-                  <div className={styles.ratingBar}>
-                    <div className={styles.barItem}>
-                      <b>High rate</b>
-                      <div className={styles.bar}>
+                      </div>
+                      <div className={styles.ChartInfoItem}>
                         <div
+                          className={styles.dot}
                           style={{
-                            width: `${rating.highRate}%`,
-                            backgroundColor: "#4DB251",
+                            backgroundColor: isFreeLancer
+                              ? "#FFDB70"
+                              : "#7FC882",
                           }}
                         ></div>
+                        <p>
+                          {isFreeLancer
+                            ? "InProgress projects"
+                            : "Completed projects"}
+                        </p>
                       </div>
-                      <p>{rating.highRate}%</p>
                     </div>
-                    <div className={styles.barItem}>
-                      <b>Mid rate</b>
-                      <div className={styles.bar}>
-                        <div
-                          style={{
-                            width: `${rating.midRate}%`,
-                            backgroundColor: "#FFBF00",
-                          }}
-                        ></div>
+                    <div className={styles.infoList}>
+                      <div className={styles.infoItem}>
+                        <UserIcon width={24} height={24} />
+                        <div className={styles.label}>
+                          freelancer worked with
+                        </div>
+                        <div className={styles.value}>8</div>
                       </div>
-                      <p>{rating.midRate}%</p>
-                    </div>
-                    <div className={styles.barItem}>
-                      <b>low rate</b>
-                      <div className={styles.bar}>
-                        <div
-                          style={{
-                            width: `${rating.lowRate}%`,
-                            backgroundColor: "#E4636F",
-                          }}
-                        ></div>
+                      <div className={styles.infoItem}>
+                        <HeartIcon />
+                        <div className={styles.label}>Given Likes</div>
+                        <div className={styles.value}>32</div>
                       </div>
-                      <p>{rating.lowRate}%</p>
+                      <div className={styles.infoItem}>
+                        <TaskDoneIcon />
+                        <div className={styles.label}>Project Posted</div>
+                        <div className={styles.value}>14</div>
+                      </div>
+                      <div className={styles.infoItem}>
+                        <TaskDoneIcon />
+                        <div className={styles.label}>
+                          Project you work on it
+                        </div>
+                        <div className={styles.value}>34</div>
+                      </div>
                     </div>
-                  </div></div>
-              </Card>
-              <Card marginTop={24} >
-                <div className={styles.titleReviewsBox}>
-                  <h3 className={styles.titleReviews}>Reviews</h3>
-                  <p className={styles.subtitleReviews}>
-                    Total People who visited your profile
-                  </p>
-                  <p className={styles.reviews}>
-                    <b>70</b> review
-                  </p>
-                  <button className={styles.seeAllReviews}>See all</button>
-                </div>
-              </Card>
-            </section>
-          </div>
-        </Container>
-
-      </div>
+                  </div>
+                </Card>
+                <Card marginTop={24}>
+                  <div className={styles.rateTitleBox}>
+                    <h3 className={styles.rateTitle}>Rating</h3>
+                    <p className={styles.rateSubtitle}>Average Rating</p>
+                    <div className={styles.ratingStars}>
+                      <b>{rating.starRate}</b>
+                      <div>
+                        {+rating.starRate >= 1 ? (
+                          <Star2Icon />
+                        ) : (
+                          <EmptyStarIcon />
+                        )}
+                        {+rating.starRate >= 2 ? (
+                          <Star2Icon />
+                        ) : (
+                          <EmptyStarIcon />
+                        )}
+                        {+rating.starRate >= 3 ? (
+                          <Star2Icon />
+                        ) : (
+                          <EmptyStarIcon />
+                        )}
+                        {+rating.starRate >= 4 ? (
+                          <Star2Icon />
+                        ) : (
+                          <EmptyStarIcon />
+                        )}
+                        {+rating.starRate >= 5 ? (
+                          <Star2Icon />
+                        ) : (
+                          <EmptyStarIcon />
+                        )}
+                      </div>
+                    </div>
+                    <div className={styles.ratingBar}>
+                      <div className={styles.barItem}>
+                        <b>High rate</b>
+                        <div className={styles.bar}>
+                          <div
+                            style={{
+                              width: `${rating.highRate}%`,
+                              backgroundColor: "#4DB251",
+                            }}
+                          ></div>
+                        </div>
+                        <p>{rating.highRate}%</p>
+                      </div>
+                      <div className={styles.barItem}>
+                        <b>Mid rate</b>
+                        <div className={styles.bar}>
+                          <div
+                            style={{
+                              width: `${rating.midRate}%`,
+                              backgroundColor: "#FFBF00",
+                            }}
+                          ></div>
+                        </div>
+                        <p>{rating.midRate}%</p>
+                      </div>
+                      <div className={styles.barItem}>
+                        <b>low rate</b>
+                        <div className={styles.bar}>
+                          <div
+                            style={{
+                              width: `${rating.lowRate}%`,
+                              backgroundColor: "#E4636F",
+                            }}
+                          ></div>
+                        </div>
+                        <p>{rating.lowRate}%</p>
+                      </div>
+                    </div>
+                  </div>
+                </Card>
+                <Card marginTop={24}>
+                  <div className={styles.titleReviewsBox}>
+                    <h3 className={styles.titleReviews}>Reviews</h3>
+                    <p className={styles.subtitleReviews}>
+                      Total People who visited your profile
+                    </p>
+                    <p className={styles.reviews}>
+                      <b>70</b> review
+                    </p>
+                    <button className={styles.seeAllReviews}>See all</button>
+                  </div>
+                </Card>
+              </section>
+            </div>
+          </Container>
+        </div>
       ) : (
         <div className={styles.ProfileScreen}>
-          <EditAboutPopup isOpen={isAboutPopupOpen} onClose={() => setIsAboutPopupOpen(false)} onSave={handleEditAbout} />
-          <EditProfilePopup isOpen={isUserInfoOpen} onClose={() => setIsUserInfoOpen(false)} onSave={handleEditProfile} />
-          <ProjectHistoryForm isOpen={isUserInfoOpen} onClose={() => setIsUserInfoOpen(false)} onSave={handleEditProfile} />
+          <EditAboutPopup
+            isOpen={isAboutPopupOpen}
+            onClose={() => setIsAboutPopupOpen(false)}
+            onSave={handleEditAbout}
+          />
+          <EditProfilePopup
+            isOpen={isUserInfoOpen}
+            onClose={() => setIsUserInfoOpen(false)}
+            onSave={handleEditProfile}
+          />
+          <ProjectHistoryForm
+            isOpen={isUserInfoOpen}
+            onClose={() => setIsUserInfoOpen(false)}
+            onSave={handleEditProfile}
+          />
           {/* <EducationForm isOpen={isUserInfoOpen} onClose={() => setIsUserInfoOpen(false)} /> */}
           <Container paddingx={isSmallScreen ? 0 : 56}>
             <div className={styles.content}>
@@ -302,12 +377,18 @@ const ProfileScreen = () => {
                         <p>Business scope</p>
                       </div>
                     </div>
-                    <div className={styles.action} onClick={() => setIsUserInfoOpen(true)}>
+                    <div
+                      className={styles.action}
+                      onClick={() => setIsUserInfoOpen(true)}
+                    >
                       <EditIcon />
                     </div>
                   </div>
                   <div className={styles.about}>
-                    <div className={styles.aboutHead} onClick={() => setIsAboutPopupOpen(true)}>
+                    <div
+                      className={styles.aboutHead}
+                      onClick={() => setIsAboutPopupOpen(true)}
+                    >
                       <b>About</b>
                       <EditIcon />
                     </div>
@@ -321,19 +402,18 @@ const ProfileScreen = () => {
                             setDotsAbout("");
                             setSeeAction("");
                             setAboutState(aboutValue);
-                          } else
-                            if (
-                              dotsAbout === "...." &&
-                              seeAction === "See More"
-                            ) {
-                              setAboutState(aboutValue);
-                              setDotsAbout("");
-                              setSeeAction("Show Less");
-                            } else {
-                              setAboutState(aboutValue.slice(0, 492));
-                              setDotsAbout("....");
-                              setSeeAction("See More");
-                            }
+                          } else if (
+                            dotsAbout === "...." &&
+                            seeAction === "See More"
+                          ) {
+                            setAboutState(aboutValue);
+                            setDotsAbout("");
+                            setSeeAction("Show Less");
+                          } else {
+                            setAboutState(aboutValue.slice(0, 492));
+                            setDotsAbout("....");
+                            setSeeAction("See More");
+                          }
                         }}
                       >
                         {seeAction}
@@ -344,7 +424,6 @@ const ProfileScreen = () => {
                   <div className={styles.history}>
                     <div className={styles.historyHead}>
                       <b>Projects History</b>
-
                     </div>
 
                     {projects?.map((p) => (
@@ -430,16 +509,28 @@ const ProfileScreen = () => {
 
                             <div className={styles.postClientAction}>
                               <div className={styles.tag}>Available</div>
-                                  <MoreIcon onClick={() => idShow(post.id)} />
-                                    {isListVisible === post.id && (
-                                      <div
-                                        className={styles.list}
-                                        style={{ marginTop: "220px", position: "absolute" }}>
-                                        <button>Copy link</button>
-                                        <button>Edit</button>
-                                        <button onClick={()=> ShowDelete("Are you sure u want to delete this Post")}>delete</button>
-                                      </div>
-                                    )}
+                              <MoreIcon onClick={() => idShow(post.id)} />
+                              {isListVisible === post.id && (
+                                <div
+                                  className={styles.list}
+                                  style={{
+                                    marginTop: "220px",
+                                    position: "absolute",
+                                  }}
+                                >
+                                  <button>Copy link</button>
+                                  <button>Edit</button>
+                                  <button
+                                    onClick={() =>
+                                      ShowDelete(
+                                        "Are you sure u want to delete this Post"
+                                      )
+                                    }
+                                  >
+                                    delete
+                                  </button>
+                                </div>
+                              )}
                             </div>
                           </div>
 
@@ -449,14 +540,19 @@ const ProfileScreen = () => {
                           </div>
 
                           {!!post?.image ? (
-                            <img className={styles.postImage} src={post?.image} />
+                            <img
+                              className={styles.postImage}
+                              src={post?.image}
+                            />
                           ) : (
                             <div>
                               <div className={styles.moreInfo}>
                                 <b className={styles.infoTitle}>
                                   Duration of project
                                 </b>
-                                <p className={styles.infoValue}>{post.duration}</p>
+                                <p className={styles.infoValue}>
+                                  {post.duration}
+                                </p>
                               </div>
                               <div className={styles.moreInfo}>
                                 <b className={styles.infoTitle}>Pricing</b>
@@ -487,7 +583,11 @@ const ProfileScreen = () => {
                   <div className={styles.ActivityBox}>
                     <h3 className={styles.ActivityHeader}>Your Activity</h3>
                     <div className={styles.Chart}>
-                      <DonutChart data={chartData} barSize={isTooSmallScreen ? 16 : 22} size={isTooSmallScreen ? 140 : 200}>
+                      <DonutChart
+                        data={chartData}
+                        barSize={isTooSmallScreen ? 16 : 22}
+                        size={isTooSmallScreen ? 140 : 200}
+                      >
                         <div>Projects</div>
                         <div>Progress</div>
                       </DonutChart>
@@ -518,33 +618,56 @@ const ProfileScreen = () => {
                     <div className={styles.infoList}>
                       <div className={styles.infoItem}>
                         <UserIcon width={24} height={24} />
-                        <div className={styles.label}>freelancer worked with</div>
-                        <div className={styles.value}>8</div>
+                        <div className={styles.label}>
+                          freelancer worked with
+                        </div>
+                        <div className={styles.value}>{isWorkedWith}</div>
                       </div>
                       <div className={styles.infoItem}>
                         <HeartIcon />
                         <div className={styles.label}>Given Likes</div>
-                        <div className={styles.value}>32</div>
+                        <div className={styles.value}>{isGivenLikes}</div>
                       </div>
                       <div className={styles.infoItem}>
                         <TaskDoneIcon />
                         <div className={styles.label}>Project Posted</div>
-                        <div className={styles.value}>14</div>
+                        <div className={styles.value}>{isProjectPosted}</div>
                       </div>
-                    </div></div>
+                    </div>
+                  </div>
                 </Card>
-                <Card marginTop={24} paddingx={24} isProfilePage={true} >
+                <Card marginTop={24} paddingx={24} isProfilePage={true}>
                   <div className={styles.rateTitleBox}>
                     <h3 className={styles.rateTitle}>Rating</h3>
                     <p className={styles.rateSubtitle}>Average Rating</p>
                     <div className={styles.ratingStars}>
                       <b>{rating.starRate}</b>
                       <div>
-                        {+rating.starRate >= 1 ? <Star2Icon /> : <EmptyStarIcon />}
-                        {+rating.starRate >= 2 ? <Star2Icon /> : <EmptyStarIcon />}
-                        {+rating.starRate >= 3 ? <Star2Icon /> : <EmptyStarIcon />}
-                        {+rating.starRate >= 4 ? <Star2Icon /> : <EmptyStarIcon />}
-                        {+rating.starRate >= 5 ? <Star2Icon /> : <EmptyStarIcon />}
+                        {+rating.starRate >= 1 ? (
+                          <Star2Icon />
+                        ) : (
+                          <EmptyStarIcon />
+                        )}
+                        {+rating.starRate >= 2 ? (
+                          <Star2Icon />
+                        ) : (
+                          <EmptyStarIcon />
+                        )}
+                        {+rating.starRate >= 3 ? (
+                          <Star2Icon />
+                        ) : (
+                          <EmptyStarIcon />
+                        )}
+                        {+rating.starRate >= 4 ? (
+                          <Star2Icon />
+                        ) : (
+                          <EmptyStarIcon />
+                        )}
+                        {+rating.starRate >= 5 ? (
+                          <Star2Icon />
+                        ) : (
+                          <EmptyStarIcon />
+                        )}
                       </div>
                     </div>
                     <div className={styles.ratingBar}>
@@ -584,7 +707,8 @@ const ProfileScreen = () => {
                         </div>
                         <p>{rating.lowRate}%</p>
                       </div>
-                    </div></div>
+                    </div>
+                  </div>
                 </Card>
                 <Card marginTop={24} paddingx={24} isProfilePage={true}>
                   <div className={styles.titleReviewsBox}>
@@ -601,9 +725,19 @@ const ProfileScreen = () => {
               </section>
             </div>
           </Container>
-          <DeleteComponent  isOpen={showDelete} message={messageDelete} onClose={ ()=> setshowDelete(false)}   TypeofDelete={`freelancers/certifications`} id ={80}/>
+
+          <DeleteComponent isOpen={showDelete} message={messageDelete} onClose={() => setshowDelete(false)} />
         </div>)}
+
+      <DeleteComponent
+        isOpen={showDelete}
+        message={messageDelete}
+        onClose={() => setshowDelete(false)}
+        TypeofDelete={`freelancers/certifications`}
+        id={80}
+      />
     </div>
-  );
-};
+  )
+}
+
 export default ProfileScreen;

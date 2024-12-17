@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Card from "../../components/Card/card";
 import Container from "../../components/Container/container";
 import ArrowTop from "../../CustomIcons/ArrowTop";
@@ -20,9 +20,8 @@ import CloseIcon from "../../CustomIcons/CloseIcon";
 import FilterMoboIcon from "../../CustomIcons/FilterMoboIcon";
 import WorkForForm from "../../components/WorkForForm/WorkForForm";
 import EditAboutPopup from "../../components/EditAboutPopup/EditAboutPopup";
-
-
-
+import fetchData from '../../utility/fetchData'
+import useUserinfoStore from "../../useUserinfoStore";
 
 const projects = [
   {
@@ -39,31 +38,31 @@ const projects = [
   },
 ];
 
-const posts = [
-  {
-    id: 1,
-    title: "Looking for Full-Sack Developer with experience +2 years",
-    desc: "to build a responsive, user-focused web application. Must be skilled in both front-end and back-end development",
-    duration: "4 Months",
-    image: "/post.png",
-    price: 50,
-    client: {
-      name: "Client Name",
-      createdAt: "Posted 2 hours ago  ",
-    },
-  },
-  {
-    id: 2,
-    title: "Looking for Full-Sack Developer with experience +2 years",
-    desc: "to build a responsive, user-focused web application. Must be skilled in both front-end and back-end development",
-    duration: "4 Months",
-    price: 50,
-    client: {
-      name: "Client Name",
-      createdAt: "Posted 2 hours ago  ",
-    },
-  },
-];
+// const posts = [
+//   {
+//     id: 1,
+//     title: "Looking for Full-Sack Developer with experience +2 years",
+//     desc: "to build a responsive, user-focused web application. Must be skilled in both front-end and back-end development",
+//     duration: "4 Months",
+//     image: "/post.png",
+//     price: 50,
+//     client: {
+//       name: "Client Name",
+//       createdAt: "Posted 2 hours ago  ",
+//     },
+//   },
+//   {
+//     id: 2,
+//     title: "Looking for Full-Sack Developer with experience +2 years",
+//     desc: "to build a responsive, user-focused web application. Must be skilled in both front-end and back-end development",
+//     duration: "4 Months",
+//     price: 50,
+//     client: {
+//       name: "Client Name",
+//       createdAt: "Posted 2 hours ago  ",
+//     },
+//   },
+// ];
 
 const recentProjects = [
   {
@@ -106,23 +105,23 @@ const recentProjects = [
 const optionOfFreelancing = [
   {
     id: 1,
-    Job: "Full-Stack",
+    Job: "fullstack",
   },
   {
     id: 2,
-    Job: "Front End ",
+    Job: "frontend ",
   },
   {
     id: 3,
-    Job: "Mobile Developer",
+    Job: "mobile",
   },
   {
     id: 4,
-    Job: "UI UX Designer",
+    Job: "uiux",
   },
   {
     id: 5,
-    Job: "Back End",
+    Job: "backend",
   },
 ];
 
@@ -165,6 +164,7 @@ const formerCoworkers = [
 ];
 
 const HomeScreen = () => {
+  const [posts, setPosts] = useState([])
   const [selectedJobs, setSelectedJobs] = useState([]);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [recentProjectOpened, setRecentProjectOpened] = useState(-1);
@@ -174,9 +174,8 @@ const HomeScreen = () => {
   const [isCommentForm, setIsCommentForm] = useState(false);
   const [openDrawer, setOpenDrawer] = useState(false);
   const [isWorkForOpen, setIsWorkForOpen] = useState(false);
-  const [isAboutPopupOpen, setIsAboutPopupOpen] = useState(false)
-
-
+  const [isAboutPopupOpen, setIsAboutPopupOpen] = useState(false)  
+  const { about } = useUserinfoStore();
   const drawerHeight = 500;
 
   const isSmallScreen = useMediaQuery({ query: "(max-width: 950px)" });
@@ -192,6 +191,31 @@ const HomeScreen = () => {
     );
   };
 
+  const getProject = async() => {
+    try{
+      const queryParams = selectedJobs
+      .map((qualification) => `qualificationNames=${qualification}`)
+      .join('&');
+      console.log(`projects/client-feed?page=0&pageSize=10&${queryParams}`);
+      
+      const response = await fetchData(`projects/client-feed?page=0&pageSize=10&${queryParams}`, {
+        method: 'GET',
+      });
+      console.log(response.results.result);
+      setPosts(response.results.result);
+    }catch(e) {
+      console.log(e);
+    }
+  }
+  useEffect(() => {
+    getProject()
+  }, [selectedJobs])
+
+  useEffect(() => {
+    console.log('about: ', about);
+    
+  }, [about])
+
   const handleNewProject = () => {
     setIsPopupOpen(true);
   };
@@ -199,18 +223,27 @@ const HomeScreen = () => {
     setCallBack(CB);
     console.log(CB);
   };
+
+ 
   return (
-    <div style={styles.homeScreen}>
+    <div style={styles.homeScreen} >
       <TwoStageFormPopup
         isOpen={isPopupOpen}
         onClose={() => setIsPopupOpen(false)}
       />
-      <MobileDrawer height={drawerHeight} isOpen={openDrawer} onClose={() => setOpenDrawer(false)}>
+      <MobileDrawer
+        height={drawerHeight}
+        isOpen={openDrawer}
+        onClose={() => setOpenDrawer(false)}
+      >
         <div className={styles.mobileDrawerCont}>
           <div className={styles.drwerTopLine}></div>
           <div className={styles.mobileDrawer}>
             <div className={styles.drawerHeadr}>
-              <button onClick={() => setOpenDrawer(false)} className={styles.closeBtn}>
+              <button
+                onClick={() => setOpenDrawer(false)}
+                className={styles.closeBtn}
+              >
                 <CloseIcon />
               </button>
               <h3>Filter Projects</h3>
@@ -218,17 +251,17 @@ const HomeScreen = () => {
             </div>
             <div className={styles.filterCont}>
               <div className={styles.specializationFilter}>
-
                 <div className={styles.specializationBody}>
                   <div className={styles.spacing}>
                     {optionOfFreelancing.map((job) => (
                       <div key={job.id} className={styles.Options}>
                         <button
                           className={`${styles.btn} 
-                          ${selectedJobs.includes(job.id) ? styles.btnGreen : ""
-                            }
+                          ${
+                            selectedJobs.includes(job.Job)? styles.btnGreen : ""
+                          }
                           `}
-                          onClick={() => handleJobSelection(job.id)}
+                          onClick={() => handleJobSelection(job.Job)}
                         ></button>
                         <p>{job.Job}</p>
                       </div>
@@ -238,13 +271,18 @@ const HomeScreen = () => {
               </div>
             </div>
             <div className={styles.drawerBtn}>
-              <button onClick={() => setOpenDrawer(false)} className={styles.cancelSort}>Cancel Sort</button>
+              <button
+                onClick={() => setOpenDrawer(false)}
+                className={styles.cancelSort}
+              >
+                Cancel Sort
+              </button>
               <button className={styles.apply}>Apply</button>
             </div>
           </div>
         </div>
       </MobileDrawer>
-      <Container >
+      <Container>
         <div className={styles.content}>
           {/* MuhammedLami */}
           {isFreeLancer ? (
@@ -284,10 +322,11 @@ const HomeScreen = () => {
                         <div key={job.id} className={styles.Options}>
                           <button
                             className={`${styles.btn} 
-                          ${selectedJobs.includes(job.id) ? styles.btnGreen : ""
-                              }
+                          ${
+                            selectedJobs.includes(job.Job) ? styles.btnGreen : ""
+                          }
                           `}
-                            onClick={() => handleJobSelection(job.id)}
+                            onClick={() => handleJobSelection(job.Job)}
                           ></button>
                           <p>{job.Job}</p>
                         </div>
@@ -303,9 +342,10 @@ const HomeScreen = () => {
                     <EditIcon onClick={() => setIsAboutPopupOpen(true)} />
                   </div>
                   <p>
-                    GreenTech Solutions Inc. Renewable Energy & Technology San
+                    {/* GreenTech Solutions Inc. Renewable Energy & Technology San
                     Francisco, California, with operations in North America and
-                    Europe
+                    Europe */}
+                    {about}
                   </p>
                 </div>
               </Card>
@@ -410,29 +450,24 @@ const HomeScreen = () => {
                 </div>
               </>
             ) : (
-
               <>
                 <div>
-
                   <div className={styles.mobileSearch}>
                     <div className={styles.mobileInputForm}>
-
                       <SearchIcon />
-
                       <input className={styles.moblieInput} type="text" placeholder="search" />
                     </div>
-
                     <div className={styles.filterBtn} onClick={() => setOpenDrawer(true)}><FilterMoboIcon /></div>
-
                   </div>
-
                 </div>
-
                 <div className={styles.postBoxCont}>
                   <Card>
                     <div className={styles.postBox}>
                       <img src="/avatar.png" />
-                      <div className={styles.postInput} onClick={handleNewProject}>
+                      <div
+                        className={styles.postInput}
+                        onClick={handleNewProject}
+                      >
                         <p className={styles.postInputHint}>
                           Mustafa Let’s Create a Project !
                         </p>
@@ -444,7 +479,6 @@ const HomeScreen = () => {
                   </Card>
                 </div>
               </>
-
             )}
             {posts?.map((post) => (
               <ProjectPost
@@ -467,9 +501,10 @@ const HomeScreen = () => {
                   {recentProjects.map((recentProject) => (
                     <div
                       key={recentProject.id}
-                      className={`${styles.recentItem} ${recentProjectOpened === recentProject.id &&
+                      className={`${styles.recentItem} ${
+                        recentProjectOpened === recentProject.id &&
                         styles.active
-                        }`}
+                      }`}
                     >
                       <div className={styles.recentHead}>
                         <div className={styles.recentItemInfo}>
@@ -482,12 +517,13 @@ const HomeScreen = () => {
                         </div>
 
                         <button
-                          className={`${styles.arrowBtn} ${recentProjectOpened === recentProject.id &&
+                          className={`${styles.arrowBtn} ${
+                            recentProjectOpened === recentProject.id &&
                             styles.active
-                            }`}
+                          }`}
                           onClick={() =>
                             recentProjectOpened === -1 ||
-                              recentProjectOpened !== recentProject.id
+                            recentProjectOpened !== recentProject.id
                               ? setRecentProjectOpened(recentProject.id)
                               : setRecentProjectOpened(-1)
                           }
@@ -508,7 +544,7 @@ const HomeScreen = () => {
                 <div className={styles.formerCoworkers}>
                   <div className={styles.formerCoworkersHead}>
                     <b className={styles.formerCoworkersTitle}>
-                      Your Recent Project
+                      Freelancers You Worked With
                     </b>
                     <a className={styles.more}>See All</a>
                   </div>
@@ -537,7 +573,10 @@ const HomeScreen = () => {
         isOpen={isCommentForm}
         onClose={() => setIsCommentForm(!isCommentForm)}
       />
-      <EditAboutPopup isOpen={isAboutPopupOpen} onClose={() => setIsAboutPopupOpen(false)} />
+      <EditAboutPopup
+        isOpen={isAboutPopupOpen}
+        onClose={() => setIsAboutPopupOpen(false)}
+      />
     </div>
   );
 };

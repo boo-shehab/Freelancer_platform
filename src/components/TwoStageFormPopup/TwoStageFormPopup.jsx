@@ -7,19 +7,21 @@ import DocumentIcon from "../../CustomIcons/DocumentIcon";
 import RedCross from "../../CustomIcons/redCross";
 
 import { useAppStore } from "../../store";
-const options = ["UIUX Designer", "Back-end", "Front-end", "Mobile app"];
+import fetchData from "../../utility/fetchData";
+const options = ["uiux", "backend", "frontend", "mobile"];
 const TwoStageFormPopup = ({ isOpen, onClose }) => {
   const { projectsPosts, addNewProjectPost } = useAppStore((state) => state);
   const [stage, setStage] = useState(1);
   const [CurrentOption, setCurrentOption] = useState("Select option");
   const [showSelectoption, setshowSelectoption] = useState(false);
   const [formData, setFormData] = useState({
-    qualification: "",
-    description: "",
+    Title: "",
+    QualificationName: "",
+    Description: "",
     files: [],
-    duration: "",
-    pricingType: 0,
-    price: "",
+    Duration: "",
+    PriceType: 0,
+    Budget: "",
   });
 
   const handleNext = () => setStage(stage + 1);
@@ -32,16 +34,36 @@ const TwoStageFormPopup = ({ isOpen, onClose }) => {
     setFormData({ ...formData, files: [...formData.files, e.target.files[0]] });
   };
 
-  const handleSave = (e) => {
+  const handleSave = async(e) => {
     addNewProjectPost(formData);
+    try{
+      const dataSending = new FormData();
+      dataSending.append('Title', formData.Title);
+      dataSending.append('Description', formData.Description);
+      dataSending.append('QualificationName', formData.QualificationName);
+      dataSending.append('Duration', formData.Duration);
+      dataSending.append('PriceType', 'fixed');
+      dataSending.append('Budget', formData.Budget);
+
+      await fetchData(`projects`, {
+        method: 'POST',
+        body: dataSending
+      }, {
+          'Accept': '*/*',
+      });
+    }catch(e) {
+      console.log(e);
+    }
     setFormData({
-      qualification: "",
-      description: "",
+      QualificationName: "",
+      Description: "",
       files: [],
-      duration: "",
-      pricingType: 0,
-      price: "",
+      Duration: "",
+      PriceType: 'fixed',
+      Budget: "",
+      
     });
+    setStage(1)
     onClose();
   };
   useEffect(() => {
@@ -74,6 +96,18 @@ const TwoStageFormPopup = ({ isOpen, onClose }) => {
 
         {stage === 1 && (
           <form>
+            
+            <label>
+              Description
+              <input
+                type="text"
+                name="Title"
+                placeholder="Title of the project"
+                value={formData.Title}
+                onChange={handleChange}
+                required
+              ></input>
+            </label>
             <label>Select Required Qualifications</label>
             <button
               className={
@@ -99,7 +133,8 @@ const TwoStageFormPopup = ({ isOpen, onClose }) => {
                       : ""
                   }
                   onClick={() => {
-                    setCurrentOption(option);
+                    setFormData({ ...formData, ['QualificationName']: option });
+                    setCurrentOption(option)
                     setshowSelectoption(false);
                   }}
                 >
@@ -110,9 +145,9 @@ const TwoStageFormPopup = ({ isOpen, onClose }) => {
             <label>
               Description
               <textarea
-                name="description"
+                name="Description"
                 placeholder="Enter Description for the project"
-                value={formData.description}
+                value={formData.Description}
                 onChange={handleChange}
                 required
               ></textarea>
@@ -154,9 +189,9 @@ const TwoStageFormPopup = ({ isOpen, onClose }) => {
               Description
               <input
                 type="text"
-                name="duration"
+                name="Duration"
                 placeholder="duration of the project"
-                value={formData.duration}
+                value={formData.Duration}
                 onChange={handleChange}
                 required
               ></input>
@@ -164,8 +199,8 @@ const TwoStageFormPopup = ({ isOpen, onClose }) => {
             <label>
               Price Per Hour
               <input
-                name="price"
-                value={formData.price}
+                name="Budget"
+                value={formData.Budget}
                 onChange={handleChange}
                 type="text"
                 placeholder="Enter price"

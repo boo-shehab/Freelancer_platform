@@ -12,6 +12,7 @@ import CloseIcon from "../../CustomIcons/CloseIcon";
 import ContainerForm from "../../components/ContainerForm/ContainerForm";
 import RadioComp from "../../components/RadioComp/RadioComp";
 import MobileDrawer from "../../components/MobileDrawer/MobileDrawer";
+import { useNavigate } from "react-router-dom";
 
 
 function Setting() {
@@ -20,14 +21,24 @@ function Setting() {
   const [selectedOption, setSelectedOption] = useState(null);
   const [openDrawer, setOpenDrawer] = useState(false);
   
+  const navigate = useNavigate();
 
   const handleChange = (value) => {
-    
     setSelectedOption((prev) => (prev === value ? null : value));
   };
 
-
-
+  const LogoutFunction = () => {
+    console.log('LogoutFunction triggered');
+    setOpenModal(false);
+    setOpenDrawer(false);
+    localStorage.clear();
+    setTimeout(() => {
+      console.log('Navigating to /');
+      navigate('/');
+    }, 100);
+  };
+  
+  
   return (
     <>
     <div className={styles.mainCont}>
@@ -89,7 +100,7 @@ function Setting() {
               <h3>Are you sure you want to log out?</h3>
             </div>
             <div className={styles.btnCont}>
-              <button className={styles.logout}>Logout</button>
+              <button className={styles.logout} onClick={LogoutFunction}>Logout</button>
               <button
                 onClick={() => setOpenModal(false)}
                 className={styles.cancel}
@@ -140,7 +151,7 @@ function Setting() {
               <gap></gap>
             </div>
             <div className={styles.btnCont}>
-              <button className={styles.logout}>Logout</button>
+              <button className={styles.logout} onClick={LogoutFunction}>Logout</button>
               <button
                 onClick={() => setOpenDrawer(false)}
                 className={styles.cancel}

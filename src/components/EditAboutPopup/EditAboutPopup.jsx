@@ -1,43 +1,53 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./EditAboutPopup.module.css";
 import ContainerForm from "../ContainerForm/ContainerForm";
+import fetchData from "../../utility/fetchData";
+import useUserinfoStore from "../../useUserinfoStore";
 
-const EditAboutPopup = ({ isOpen, onClose, initialText, onSave }) => {
-  const [text, setText] = useState(initialText || "");
+const EditAboutPopup = ({ isOpen, onClose }) => {
+  const { about, setAbout } = useUserinfoStore();
+  const [ aboutInput, setAboutInput] = useState(about)
 
-  const handleSave = () => {
-    onSave(text);
-    onClose();
+  const handleSave = async () => {
+    try {
+      await fetchData(`profiles/about`, {
+        method: "PATCH",
+        body: JSON.stringify({ about: aboutInput }),
+      }, {
+        'Content-Type': 'application/json'
+      });
+      setAbout(aboutInput);
+      onClose();
+    } catch (e) {
+      console.error("Error updating about:", e);
+    }
   };
 
-  const startingLength = 0;
-  const currentLength = startingLength + text.length;
+  useEffect(() => {
+    setAboutInput(about)
+  }, [about])
 
-  if (!isOpen) return null ;
+  const currentLength = about.length;
+
+  if (!isOpen) return null;
 
   return (
     <ContainerForm isOpen={isOpen} onClose={onClose} HeadName="Edit About">
-        <div className={styles.popup}>
-          {/* <div className={styles.header}>
-            <h2>Edit About</h2>
-            <button onClick={onClose} className={styles.closeButton}>
-              X
-            </button>
-          </div> */}
-          <textarea
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-            maxLength={2000 - startingLength}
-            placeholder=""
-            className={styles.textarea}
-          ></textarea>
-          <span>{currentLength}/2000</span>
-          <div className={styles.footer}>
-            <button onClick={handleSave} className={styles.saveButton}>
-              Save
-            </button>
-          </div>
+      <div className={styles.popup}>
+        <textarea
+          value={aboutInput}
+          onChange={(e) => setAboutInput(e.target.value)}
+          maxLength={2000}
+          placeholder="Write about yourself..."
+          className={styles.textarea}
+        ></textarea>
+        <span>{currentLength}/2000</span>
+        <div className={styles.footer}>
+          <button onClick={handleSave} className={styles.saveButton}>
+            Save
+          </button>
         </div>
+      </div>
     </ContainerForm>
   );
 };

@@ -187,7 +187,12 @@ button {
 
 }
 
-
+.titleOfEducation {
+  display: flex;
+}
+.boxInfo {
+  display: flex;
+}
 
 .box3Part2 {
   display: flex;
@@ -292,7 +297,12 @@ button {
   align-items: center;
   justify-content: space-between;
 }
-.titleOfEducation .educationAction , .titleWorkDetails .workAction{
+.educationAction {
+  display: flex;
+  align-items: start;
+  gap: 14px;
+}
+.titleOfEducation .titleWorkDetails .workAction{
   display: flex;
   align-items: center;
   justify-content: space-between;

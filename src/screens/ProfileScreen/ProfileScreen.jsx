@@ -67,6 +67,7 @@ const ProfileScreen = () => {
   const [posted, setPosted] = useState(25);
   const [pending, setPending] = useState(25);
   const [completed, setCompleted] = useState(25);
+  const [loading, setLoading] = useState(false)
 
   function ShowDelete(message) {
     setmessageDelete(message);
@@ -228,6 +229,9 @@ const ProfileScreen = () => {
   const idShow = (id) => {
     setVisiblePostId((prevId) => (prevId === id ? null : id));
   };
+
+
+
   return (
     <div>
       {isFreelancer ? (

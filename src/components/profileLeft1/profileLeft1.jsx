@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import React, { useState, useEffect } from "react";
-=======
-import React, { useEffect, useState } from "react";
->>>>>>> 0848ba515a3105f1256fce55b17c28a25997fd07
 import styles from "./profileLeft1.module.css";
 import UniversityIcon from "./university.png";
 import Card from "../Card/card";
@@ -15,8 +11,6 @@ import EditIcon from "../../CustomIcons/EditIcon";
 import PlusIcon from "../../CustomIcons/PlusIcon";
 import DeleteIcon from "../../CustomIcons/DeleteIcon";
 import DeleteComponent from "../../components/DeleteComponent/DeleteComponent";
-<<<<<<< HEAD
-=======
 import fetchData from "../../utility/fetchData";
 import dayjs from "dayjs";
 
@@ -85,10 +79,7 @@ const userData = {
 //   },
 // ];
 
-function ProfileLeft1() {
-  const [education, setEducation] = useState([]);
-  const { profile, about, projects, workExperience } = userData;
->>>>>>> 0848ba515a3105f1256fce55b17c28a25997fd07
+
 
 function ProfileLeft1({ userId }) {
   const [profile, setProfile] = useState(null);
@@ -103,7 +94,6 @@ function ProfileLeft1({ userId }) {
   const [isProfileFormOpen, setIsProfileFormOpen] = useState(false);
   const [isProjectHistoryOpen, setIsProjectHistoryOpen] = useState(false);
   const [openDrawer, setOpenDrawer] = useState(true);
-<<<<<<< HEAD
   const [showDelete, setShowDelete] = useState(false);
   const [messageDelete, setMessageDelete] = useState("");
 
@@ -140,25 +130,15 @@ function ProfileLeft1({ userId }) {
       .catch((error) => console.error("Error fetching projects:", error));
   }, [userId]);
 
-=======
-  const [showDelete, setshowDelete] = useState(false);
-  const [messageDelete, setmessageDelete] = useState("");
 
-  function ShowDelete(message) {
-    setmessageDelete(message);
-    setshowDelete(true);
-  }
->>>>>>> 0848ba515a3105f1256fce55b17c28a25997fd07
   const handleToggleExpand = () => {
     setIsExpanded(!isExpanded);
   };
 
-<<<<<<< HEAD
   function ShowDelete(message) {
     setMessageDelete(message);
     setShowDelete(true);
   }
-=======
   const handleGet = async () => {
     try {
       const data = await fetchData(
@@ -177,11 +157,6 @@ function ProfileLeft1({ userId }) {
   useEffect(() => {
     handleGet();
   }, []);
-
-  useEffect(() => {
-    console.log("education", education);
-  }, [education]);
->>>>>>> 0848ba515a3105f1256fce55b17c28a25997fd07
 
   return (
     <div className={styles.container}>
@@ -243,13 +218,10 @@ function ProfileLeft1({ userId }) {
           </div>
         </div>
       </Card>
-
-<<<<<<< HEAD
       {/* Education Section */}
-=======
+
       {/* EducationForm */}
 
->>>>>>> 0848ba515a3105f1256fce55b17c28a25997fd07
       <Card marginTop={10}>
         <EducationForm
           isOpen={isEducationOpen}
@@ -267,31 +239,7 @@ function ProfileLeft1({ userId }) {
               </button>
             </div>
           </div>
-<<<<<<< HEAD
-          {education?.map((edu, index) => (
-            <div key={index} className={styles.box3Part2}>
-              <div className={styles.img}>
-                <img
-                  className={styles.universityIcon}
-                  src={UniversityIcon}
-                  alt="University"
-                />
-              </div>
-              <div className={styles.educationDetails}>
-                <div className={styles.titleOfEducation}>
-                  <p className={styles.university}>{edu.university}</p>
-                  <div className={styles.educationAction}>
-                    <button
-                      className={styles.edit}
-                      onClick={() => setIsEducationOpen(true)}
-                    >
-                      <EditIcon />
-                    </button>
-                    <button onClick={() => ShowDelete("Are you sure you want to delete this Education")}>
-                      <DeleteIcon />
-                    </button>
-                  </div>
-=======
+         
           {/* {
       university: "University of Baghdad",
       date: "22 Jan 2023 - 11 May 2032",
@@ -317,7 +265,6 @@ function ProfileLeft1({ userId }) {
                     src={UniversityIcon}
                     alt="University"
                   />
->>>>>>> 0848ba515a3105f1256fce55b17c28a25997fd07
                 </div>
                 <div className={styles.educationDetails}>
                   <div className={styles.titleOfEducation}>
@@ -357,26 +304,17 @@ function ProfileLeft1({ userId }) {
           })}
         </div>
       </Card>
-<<<<<<< HEAD
 
-      {/* Projects Section */}
-      <Card marginTop={10}>
-=======
       <Card marginTop={10}>
         {/* <ProjectHistoryForm
           isOpen={isProjectHistoryOpen}
           onClose={() => setIsProjectHistoryOpen(false)}
         /> */}
->>>>>>> 0848ba515a3105f1256fce55b17c28a25997fd07
         <div className={styles.box4}>
           <div className={styles.projectAddEdit}>
             <p>Projects History</p>
           </div>
-<<<<<<< HEAD
-          {projects?.map((project, index) => (
-=======
           {projects.map((project, index) => (
->>>>>>> 0848ba515a3105f1256fce55b17c28a25997fd07
             <div key={index} className={styles.postOfProject}>
               {index > 0 && <div className={styles.line}></div>}
               <div className={styles.box4Part2}>
@@ -422,9 +360,7 @@ function ProfileLeft1({ userId }) {
                     <button onClick={() => setIsWorkExperienceOpen(true)}>
                       <EditIcon />
                     </button>
-<<<<<<< HEAD
-                    <button onClick={() => ShowDelete("Are you sure you want to delete this Work Experience")}>
-=======
+
                     <button
                       onClick={() =>
                         ShowDelete(
@@ -432,7 +368,6 @@ function ProfileLeft1({ userId }) {
                         )
                       }
                     >
->>>>>>> 0848ba515a3105f1256fce55b17c28a25997fd07
                       <DeleteIcon />
                     </button>
                   </div>
@@ -446,9 +381,6 @@ function ProfileLeft1({ userId }) {
         </div>
       </Card>
 
-<<<<<<< HEAD
-      <DeleteComponent isOpen={showDelete} message={messageDelete} onClose={() => setShowDelete(false)} />
-=======
       {/* <Card marginTop={10}>
         <WorkForForm
           isOpen={isWorkForOpen}
@@ -506,7 +438,6 @@ function ProfileLeft1({ userId }) {
         message={messageDelete}
         onClose={() => setshowDelete(false)}
       />
->>>>>>> 0848ba515a3105f1256fce55b17c28a25997fd07
     </div>
   );
 }

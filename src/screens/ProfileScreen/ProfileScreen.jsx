@@ -578,13 +578,12 @@ const ProfileScreen = () => {
                                 <div
                                   className={styles.list}
                                   style={{
-                                    marginTop: "220px",
+                                    marginTop: "170px",
                                     position: "absolute",
                                   }}
                                 >
-                                  <button>Copy link</button>
                                   <button>Edit</button>
-                                  <button
+                                  <button className={styles.deletebtnForPost}
                                     onClick={() =>
                                       ShowDelete(
                                         "Are you sure u want to delete this Post"

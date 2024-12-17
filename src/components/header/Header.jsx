@@ -110,7 +110,8 @@ const Header = ({ image = "none", name = "none", type = "none" }) => {
               className={`${newNotification ? styles["have-messages"] : ""}`}
             >
               {/* <img src={`${isOpenNotification? 'notification-active.png': './notification.png'}`} alt="" /> */}
-              <BellIcon active={isOpenNotification} />
+              <BellIcon active={isOpenNotification} />            </button>
+
               {isOpenNotification && (
                 <div className={styles.notifications}>
                   <div className={styles.notificationsTitle}>
@@ -172,7 +173,6 @@ const Header = ({ image = "none", name = "none", type = "none" }) => {
                   </ul>
                 </div>
               )}
-            </button>
           </div>
         </div>
       </Container>

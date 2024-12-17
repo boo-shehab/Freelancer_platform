@@ -571,9 +571,9 @@ const ProfileScreen = () => {
                               </div>
                             </div>
 
-                            <div className={styles.postClientAction}>
+                            <div className={styles.postClientAction} >
                               <div className={styles.tag}>Available</div>
-                              <MoreIcon onClick={() => idShow(post.id)} />
+                              <MoreIcon onClick={() => idShow(post.id)} style={{cursor:"pointer"}} />
                               {isListVisible === post.id && (
                                 <div
                                   className={styles.list}

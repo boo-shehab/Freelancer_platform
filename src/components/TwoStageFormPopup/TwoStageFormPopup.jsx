@@ -8,7 +8,13 @@ import RedCross from "../../CustomIcons/redCross";
 
 import { useAppStore } from "../../store";
 import fetchData from "../../utility/fetchData";
-const options = ["uiux", "backend", "frontend", "mobile"];
+const options = [
+  "UIUX Designer",
+  "Back-end",
+  "Front-end",
+  "Full-Stack",
+  "Mobile app",
+];
 const TwoStageFormPopup = ({ isOpen, onClose }) => {
   const { projectsPosts, addNewProjectPost } = useAppStore((state) => state);
   const [stage, setStage] = useState(1);
@@ -34,24 +40,28 @@ const TwoStageFormPopup = ({ isOpen, onClose }) => {
     setFormData({ ...formData, files: [...formData.files, e.target.files[0]] });
   };
 
-  const handleSave = async(e) => {
+  const handleSave = async (e) => {
     addNewProjectPost(formData);
-    try{
+    try {
       const dataSending = new FormData();
-      dataSending.append('Title', formData.Title);
-      dataSending.append('Description', formData.Description);
-      dataSending.append('QualificationName', formData.QualificationName);
-      dataSending.append('Duration', formData.Duration);
-      dataSending.append('PriceType', 'fixed');
-      dataSending.append('Budget', formData.Budget);
+      dataSending.append("Title", formData.Title);
+      dataSending.append("Description", formData.Description);
+      dataSending.append("QualificationName", formData.QualificationName);
+      dataSending.append("Duration", formData.Duration);
+      dataSending.append("PriceType", "fixed");
+      dataSending.append("Budget", formData.Budget);
 
-      await fetchData(`projects`, {
-        method: 'POST',
-        body: dataSending
-      }, {
-          'Accept': '*/*',
-      });
-    }catch(e) {
+      await fetchData(
+        `projects`,
+        {
+          method: "POST",
+          body: dataSending,
+        },
+        {
+          Accept: "*/*",
+        }
+      );
+    } catch (e) {
       console.log(e);
     }
     setFormData({
@@ -59,13 +69,30 @@ const TwoStageFormPopup = ({ isOpen, onClose }) => {
       Description: "",
       files: [],
       Duration: "",
-      PriceType: 'fixed',
+      PriceType: "fixed",
       Budget: "",
-      
     });
-    setStage(1)
+    setStage(1);
     onClose();
   };
+
+  const handleToNext =()=>{
+    if(formData.Title === "" || CurrentOption === "Select option"){
+      return
+    }else{
+      handleNext()
+    }
+  }
+const handlePost=()=>{
+  if(formData.Duration === "" || formData.Budget === ""){
+    return
+  }
+  else{
+    handleSave()
+    setCurrentOption("Select option")
+  }
+}
+
   useEffect(() => {
     console.log(projectsPosts);
   }, [projectsPosts]);
@@ -77,7 +104,15 @@ const TwoStageFormPopup = ({ isOpen, onClose }) => {
       <div className={styles["popup-content"]}>
         <div className={styles.header}>
           <h2>Create a project</h2>
-          <button onClick={onClose} className={styles["close-btn"]}>
+          <button
+            onClick={() => {
+              onClose();
+              setStage(1);
+              setCurrentOption("Select option")
+              setshowSelectoption(false)
+            }}
+            className={styles["close-btn"]}
+          >
             <RedCross />
           </button>
         </div>
@@ -96,13 +131,16 @@ const TwoStageFormPopup = ({ isOpen, onClose }) => {
 
         {stage === 1 && (
           <form>
-            
             <label>
+<<<<<<< HEAD
               Title
+=======
+            Title of the project
+>>>>>>> f6d1a51a40533fdff4950fb62bc722e03a9a01c8
               <input
                 type="text"
                 name="Title"
-                placeholder="Title of the project"
+                placeholder="Enter your Title"
                 value={formData.Title}
                 onChange={handleChange}
                 required
@@ -133,8 +171,8 @@ const TwoStageFormPopup = ({ isOpen, onClose }) => {
                       : ""
                   }
                   onClick={() => {
-                    setFormData({ ...formData, ['QualificationName']: option });
-                    setCurrentOption(option)
+                    setFormData({ ...formData, ["QualificationName"]: option });
+                    setCurrentOption(option);
                     setshowSelectoption(false);
                   }}
                 >
@@ -175,7 +213,7 @@ const TwoStageFormPopup = ({ isOpen, onClose }) => {
               />
               <button
                 type="button"
-                onClick={handleNext}
+                onClick={handleToNext}
                 className={styles["next-btn"]}
               >
                 Next &gt;
@@ -186,7 +224,11 @@ const TwoStageFormPopup = ({ isOpen, onClose }) => {
         {stage === 2 && (
           <form>
             <label>
+<<<<<<< HEAD
               Duration
+=======
+            Project Duration
+>>>>>>> f6d1a51a40533fdff4950fb62bc722e03a9a01c8
               <input
                 type="text"
                 name="Duration"
@@ -207,7 +249,7 @@ const TwoStageFormPopup = ({ isOpen, onClose }) => {
               />
             </label>
             <div className={styles.spacer} />
-            <CustomButton onClick={handleSave}>Add Project +</CustomButton>
+            <CustomButton onClick={handlePost}>Add Project +</CustomButton>
           </form>
         )}
       </div>

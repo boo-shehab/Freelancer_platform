@@ -98,7 +98,7 @@ const TwoStageFormPopup = ({ isOpen, onClose }) => {
           <form>
             
             <label>
-              Description
+              Title
               <input
                 type="text"
                 name="Title"
@@ -186,7 +186,7 @@ const TwoStageFormPopup = ({ isOpen, onClose }) => {
         {stage === 2 && (
           <form>
             <label>
-              Description
+              Duration
               <input
                 type="text"
                 name="Duration"

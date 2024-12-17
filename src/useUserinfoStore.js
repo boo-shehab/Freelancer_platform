@@ -6,13 +6,38 @@ const useUserinfoStore = create((set) => ({
   isFreelancer: false,
   name: '',
   phoneNumber: '',
-  about: 'GreenTech Solutions Inc. Renewable Energy & Technology San Francisco, California, with operations in North America and Europe',
+  companyName: '',
+  projects: [],
+  profilePicture: '',
+  email: '',
+  about: '',
+  id: '',
 
   setUsername: (username) => set(() => ({ username })),
   setIsFreelancer: (isFreelancer) => set(() => ({ isFreelancer })),
   setName: (name) => set(() => ({ name })),
   setPhoneNumber: (phoneNumber) => set(() => ({ phoneNumber })),
+  setCompanyName: (companyName) => set(() => ({companyName})),
+  setProjects: (projects) => set(() => ({projects})),
+  setProfilePicture: (profilePicture) => set(() => ({profilePicture})),
+  setEmail: (email) => set(() => ({email})),
+  setId: (id) => set(() => ({id})),
   setAbout: (about) => set(() => ({ about })),
+
+  addUserInfo: (userData) => 
+    set(() => ({
+      username: userData.username || '',
+      companyName: userData.companyName || '',
+      projects: userData.projects || [],
+      profilePicture: userData.profilePicture || '',
+      id: userData.id || '',
+      name: userData.name || '',
+      email: userData.email || '',
+      about: userData.about || '',
+      phoneNumber: userData.phoneNumber || '',
+      isFreelancer: userData.userType === 'freelancer' || false,
+
+    })),
 
   resetUser: () =>
     set(() => ({

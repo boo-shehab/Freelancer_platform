@@ -21,6 +21,7 @@ import SkilsSide from "../../components/Skils/skils";
 // import WorkForForm from "../../components/WorkForForm/WorkForForm";
 import DeleteComponent from "../../components/DeleteComponent/DeleteComponent";
 import FetchData from "../../utility/fetchData";
+import useUserinfoStore from "../../useUserinfoStore";
 const WorkFor = [
   {
     id: 1,
@@ -37,36 +38,46 @@ const WorkFor = [
 ];
 
 const ProfileScreen = () => {
+  const { about, setAbout } = useUserinfoStore();
+
   const [isUserInfoOpen, setIsUserInfoOpen] = useState(false);
   const [isAboutPopupOpen, setIsAboutPopupOpen] = useState(false);
   const [isWorkForOpen, setIsWorkForOpen] = useState(false);
-  const [aboutValue, setAboutValue] = useState(
-    "As a software manager with a passion for technology and team development, I specialize in guiding projects from concept to completion. With a strong focus on collaboration and clear communication, I work closely with clients and developers to ensure we deliver high-quality solutions that meet our stakeholders' needs. My goal is to bridge the gap between technical expertise and client vision, helping teams create innovative software that drives results and keeps pace with industry demands,Developed a task management web application designed to help users organize"
-  );
 
   const isSmallScreen = useMediaQuery({ query: "(max-width: 950px)" });
   const isTooSmallScreen = useMediaQuery({ query: "(max-width: 390px)" });
 
-  const [aboutState, setAboutState] = useState(aboutValue.slice(0, 492));
+  const [aboutState, setAboutState] = useState(about.slice(0, 492));
   const [dotsAbout, setDotsAbout] = useState("....");
   const [seeAction, setSeeAction] = useState("See More");
-  const [isFreeLancer, setIsFreeLancer] = useState(true);
+  const [isFreeLancer, setIsFreeLancer] = useState(false);
   const [showDelete, setshowDelete] = useState(false);
   const [messageDelete, setmessageDelete] = useState("");
   // Muhammed state:
   const [isWorkedWith, setIsWorkedWith] = useState(0);
   const [isProjectPosted, setIsProjectPosted] = useState(0);
   const [isGivenLikes, setIsGivenLikes] = useState(0);
+  //Muhammed 2
+  const [lowRating, setLowRating] = useState(11);
+  const [midRating, setMidRating] = useState(11);
+  const [highRating, setHighRating] = useState(11);
+  const [totalRating, setTotalRating] = useState(11);
+  const [averageRating, setAverageRating] = useState(11);
+  //circl
+  const [posted, setPosted] = useState(25);
+  const [pending, setPending] = useState(25);
+  const [completed, setCompleted] = useState(25);
+
   function ShowDelete(message) {
     setmessageDelete(message);
     setshowDelete(true);
   }
 
   const chartData = [
-    { value: 25, color: "#FFDB70" },
+    { value: pending, color: "#FFDB70" },
     ...(isFreeLancer ? [{ value: 15, color: "#86C6F8" }] : []),
-    { value: 25, color: "#D9D9D9" },
-    { value: 25, color: "#7FC882" },
+    { value: posted, color: "#D9D9D9" },
+    { value: completed, color: "#7FC882" },
   ];
   const posts = [
     {
@@ -109,25 +120,74 @@ const ProfileScreen = () => {
     },
   ];
 
-  const handleEditProfileCircle = async () => {
+  const handleInfoProfileAndRating = async () => {
     try {
-      const data = await FetchData(`clients/${localStorage.getItem('id')}/activities`, {
-        method: "GET",
-      }, {
-        'Content-Type': 'application/json'
-      });
+      const data = await FetchData(
+        `clients/${localStorage.getItem("id")}/activities`,
+        {
+          method: "GET",
+        }
+      );
 
       const { freelancersWorkedWith, projectPosted, givenLikes } = data.results;
       setIsWorkedWith(freelancersWorkedWith);
       setIsGivenLikes(givenLikes);
       setIsProjectPosted(projectPosted);
+      setPosted();
+      setPending();
+      setCompleted();
     } catch (error) {
       console.log("Login failed. Please try again.");
     }
   };
+  //Muhammed
+  const fetchRatings = async (userId) => {
+    try {
+      const { results } = await FetchData(
+        `ratings/rating-summary?userId=${userId}`,
+        {
+          method: "GET",
+        }
+      );
+
+      const processedRatings = {
+        averageRating: parseInt(results.averageRating, 10),
+        totalRating: results.totalRating,
+        highRating: results.highRating,
+        midRating: results.midRating,
+        lowRating: results.lowRating,
+      };
+
+      return processedRatings;
+    } catch (error) {
+      console.error("Failed to fetch ratings:", error);
+      throw error;
+    }
+  };
+
+  const ratings = async () => {
+    try {
+      const userId = localStorage.getItem("id");
+      if (!userId) {
+        throw new Error("User ID not found");
+      }
+
+      const { averageRating, totalRating, highRating, midRating, lowRating } =
+        await fetchRatings(userId);
+
+      setAverageRating(averageRating);
+      setTotalRating(totalRating);
+      setHighRating(highRating);
+      setMidRating(midRating);
+      setLowRating(lowRating);
+    } catch (error) {
+      console.error("Error processing ratings:", error.message);
+    }
+  };
 
   useEffect(() => {
-    handleEditProfileCircle();
+    handleInfoProfileAndRating();
+    ratings();
   }, []);
 
   const rating = {
@@ -137,12 +197,33 @@ const ProfileScreen = () => {
     lowRate: 6,
   };
 
+  const handleSeeMore = () => {
+    if (about.length < 400) {
+      setDotsAbout("");
+      setSeeAction("");
+      setAboutState(about);
+    } else if (dotsAbout === "...." && seeAction === "See More") {
+      setAboutState(about);
+      setDotsAbout("");
+      setSeeAction("Show Less");
+    } else {
+      setAboutState(about.slice(0, 492));
+      setDotsAbout("....");
+      setSeeAction("See More");
+    }
+  };
+
+  useEffect(() => {
+    setAboutState(about.slice(0, 492));
+    handleSeeMore();
+  }, [about]);
+
   const handleEditAbout = (value) => {
-    setAboutValue(value);
+    setAbout(value);
     setAboutState(value.slice(0, 492));
   };
 
-  const handleEditProfile = () => { };
+  const handleEditProfile = () => {};
   const [isListVisible, setVisiblePostId] = useState(null);
   const idShow = (id) => {
     setVisiblePostId((prevId) => (prevId === id ? null : id));
@@ -397,24 +478,7 @@ const ProfileScreen = () => {
                       {dotsAbout}{" "}
                       <span
                         className={styles.seeMoreAbout}
-                        onClick={() => {
-                          if (aboutValue.length < 400) {
-                            setDotsAbout("");
-                            setSeeAction("");
-                            setAboutState(aboutValue);
-                          } else if (
-                            dotsAbout === "...." &&
-                            seeAction === "See More"
-                          ) {
-                            setAboutState(aboutValue);
-                            setDotsAbout("");
-                            setSeeAction("Show Less");
-                          } else {
-                            setAboutState(aboutValue.slice(0, 492));
-                            setDotsAbout("....");
-                            setSeeAction("See More");
-                          }
-                        }}
+                        onClick={handleSeeMore}
                       >
                         {seeAction}
                       </span>
@@ -641,7 +705,7 @@ const ProfileScreen = () => {
                     <h3 className={styles.rateTitle}>Rating</h3>
                     <p className={styles.rateSubtitle}>Average Rating</p>
                     <div className={styles.ratingStars}>
-                      <b>{rating.starRate}</b>
+                      <b>{averageRating}</b>
                       <div>
                         {+rating.starRate >= 1 ? (
                           <Star2Icon />
@@ -681,7 +745,7 @@ const ProfileScreen = () => {
                             }}
                           ></div>
                         </div>
-                        <p>{rating.highRate}%</p>
+                        <p>{highRating}</p>
                       </div>
                       <div className={styles.barItem}>
                         <b>Mid rate</b>
@@ -693,7 +757,7 @@ const ProfileScreen = () => {
                             }}
                           ></div>
                         </div>
-                        <p>{rating.midRate}%</p>
+                        <p>{midRating}</p>
                       </div>
                       <div className={styles.barItem}>
                         <b>low rate</b>
@@ -705,7 +769,7 @@ const ProfileScreen = () => {
                             }}
                           ></div>
                         </div>
-                        <p>{rating.lowRate}%</p>
+                        <p>{lowRating}</p>
                       </div>
                     </div>
                   </div>
@@ -717,7 +781,7 @@ const ProfileScreen = () => {
                       Total People who visited your profile
                     </p>
                     <p className={styles.reviews}>
-                      <b>70</b> review
+                      <b>{totalRating}</b> review
                     </p>
                     <button className={styles.seeAllReviews}>See all</button>
                   </div>
@@ -726,8 +790,13 @@ const ProfileScreen = () => {
             </div>
           </Container>
 
-          <DeleteComponent isOpen={showDelete} message={messageDelete} onClose={() => setshowDelete(false)} />
-        </div>)}
+          <DeleteComponent
+            isOpen={showDelete}
+            message={messageDelete}
+            onClose={() => setshowDelete(false)}
+          />
+        </div>
+      )}
 
       <DeleteComponent
         isOpen={showDelete}
@@ -737,7 +806,7 @@ const ProfileScreen = () => {
         id={80}
       />
     </div>
-  )
-}
+  );
+};
 
 export default ProfileScreen;

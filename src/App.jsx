@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Register from './screens/register/Register';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import UserInfo from './screens/userInfo/UserInfo';
@@ -9,10 +9,12 @@ import HomeScreen from './screens/HomeScreen/HomeScreen';
 import ProfileScreen from './screens/ProfileScreen/ProfileScreen';
 import Login from './screens/login/login';
 import Setting from './screens/SettingScreen/Setting';
+import useUserinfoStore from './useUserinfoStore';
 
 
 
 function App() {
+  const {projects} = useUserinfoStore()
 
   const router = createBrowserRouter([
     {
@@ -66,13 +68,15 @@ function App() {
       ],
     },
   ]);
+
+  useEffect(() => {
+    console.log('projects: ', projects);
+    
+  }, [projects])
   return (
     <>
       <RouterProvider router={router} />
-        
-
-     
-</>
+  </>
   )
 }
 

@@ -63,7 +63,7 @@ const EducationForm = ({ isOpen, onClose, initialData , GetEducations}) => {
           body:  JSON.stringify({
             degree: degree,
             institution: school,
-            startDate: dayjs(`${startYear}-${startMonth}-01`).format("YYYY-MM-DDTHH:mm:ss.SSS[Z]"),
+            startDate:(`${startYear}-${startMonth}-01`).format("YYYY-MM-DDTHH:mm:ss.SSS[Z]"),
             endDate: dayjs(`${endYear}-${endMonth}-01`).format("YYYY-MM-DDTHH:mm:ss.SSS[Z]"),
           }),
         }

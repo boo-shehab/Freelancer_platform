@@ -9,7 +9,7 @@ import SkillsForm from "../SkillsForm/SkillsForm";
 import DeleteIcon from "../../CustomIcons/DeleteIcon";
 import DeleteComponent from "../../components/DeleteComponent/DeleteComponent";
 import FetchData from "../../utility/fetchData";
-import CoursesAndCertificationsForm from "../../components/CoursesAndCertificationsForm/CoursesAndCertificationsForm"
+import CoursesAndCertificationsForm from "../../components/CoursesAndCertificationsForm/CoursesAndCertificationsForm";
 
 const Skils = () => {
   const [isSkillsFormOpen, setIsSkillsFormOpen] = useState(false)
@@ -115,19 +115,16 @@ const Skils = () => {
             {Courses.map((course) => (
               <li key={course.id}>
                 <div className={Styles.Item}>
-                  <div >
                     <MicrosoftIcon />
                     <p>{course.title}</p>
-                  </div>
                   <div className={Styles.coursesAction}>
-                    {/* <EditIcon onClick={() => setIsCoursesOpen(true)} /> */}
                     <DeleteIcon onClick={() => ShowDelete("Are you sure u want to delete this skill")} />
                   </div>
                 </div>
 
                 <div className={Styles.subItem}>
-                  <small>{course.date}</small>
                   <small>{course.desc}</small>
+                  <small>{course.date}</small>
                 </div>
               </li>
             ))}

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styles from "./EditProfilePopup.module.css";
 import ContainerForm from "../ContainerForm/ContainerForm";
 
-const EditProfilePopup = ({ isOpen, onClose, initialData, onSave }) => {
+const EditProfilePopup = ({ isOpen, onClose, initialData }) => {
   const [firstName, setFirstName] = useState(initialData?.firstName || "");
   const [lastName, setLastName] = useState(initialData?.lastName || "");
   const [specialization, setSpecialization] = useState(initialData?.specialization || "");
@@ -20,7 +20,7 @@ const EditProfilePopup = ({ isOpen, onClose, initialData, onSave }) => {
     }
 
 
-    onSave({ firstName, lastName, specialization });
+    // onSave({ firstName, lastName, specialization });
     onClose();
   };
 

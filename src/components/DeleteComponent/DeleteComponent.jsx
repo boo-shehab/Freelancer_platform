@@ -3,7 +3,7 @@ import ContainerForm from "../ContainerForm/ContainerForm";
 import styles from "./DeleteComponent.module.css";
 import FetchData from "../../utility/fetchData";
 
-const DeleteComponent = ({ isOpen, onClose, HeadText, message, TypeofDelete , id , GetAllSkills}) => {
+const DeleteComponent = ({ isOpen, onClose, HeadText, message, TypeofDelete , GetAllData}) => {
   if (!isOpen) return null;
    const deleteItem = async () =>{
     try {
@@ -13,7 +13,11 @@ const DeleteComponent = ({ isOpen, onClose, HeadText, message, TypeofDelete , id
         'Content-Type': 'application/json'
       });
       const id = localStorage.getItem('id'); 
-      GetAllSkills(id);
+      if (id && GetAllData) {
+        GetAllData(id); 
+      } else if (GetAllData) {
+        GetAllData();
+      }
       onClose();
     } catch (error) {
 

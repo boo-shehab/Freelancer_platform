@@ -4,7 +4,7 @@ import ContainerForm from "../ContainerForm/ContainerForm";
 import fetchData from "../../utility/fetchData";
 import useUserinfoStore from "../../useUserinfoStore";
 
-const EditAboutPopup = ({ isOpen, onClose , initialData="" , getData}) => {
+const EditAboutPopup = ({ isOpen, onClose , initialData="" , getData = null}) => {
   const { about, setAbout } = useUserinfoStore();
   const [ aboutInput, setAboutInput] = useState(initialData)
 
@@ -16,7 +16,10 @@ const EditAboutPopup = ({ isOpen, onClose , initialData="" , getData}) => {
       }, {
         'Content-Type': 'application/json'
       });
-      getData();
+      setAbout(aboutInput);
+      if(getData !== null){
+        getData();
+      }
       onClose();
     } catch (e) {
       console.error("Error updating about:", e);

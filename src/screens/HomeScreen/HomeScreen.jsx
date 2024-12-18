@@ -638,6 +638,7 @@ const HomeScreen = () => {
       <EditAboutPopup
         isOpen={isAboutPopupOpen}
         onClose={() => setIsAboutPopupOpen(false)}
+        initialData={about}
       />
     </div>
   );

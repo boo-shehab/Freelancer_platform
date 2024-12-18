@@ -182,15 +182,15 @@ const handlePost=()=>{
             >
               {options.map((option) => (
                 <button
-                  key={option.value}
+                  key={option.label}
                   className={
-                    CurrentOption === option.value
+                    CurrentOption === option.label
                       ? styles.SelectoptionchoseActive
                       : ""
                   }
                   onClick={() => {
                     setFormData({ ...formData, ["QualificationName"]: option.value });
-                    setCurrentOption(option.value);
+                    setCurrentOption(option.label);
                     setshowSelectoption(false);
                   }}
                 >

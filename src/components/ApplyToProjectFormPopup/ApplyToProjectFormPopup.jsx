@@ -3,8 +3,9 @@ import styles from "./ApplyToProjectFormPopup.module.css";
 import CloseIcon from "../../CustomIcons/CloseIcon";
 import CustomButton from "../customButton/CustomButton";
 import ContainerForm from "../ContainerForm/ContainerForm"
+import fetchData from "../../utility/fetchData";
 
-const ApplyToProjectFormPopup = ({ isOpen, onClose }) => {
+const ApplyToProjectFormPopup = ({ isOpen, onClose, projectId }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [specialization, setSpecialization] = useState("");
@@ -18,11 +19,22 @@ const ApplyToProjectFormPopup = ({ isOpen, onClose }) => {
   const [disabled,setDisabled]= useState(true)
   const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
-  const handleSave = () => {
-    if(name!=='' && isValidEmail(email)){
-    setFormData([name,email,specialization,notes])
-    
-    onClose();}
+  const handleSave = async() => {
+    try{
+      await fetchData(`projects/${projectId}/bids`, {
+        method: 'POST',
+        body: JSON.stringify({
+          "proposedPrice": 1.01,
+          "notes": formData.notes
+        })
+      }, {
+        'Content-Type': 'application/json'
+      })
+      onClose();
+    } catch(e) {
+      console.log(e);
+      
+    }
   };
   useEffect(() => {
     if(name!=='' && isValidEmail(email)) setDisabled(false)
@@ -79,7 +91,7 @@ const ApplyToProjectFormPopup = ({ isOpen, onClose }) => {
           onChange={(e) => setNotes(e.target.value)}
         />
       </div>
-      <CustomButton  onClick={handleSave} disabled={disabled} className={styles["apply-btn"]}>Apply Now</CustomButton>
+      <CustomButton  onClick={() => handleSave()} className={styles["apply-btn"]}>Apply Now</CustomButton>
     </ContainerForm>
     //   </div>
     // </div>

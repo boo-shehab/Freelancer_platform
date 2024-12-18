@@ -100,6 +100,7 @@ const projectPost = ({
           </div>
         </div>
         <ApplyToProjectFormPopup
+          projectId={post.id}
           isOpen={applyPopup}
           onClose={() => setApplyPopup(false)}
         />

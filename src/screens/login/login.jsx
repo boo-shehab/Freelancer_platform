@@ -35,7 +35,7 @@ const Login = () => {
         'Content-Type': 'application/json'
       });
         const { accessToken, userDetails } = data.results;
-        const { id , username, name, phoneNumber, role, companyName } = userDetails;
+        const { id } = userDetails;
   
         localStorage.setItem('accessToken', accessToken);
         localStorage.setItem('id', id);
@@ -47,11 +47,6 @@ const Login = () => {
         //   setCompanyName()
         // }
         addUserInfo(userDetails)
-        console.log('userDetails:', userDetails);
-        setUsername(username);
-        setName(name);
-        setPhoneNumber(phoneNumber);
-        setIsFreelancer(role === "freelancer");
         navigate('/');
     } catch (error) {
       setErrorMessage('Login failed. Please try again.');

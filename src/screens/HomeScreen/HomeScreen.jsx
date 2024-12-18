@@ -262,11 +262,11 @@ const HomeScreen = () => {
     }
     if(!isFreelancer)
       getRecentProjects()
-  }, [])
+  }, [isFreelancer])
 
   useEffect(() => {
     getProject();
-  }, [selectedJobs]);
+  }, [selectedJobs, isFreelancer]);
 
   const handleNewProject = () => {
     setIsPopupOpen(true);

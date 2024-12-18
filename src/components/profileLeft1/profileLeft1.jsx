@@ -35,13 +35,13 @@ function ProfileLeft1({ userId }) {
     setIsExpanded(!isExpanded);
   };
 
-  function ShowDelete(message , deleteId) {
+  function ShowDelete(message, deleteId) {
     setDeleteId(deleteId);
     setMessageDelete(message);
     setShowDelete(true);
   }
 
-  const getEducation = async (url, setter) => {
+  const getEducation = async () => {
     try {
       const data = await FetchData(
         `freelancers/${localStorage.getItem("id")}/education?page=0&pageSize=100`,
@@ -55,11 +55,26 @@ function ProfileLeft1({ userId }) {
       console.log(error);
     }
   };
+  const getWorkExpe = async () => {
+    try {
+      const data = await FetchData(
+        `freelancers/${localStorage.getItem("id")}/work-experience?page=0&pageSize=100`,
+        {
+          method: "GET",
+        }
+      );
+      setWorkExperience(data.results.result);
+      console.log("data : ", workExperience);
+
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleGet2 = async (url, setter) => {
     try {
       const data = await FetchData(
-       url,
+        url,
         {
           method: "GET",
         }
@@ -71,10 +86,9 @@ function ProfileLeft1({ userId }) {
   };
 
   useEffect(() => {
-    handleGet2( `profiles/${localStorage.getItem('id')}` ,setProfile );
+    handleGet2(`profiles/${localStorage.getItem('id')}`, setProfile);
     getEducation();
-    console.log("setter \n opsajc \n osajflc" , profile);
-
+    getWorkExpe();
   }, []);
   return (
     <div className={styles.container}>
@@ -89,7 +103,7 @@ function ProfileLeft1({ userId }) {
             <img className={styles.selfie} src={profile?.profilePicture || "/avatar.png"} alt="Profile" />
             <div className={styles.nameSpecialization}>
               <p className={styles.name}>{profile?.name}</p>
-              <p className={styles.specialization}>{profile?.username}</p>
+              <p className={styles.specialization}>{profile?.qualificationName}</p>
             </div>
           </div>
           <button
@@ -144,7 +158,7 @@ function ProfileLeft1({ userId }) {
         <EducationForm
           isOpen={isEducationOpen}
           onClose={() => setIsEducationOpen(false)}
-          GetEducations = {getEducation}
+          GetEducations={getEducation}
         />
         <div className={styles.box3}>
           <div className={styles.educationAddEdit}>
@@ -158,7 +172,7 @@ function ProfileLeft1({ userId }) {
               </button>
             </div>
           </div>
-        
+
           {education?.map((edu, index) => {
             const startDate = dayjs(edu.startDate);
             const endDate = dayjs(edu.endDate);
@@ -172,40 +186,40 @@ function ProfileLeft1({ userId }) {
             return (
               <div key={index} className={styles.box3Part2}>
                 <div className={styles.boxInfo}>
-                <div className={styles.img}>
-                  <img
-                    className={styles.universityIcon}
-                    src={UniversityIcon}
-                    alt="University"
-                  />
-                </div>
-                <div className={styles.educationDetails}>
-                  <div className={styles.titleOfEducation}>
-                    <p className={styles.university}>{edu.institution}</p>
-                 
+                  <div className={styles.img}>
+                    <img
+                      className={styles.universityIcon}
+                      src={UniversityIcon}
+                      alt="University"
+                    />
                   </div>
+                  <div className={styles.educationDetails}>
+                    <div className={styles.titleOfEducation}>
+                      <p className={styles.university}>{edu.institution}</p>
 
-                  <p className={styles.date}>
-                    {startDate.format("DD MMM YYYY")} -{" "}
-                    {endDate.format("DD MMM YYYY")}
-                  </p>
-                  <p className={styles.duration}>
-                    {months} mos {remainingDays} days
-                  </p>
-                  <p className={styles.college}>{edu.degree}</p>
-                </div>
+                    </div>
+
+                    <p className={styles.date}>
+                      {startDate.format("DD MMM YYYY")} -{" "}
+                      {endDate.format("DD MMM YYYY")}
+                    </p>
+                    <p className={styles.duration}>
+                      {months} mos {remainingDays} days
+                    </p>
+                    <p className={styles.college}>{edu.degree}</p>
+                  </div>
                 </div>
                 <div className={styles.educationAction}>
-                      <button
-                        className={styles.edit}
-                        onClick={() => setIsEducationOpen(true)}
-                      >
-                        <EditIcon />
-                      </button>
-                      <button onClick={ () => ShowDelete("Are you sure u want to delete this Education", parseInt(edu.id ,10))}>
-                        <DeleteIcon />
-                      </button>
-                    </div>
+                  <button
+                    className={styles.edit}
+                    onClick={() => setIsEducationOpen(true)}
+                  >
+                    <EditIcon />
+                  </button>
+                  <button onClick={() => ShowDelete("Are you sure u want to delete this Education", parseInt(edu.id, 10))}>
+                    <DeleteIcon />
+                  </button>
+                </div>
               </div>
             );
           })}
@@ -247,6 +261,7 @@ function ProfileLeft1({ userId }) {
         <WorkExperienceForm
           isOpen={isWorkExperienceOpen}
           onClose={() => setIsWorkExperienceOpen(false)}
+          GetDate={getWorkExpe}
         />
         <div className={styles.box4}>
           <div className={styles.workAddEdit}>
@@ -257,34 +272,45 @@ function ProfileLeft1({ userId }) {
               </button>
             </div>
           </div>
-          {workExperience?.map((work, index) => (
-            <div key={index} className={styles.workContainer}>
-              {index > 0 && <div className={styles.line}></div>}
-              <div className={styles.workDetails}>
-                <div className={styles.titleWorkDetails}>
-                  <p className={styles.workName}>{work.name}</p>
-                  <div className={styles.workAction}>
-                    <button onClick={() => setIsWorkExperienceOpen(true)}>
-                      <EditIcon />
-                    </button>
+          {workExperience?.map((work, index) => {
+  const startDatevalue = new Date(work.startDate);
+  const endDatevalue = new Date(work.endDate);
 
-                    <button
-                      onClick={() =>
-                        ShowDelete(
-                          "Are you sure u want to delete this Work kExperience" , 0
-                        )
-                      }
-                    >
-                      <DeleteIcon />
-                    </button>
-                  </div>
-                </div>
-                <p className={styles.date}>{work.date}</p>
-                <p className={styles.duration}>{work.duration}</p>
-                <p className={styles.description}>{work.description}</p>
-              </div>
-            </div>
-          ))}
+  return (
+    <div key={index} className={styles.workContainer}>
+      {index > 0 && <div className={styles.line}></div>}
+      <div className={styles.workDetails}>
+        <div className={styles.titleWorkDetails}>
+          <p className={styles.workName}>{work.employerName}</p>
+          <div className={styles.workAction}>
+            <button onClick={() => setIsWorkExperienceOpen(true)}>
+              <EditIcon />
+            </button>
+
+            <button
+              onClick={() =>
+                ShowDelete(
+                  "Are you sure you want to delete this Work Experience",
+                  0
+                )
+              }
+            >
+              <DeleteIcon />
+            </button>
+          </div>
+        </div>
+        <p className={styles.date}>
+        {`${startDatevalue.getFullYear()}-${String(startDatevalue.getMonth() + 1).padStart(2, '0')}-${String(startDatevalue.getDate()).padStart(2, '0')}`}
+          {work.endDate
+            ? ` to ${endDatevalue.getFullYear()}-${String(endDatevalue.getMonth() + 1).padStart(2, '0')}-${String(endDatevalue.getDate()).padStart(2, '0')}`
+            : ""}        </p>
+        <p className={styles.duration}>{work.jobTitle}</p>
+        <p className={styles.description}>{work.employmentType}</p>
+      </div>
+    </div>
+  );
+})}
+
         </div>
       </Card>
 

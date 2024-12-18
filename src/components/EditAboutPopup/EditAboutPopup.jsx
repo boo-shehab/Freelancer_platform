@@ -28,6 +28,7 @@ const EditAboutPopup = ({ isOpen, onClose , initialData="" , getData}) => {
     setAboutInput(about)
   },[])
 
+  const currentLength = aboutInput.length;
 
 
   if (!isOpen) return null;
@@ -42,6 +43,7 @@ const EditAboutPopup = ({ isOpen, onClose , initialData="" , getData}) => {
           placeholder="Write about yourself..."
           className={styles.textarea}
         ></textarea>
+        <span>{currentLength}/2000</span>
         <div className={styles.footer}>
           <button onClick={handleSave} className={styles.saveButton}>
             Save

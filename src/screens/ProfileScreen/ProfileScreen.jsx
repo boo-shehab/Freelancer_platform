@@ -457,7 +457,8 @@ const ProfileScreen = () => {
           <EditAboutPopup
             isOpen={isAboutPopupOpen}
             onClose={() => setIsAboutPopupOpen(false)}
-            onSave={handleEditAbout}
+            getData={getProfile}
+            initialData={profile?.about}
           />
           <EditProfilePopup
             isOpen={isUserInfoOpen}

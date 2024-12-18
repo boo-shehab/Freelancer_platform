@@ -4,7 +4,7 @@ import ContainerForm from "../ContainerForm/ContainerForm";
 import dayjs from "dayjs";
 import FetchData from "../../utility/fetchData";
 
-const EducationForm = ({ isOpen, onClose, initialData, onSave }) => {
+const EducationForm = ({ isOpen, onClose, initialData , GetEducations}) => {
   const [school, setSchool] = useState("");
   const [degree, setDegree] = useState("");
   const [startMonth, setStartMonth] = useState("");
@@ -61,32 +61,22 @@ const EducationForm = ({ isOpen, onClose, initialData, onSave }) => {
         {
           method: "POST",
           body:  JSON.stringify({
-            institution: school,
             degree: degree,
+            institution: school,
             startDate: dayjs(`${startYear}-${startMonth}-01`).format("YYYY-MM-DDTHH:mm:ss.SSS[Z]"),
             endDate: dayjs(`${endYear}-${endMonth}-01`).format("YYYY-MM-DDTHH:mm:ss.SSS[Z]"),
           }),
         }
       );
-      if (!resp.ok) {
-        const errorText = await resp.text();
-        console.error(`Error! Status: ${resp.status}`, errorText);
-        alert(`Submission failed! Status: ${resp.status}`);
-        return;
-      }
-      const contentType = resp.headers.get("Content-Type");
-      if (contentType && contentType.includes("application/json")) {
+    
         const responseData = await resp.json();
         console.log("Response Data:", responseData);
-        alert("Education details submitted successfully!");
-      } else {
-        console.log("No valid JSON response received.");
-        alert("Education details submitted successfully! (No content returned)");
-      }
+       
     } catch (error) {
       console.error("Request failed:", error);
-      alert("An error occurred. Please try again later.");
     }
+    GetEducations();
+    onClose();
   };
   
   

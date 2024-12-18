@@ -11,79 +11,13 @@ import EditIcon from "../../CustomIcons/EditIcon";
 import PlusIcon from "../../CustomIcons/PlusIcon";
 import DeleteIcon from "../../CustomIcons/DeleteIcon";
 import DeleteComponent from "../../components/DeleteComponent/DeleteComponent";
-import fetchData from "../../utility/fetchData";
+import FetchData from "../../utility/fetchData";
 import dayjs from "dayjs";
-
-const userData = {
-  profile: {
-    name: "Abdullah Ali",
-    specialization: "Full-Stack Developer",
-    selfie: "/avatar.png",
-  },
-  about: {
-    text: "As a dedicated software developer with a passion for clean code and efficient problem-solving, I thrive on creating robust applications that improve user experience and drive business goals. My expertise lies in backend development, database management, and scalable architecture. I am always eager to learn new technologies and stay updated with the latest trends in the tech world. I believe in the power of collaboration and enjoy working in teams to achieve project goals.",
-  },
-  education: [
-    {
-      university: "University of Baghdad",
-      date: "22 Jan 2023 - 11 May 2032",
-      duration: "3 mos 20 days",
-      college: "Information & Communication Engineering, Al-Khwarizmi College",
-    },
-  ],
-  projects: [
-    {
-      name: "project Name",
-      date: "22 Jan 2023 - 11 May 2032",
-      duration: "3 mos 20 days",
-      description:
-        "Developed a task management web application designed to help users organize, prioritize, and track their daily tasks efficiently.",
-    },
-    {
-      name: "project Name",
-      date: "01 June 2022 - 20 Oct 2023",
-      duration: "1 year 4 months",
-      description:
-        "Built an e-commerce platform with features such as product listing, cart, checkout, and payment gateway integration.",
-    },
-  ],
-  workExperience: [
-    {
-      name: "project Name",
-      date: "01 Feb 2020 - 01 Jan 2023",
-      duration: "2 years 11 months",
-      description:
-        "Worked on building scalable web applications and improving user interface designs for various clients.",
-    },
-    {
-      name: "project Name",
-      date: "01 Mar 2018 - 01 Jan 2020",
-      duration: "1 year 10 months",
-      description:
-        "Focused on frontend development using React.js, HTML, CSS, and JavaScript to enhance user experience.",
-    },
-  ],
-};
-// const WorkFor = [
-//   {
-//     name: "company Name One",
-//     date: "22 Jan 2024 - 11 May  2024.",
-//     duration: "3 months",
-//     description: "Developed a task management web application designed to help users organize, prioritize, and track their daily tasks efficiently. ",
-//   },
-//   {
-//     name: "company Name Two",
-//     date: "22 Jan 2024 - 11 May  2024.",
-//     duration: "3 months",
-//     description: "Developed a task management web application designed to help users organize, prioritize, and track their daily tasks efficiently. ",
-//   },
-// ];
-
 
 
 function ProfileLeft1({ userId }) {
-  const [profile, setProfile] = useState(null);
-  const [about, setAbout] = useState(null);
+  const [profile, setProfile] = useState([]);
+  const [deleteId, setDeleteId] = useState(0);
   const [education, setEducation] = useState([]);
   const [projects, setProjects] = useState([]);
   const [workExperience, setWorkExperience] = useState([]);
@@ -97,52 +31,20 @@ function ProfileLeft1({ userId }) {
   const [showDelete, setShowDelete] = useState(false);
   const [messageDelete, setMessageDelete] = useState("");
 
-  // Fetch user data from API
-  useEffect(() => {
-    // Fetch profile data
-    fetch(`/api/web/v1/users/${userId}/profile`)
-      .then((response) => response.json())
-      .then((data) => setProfile(data))
-      .catch((error) => console.error("Error fetching profile:", error));
-
-    // Fetch about data
-    fetch(`/api/web/v1/users/${userId}/about`)
-      .then((response) => response.json())
-      .then((data) => setAbout(data))
-      .catch((error) => console.error("Error fetching about:", error));
-
-    // Fetch education data
-    fetch(`/api/web/v1/freelancers/${userId}/education`)
-      .then((response) => response.json())
-      .then((data) => setEducation(data))
-      .catch((error) => console.error("Error fetching education:", error));
-
-    // Fetch work experience data
-    fetch(`/api/web/v1/freelancers/${userId}/certifications`)
-      .then((response) => response.json())
-      .then((data) => setWorkExperience(data))
-      .catch((error) => console.error("Error fetching work experience:", error));
-
-    // Fetch projects data
-    fetch(`/api/web/v1/projects/freelancer-feed`)
-      .then((response) => response.json())
-      .then((data) => setProjects(data))
-      .catch((error) => console.error("Error fetching projects:", error));
-  }, [userId]);
-
-
   const handleToggleExpand = () => {
     setIsExpanded(!isExpanded);
   };
 
-  function ShowDelete(message) {
+  function ShowDelete(message , deleteId) {
+    setDeleteId(deleteId);
     setMessageDelete(message);
     setShowDelete(true);
   }
-  const handleGet = async () => {
+
+  const getEducation = async (url, setter) => {
     try {
-      const data = await fetchData(
-        `freelancers/${localStorage.getItem("id")}/education?page=0&pageSize=4`,
+      const data = await FetchData(
+        `freelancers/${localStorage.getItem("id")}/education?page=0&pageSize=100`,
         {
           method: "GET",
         }
@@ -154,10 +56,26 @@ function ProfileLeft1({ userId }) {
     }
   };
 
-  useEffect(() => {
-    handleGet();
-  }, []);
+  const handleGet2 = async (url, setter) => {
+    try {
+      const data = await FetchData(
+       url,
+        {
+          method: "GET",
+        }
+      );
+      setProfile(data.results);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
+  useEffect(() => {
+    handleGet2( `profiles/${localStorage.getItem('id')}` ,setProfile );
+    getEducation();
+    console.log("setter \n opsajc \n osajflc" , profile);
+
+  }, []);
   return (
     <div className={styles.container}>
       {/* Profile Section */}
@@ -168,10 +86,10 @@ function ProfileLeft1({ userId }) {
         />
         <div className={styles.box1}>
           <div className={styles.part1PictureName}>
-            <img className={styles.selfie} src={profile?.selfie || "/avatar.png"} alt="Profile" />
+            <img className={styles.selfie} src={profile?.profilePicture || "/avatar.png"} alt="Profile" />
             <div className={styles.nameSpecialization}>
               <p className={styles.name}>{profile?.name}</p>
-              <p className={styles.specialization}>{profile?.specialization}</p>
+              <p className={styles.specialization}>{profile?.username}</p>
             </div>
           </div>
           <button
@@ -206,14 +124,14 @@ function ProfileLeft1({ userId }) {
                   isExpanded ? styles.expandedText : styles.collapsedText
                 }
               >
-                {about?.text}
+                {profile?.about}
               </span>
-              <button
+              {/* <button
                 className={styles.seeMoreButton}
                 onClick={handleToggleExpand}
               >
                 {isExpanded ? "See Less" : "See More"}
-              </button>
+              </button> */}
             </p>
           </div>
         </div>
@@ -226,6 +144,7 @@ function ProfileLeft1({ userId }) {
         <EducationForm
           isOpen={isEducationOpen}
           onClose={() => setIsEducationOpen(false)}
+          GetEducations = {getEducation}
         />
         <div className={styles.box3}>
           <div className={styles.educationAddEdit}>
@@ -239,13 +158,7 @@ function ProfileLeft1({ userId }) {
               </button>
             </div>
           </div>
-         
-          {/* {
-      university: "University of Baghdad",
-      date: "22 Jan 2023 - 11 May 2032",
-      duration: "3 mos 20 days",
-      college: "Information & Communication Engineering, Al-Khwarizmi College",
-    }, */}
+        
           {education?.map((edu, index) => {
             const startDate = dayjs(edu.startDate);
             const endDate = dayjs(edu.endDate);
@@ -289,13 +202,7 @@ function ProfileLeft1({ userId }) {
                       >
                         <EditIcon />
                       </button>
-                      <button
-                        onClick={() =>
-                          ShowDelete(
-                            "Are you sure u want to delete this Education"
-                          )
-                        }
-                      >
+                      <button onClick={ () => ShowDelete("Are you sure u want to delete this Education", parseInt(edu.id ,10))}>
                         <DeleteIcon />
                       </button>
                     </div>
@@ -364,7 +271,7 @@ function ProfileLeft1({ userId }) {
                     <button
                       onClick={() =>
                         ShowDelete(
-                          "Are you sure u want to delete this Work kExperience"
+                          "Are you sure u want to delete this Work kExperience" , 0
                         )
                       }
                     >
@@ -436,7 +343,9 @@ function ProfileLeft1({ userId }) {
       <DeleteComponent
         isOpen={showDelete}
         message={messageDelete}
-        onClose={() => setshowDelete(false)}
+        onClose={() => setShowDelete(false)}
+        TypeofDelete={`freelancers/education/${deleteId}`}
+        GetAllData={getEducation}
       />
     </div>
   );

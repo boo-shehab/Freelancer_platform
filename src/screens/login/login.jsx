@@ -9,6 +9,8 @@ import useUserinfoStore from '../../useUserinfoStore';
 
 const Login = () => {
     const { addUserInfo } = useUserinfoStore();
+    const { isFreelancer } = useUserinfoStore();
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
@@ -36,15 +38,16 @@ const Login = () => {
             );
 
             const { accessToken, userDetails } = data.results;
-            const { role } = userDetails;
+            const { id , role } = userDetails;
 
             // Save sensitive data securely
             localStorage.setItem('accessToken', accessToken);
+            localStorage.setItem('id', id);
+
             addUserInfo(userDetails);
 
-            console.log('User Details:', userDetails);
+            console.log('User Details:', isFreelancer);
 
-            // Navigate based on role if needed
             navigate('/');
         } catch (error) {
             setErrorMessage(error.message || 'Login failed. Please try again.');
@@ -82,9 +85,9 @@ const Login = () => {
                     {errorMessage && <h4 className={styles.error}>{errorMessage}</h4>}
                     <CustomButton
                         onClick={handleLogin}
-                        disabled={!validateEmail(email) || password.length < 6}
-                    >
-                        {loading ? "Loading..." : "Login >"}
+                        disabled={(!validateEmail(email) || password.length < 6)|| loading}
+                        isLoading={loading}>
+                       Login
                     </CustomButton>
                 </div>
             </div>

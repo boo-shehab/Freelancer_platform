@@ -10,10 +10,43 @@ import ProfileScreen from './screens/ProfileScreen/ProfileScreen';
 import Login from './screens/login/login';
 import Setting from './screens/SettingScreen/Setting';
 import useUserinfoStore from './useUserinfoStore';
+import fetchData from './utility/fetchData';
 
 
 
 function App() {
+  const {username} = useUserinfoStore()
+
+  // useEffect(() => {
+  //   const fetchUserInfo = async () => {
+  //     const accessToken = localStorage.getItem('accessToken');
+  //     const id = localStorage.getItem('id');
+  //     if (accessToken) {
+  //       try {
+  //         const response = await fetchData(`profiles/${id}`);
+  //         const data = await response.results;
+
+          
+  //         // Update Zustand store with fetched data
+
+  //         // setUsername(data.username || '');
+  //         // setIsFreelancer(data.isFreelancer || false);
+  //         // setName(data.name || '');
+  //         // setPhoneNumber(data.phoneNumber || '');
+  //         // setAbout(data.about || '');
+  //         addUserInfo(data)
+  //       } catch (error) {
+  //         console.error("Failed to fetch user info:", error);
+  //       }
+  //     }
+  //   };
+  //   if(username === ''){
+  //     //window.location.reload();
+  //     fetchUserInfo();
+  //   }
+   
+  // }, []);
+
   const {projects} = useUserinfoStore()
 
   const router = createBrowserRouter([

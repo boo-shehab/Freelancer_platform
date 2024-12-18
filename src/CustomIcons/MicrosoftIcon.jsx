@@ -1,5 +1,5 @@
 import * as React from "react"
-const MicrosoftIcon = (props) => (
+const SvgComponent = (props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -32,5 +32,4 @@ const MicrosoftIcon = (props) => (
     </defs>
   </svg>
 )
-export default  MicrosoftIcon 
-
+export default SvgComponent

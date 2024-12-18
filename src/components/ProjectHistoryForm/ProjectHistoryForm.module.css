@@ -16,6 +16,7 @@
     font-size: 14px;
     background-color: transparent;
     outline: none;
+    resize: none;
   }
 
   .input:focus,

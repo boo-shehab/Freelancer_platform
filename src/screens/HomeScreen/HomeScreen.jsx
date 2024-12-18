@@ -275,6 +275,7 @@ const HomeScreen = () => {
     setCallBack(CB);
     console.log(CB);
   };
+  console.log('User Details:', isFreelancer);
 
   return (
     <div style={styles.homeScreen}>

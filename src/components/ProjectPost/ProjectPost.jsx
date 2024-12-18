@@ -73,9 +73,9 @@ const projectPost = ({
           {post?.imageUrl && (
             <>
               {seeMore ? (
-                <span onClick={() => setSeeMore(false)}>See less</span>
+                <span onClick={() => setSeeMore(false)} className={styles.seeLess}>See less</span>
               ) : (
-                <span onClick={() => setSeeMore(true)}>See more</span>
+                <span onClick={() => setSeeMore(true)} className={styles.seeLess}>See more</span>
               )}
               <img className={styles.postImage} src={post?.imageUrl} />
             </>

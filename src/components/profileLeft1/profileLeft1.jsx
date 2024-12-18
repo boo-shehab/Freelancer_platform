@@ -6,88 +6,24 @@ import EditAboutPopup from "../EditAboutPopup/EditAboutPopup";
 import WorkExperienceForm from "../WorkExperienceForm/WorkExperienceForm";
 import EducationForm from "../EducationForm/EducationForm";
 import EditProfilePopup from "../EditProfilePopup/EditProfilePopup";
+import EditProfileImagePopup  from "../EditProfilePopup/EditProfileImagePopup";
 import WorkForForm from "../WorkForForm/WorkForForm";
 import EditIcon from "../../CustomIcons/EditIcon";
 import PlusIcon from "../../CustomIcons/PlusIcon";
 import DeleteIcon from "../../CustomIcons/DeleteIcon";
 import DeleteComponent from "../../components/DeleteComponent/DeleteComponent";
-import fetchData from "../../utility/fetchData";
+import FetchData from "../../utility/fetchData";
 import dayjs from "dayjs";
-
-const userData = {
-  profile: {
-    name: "Abdullah Ali",
-    specialization: "Full-Stack Developer",
-    selfie: "/avatar.png",
-  },
-  about: {
-    text: "As a dedicated software developer with a passion for clean code and efficient problem-solving, I thrive on creating robust applications that improve user experience and drive business goals. My expertise lies in backend development, database management, and scalable architecture. I am always eager to learn new technologies and stay updated with the latest trends in the tech world. I believe in the power of collaboration and enjoy working in teams to achieve project goals.",
-  },
-  education: [
-    {
-      university: "University of Baghdad",
-      date: "22 Jan 2023 - 11 May 2032",
-      duration: "3 mos 20 days",
-      college: "Information & Communication Engineering, Al-Khwarizmi College",
-    },
-  ],
-  projects: [
-    {
-      name: "project Name",
-      date: "22 Jan 2023 - 11 May 2032",
-      duration: "3 mos 20 days",
-      description:
-        "Developed a task management web application designed to help users organize, prioritize, and track their daily tasks efficiently.",
-    },
-    {
-      name: "project Name",
-      date: "01 June 2022 - 20 Oct 2023",
-      duration: "1 year 4 months",
-      description:
-        "Built an e-commerce platform with features such as product listing, cart, checkout, and payment gateway integration.",
-    },
-  ],
-  workExperience: [
-    {
-      name: "project Name",
-      date: "01 Feb 2020 - 01 Jan 2023",
-      duration: "2 years 11 months",
-      description:
-        "Worked on building scalable web applications and improving user interface designs for various clients.",
-    },
-    {
-      name: "project Name",
-      date: "01 Mar 2018 - 01 Jan 2020",
-      duration: "1 year 10 months",
-      description:
-        "Focused on frontend development using React.js, HTML, CSS, and JavaScript to enhance user experience.",
-    },
-  ],
-};
-// const WorkFor = [
-//   {
-//     name: "company Name One",
-//     date: "22 Jan 2024 - 11 May  2024.",
-//     duration: "3 months",
-//     description: "Developed a task management web application designed to help users organize, prioritize, and track their daily tasks efficiently. ",
-//   },
-//   {
-//     name: "company Name Two",
-//     date: "22 Jan 2024 - 11 May  2024.",
-//     duration: "3 months",
-//     description: "Developed a task management web application designed to help users organize, prioritize, and track their daily tasks efficiently. ",
-//   },
-// ];
-
 
 
 function ProfileLeft1({ userId }) {
-  const [profile, setProfile] = useState(null);
-  const [about, setAbout] = useState(null);
+  const [profile, setProfile] = useState([]);
+  const [deleteId, setDeleteId] = useState(0);
   const [education, setEducation] = useState([]);
   const [projects, setProjects] = useState([]);
   const [workExperience, setWorkExperience] = useState([]);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [updateimage, setUpdateimage] = useState(false);
   const [isAboutFormOpen, setIsAboutFormOpen] = useState(false);
   const [isEducationOpen, setIsEducationOpen] = useState(false);
   const [isWorkExperienceOpen, setIsWorkExperienceOpen] = useState(false);
@@ -97,52 +33,20 @@ function ProfileLeft1({ userId }) {
   const [showDelete, setShowDelete] = useState(false);
   const [messageDelete, setMessageDelete] = useState("");
 
-  // Fetch user data from API
-  useEffect(() => {
-    // Fetch profile data
-    fetch(`/api/web/v1/users/${userId}/profile`)
-      .then((response) => response.json())
-      .then((data) => setProfile(data))
-      .catch((error) => console.error("Error fetching profile:", error));
-
-    // Fetch about data
-    fetch(`/api/web/v1/users/${userId}/about`)
-      .then((response) => response.json())
-      .then((data) => setAbout(data))
-      .catch((error) => console.error("Error fetching about:", error));
-
-    // Fetch education data
-    fetch(`/api/web/v1/freelancers/${userId}/education`)
-      .then((response) => response.json())
-      .then((data) => setEducation(data))
-      .catch((error) => console.error("Error fetching education:", error));
-
-    // Fetch work experience data
-    fetch(`/api/web/v1/freelancers/${userId}/certifications`)
-      .then((response) => response.json())
-      .then((data) => setWorkExperience(data))
-      .catch((error) => console.error("Error fetching work experience:", error));
-
-    // Fetch projects data
-    fetch(`/api/web/v1/projects/freelancer-feed`)
-      .then((response) => response.json())
-      .then((data) => setProjects(data))
-      .catch((error) => console.error("Error fetching projects:", error));
-  }, [userId]);
-
-
   const handleToggleExpand = () => {
     setIsExpanded(!isExpanded);
   };
 
-  function ShowDelete(message) {
+  function ShowDelete(message, deleteId) {
+    setDeleteId(deleteId);
     setMessageDelete(message);
     setShowDelete(true);
   }
-  const handleGet = async () => {
+
+  const getEducation = async () => {
     try {
-      const data = await fetchData(
-        `freelancers/${localStorage.getItem("id")}/education?page=0&pageSize=4`,
+      const data = await FetchData(
+        `freelancers/${localStorage.getItem("id")}/education?page=0&pageSize=100`,
         {
           method: "GET",
         }
@@ -153,25 +57,64 @@ function ProfileLeft1({ userId }) {
       console.log(error);
     }
   };
+  const getWorkExpe = async () => {
+    try {
+      const data = await FetchData(
+        `freelancers/${localStorage.getItem("id")}/work-experience?page=0&pageSize=100`,
+        {
+          method: "GET",
+        }
+      );
+      setWorkExperience(data.results.result);
+      console.log("data : ", workExperience);
+
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getProfile = async () => {
+    try {
+      const data = await FetchData(
+        `profiles/${localStorage.getItem('id')}`,
+        {
+          method: "GET",
+        }
+      );
+      setProfile(data.results);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
-    handleGet();
+    getProfile();
+    getEducation();
+    getWorkExpe();
   }, []);
-
   return (
     <div className={styles.container}>
-      {/* Profile Section */}
+
       <Card>
-        <EditProfilePopup
+      <EditProfilePopup
           isOpen={isProfileFormOpen}
           onClose={() => setIsProfileFormOpen(false)}
-        />
+          initialData={{ name: profile.name, specialization: profile.qualificationName }}
+          getData={getProfile}
+       />
+       <EditProfileImagePopup
+          isOpen={updateimage}
+          onClose={() => setUpdateimage(false)}
+          initialData={{ image : profile.profilePicture }}
+          getData={getProfile}
+       />
+
         <div className={styles.box1}>
           <div className={styles.part1PictureName}>
-            <img className={styles.selfie} src={profile?.selfie || "/avatar.png"} alt="Profile" />
+            <img className={styles.selfie} src={profile?.profilePicture || "/avatar.png"} alt="Profile" onClick={() => setUpdateimage(true)} />
             <div className={styles.nameSpecialization}>
               <p className={styles.name}>{profile?.name}</p>
-              <p className={styles.specialization}>{profile?.specialization}</p>
+              <p className={styles.specialization}>{profile?.qualificationName}</p>
             </div>
           </div>
           <button
@@ -206,14 +149,14 @@ function ProfileLeft1({ userId }) {
                   isExpanded ? styles.expandedText : styles.collapsedText
                 }
               >
-                {about?.text}
+                {profile?.about}
               </span>
-              <button
+              {/* <button
                 className={styles.seeMoreButton}
                 onClick={handleToggleExpand}
               >
                 {isExpanded ? "See Less" : "See More"}
-              </button>
+              </button> */}
             </p>
           </div>
         </div>
@@ -226,6 +169,7 @@ function ProfileLeft1({ userId }) {
         <EducationForm
           isOpen={isEducationOpen}
           onClose={() => setIsEducationOpen(false)}
+          GetEducations={getEducation}
         />
         <div className={styles.box3}>
           <div className={styles.educationAddEdit}>
@@ -239,13 +183,7 @@ function ProfileLeft1({ userId }) {
               </button>
             </div>
           </div>
-         
-          {/* {
-      university: "University of Baghdad",
-      date: "22 Jan 2023 - 11 May 2032",
-      duration: "3 mos 20 days",
-      college: "Information & Communication Engineering, Al-Khwarizmi College",
-    }, */}
+
           {education?.map((edu, index) => {
             const startDate = dayjs(edu.startDate);
             const endDate = dayjs(edu.endDate);
@@ -259,46 +197,40 @@ function ProfileLeft1({ userId }) {
             return (
               <div key={index} className={styles.box3Part2}>
                 <div className={styles.boxInfo}>
-                <div className={styles.img}>
-                  <img
-                    className={styles.universityIcon}
-                    src={UniversityIcon}
-                    alt="University"
-                  />
-                </div>
-                <div className={styles.educationDetails}>
-                  <div className={styles.titleOfEducation}>
-                    <p className={styles.university}>{edu.institution}</p>
-                 
+                  <div className={styles.img}>
+                    <img
+                      className={styles.universityIcon}
+                      src={UniversityIcon}
+                      alt="University"
+                    />
                   </div>
+                  <div className={styles.educationDetails}>
+                    <div className={styles.titleOfEducation}>
+                      <p className={styles.university}>{edu.institution}</p>
 
-                  <p className={styles.date}>
-                    {startDate.format("DD MMM YYYY")} -{" "}
-                    {endDate.format("DD MMM YYYY")}
-                  </p>
-                  <p className={styles.duration}>
-                    {months} mos {remainingDays} days
-                  </p>
-                  <p className={styles.college}>{edu.degree}</p>
-                </div>
+                    </div>
+
+                    <p className={styles.date}>
+                      {startDate.format("DD MMM YYYY")} -{" "}
+                      {endDate.format("DD MMM YYYY")}
+                    </p>
+                    <p className={styles.duration}>
+                      {months} mos {remainingDays} days
+                    </p>
+                    <p className={styles.college}>{edu.degree}</p>
+                  </div>
                 </div>
                 <div className={styles.educationAction}>
-                      <button
-                        className={styles.edit}
-                        onClick={() => setIsEducationOpen(true)}
-                      >
-                        <EditIcon />
-                      </button>
-                      <button
-                        onClick={() =>
-                          ShowDelete(
-                            "Are you sure u want to delete this Education"
-                          )
-                        }
-                      >
-                        <DeleteIcon />
-                      </button>
-                    </div>
+                  <button
+                    className={styles.edit}
+                    onClick={() => setIsEducationOpen(true)}
+                  >
+                    <EditIcon />
+                  </button>
+                  <button onClick={() => ShowDelete("Are you sure u want to delete this Education", parseInt(edu.id, 10))}>
+                    <DeleteIcon />
+                  </button>
+                </div>
               </div>
             );
           })}
@@ -340,6 +272,7 @@ function ProfileLeft1({ userId }) {
         <WorkExperienceForm
           isOpen={isWorkExperienceOpen}
           onClose={() => setIsWorkExperienceOpen(false)}
+          GetDate={getWorkExpe}
         />
         <div className={styles.box4}>
           <div className={styles.workAddEdit}>
@@ -350,34 +283,45 @@ function ProfileLeft1({ userId }) {
               </button>
             </div>
           </div>
-          {workExperience?.map((work, index) => (
-            <div key={index} className={styles.workContainer}>
-              {index > 0 && <div className={styles.line}></div>}
-              <div className={styles.workDetails}>
-                <div className={styles.titleWorkDetails}>
-                  <p className={styles.workName}>{work.name}</p>
-                  <div className={styles.workAction}>
-                    <button onClick={() => setIsWorkExperienceOpen(true)}>
-                      <EditIcon />
-                    </button>
+          {workExperience?.map((work, index) => {
+  const startDatevalue = new Date(work.startDate);
+  const endDatevalue = new Date(work.endDate);
 
-                    <button
-                      onClick={() =>
-                        ShowDelete(
-                          "Are you sure u want to delete this Work kExperience"
-                        )
-                      }
-                    >
-                      <DeleteIcon />
-                    </button>
-                  </div>
-                </div>
-                <p className={styles.date}>{work.date}</p>
-                <p className={styles.duration}>{work.duration}</p>
-                <p className={styles.description}>{work.description}</p>
-              </div>
-            </div>
-          ))}
+  return (
+    <div key={index} className={styles.workContainer}>
+      {index > 0 && <div className={styles.line}></div>}
+      <div className={styles.workDetails}>
+        <div className={styles.titleWorkDetails}>
+          <p className={styles.workName}>{work.employerName}</p>
+          <div className={styles.workAction}>
+            <button onClick={() => setIsWorkExperienceOpen(true)}>
+              <EditIcon />
+            </button>
+
+            <button
+              onClick={() =>
+                ShowDelete(
+                  "Are you sure you want to delete this Work Experience",
+                  0
+                )
+              }
+            >
+              <DeleteIcon />
+            </button>
+          </div>
+        </div>
+        <p className={styles.date}>
+        {`${startDatevalue.getFullYear()}-${String(startDatevalue.getMonth() + 1).padStart(2, '0')}-${String(startDatevalue.getDate()).padStart(2, '0')}`}
+          {work.endDate
+            ? ` to ${endDatevalue.getFullYear()}-${String(endDatevalue.getMonth() + 1).padStart(2, '0')}-${String(endDatevalue.getDate()).padStart(2, '0')}`
+            : ""}        </p>
+        <p className={styles.duration}>{work.jobTitle}</p>
+        <p className={styles.description}>{work.employmentType}</p>
+      </div>
+    </div>
+  );
+})}
+
         </div>
       </Card>
 
@@ -436,7 +380,9 @@ function ProfileLeft1({ userId }) {
       <DeleteComponent
         isOpen={showDelete}
         message={messageDelete}
-        onClose={() => setshowDelete(false)}
+        onClose={() => setShowDelete(false)}
+        TypeofDelete={`freelancers/education/${deleteId}`}
+        GetAllData={getEducation}
       />
     </div>
   );

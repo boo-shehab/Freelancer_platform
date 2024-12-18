@@ -38,7 +38,7 @@ const WorkFor = [
 ];
 
 const ProfileScreen = () => {
-  const { about, setAbout } = useUserinfoStore();
+  const { about, projects } = useUserinfoStore();
 
   const [isUserInfoOpen, setIsUserInfoOpen] = useState(false);
   const [isAboutPopupOpen, setIsAboutPopupOpen] = useState(false);
@@ -67,7 +67,7 @@ const ProfileScreen = () => {
   const [posted, setPosted] = useState(25);
   const [pending, setPending] = useState(25);
   const [completed, setCompleted] = useState(25);
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   function ShowDelete(message) {
     setmessageDelete(message);
@@ -106,20 +106,20 @@ const ProfileScreen = () => {
     },
   ];
 
-  const projects = [
-    {
-      id: 1,
-      title: "Project Name One",
-      createdAt: "22 Jan 2024 - 11 May  2024.",
-      desc: "Developed a task management web application designed to help users organize, prioritize, and track their daily tasks efficiently. ",
-    },
-    {
-      id: 2,
-      title: "Project Name Two",
-      createdAt: "22 Jan 2024 - 11 May  2024.",
-      desc: "Developed a task management web application designed to help users organize, prioritize, and track their daily tasks efficiently. ",
-    },
-  ];
+  // const projects = [
+  //   {
+  //     id: 1,
+  //     title: "Project Name One",
+  //     createdAt: "22 Jan 2024 - 11 May  2024.",
+  //     desc: "Developed a task management web application designed to help users organize, prioritize, and track their daily tasks efficiently. ",
+  //   },
+  //   {
+  //     id: 2,
+  //     title: "Project Name Two",
+  //     createdAt: "22 Jan 2024 - 11 May  2024.",
+  //     desc: "Developed a task management web application designed to help users organize, prioritize, and track their daily tasks efficiently. ",
+  //   },
+  // ];
 
   const handleInfoProfileAndRating = async () => {
     try {
@@ -129,14 +129,22 @@ const ProfileScreen = () => {
           method: "GET",
         }
       );
+      const {
+        freelancersWorkedWith,
+        projectPosted,
+        givenLikes,
+        projectsPending,
+        projectsInProgress,
+        projectsCompleted,
+      } = data.results;
 
-      const { freelancersWorkedWith, projectPosted, givenLikes } = data.results;
+
       setIsWorkedWith(freelancersWorkedWith);
       setIsGivenLikes(givenLikes);
       setIsProjectPosted(projectPosted);
-      setPosted();
-      setPending();
-      setCompleted();
+      setPosted(projectsInProgress);
+      setPending(projectsPending);
+      setCompleted(projectsCompleted);
     } catch (error) {
       console.log("Login failed. Please try again.");
     }
@@ -152,7 +160,7 @@ const ProfileScreen = () => {
       );
 
       const processedRatings = {
-        averageRating: parseInt(results.averageRating, 10),
+        averageRating: parseFloat(results.averageRating, 10),
         totalRating: results.totalRating,
         highRating: results.highRating,
         midRating: results.midRating,
@@ -192,7 +200,7 @@ const ProfileScreen = () => {
   }, []);
 
   const rating = {
-    starRate: "4.0",
+    starRate: averageRating,
     highRate: 82,
     midRate: 12,
     lowRate: 6,
@@ -229,8 +237,6 @@ const ProfileScreen = () => {
   const idShow = (id) => {
     setVisiblePostId((prevId) => (prevId === id ? null : id));
   };
-
-
 
   return (
     <div>
@@ -488,12 +494,10 @@ const ProfileScreen = () => {
                       </span>
                     </p>
                   </div>
-
                   <div className={styles.history}>
                     <div className={styles.historyHead}>
                       <b>Projects History</b>
                     </div>
-
                     {projects?.map((p) => (
                       <div className={styles.projectItem} key={p.id}>
                         <div className={styles.guid}>
@@ -503,7 +507,7 @@ const ProfileScreen = () => {
                         <div className={styles.itemInfo}>
                           <h4>{p.title}</h4>
                           <small>{p.createdAt}</small>
-                          <p className={styles.itemDesc}>{p.desc}</p>
+                          <p className={styles.itemDesc}>{p.description}</p>
                         </div>
                       </div>
                     ))}
@@ -575,9 +579,12 @@ const ProfileScreen = () => {
                               </div>
                             </div>
 
-                            <div className={styles.postClientAction} >
+                            <div className={styles.postClientAction}>
                               <div className={styles.tag}>Available</div>
-                              <MoreIcon onClick={() => idShow(post.id)} style={{cursor:"pointer"}} />
+                              <MoreIcon
+                                onClick={() => idShow(post.id)}
+                                style={{ cursor: "pointer" }}
+                              />
                               {isListVisible === post.id && (
                                 <div
                                   className={styles.list}
@@ -587,7 +594,8 @@ const ProfileScreen = () => {
                                   }}
                                 >
                                   <button>Edit</button>
-                                  <button className={styles.deletebtnForPost}
+                                  <button
+                                    className={styles.deletebtnForPost}
                                     onClick={() =>
                                       ShowDelete(
                                         "Are you sure u want to delete this Post"
@@ -743,36 +751,36 @@ const ProfileScreen = () => {
                         <div className={styles.bar}>
                           <div
                             style={{
-                              width: `${rating.highRate}%`,
+                              width: `${highRating}`,
                               backgroundColor: "#4DB251",
                             }}
                           ></div>
                         </div>
-                        <p>{highRating}</p>
+                        <p>{`${highRating}%`}</p>
                       </div>
                       <div className={styles.barItem}>
                         <b>Mid rate</b>
                         <div className={styles.bar}>
                           <div
                             style={{
-                              width: `${rating.midRate}%`,
+                              width: `${midRating}`,
                               backgroundColor: "#FFBF00",
                             }}
                           ></div>
                         </div>
-                        <p>{midRating}</p>
+                        <p>{`${midRating}%`}</p>
                       </div>
                       <div className={styles.barItem}>
                         <b>low rate</b>
                         <div className={styles.bar}>
                           <div
                             style={{
-                              width: `${rating.lowRate}%`,
+                              width: `${lowRating}%`,
                               backgroundColor: "#E4636F",
                             }}
                           ></div>
                         </div>
-                        <p>{lowRating}</p>
+                        <p>{`${lowRating}%`}</p>
                       </div>
                     </div>
                   </div>
@@ -780,9 +788,7 @@ const ProfileScreen = () => {
                 <Card marginTop={24} paddingx={24} isProfilePage={true}>
                   <div className={styles.titleReviewsBox}>
                     <h3 className={styles.titleReviews}>Reviews</h3>
-                    <p className={styles.subtitleReviews}>
-                      Total People who visited your profile
-                    </p>
+                    <p className={styles.subtitleReviews}>Total Reviews</p>
                     <p className={styles.reviews}>
                       <b>{totalRating}</b> review
                     </p>

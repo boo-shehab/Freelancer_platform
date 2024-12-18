@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./CommentForm.module.css";
 import ContainerForm from "../ContainerForm/ContainerForm";
+import fetchData from "../../utility/fetchData";
 const Comment = [
   {
     id: 1,
@@ -75,7 +76,73 @@ const Comment = [
     Comment: "Exactly! I've been thinking the same thing recently.",
   },
 ];
-const CommentForm = ({ isOpen, onClose }) => {
+const CommentForm = ({ isOpen, onClose, postId, newCommentAdded }) => {
+  const [comment, setComment] = useState([])
+  const [newComment, setNewComment] = useState('')
+  const getComment = async() => {
+    setComment([]);
+    try{
+      const response = await fetchData(`projects/${postId}/comments?page=0&pageSize=10`, {
+        method: 'GET',
+      })
+      setComment(response.results.result);
+    }catch(e) {
+      console.log(e);
+    }
+  }
+  useEffect(() => {
+    if(isOpen) {
+      getComment()
+    }
+  }, [isOpen])
+  const formattedDate = (dataDate) => {
+    const date = new Date(dataDate);
+    // Extract year, month, and day
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are 0-based
+    const day = String(date.getDate()).padStart(2, "0");
+
+    // Format as YYYY-MM-DD
+    return `${year}-${month}-${day}`;
+    
+  }
+
+  const postComment = async () => {
+    const formData = new FormData();
+    formData.append('Content', newComment);
+    console.log(newComment);
+    
+    try {
+        const response = await fetchData(
+            `projects/${postId}/comments`,
+            {
+                method: 'POST',
+                body: formData
+            },
+            {
+              Accept: "*/*",
+            }
+        );
+        console.log('Response:', response);
+        getComment()
+        newCommentAdded()
+        setNewComment('')
+    } catch (error) {
+        console.error('Error posting comment:', error);
+        throw error;
+    }
+};
+
+  // const handleNewComment = async() => {
+  //   try{
+  //     const response = fetchData(`projects/${postId}/comments`, {
+  //       method: 'POST',
+  //       body: 
+  //     })
+  //   } catch(e) {
+  //     console.log(e);
+  //   }
+  // }
   if (!isOpen) return null;
   return (
     <ContainerForm
@@ -85,14 +152,14 @@ const CommentForm = ({ isOpen, onClose }) => {
       HeadName="Comments"
     >
       <div className={styles.commentList}>
-        {Comment.map((i) => (
+        {comment.map((i) => (
           <div className={styles.CommentCard}>
             <div className={styles.CommentCardSpaceBetween}>
-              <img src={i.image} alt="" className={styles.CommentCardImg} />
+              <img src={i.profilePicture} alt="" className={styles.CommentCardImg} />
               <div className={styles.Comment}>
-                <h4>{i.name}</h4>
-                <p>{i.Comment}</p>
-                <p className={styles.date}>{i.date}</p>
+                <h4>{i.commenterName}</h4>
+                <p>{i.content}</p>
+                <p className={styles.date}>{formattedDate(i.createdAt)}</p>
               </div>
             </div>
           </div>
@@ -102,9 +169,11 @@ const CommentForm = ({ isOpen, onClose }) => {
         <input
           className={styles.postCommentInput}
           placeholder=" Enter comment"
+          value={newComment}
+          onChange={(e) => setNewComment(e.target.value)}
           type=""
         />{" "}
-        <button className={styles.postCommentBtn}>Post</button>
+        <button className={styles.postCommentBtn} onClick={postComment}>Post</button>
       </div>
     </ContainerForm>
   );

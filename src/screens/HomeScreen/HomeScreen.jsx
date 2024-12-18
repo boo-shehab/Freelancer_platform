@@ -4,7 +4,6 @@ import Container from "../../components/Container/container";
 import ArrowTop from "../../CustomIcons/ArrowTop";
 import EditIcon from "../../CustomIcons/EditIcon";
 import Pluse2Icon from "../../CustomIcons/Pluse2Icon";
-import PlusIcon from "../../CustomIcons/PlusIcon";
 import StarIcon from "../../CustomIcons/StarIcon";
 import SearchIcon from "../../CustomIcons/SearchIcon";
 import styles from "./homeScreen.module.css";
@@ -14,11 +13,9 @@ import ProjectPost from "../../components/ProjectPost/ProjectPost";
 import FreeLancerScreen from "../freeLancerScreen/freeLancerScreen";
 import FilterResponsive from "../../CustomIcons/filterResponsive";
 import { useMediaQuery } from "react-responsive";
-import CommentForm from "../../components/CommentForm/CommentForm";
 import MobileDrawer from "../../components/MobileDrawer/MobileDrawer";
 import CloseIcon from "../../CustomIcons/CloseIcon";
 import FilterMoboIcon from "../../CustomIcons/FilterMoboIcon";
-import WorkForForm from "../../components/WorkForForm/WorkForForm";
 import EditAboutPopup from "../../components/EditAboutPopup/EditAboutPopup";
 import fetchData from "../../utility/fetchData";
 import useUserinfoStore from "../../useUserinfoStore";
@@ -172,10 +169,7 @@ const HomeScreen = () => {
   const { isFreelancer } = useUserinfoStore()
   
   const [isPopupOpen2, setIsPopupOpen2] = useState(false);
-  const [callBack, setCallBack] = useState([]);
-  const [isCommentForm, setIsCommentForm] = useState(false);
   const [openDrawer, setOpenDrawer] = useState(false);
-  const [isWorkForOpen, setIsWorkForOpen] = useState(false);
   const [isAboutPopupOpen, setIsAboutPopupOpen] = useState(false);
   const { about, projects } = useUserinfoStore();
   const [aboutState, setAboutState] = useState(about.slice(0, 200));
@@ -272,7 +266,6 @@ const HomeScreen = () => {
     setIsPopupOpen(true);
   };
   const callBackFun = (CB) => {
-    setCallBack(CB);
     console.log(CB);
   };
   console.log('User Details:', isFreelancer);
@@ -552,9 +545,6 @@ const HomeScreen = () => {
             )}
             {posts?.map((post) => (
               <ProjectPost
-              isFreelancer={isFreelancer}
-                IsCommentForm={isCommentForm}
-                SetIsCommentForm={() => setIsCommentForm(!isCommentForm)}
                 key={post.id}
                 post={post}
               />
@@ -639,10 +629,6 @@ const HomeScreen = () => {
           )}
         </div>
       </Container>
-      <CommentForm
-        isOpen={isCommentForm}
-        onClose={() => setIsCommentForm(!isCommentForm)}
-      />
       <EditAboutPopup
         isOpen={isAboutPopupOpen}
         onClose={() => setIsAboutPopupOpen(false)}

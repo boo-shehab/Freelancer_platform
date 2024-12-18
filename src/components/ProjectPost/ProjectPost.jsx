@@ -8,20 +8,38 @@ import ApplyToProjectFormPopup from "../ApplyToProjectFormPopup/ApplyToProjectFo
 import styles from "./ProjectPost.module.css";
 import { useMediaQuery } from "react-responsive";
 import useUserinfoStore from "../../useUserinfoStore";
+import CommentForm from "../CommentForm/CommentForm";
 const projectPost = ({
   post,
-  IsCommentForm = false,
-  SetIsCommentForm,
 }) => {
   const { isFreelancer } = useUserinfoStore()
   const [applyPopup, setApplyPopup] = useState(false);
   const [isListVisible, setVisiblePostId] = useState(null);
   const [seeMore, setSeeMore] = useState(false)
   const isSmallScreen = useMediaQuery({ query: "(max-width: 750px)" });
+  const [isLiked, setIsLiked ] = useState(post.isLiked);
+  const [totalLikes, setTotalLikes] = useState(post?.paginatedLikes.total)
+  const [totalComments, setTotalComments] = useState(post?.paginatedComments.total)
+  const [isCommentForm, setIsCommentForm] = useState(false);
 
   const idShow = (i) => {
     setVisiblePostId((prevId) => (prevId === i ? null : i));
   };
+  const handleToggleHeart = async() => {
+    try {
+      await fetch(`http://16.170.247.41/api/web/v1/projects/${post.id}/likes?action=${isLiked? 'unlike' : 'like'}`, {
+        method: 'POST'
+      })
+      if(isLiked) {
+        setTotalLikes(totalLikes-1)
+      } else {
+        setTotalLikes(totalLikes+1)
+      }
+      setIsLiked(!isLiked)
+    } catch(e) {
+      console.log(e);
+    }
+  }
   return (
     <>
       <Card marginTop={16} key={post.id}>
@@ -29,7 +47,7 @@ const projectPost = ({
           <div className={styles.postHead}>
             <div className={styles.postClient}>
               <div className={styles.postAvatar}>
-                <img src={post?.clientProfilePicture} alt="" srcset="" />
+                <img src={post?.clientProfilePicture} alt="" />
               </div>
               <div>
                 <b className={styles.postClientName}>{post?.clientName}</b>
@@ -83,10 +101,10 @@ const projectPost = ({
           <div className={styles.postFooter1}>
             <div className={styles.postFooter2}>
               <div className={styles.footerItem}>
-                <HeartIcon /> <span>{post?.paginatedLikes.total} like</span>
+                <HeartIcon onClick={ handleToggleHeart} isFilled={isLiked} /> <span>{(totalLikes)} like</span>
               </div>
-              <div className={styles.footerItem} onClick={SetIsCommentForm}>
-                <CommentsIcon /> <span>{post?.paginatedComments.total} comment</span>
+              <div className={styles.footerItem} onClick={setIsCommentForm}>
+                <CommentsIcon /> <span>{totalComments} comment</span>
               </div>
             </div>
             <CustomButton
@@ -103,6 +121,12 @@ const projectPost = ({
           projectId={post.id}
           isOpen={applyPopup}
           onClose={() => setApplyPopup(false)}
+        />
+        <CommentForm
+          isOpen={isCommentForm}
+          postId={post.id}
+          newCommentAdded={() => setTotalComments(totalComments+1)}
+          onClose={() => setIsCommentForm(!isCommentForm)}
         />
       </Card>
     </>

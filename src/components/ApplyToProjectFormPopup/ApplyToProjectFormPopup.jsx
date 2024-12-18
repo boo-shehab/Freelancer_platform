@@ -25,7 +25,7 @@ const ApplyToProjectFormPopup = ({ isOpen, onClose, projectId }) => {
         method: 'POST',
         body: JSON.stringify({
           "proposedPrice": 1.01,
-          "notes": formData.notes
+          "notes": notes
         })
       }, {
         'Content-Type': 'application/json'
@@ -91,7 +91,7 @@ const ApplyToProjectFormPopup = ({ isOpen, onClose, projectId }) => {
           onChange={(e) => setNotes(e.target.value)}
         />
       </div>
-      <CustomButton  onClick={() => handleSave()} className={styles["apply-btn"]}>Apply Now</CustomButton>
+      <CustomButton  onClick={() => handleSave()} disabled={disabled} className={styles["apply-btn"]}>Apply Now</CustomButton>
     </ContainerForm>
     //   </div>
     // </div>

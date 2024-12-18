@@ -65,26 +65,27 @@ const freeLancerScreen = ({
       },
     },
   };
+  
   const optionOfFreelancing = [
     {
-      id: 1,
-      Job: "Full-Stack",
+      value: "uiux",
+      label: "UIUX Designer",
     },
     {
-      id: 2,
-      Job: "Front End ",
+      value: "backend",
+      label: "Back-end",
     },
     {
-      id: 3,
-      Job: "Mobile Developer",
+      value: "frontend",
+      label: "Front-end",
     },
     {
-      id: 4,
-      Job: "UI UX Designer",
+      value: "fullstack",
+      label: "Full-Stack",
     },
     {
-      id: 5,
-      Job: "Back End",
+      value: "mobile",
+      label: "Mobile app",
     },
   ];
   const nameOfFreeLancer = [
@@ -112,14 +113,14 @@ const freeLancerScreen = ({
             <div className={styles.specializationBody}>
               <div className={styles.spacing}>
                 {optionOfFreelancing.map((job) => (
-                  <div key={job.id} className={styles.Options}>
+                  <div key={job.label} className={styles.Options}>
                     <button
                       className={`${styles.btn} ${
-                        selectedJobs.includes(job.id) ? styles.btnGreen : ""
+                        selectedJobs.includes(job.value) ? styles.btnGreen : ""
                       }`}
-                      onClick={() => handleJobSelection(job.id)}
+                      onClick={() => handleJobSelection(job.value)}
                     ></button>
-                    <p>{job.Job}</p>
+                    <p>{job.label}</p>
                   </div>
                 ))}
               </div>

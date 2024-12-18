@@ -14,11 +14,11 @@ const freeLancerScreen = ({
   const [selectedJobs, setSelectedJobs] = useState([]);
   const [sizeModule, setSizeModule] = useState(1);
 
-  const handleJobSelection = (jobId) => {
+  const handleJobSelection = (job) => {
     setSelectedJobs((prevSelected) =>
-      prevSelected.includes(jobId)
-        ? prevSelected.filter((id) => id !== jobId)
-        : [...prevSelected, jobId]
+      prevSelected.some((selectedJob) => selectedJob.value === job.value)
+        ? prevSelected.filter((selectedJob) => selectedJob.value !== job.value)
+        : [...prevSelected, job]
     );
   };
 
@@ -115,10 +115,8 @@ const freeLancerScreen = ({
                 {optionOfFreelancing.map((job) => (
                   <div key={job.label} className={styles.Options}>
                     <button
-                      className={`${styles.btn} ${
-                        selectedJobs.includes(job.value) ? styles.btnGreen : ""
-                      }`}
-                      onClick={() => handleJobSelection(job.value)}
+                      className={`${styles.btn} ${selectedJobs.some((selectedJob) => selectedJob.value === job.value) ? styles.btnGreen : ""}`}
+                      onClick={() => handleJobSelection(job)}
                     ></button>
                     <p>{job.label}</p>
                   </div>
@@ -234,15 +232,15 @@ const freeLancerScreen = ({
           <div className={styles.specializationResbonsiveChoose}>
             {optionOfFreelancing.map((i) => (
               <button
-                key={i.Job}
-                onClick={() => handleJobSelection(i.Job)}
+                key={i.value}
+                onClick={() => handleJobSelection(i)}
                 className={
-                  selectedJobs.includes(i.Job)
+                  selectedJobs.some((selectedJob) => selectedJob.value === i.value)
                     ? styles.specializationResbonsiveChooseBtnActive
                     : styles.specializationResbonsiveChooseBtn
                 }
               >
-                {i.Job}
+                {i.label}
               </button>
             ))}
           </div>

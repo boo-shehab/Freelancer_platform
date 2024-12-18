@@ -28,7 +28,10 @@ const projectPost = ({
   const handleToggleHeart = async() => {
     try {
       await fetch(`http://16.170.247.41/api/web/v1/projects/${post.id}/likes?action=${isLiked? 'unlike' : 'like'}`, {
-        method: 'POST'
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+      },
       })
       if(isLiked) {
         setTotalLikes(totalLikes-1)

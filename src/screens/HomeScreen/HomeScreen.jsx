@@ -197,11 +197,11 @@ const HomeScreen = () => {
 
   const getProject = async () => {
     try {
-      const queryParams = selectedJobs
-        .map((qualification) => `qualificationNames=${qualification}`)
-        .join("&");
         let response = '';
         if(isFreelancer) {
+          const queryParams = selectedJobs
+            .map((qualification) => `specializations=${qualification}`)
+            .join("&");
           response = await fetchData(
             `projects/freelancer-feed?page=0&pageSize=10&${queryParams}`,
             {
@@ -209,6 +209,9 @@ const HomeScreen = () => {
             }
           );
         } else {
+          const queryParams = selectedJobs
+            .map((qualification) => `qualificationNames=${qualification}`)
+            .join("&");
           response = await fetchData(
             `projects/client-feed?page=0&pageSize=10&${queryParams}`,
             {
@@ -272,7 +275,11 @@ const HomeScreen = () => {
   };
   const callBackFun = (CB) => {
     setCallBack(CB);
-    console.log(CB);
+    const values = CB.map(item => item.value);
+    console.log('values', values);
+    console.log('CB', CB);
+    
+    setSelectedJobs(values);
   };
   console.log('User Details:', isFreelancer);
 
@@ -503,7 +510,7 @@ const HomeScreen = () => {
                     <>
                       <div className={styles.insideShowingUp}>
                         <div>x</div>
-                        <div>{i}</div>
+                        <div>{i.label}</div>
                       </div>
                     </>
                   ))}{" "}

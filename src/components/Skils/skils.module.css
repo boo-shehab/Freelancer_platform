@@ -53,15 +53,17 @@ ul {
 
 }
 li:first-child {
-    border-top:none ;
+    border-top:none;
 }
 .Item {
   display: flex;
-  gap: 8px;
-  margin-top: 20px;
   justify-content: space-between;
+  margin-top: 20px;
 }
-
+.itemBox {
+  display: flex;
+  gap: 6px;
+}
 .Item p {
   font-size: 16px;
   color: rgba(31, 31, 31, 1);

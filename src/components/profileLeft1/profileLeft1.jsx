@@ -6,6 +6,7 @@ import EditAboutPopup from "../EditAboutPopup/EditAboutPopup";
 import WorkExperienceForm from "../WorkExperienceForm/WorkExperienceForm";
 import EducationForm from "../EducationForm/EducationForm";
 import EditProfilePopup from "../EditProfilePopup/EditProfilePopup";
+import EditProfileImagePopup  from "../EditProfilePopup/EditProfileImagePopup";
 import WorkForForm from "../WorkForForm/WorkForForm";
 import EditIcon from "../../CustomIcons/EditIcon";
 import PlusIcon from "../../CustomIcons/PlusIcon";
@@ -22,6 +23,7 @@ function ProfileLeft1({ userId }) {
   const [projects, setProjects] = useState([]);
   const [workExperience, setWorkExperience] = useState([]);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [updateimage, setUpdateimage] = useState(false);
   const [isAboutFormOpen, setIsAboutFormOpen] = useState(false);
   const [isEducationOpen, setIsEducationOpen] = useState(false);
   const [isWorkExperienceOpen, setIsWorkExperienceOpen] = useState(false);
@@ -74,7 +76,7 @@ function ProfileLeft1({ userId }) {
   const getProfile = async () => {
     try {
       const data = await FetchData(
-        url,
+        `profiles/${localStorage.getItem('id')}`,
         {
           method: "GET",
         }
@@ -92,15 +94,24 @@ function ProfileLeft1({ userId }) {
   }, []);
   return (
     <div className={styles.container}>
-      {/* Profile Section */}
+
       <Card>
-        <EditProfilePopup
+      <EditProfilePopup
           isOpen={isProfileFormOpen}
           onClose={() => setIsProfileFormOpen(false)}
-        />
+          initialData={{ name: profile.name, specialization: profile.qualificationName }}
+          getData={getProfile}
+       />
+       <EditProfileImagePopup
+          isOpen={updateimage}
+          onClose={() => setUpdateimage(false)}
+          initialData={{ image : profile.profilePicture }}
+          getData={getProfile}
+       />
+
         <div className={styles.box1}>
           <div className={styles.part1PictureName}>
-            <img className={styles.selfie} src={profile?.profilePicture || "/avatar.png"} alt="Profile" />
+            <img className={styles.selfie} src={profile?.profilePicture || "/avatar.png"} alt="Profile" onClick={() => setUpdateimage(true)} />
             <div className={styles.nameSpecialization}>
               <p className={styles.name}>{profile?.name}</p>
               <p className={styles.specialization}>{profile?.qualificationName}</p>

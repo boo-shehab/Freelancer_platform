@@ -71,7 +71,7 @@ function ProfileLeft1({ userId }) {
     }
   };
 
-  const handleGet2 = async (url, setter) => {
+  const getProfile = async () => {
     try {
       const data = await FetchData(
         url,
@@ -86,7 +86,7 @@ function ProfileLeft1({ userId }) {
   };
 
   useEffect(() => {
-    handleGet2(`profiles/${localStorage.getItem('id')}`, setProfile);
+    getProfile();
     getEducation();
     getWorkExpe();
   }, []);

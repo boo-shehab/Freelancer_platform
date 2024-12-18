@@ -3,7 +3,7 @@ import styles from "./EditProfilePopup.module.css";
 import ContainerForm from "../ContainerForm/ContainerForm";
 import FetchData from "../../utility/fetchData";
 
-const EditProfilePopup = ({ isOpen, onClose, initialData = {} , getData }) => {
+const EditProfilePopup = ({ isOpen, onClose, initialData = {} , getData , isFreelancer = true }) => {
   const [name, setName] = useState(initialData?.name || "");
   const [specialization, setSpecialization] = useState(initialData?.specialization || "");
   const [errors, setErrors] = useState({});
@@ -20,11 +20,12 @@ const EditProfilePopup = ({ isOpen, onClose, initialData = {} , getData }) => {
     }
 
     try {
-      await FetchData(
-        `freelancers`, 
+      await FetchData(isFreelancer ? 'freelancers' : 'clients',
         {
           method: "PATCH",
-          body: JSON.stringify({ name, qualificationName: specialization }),
+          body: JSON.stringify( isFreelancer ? { name, qualificationName: specialization }
+                                             : { name, companyName : specialization }
+          ) ,
         },
         { "Content-Type": "application/json" }
       );
@@ -62,7 +63,8 @@ const EditProfilePopup = ({ isOpen, onClose, initialData = {} , getData }) => {
           />
           {errors.name && <span className={styles.errorMessage}>{errors.name}</span>}
         </label>
-        <label>
+        {isFreelancer ? (
+           <label>
           Specialization*
           <select
             name="specialization"
@@ -81,6 +83,18 @@ const EditProfilePopup = ({ isOpen, onClose, initialData = {} , getData }) => {
           </select>
           {errors.specialization && <span className={styles.errorMessage}>{errors.specialization}</span>}
         </label>
+       ):(
+        <label>
+        Comapny Name*
+        <input
+          name="specialization"
+          value={specialization}
+          onChange={handleChange}
+          className={`${styles.select} ${errors.specialization ? styles.error : ""}`}
+        />
+        {errors.specialization && <span className={styles.errorMessage}>{errors.specialization}</span>}
+      </label>
+       )}
       </div>
       <div className={styles.footer}>
         <button onClick={handleSave} className={styles.saveButton}>

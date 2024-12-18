@@ -68,12 +68,25 @@ const ProfileScreen = () => {
   const [pending, setPending] = useState(25);
   const [completed, setCompleted] = useState(25);
   const [loading, setLoading] = useState(false);
+  const [profile, setProfile] = useState([]);
 
   function ShowDelete(message) {
     setmessageDelete(message);
     setshowDelete(true);
   }
-
+  const getProfile = async () => {
+    try {
+      const data = await FetchData(
+        `profiles/${localStorage.getItem('id')}`,
+        {
+          method: "GET",
+        }
+      );
+      setProfile(data.results);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const chartData = [
     { value: pending, color: "#FFDB70" },
     ...(isFreelancer ? [{ value: 15, color: "#86C6F8" }] : []),
@@ -195,6 +208,7 @@ const ProfileScreen = () => {
   };
 
   useEffect(() => {
+    getProfile();
     handleInfoProfileAndRating();
     ratings();
   }, []);
@@ -448,13 +462,15 @@ const ProfileScreen = () => {
           <EditProfilePopup
             isOpen={isUserInfoOpen}
             onClose={() => setIsUserInfoOpen(false)}
-            onSave={handleEditProfile}
+            isFreelancer={false}
+            initialData={{ name: profile?.name, specialization: profile?.companyName }}
+            getData={getProfile}
           />
-          <ProjectHistoryForm
+          {/* <ProjectHistoryForm
             isOpen={isUserInfoOpen}
             onClose={() => setIsUserInfoOpen(false)}
             onSave={handleEditProfile}
-          />
+          /> */}
           {/* <EducationForm isOpen={isUserInfoOpen} onClose={() => setIsUserInfoOpen(false)} /> */}
           <Container paddingx={isSmallScreen ? 0 : 56}>
             <div className={styles.content}>
@@ -462,10 +478,10 @@ const ProfileScreen = () => {
                 <Card paddingx={24} isProfilePage={true}>
                   <div className={styles.userProfile}>
                     <div className={styles.userInfo}>
-                      <img src="./avatar.png" alt="" />
+                      <img src={profile?.profilePicture} alt="" />
                       <div>
-                        <h2>Mustafa Emad</h2>
-                        <p>Business scope</p>
+                        <h2>{profile?.name}</h2>
+                        <p>{profile?.companyName}</p>
                       </div>
                     </div>
                     <div
@@ -484,21 +500,17 @@ const ProfileScreen = () => {
                       <EditIcon />
                     </div>
                     <p>
-                      {aboutState}
-                      {dotsAbout}{" "}
-                      <span
-                        className={styles.seeMoreAbout}
-                        onClick={handleSeeMore}
-                      >
-                        {seeAction}
-                      </span>
+                      {profile?.about}                    
                     </p>
                   </div>
                   <div className={styles.history}>
                     <div className={styles.historyHead}>
                       <b>Projects History</b>
                     </div>
-                    {projects?.map((p) => (
+                    {projects?.map((p) => {
+                      const startDateOfProject = new Date(p.startDate);
+                      const endDateOfProject = new Date(p.endDate);
+                      return (
                       <div className={styles.projectItem} key={p.id}>
                         <div className={styles.guid}>
                           <div className={styles.dot}></div>
@@ -506,11 +518,14 @@ const ProfileScreen = () => {
                         </div>
                         <div className={styles.itemInfo}>
                           <h4>{p.title}</h4>
-                          <small>{p.createdAt}</small>
+                          <small>
+                              {`${startDateOfProject.getFullYear()}-${String(startDateOfProject.getMonth() + 1).padStart(2, '0')}-${String(startDateOfProject.getDate()).padStart(2, '0')}`}
+                              {` to ${endDateOfProject.getFullYear()}-${String(endDateOfProject.getMonth() + 1).padStart(2, '0')}-${String(endDateOfProject.getDate()).padStart(2, '0')}`}
+                          </small>
                           <p className={styles.itemDesc}>{p.description}</p>
                         </div>
                       </div>
-                    ))}
+                    )})}
                   </div>
                   {/* <div className={styles.history}>
                     <WorkForForm

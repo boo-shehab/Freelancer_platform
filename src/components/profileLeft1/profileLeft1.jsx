@@ -14,13 +14,15 @@ import DeleteIcon from "../../CustomIcons/DeleteIcon";
 import DeleteComponent from "../../components/DeleteComponent/DeleteComponent";
 import FetchData from "../../utility/fetchData";
 import dayjs from "dayjs";
+import useUserinfoStore from "../../useUserinfoStore";
+
 
 
 function ProfileLeft1({ userId }) {
   const [profile, setProfile] = useState([]);
   const [deleteId, setDeleteId] = useState(0);
   const [education, setEducation] = useState([]);
-  const [projects, setProjects] = useState([]);
+  const [deleteType, setDeleteType] = useState("");
   const [workExperience, setWorkExperience] = useState([]);
   const [isExpanded, setIsExpanded] = useState(false);
   const [updateimage, setUpdateimage] = useState(false);
@@ -32,14 +34,16 @@ function ProfileLeft1({ userId }) {
   const [openDrawer, setOpenDrawer] = useState(true);
   const [showDelete, setShowDelete] = useState(false);
   const [messageDelete, setMessageDelete] = useState("");
+  const { projects } = useUserinfoStore();
 
   const handleToggleExpand = () => {
     setIsExpanded(!isExpanded);
   };
 
-  function ShowDelete(message, deleteId) {
+  function ShowDelete(message, deleteId , deleteType) {
     setDeleteId(deleteId);
     setMessageDelete(message);
+    setDeleteType(deleteType)
     setShowDelete(true);
   }
 
@@ -131,6 +135,8 @@ function ProfileLeft1({ userId }) {
         <EditAboutPopup
           isOpen={isAboutFormOpen}
           onClose={() => setIsAboutFormOpen(false)}
+          initialData={profile?.about}
+          getData={getProfile}
         />
         <div className={styles.box2About}>
           <div className={styles.aboutEdit}>
@@ -221,13 +227,13 @@ function ProfileLeft1({ userId }) {
                   </div>
                 </div>
                 <div className={styles.educationAction}>
-                  <button
+                  {/* <button
                     className={styles.edit}
                     onClick={() => setIsEducationOpen(true)}
                   >
                     <EditIcon />
-                  </button>
-                  <button onClick={() => ShowDelete("Are you sure u want to delete this Education", parseInt(edu.id, 10))}>
+                  </button> */}
+                  <button onClick={() => ShowDelete("Are you sure u want to delete this Education", parseInt(edu.id, 10), "Education")}>
                     <DeleteIcon />
                   </button>
                 </div>
@@ -242,29 +248,30 @@ function ProfileLeft1({ userId }) {
           isOpen={isProjectHistoryOpen}
           onClose={() => setIsProjectHistoryOpen(false)}
         /> */}
-        <div className={styles.box4}>
-          <div className={styles.projectAddEdit}>
-            <p>Projects History</p>
-          </div>
-          {projects.map((project, index) => (
-            <div key={index} className={styles.postOfProject}>
-              {index > 0 && <div className={styles.line}></div>}
-              <div className={styles.box4Part2}>
-                <div className={styles.box4Part2Part1}>
-                  <div className={styles.circle}></div>
-                  <div className={styles.line1}></div>
-                  <div className={styles.circle}></div>
-                </div>
-                <div className={styles.projectDetails}>
-                  <p className={styles.projectName}>{project.name}</p>
-                  <p className={styles.date}>{project.date}</p>
-                  <p className={styles.duration}>{project.duration}</p>
-                  <p className={styles.description}>{project.description}</p>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+      <div className={styles.history}>
+                    <div className={styles.historyHead}>
+                      <b>Projects History</b>
+                    </div>
+                    {projects?.map((p) => {
+                      const startDateOfProject = new Date(p.startDate);
+                      const endDateOfProject = new Date(p.endDate);
+                      return (
+                      <div className={styles.projectItem} key={p.id}>
+                        <div className={styles.guid}>
+                          <div className={styles.dot}></div>
+                          <div className={styles.line}></div>
+                        </div>
+                        <div className={styles.itemInfo}>
+                          <h4>{p.title}</h4>
+                          <small>
+                              {`${startDateOfProject.getFullYear()}-${String(startDateOfProject.getMonth() + 1).padStart(2, '0')}-${String(startDateOfProject.getDate()).padStart(2, '0')}`}
+                              {` to ${endDateOfProject.getFullYear()}-${String(endDateOfProject.getMonth() + 1).padStart(2, '0')}-${String(endDateOfProject.getDate()).padStart(2, '0')}`}
+                          </small>
+                          <p className={styles.itemDesc}>{p.description}</p>
+                        </div>
+                      </div>
+                    )})}
+                  </div>
       </Card>
 
       {/* Work Experience Section */}
@@ -294,15 +301,15 @@ function ProfileLeft1({ userId }) {
         <div className={styles.titleWorkDetails}>
           <p className={styles.workName}>{work.employerName}</p>
           <div className={styles.workAction}>
-            <button onClick={() => setIsWorkExperienceOpen(true)}>
+            {/* <button onClick={() => setIsWorkExperienceOpen(true)}>
               <EditIcon />
-            </button>
+            </button> */}
 
             <button
               onClick={() =>
                 ShowDelete(
                   "Are you sure you want to delete this Work Experience",
-                  0
+                  work.id , "WorkExperience"
                 )
               }
             >
@@ -381,8 +388,8 @@ function ProfileLeft1({ userId }) {
         isOpen={showDelete}
         message={messageDelete}
         onClose={() => setShowDelete(false)}
-        TypeofDelete={`freelancers/education/${deleteId}`}
-        GetAllData={getEducation}
+        TypeofDelete={deleteType === "WorkExperience" ? `freelancers/work-experience/${deleteId}` : `freelancers/education/${deleteId}`}
+        GetAllData={deleteType === "WorkExperience" ? getWorkExpe : getEducation}
       />
     </div>
   );

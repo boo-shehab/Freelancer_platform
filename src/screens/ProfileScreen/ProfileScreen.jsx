@@ -38,7 +38,7 @@ const WorkFor = [
 ];
 
 const ProfileScreen = () => {
-  const { about, setAbout } = useUserinfoStore();
+  const { about, projects } = useUserinfoStore();
 
   const [isUserInfoOpen, setIsUserInfoOpen] = useState(false);
   const [isAboutPopupOpen, setIsAboutPopupOpen] = useState(false);
@@ -106,20 +106,20 @@ const ProfileScreen = () => {
     },
   ];
 
-  const projects = [
-    {
-      id: 1,
-      title: "Project Name One",
-      createdAt: "22 Jan 2024 - 11 May  2024.",
-      desc: "Developed a task management web application designed to help users organize, prioritize, and track their daily tasks efficiently. ",
-    },
-    {
-      id: 2,
-      title: "Project Name Two",
-      createdAt: "22 Jan 2024 - 11 May  2024.",
-      desc: "Developed a task management web application designed to help users organize, prioritize, and track their daily tasks efficiently. ",
-    },
-  ];
+  // const projects = [
+  //   {
+  //     id: 1,
+  //     title: "Project Name One",
+  //     createdAt: "22 Jan 2024 - 11 May  2024.",
+  //     desc: "Developed a task management web application designed to help users organize, prioritize, and track their daily tasks efficiently. ",
+  //   },
+  //   {
+  //     id: 2,
+  //     title: "Project Name Two",
+  //     createdAt: "22 Jan 2024 - 11 May  2024.",
+  //     desc: "Developed a task management web application designed to help users organize, prioritize, and track their daily tasks efficiently. ",
+  //   },
+  // ];
 
   const handleInfoProfileAndRating = async () => {
     try {
@@ -129,7 +129,6 @@ const ProfileScreen = () => {
           method: "GET",
         }
       );
-
       const {
         freelancersWorkedWith,
         projectPosted,
@@ -138,6 +137,8 @@ const ProfileScreen = () => {
         projectsInProgress,
         projectsCompleted,
       } = data.results;
+
+
       setIsWorkedWith(freelancersWorkedWith);
       setIsGivenLikes(givenLikes);
       setIsProjectPosted(projectPosted);
@@ -236,8 +237,6 @@ const ProfileScreen = () => {
   const idShow = (id) => {
     setVisiblePostId((prevId) => (prevId === id ? null : id));
   };
-
-
 
   return (
     <div>
@@ -495,12 +494,10 @@ const ProfileScreen = () => {
                       </span>
                     </p>
                   </div>
-
                   <div className={styles.history}>
                     <div className={styles.historyHead}>
                       <b>Projects History</b>
                     </div>
-
                     {projects?.map((p) => (
                       <div className={styles.projectItem} key={p.id}>
                         <div className={styles.guid}>
@@ -510,7 +507,7 @@ const ProfileScreen = () => {
                         <div className={styles.itemInfo}>
                           <h4>{p.title}</h4>
                           <small>{p.createdAt}</small>
-                          <p className={styles.itemDesc}>{p.desc}</p>
+                          <p className={styles.itemDesc}>{p.description}</p>
                         </div>
                       </div>
                     ))}
@@ -582,9 +579,12 @@ const ProfileScreen = () => {
                               </div>
                             </div>
 
-                            <div className={styles.postClientAction} >
+                            <div className={styles.postClientAction}>
                               <div className={styles.tag}>Available</div>
-                              <MoreIcon onClick={() => idShow(post.id)} style={{cursor:"pointer"}} />
+                              <MoreIcon
+                                onClick={() => idShow(post.id)}
+                                style={{ cursor: "pointer" }}
+                              />
                               {isListVisible === post.id && (
                                 <div
                                   className={styles.list}
@@ -594,7 +594,8 @@ const ProfileScreen = () => {
                                   }}
                                 >
                                   <button>Edit</button>
-                                  <button className={styles.deletebtnForPost}
+                                  <button
+                                    className={styles.deletebtnForPost}
                                     onClick={() =>
                                       ShowDelete(
                                         "Are you sure u want to delete this Post"

@@ -22,6 +22,8 @@ import SkilsSide from "../../components/Skils/skils";
 import DeleteComponent from "../../components/DeleteComponent/DeleteComponent";
 import FetchData from "../../utility/fetchData";
 import useUserinfoStore from "../../useUserinfoStore";
+import ProjectPost from "../../components/ProjectPost/ProjectPost";
+
 const WorkFor = [
   {
     id: 1,
@@ -670,7 +672,8 @@ const ProfileScreen = () => {
                 </Card>
               </section>
               <section className={styles.section2}>
-                <Card paddingx={24} isProfilePage={true}>
+                <ProjectPost />
+                {/* <Card paddingx={24} isProfilePage={true}>
                   <div className={styles.ActivityBox}>
                     <h3 className={styles.ActivityHeader}>Your Activity</h3>
                     <div className={styles.Chart}>
@@ -810,7 +813,7 @@ const ProfileScreen = () => {
                     </p>
                     <button className={styles.seeAllReviews}>See all</button>
                   </div>
-                </Card>
+                </Card> */}
               </section>
             </div>
           </Container>

@@ -580,7 +580,7 @@ const ProfileScreen = () => {
                         <PlusIcon />
                       </div>
                     </div>
-                    {posts?.map((post) => (
+                    {/* {posts?.map((post) => (
                       <Card marginTop={16} key={post.id} paddingx={16}>
                         <div className={styles.postItem}>
                           <div className={styles.postHead}>
@@ -665,15 +665,18 @@ const ProfileScreen = () => {
                           </div>
                         </div>
                       </Card>
-                    ))}
+                    ))}*/}
+                                    {/* <ProjectPost /> */}
+                                    ///////////
+                                    
+
                   </div>
                   <div className={styles.LineInBottom}></div>
                   <button className={styles.seeAllReviews}>See all</button>
-                </Card>
+                </Card> 
               </section>
               <section className={styles.section2}>
-                {/* <ProjectPost /> */}
-                {/* <Card paddingx={24} isProfilePage={true}>
+                <Card paddingx={24} isProfilePage={true}>
                   <div className={styles.ActivityBox}>
                     <h3 className={styles.ActivityHeader}>Your Activity</h3>
                     <div className={styles.Chart}>
@@ -813,7 +816,7 @@ const ProfileScreen = () => {
                     </p>
                     <button className={styles.seeAllReviews}>See all</button>
                   </div>
-                </Card> */}
+                </Card>
               </section>
             </div>
           </Container>

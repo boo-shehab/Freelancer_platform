@@ -672,7 +672,7 @@ const ProfileScreen = () => {
                 </Card>
               </section>
               <section className={styles.section2}>
-                <ProjectPost />
+                {/* <ProjectPost /> */}
                 {/* <Card paddingx={24} isProfilePage={true}>
                   <div className={styles.ActivityBox}>
                     <h3 className={styles.ActivityHeader}>Your Activity</h3>

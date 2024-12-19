@@ -3,16 +3,26 @@ import styles from "./AddTaskForm.module.css";
 
 const AddTaskForm = ({ isOpen, onClose, addTask }) => {
   const [taskName, setTaskName] = useState("");
+  const [deadlineAt, setDeadlineAt] = useState(""); 
+  const [notes, setNotes] = useState(""); 
 
   const handleAddTask = () => {
-    if (!taskName) {
-      alert("Please enter a task name");
+    if (!taskName || !deadlineAt || !notes) {
+      alert("Please fill in all fields");
       return;
     }
 
-    addTask(taskName, "To Do"); // Adds the task with the default status "To Do"
-    setTaskName(""); // Clear the input field
-    onClose(); // Close the popup
+    const taskData = {
+      name: taskName,
+      deadlineAt,
+      notes,
+    };
+
+    addTask(taskData); 
+    setTaskName(""); 
+    setDeadlineAt("");
+    setNotes("");
+    onClose(); 
   };
 
   if (!isOpen) return null;
@@ -26,7 +36,7 @@ const AddTaskForm = ({ isOpen, onClose, addTask }) => {
             X
           </button>
         </div>
-        <div className={styles.form}>
+        <form className={styles.form}>
           <label>
             Task Name
             <input
@@ -37,6 +47,24 @@ const AddTaskForm = ({ isOpen, onClose, addTask }) => {
               required
             />
           </label>
+          <label>
+            Deadline
+            <input
+              type="datetime-local"
+              value={deadlineAt}
+              onChange={(e) => setDeadlineAt(e.target.value)}
+              required
+            />
+          </label>
+          <label>
+            Notes
+            <textarea
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
+              placeholder="Enter task notes"
+              required
+            />
+          </label>
           <button
             type="button"
             onClick={handleAddTask}
@@ -44,7 +72,7 @@ const AddTaskForm = ({ isOpen, onClose, addTask }) => {
           >
             Add Task
           </button>
-        </div>
+        </form>
       </div>
     </div>
   );

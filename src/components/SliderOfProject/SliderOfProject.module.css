@@ -322,9 +322,9 @@ button.declineFreeLancer {
     position: relative;
     cursor: pointer;
 }
-.task.withJustifyContent {
+/* .task.withJustifyContent {
     justify-content: space-between;
-}
+} */
 
 .task p {
     margin-left: 10px;

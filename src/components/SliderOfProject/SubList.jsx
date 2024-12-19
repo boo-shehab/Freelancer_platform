@@ -5,9 +5,11 @@ import ToDoIcon from '../../CustomIcons/ToDoIcon';
 import DoneTaskIcon from '../../CustomIcons/DoneTaskIcon';
 import styles from './SliderOfProject.module.css';
 
-const SubList = ({ taskId, onStatusChange }) => (
+const SubList = ({ taskId, onStatusChange, isFreelancer ,selectedTab}) => (
     <div className={styles.subList}>
         <ul className={styles.subListItems}>
+        {isFreelancer && (
+                <>
             <li onClick={() => onStatusChange(taskId, "To Do")}>
                 <ToDoIcon /> To Do
             </li>
@@ -16,10 +18,18 @@ const SubList = ({ taskId, onStatusChange }) => (
             </li>
             <li onClick={() => onStatusChange(taskId, "submit-task")}>
                 <InReviewIcon /> In Review
-            </li>
-            {/* <li onClick={() => onStatusChange(taskId, "approve-task")}>
-                <DoneTaskIcon /> Done
-            </li> */}
+            </li></>
+            )}
+            {!isFreelancer && selectedTab=="in-review" && (
+                <>
+                    <li onClick={() => onStatusChange(taskId, "approve-task")}>
+                        <DoneTaskIcon /> Accept
+                    </li>
+                    <li onClick={() => onStatusChange(taskId, "reject-task")}>
+                        <DoneTaskIcon /> Reject
+                    </li>
+                </>
+            )}
         </ul>
     </div>
 );

@@ -323,7 +323,7 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
                                                 <div
                                                     key={id}
                                                     className={`${styles.task} ${!isFreelancer ? styles.withJustifyContent : ""}`}
-                                                    onClick={isFreelancer && selectedTab !== "done" ? () => handleToggleSubList(id) : undefined}
+                                                    onClick={selectedTab !== "done" ? () => handleToggleSubList(id) : undefined}
                                                 >
                                                     {selectedTab === "done" && isFreelancer && (
                                                         <input
@@ -341,16 +341,19 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
                                                         {isFreelancer && selectedTab === "in-review" && (
                                                             <InReviewIcon className={styles.inReviewIcon} />
                                                         )}
-                                                       
+                                                        
+
                                                     </div>
 
-                                                    <p onClick={isFreelancer && selectedTab !== "done" ? () => handleToggleSubList(id) : undefined} className={selectedTab === "done" ? styles.doneTask : ""}>
+                                                    <p onClick={selectedTab !== "done" ? () => handleToggleSubList(id) : undefined} className={selectedTab === "done" ? styles.doneTask : ""}>
                                                         {name}
                                                     </p>
 
                                                     {isSubListVisible[id] && (
                                                         <SubList taskId={id}
                                                             onStatusChange={ChangeTheTaskStutas}
+                                                            isFreelancer={isFreelancer}
+                                                            selectedTab={selectedTab} 
                                                         />
                                                     )}
                                                 </div>

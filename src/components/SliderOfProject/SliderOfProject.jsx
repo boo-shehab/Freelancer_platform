@@ -40,6 +40,7 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
     const [seeAction, setSeeAction] = useState("See More");
     const [descriptionState, setDescriptionState] = useState("");
     const [freelancerApplied, setFreelancerApplied] = useState([]);
+    const [selectedTab, setSelectedTab] = useState("to-do");
 
     const { projectId, progress, projectStatus } = projectData || {};
     // Fetch project data and freelancer bids when the projectId changes
@@ -266,27 +267,25 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
                                         </div>
 
                                     ))}
-
-
                                 </div>
                             </div>
                         )}
-                        {projectStatus === "inProgress" && (
+                        {projectStatus === "in-progress" && (
                             <>
                                 <div className={styles.tasksSection}>
                                     <h3 className={styles.titelText}>
                                         {isFreelancer ? "My Tasks" : "Freelancer Tasks"}
                                     </h3>
-                                    {!isFreelancer && (
+                                    {!isFreelancer &&  (
                                         <button className={styles.addTaskButton} onClick={() => setIsOpen(true)}>
                                             <AddTaskIcon />
                                         </button>
                                     )}
                                     <div className={styles.taskTabs}>
-                                        {["To Do", "In Progress", "In Review", "Done"].map((tab) => (
+                                        {["to-do", "in progress", "in-review", "done"].map((tab) => (
                                             <a
                                                 key={tab}
-                                                href={`#${tab.toLowerCase().replace(" ", "")}`}
+                                                href={`#${tab.toLowerCase().replace(" ", "-")}`}
                                                 className={`${styles.tab} ${selectedTab === tab ? styles.activeTab : ""}`}
                                                 onClick={() => handleTabClick(tab)}
                                             >
@@ -335,8 +334,7 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
                                         <p>No tasks available</p>
                                     )}
                                 </div>
-
-
+                                 
                                 {canCompleteProject && (
                                     <button className={styles.completeBtn} onClick={() => onComplete(projectId)}>
                                         Project Complete

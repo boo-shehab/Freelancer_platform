@@ -4,6 +4,7 @@ import FilterSide from "../../components/filterSide/filterSide";
 import { Slider, ConfigProvider } from "antd";
 import DownModule from "../../components/DownModule/DownModule.jsx";
 import { Link } from "react-router-dom";
+import useUserinfoStore from "../../useUserinfoStore.js";
 
 const freeLancerScreen = ({
   isPopupOpen2 = false,
@@ -13,6 +14,7 @@ const freeLancerScreen = ({
   const [value, setValue] = useState(["minimum", "maximum"]);
   const [selectedJobs, setSelectedJobs] = useState([]);
   const [sizeModule, setSizeModule] = useState(1);
+  const { name, profilePicture, email} = useUserinfoStore()
 
   const handleJobSelection = (job) => {
     setSelectedJobs((prevSelected) =>
@@ -23,7 +25,7 @@ const freeLancerScreen = ({
   };
 
   useEffect(() => {
-    result(selectedJobs);
+    result({selectedJobs, price: value});
   }, [selectedJobs]);
 
   const clearAllSelections = () => {
@@ -48,6 +50,9 @@ const freeLancerScreen = ({
     setIsPopupOpen2(false);
     selectedJobs;
   };
+  useEffect(() => {
+    result({selectedJobs, price: value});
+  }, [value])
   const theme = {
     components: {
       Slider: {
@@ -202,15 +207,13 @@ const freeLancerScreen = ({
             <div className={styles.editProfileFreeLancerSideContent}>
               <img
                 className={styles.FreeLancerSideContentImg}
-                src="/avatar.png"
+                src={profilePicture}
                 alt=""
               />
-              {nameOfFreeLancer.map((i) => (
                 <div className={styles.FreeLancerSideContentText}>
-                  <h4 className={styles.FreeLancerSideContentName}>{i.name}</h4>
-                  <p className={styles.FreeLancerSideContentEmail}>{i.email}</p>
+                  <h4 className={styles.FreeLancerSideContentName}>{name}</h4>
+                  <p className={styles.FreeLancerSideContentEmail}>{email}</p>
                 </div>
-              ))}
             </div>
             <Link to="/profile">
               <p className={styles.FreeLancerSideSeeProfile}>See profile</p>

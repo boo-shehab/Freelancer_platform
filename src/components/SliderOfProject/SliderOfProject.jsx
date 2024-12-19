@@ -119,22 +119,22 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
         }
     };
 
-    // const ChangeTheTaskStutas = async (projectId, bidId, action) => {
-    //     const url = `projects/${projectId}/bids/${bidId}/${action}`;
-    //     try {
-    //         const response = await FetchData(url, { method: 'POST' });
+    const ChangeTheTaskStutas = async (taskid, action) => {
+        const url = `projects/${projectId}/bids/${bidId}/${action}`;
+        try {
+            const response = await FetchData(url, { method: 'POST' });
 
-    //         if (response.isSuccess) {
-    //             console.log(`Freelancer ${action}ed successfully!`);
-    //             setFreelancerApplied(freelancerApplied.filter(f => f.id !== bidId));
-    //             getProjectInfo();
-    //         } else {
-    //             console.error(`Failed to ${action} freelancer:`, response);
-    //         }
-    //     } catch (error) {
-    //         console.error(`Error ${action}ing freelancer:`, error);
-    //     }
-    // };
+            if (response.isSuccess) {
+                console.log(`Freelancer ${action}ed successfully!`);
+                setFreelancerApplied(freelancerApplied.filter(f => f.id !== bidId));
+                getProjectInfo();
+            } else {
+                console.error(`Failed to ${action} freelancer:`, response);
+            }
+        } catch (error) {
+            console.error(`Error ${action}ing freelancer:`, error);
+        }
+    };
 
     const handleTabClick = (tabName) => setSelectedTab(tabName);
 

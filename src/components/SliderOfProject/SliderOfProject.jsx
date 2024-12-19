@@ -24,11 +24,13 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
     const [seeAction, setSeeAction] = useState("See More");
     const [descriptionState, setDescriptionState] = useState("");
     const [freelancerApplied, setFreelancerApplied] = useState([]);
-    // const [selectedTab, setSelectedTab] = useState("to-do");
-    // const [isSubListVisible, setIsSubListVisible] = useState({});
     const [selectedTab, setSelectedTab] = useState("toDo");
     const [isSubListVisible, setIsSubListVisible] = useState({});
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> d3e593ab41429ac62f8a5dc0ce375a37db65c880
     const handleStatusChange = (taskId, newStatus) => {
         callbacks.onStatusChange(taskId, newStatus);
         setSelectedTab(newStatus);
@@ -83,9 +85,6 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
         }
     };
 
-  
-
-
     const FreelancerAction = async (projectId, bidId, action) => {
         const url = `projects/${projectId}/bids/${bidId}/${action}`;
         try {
@@ -104,9 +103,9 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
     };
 
     const ChangeTheTaskStutas = async (taskid, action) => {
-        const url = `tasks/${projectId}/${action}`;
+        const url = `projects/${projectId}/bids/${bidId}/${action}`;
         try {
-            const response = await FetchData(url, { method: 'PATCH' });
+            const response = await FetchData(url, { method: 'POST' });
 
             if (response.isSuccess) {
                 console.log(`Freelancer ${action}ed successfully!`);
@@ -123,6 +122,7 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
     };
 
     const handleTabClick = (tabName) => setSelectedTab(tabName);
+
 
     const handleToggleSubList = (taskId) => {
         setIsSubListVisible((prevState) => ({
@@ -152,15 +152,16 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
     const AddTask = async (taskData) => {
         try {
             const newTaskData = { ...taskData, status: "to-do" };
-    
+
             const response = await FetchData(`projects/${projectId}/tasks`, {
-                method: 'POST',
+                method: "POST",
+
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify(newTaskData),
             });
-    
+
             if (response.isSuccess) {
                 setTasks((prevTasks) => [...prevTasks, response.result]);
                 setIsOpen(false);
@@ -173,6 +174,7 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
         }
     };
     
+<<<<<<< HEAD
     // const canCompleteProject = !isFreelancer && tasks.every((task) => task.status === "done");
     useEffect(() => {
         if (projectId) {
@@ -183,6 +185,10 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
         }
          ChangeTheTaskStutas( 10, "start-task");
     }, [projectId]);
+=======
+    const canCompleteProject = !isFreelancer && tasks.every((task) => task?.status === "done");
+
+>>>>>>> d3e593ab41429ac62f8a5dc0ce375a37db65c880
     return (
         <div className={styles.sliderOfProject}>
             <div className={styles.overlay} onClick={onClose}></div>
@@ -191,7 +197,7 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
                     <AddTaskForm
                         isOpen={isOpen}
                         onClose={() => setIsOpen(false)}
-                        addTask={AddTask} 
+                        addTask={AddTask}
                         tasks={tasks}
                     />
                     <div className={styles.slider}>
@@ -300,7 +306,7 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
                                     <h3 className={styles.titelText}>
                                         {isFreelancer ? "My Tasks" : "Freelancer Tasks"}
                                     </h3>
-                                    {!isFreelancer &&  (
+                                    {!isFreelancer && (
                                         <button className={styles.addTaskButton} onClick={() => setIsOpen(true)}>
                                             <AddTaskIcon />
                                         </button>
@@ -327,12 +333,8 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
                                                 <div
                                                     key={id}
                                                     className={`${styles.task} ${!isFreelancer ? styles.withJustifyContent : ""}`}
-                                                    style={{position: "relative"}}
+                                                    onClick={isFreelancer && selectedTab !== "done" ? () => handleToggleSubList(id) : undefined}
                                                 >
-                                                    <SubList />
-                                                    { isFreelancer &&(
-                                                        <SubList />
-                                                    )}
                                                     {selectedTab === "done" && isFreelancer && (
                                                         <input
                                                             type="checkbox"
@@ -351,19 +353,21 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
                                                         )}
                                                     </div>
 
-                                                    <p
-                                                        onClick={isFreelancer && selectedTab !== "done" ? () => handleToggleSubList(id) : undefined}
-                                                        className={selectedTab === "done" ? styles.doneTask : ""}
-                                                    >
+                                                    <p onClick={isFreelancer && selectedTab !== "done" ? () => handleToggleSubList(id) : undefined} className={selectedTab === "done" ? styles.doneTask : ""}>
                                                         {name}
                                                     </p>
+
+                                                    {/* Sublist rendering */}
+                                                    {isSubListVisible[id] && (
+                                                        <SubList taskId={id} />
+                                                    )}
                                                 </div>
                                             ))
                                     ) : (
                                         <p>No tasks available</p>
                                     )}
                                 </div>
-                                 
+
                                 {!isFreelancer && (
                                     <button className={styles.completeBtn} onClick={() => onComplete(projectId)}>
                                         Project Complete

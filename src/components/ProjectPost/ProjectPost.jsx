@@ -87,7 +87,7 @@ const projectPost = ({ isProfilepage = false,
                 </div>
               </div>
               <div className={styles.postClientAction}>
-                <div className={styles.tag}>{post?.status}</div>
+                <div >{handleStatus()}</div>
                 <MoreIcon onClick={() => idShow(post.id)} />
                 {isListVisible === post.id && (
                   <div

@@ -125,7 +125,8 @@ const DashboardScreen = () => {
 
   const getProject = async () => {
     try {
-      const data = await FetchData(`profiles/projects?status=&page=0&pageSize=100`, {
+      const status = filterType !== "All" ? filterType : "";
+      const data = await FetchData(`profiles/projects?status=${status}&page=0&pageSize=100`, {
         method: 'GET',
       });
       if (data.isSuccess) {
@@ -140,64 +141,17 @@ const DashboardScreen = () => {
 
   useEffect(() => {
     getProject();
-
-  }, []);
-
-  // const getProjectInfo = async (projectId) => {
-  //   try {
-  //     const data = await FetchData(`profiles/${projectId}`, {
-  //       method: 'GET',
-  //     });
-  //     if (data.isSuccess) {
-  //       setProjectInfo(data.result);
-  //     } else {
-  //       console.error("Failed to fetch projects");
-  //     }
-  //   } catch (error) {
-  //     console.error("Error fetching data:", error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   getProjectInfo(2);
-
-  // }, []);
+  }, [filterType]);
 
   useEffect(() => { }, [filterType]);
 
-  const [freelancerApplied, setfreelancerApplied] = useState([
-    {
-      id: 1,
-      imag: "./avatar.png",
-      name: "Sara Saad",
-      type: "UIUX Designer",
-    },
-    {
-      id: 2,
-      imag: "./avatar.png",
-      name: "Mohamed ali",
-      type: "UIUX Designer",
-    },
-    {
-      id: 3,
-      imag: "./avatar.png",
-      name: "Ali Saad",
-      type: "UIUX Designer",
-    },
-  ]);
-
-  const removeFreelancerById = (id) => {
-    setfreelancerApplied((prevState) =>
-      prevState.filter((freelancer) => freelancer.id !== id)
-    );
-  };
 
   const handleProjectClick = (projectId) => {
     const selected = project.find((p) => p.id === projectId);
     setSelectedProject(selected);
     setShowSlider(1); // Open the slider
   };
-  
+
 
   const handleEdit = (taskId) => {
     const taskName = prompt("Edit Task Name:");
@@ -208,16 +162,6 @@ const DashboardScreen = () => {
         )
       );
     }
-  };
-  const addTask = (name, status) => {
-    setTasks((prevTasks) => [
-      ...prevTasks,
-      {
-        id: prevTasks.length + 1,
-        name,
-        status,
-      },
-    ]);
   };
 
   const handleDelete = (taskId) => {
@@ -242,6 +186,7 @@ const DashboardScreen = () => {
       )
     );
   };
+  const filters = ["All", "pending", "in-progress", "completed"];
 
   return (
     <div className={styles.dashboardContainer}>
@@ -249,20 +194,16 @@ const DashboardScreen = () => {
         <div className={styles.content}>
           <section className={styles.section1}>
             <div className={styles.projectsHeader}>
-
-              <button
-                onClick={() => setFilterType("All")}
-                className={filterType === "All" && styles.active}
-              >
-                All
-              </button>
-              <button onClick={() => setFilterType("Pending")}>Pending</button>
-              <button onClick={() => setFilterType("In Progress")}>
-                InProgress
-              </button>
-              <button onClick={() => setFilterType("Completed")}>
-                Completed
-              </button>
+              {filters.map((filter) => (
+                <button
+                  key={filter}
+                  onClick={() => setFilterType(filter)}
+                  className={filterType === filter ? styles.active : ""}
+                  aria-pressed={filterType === filter}
+                >
+                  {filter.charAt(0).toUpperCase() + filter.slice(1)}
+                </button>
+              ))}
             </div>
             <div className={styles.projects}>
               {Array.isArray(project) &&
@@ -301,7 +242,7 @@ const DashboardScreen = () => {
                       </DonutChart>
                     </div>
                     <div className={styles.projectUserInfo}>
-                      <img src={ profilePicture } alt={name || 'User'} />
+                      <img src={profilePicture} alt={name || 'User'} />
                       <p>{name || 'Unknown User'}</p>
                     </div>
                   </button>
@@ -400,10 +341,10 @@ const DashboardScreen = () => {
         </div>
       </Container>
       <SliderOfProject
-    show={!!showSlider}
-    onClose={() => setShowSlider(0)}
-    projectData={selectedProject ? { projectId: selectedProject.id, progress: selectedProject.percentage, projectStatus: selectedProject.status } : null}
-/>
+        show={!!showSlider}
+        onClose={() => setShowSlider(0)}
+        projectData={selectedProject ? { projectId: selectedProject.id, progress: selectedProject.percentage, projectStatus: selectedProject.status } : null}
+      />
 
 
     </div>

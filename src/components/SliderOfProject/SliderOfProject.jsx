@@ -12,23 +12,23 @@ import SubList from './SubList';
 import useUserinfoStore from "../../useUserinfoStore";
 import FetchData from "../../utility/fetchData";
 
-//     const [selectedTab, setSelectedTab] = useState("toDo");
-//     const [isSubListVisible, setIsSubListVisible] = useState({});
+    const [selectedTab, setSelectedTab] = useState("toDo");
+    const [isSubListVisible, setIsSubListVisible] = useState({});
 
 //     // Handlers
-//     const handleTabClick = (tabName) => setSelectedTab(tabName);
+    const handleTabClick = (tabName) => setSelectedTab(tabName);
 
-//     const handleToggleSubList = (taskId) => {
-//         setIsSubListVisible((prevState) => ({
-//             ...prevState,
-//             [taskId]: !prevState[taskId],
-//         }));
-//     };
+    const handleToggleSubList = (taskId) => {
+        setIsSubListVisible((prevState) => ({
+            ...prevState,
+            [taskId]: !prevState[taskId],
+        }));
+    };
 
-//     const handleStatusChange = (taskId, newStatus) => {
-//         callbacks.onStatusChange(taskId, newStatus);
-//         setSelectedTab(newStatus);
-//     };
+    const handleStatusChange = (taskId, newStatus) => {
+        callbacks.onStatusChange(taskId, newStatus);
+        setSelectedTab(newStatus);
+    };
 
 
 const SliderOfProject = ({ show, onClose, projectData }) => {
@@ -40,6 +40,7 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
     const [seeAction, setSeeAction] = useState("See More");
     const [descriptionState, setDescriptionState] = useState("");
     const [freelancerApplied, setFreelancerApplied] = useState([]);
+    const [selectedTab, setSelectedTab] = useState("to-do");
 
     const { projectId, progress, projectStatus } = projectData || {};
     // Fetch project data and freelancer bids when the projectId changes
@@ -62,7 +63,7 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
         try {
             const data = await FetchData(`projects/${projectId}/bids?page=0&pageSize=100`, { method: 'GET' });
 
-            setFreelancerApplied(data.result); 
+            setFreelancerApplied(data.result);
 
         } catch (error) {
             console.log("Error fetching data:", error);
@@ -73,17 +74,23 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
 
     const getTasks = async () => {
         try {
-            const data = await FetchData(`projects/${projectId}/tasks?status=`,
-                { method: 'GET' });
+            const data = await FetchData(`projects/${projectId}/tasks?status=`, { method: 'GET' });
+
             if (data.isSuccess) {
                 setTasks(data.results || {});
             } else {
                 console.error("Failed to fetch tasks");
             }
         } catch (error) {
-            console.error("Error fetching data:", error);
+            if (error.response && error.response.status === 403) {
+                console.error("You do not have permission to view these tasks.");
+                alert("You do not have permission to view these tasks.");
+            } else {
+                console.error("Error fetching data:", error);
+            }
         }
     };
+
     useEffect(() => {
         if (projectId) {
             getProjectInfo();
@@ -91,6 +98,7 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
             getTasks();
         }
     }, [projectId]);
+
 
     const FreelancerAction = async (projectId, bidId, action) => {
         const url = `projects/${projectId}/bids/${bidId}/${action}`;
@@ -100,6 +108,7 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
             if (response.isSuccess) {
                 console.log(`Freelancer ${action}ed successfully!`);
                 setFreelancerApplied(freelancerApplied.filter(f => f.id !== bidId));
+                getProjectInfo();
             } else {
                 console.error(`Failed to ${action} freelancer:`, response);
             }
@@ -108,6 +117,22 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
         }
     };
 
+    // const ChangeTheTaskStutas = async (projectId, bidId, action) => {
+    //     const url = `projects/${projectId}/bids/${bidId}/${action}`;
+    //     try {
+    //         const response = await FetchData(url, { method: 'POST' });
+
+    //         if (response.isSuccess) {
+    //             console.log(`Freelancer ${action}ed successfully!`);
+    //             setFreelancerApplied(freelancerApplied.filter(f => f.id !== bidId));
+    //             getProjectInfo();
+    //         } else {
+    //             console.error(`Failed to ${action} freelancer:`, response);
+    //         }
+    //     } catch (error) {
+    //         console.error(`Error ${action}ing freelancer:`, error);
+    //     }
+    // };
 
     if (!show) return null;
 
@@ -149,6 +174,7 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
             console.error('Error adding task:', error);
         }
     };
+    const canCompleteProject = !isFreelancer && tasks.every((task) => task.status === "done");
 
     return (
         <div className={styles.sliderOfProject}>
@@ -179,10 +205,10 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
                                         style={{
                                             color:
                                                 projectStatus === "completed"
-                                                    ? '#1FAD58' 
+                                                    ? '#1FAD58'
                                                     : projectStatus === "pending"
-                                                        ? '#3182CE' 
-                                                        : '#D69E2E', 
+                                                        ? '#3182CE'
+                                                        : '#D69E2E',
                                         }}
                                     >
                                         {projectStatus}
@@ -200,10 +226,10 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
                                 <DonutChart
                                     data={[
                                         {
-                                          value: progress,
-                                          color: projectStatus === 'completed' ? '#1FAD58' : projectStatus === 'pending' ? '#3182CE' : '#D69E2E', // Green for completed, Blue for pending, Yellow for other statuses
+                                            value: progress,
+                                            color: projectStatus === 'completed' ? '#1FAD58' : projectStatus === 'pending' ? '#3182CE' : '#D69E2E', // Green for completed, Blue for pending, Yellow for other statuses
                                         },
-                                      ]}
+                                    ]}
                                     total={100}
                                     size={70}
                                     barSize={4}
@@ -239,43 +265,44 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
                                                     <h1>{freelancer.name}</h1>
                                                 </div>
                                             </div>
-                                            <div className={styles.freeLancerAction}>
-                                                <button
-                                                    onClick={() => FreelancerAction(projectId, id, "approve")} 
-                                                    className={styles.acceptFreeLancer}
-                                                >
-                                                    Accept
-                                                </button>
-                                                <button
-                                                    onClick={() => FreelancerAction(projectId, id, "reject")} 
-                                                    className={styles.declineFreeLancer}
-                                                >
-                                                    Reject
-                                                </button>
-                                            </div>
+                                            {!isFreelancer && (
+                                                <div className={styles.freeLancerAction}>
+                                                    <button
+                                                        onClick={() => FreelancerAction(projectId, id, "approve")}
+                                                        className={styles.acceptFreeLancer}
+                                                    >
+                                                        Accept
+                                                    </button>
+                                                    <button
+                                                        onClick={() => FreelancerAction(projectId, id, "reject")}
+                                                        className={styles.declineFreeLancer}
+                                                    >
+                                                        Reject
+                                                    </button>
+                                                </div>
+                                            )}
                                         </div>
+
                                     ))}
-
-
                                 </div>
                             </div>
                         )}
-                        {projectStatus === "inProgress" && (
+                        {projectStatus === "in-progress" && (
                             <>
                                 <div className={styles.tasksSection}>
                                     <h3 className={styles.titelText}>
                                         {isFreelancer ? "My Tasks" : "Freelancer Tasks"}
                                     </h3>
-                                    {!isFreelancer && (
+                                    {!isFreelancer &&  (
                                         <button className={styles.addTaskButton} onClick={() => setIsOpen(true)}>
                                             <AddTaskIcon />
                                         </button>
                                     )}
                                     <div className={styles.taskTabs}>
-                                        {["To Do", "In Progress", "In Review", "Done"].map((tab) => (
+                                        {["to-do", "in progress", "in-review", "done"].map((tab) => (
                                             <a
                                                 key={tab}
-                                                href={`#${tab.toLowerCase().replace(" ", "")}`}
+                                                href={`#${tab.toLowerCase().replace(" ", "-")}`}
                                                 className={`${styles.tab} ${selectedTab === tab ? styles.activeTab : ""}`}
                                                 onClick={() => handleTabClick(tab)}
                                             >
@@ -324,12 +351,13 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
                                         <p>No tasks available</p>
                                     )}
                                 </div>
-
-                                {tasks.every((task) => task.status === "done") && (
+                                 
+                                {canCompleteProject && (
                                     <button className={styles.completeBtn} onClick={() => onComplete(projectId)}>
                                         Project Complete
                                     </button>
                                 )}
+
                             </>
                         )}
                     </div>

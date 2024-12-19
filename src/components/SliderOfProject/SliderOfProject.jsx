@@ -27,7 +27,6 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
     const [selectedTab, setSelectedTab] = useState("toDo");
     const [isSubListVisible, setIsSubListVisible] = useState({});
 
-
     const handleStatusChange = (taskId, newStatus) => {
         callbacks.onStatusChange(taskId, newStatus);
         setSelectedTab(newStatus);
@@ -98,7 +97,16 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
             console.error(`Error ${action}ing freelancer:`, error);
         }
     };
-
+    useEffect(() => {
+        if (projectId) {
+            getProjectInfo();
+            getFreelancerApplied();
+            getTasks();
+            ChangeTheTaskStutas(10,"start-task");
+        }
+       
+    }, [projectId]);
+    
     const ChangeTheTaskStutas = async (taskid, action) => {
         const url = `projects/${projectId}/bids/${bidId}/${action}`;
         try {
@@ -108,6 +116,8 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
                 console.log(`Freelancer ${action}ed successfully!`);
                 setFreelancerApplied(freelancerApplied.filter(f => f.id !== bidId));
                 getProjectInfo();
+                getFreelancerApplied();
+                getTasks();
             } else {
                 console.error(`Failed to ${action} freelancer:`, response);
             }
@@ -169,8 +179,8 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
         }
     };
     
-    const canCompleteProject = !isFreelancer && tasks.every((task) => task?.status === "done");
-
+    // const canCompleteProject = !isFreelancer && tasks.every((task) => task.status === "done");
+    
     return (
         <div className={styles.sliderOfProject}>
             <div className={styles.overlay} onClick={onClose}></div>

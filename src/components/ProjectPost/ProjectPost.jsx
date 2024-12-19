@@ -37,7 +37,7 @@ const projectPost = ({ isProfilepage = false,
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
-        },
+      },
       })
       if (isLiked) {
         setTotalLikes(totalLikes - 1)
@@ -56,7 +56,7 @@ const projectPost = ({ isProfilepage = false,
   return (
     <>
       {isProfilepage ? name === post?.clientName && (
-        <Card marginTop={16} key={post.id}>
+      <Card marginTop={16} key={post.id}>
           <div className={styles.postItem}>
             <div className={styles.postHead}>
               <div className={styles.postClient}>
@@ -145,93 +145,99 @@ const projectPost = ({ isProfilepage = false,
       ) : (
         <Card marginTop={16} key={post.id}>
 
-          <div className={styles.postItem}>
-            <div className={styles.postHead}>
-              <div className={styles.postClient}>
-                <div className={styles.postAvatar}>
-                  <img src={post?.clientProfilePicture} alt="" />
-                </div>
-                <div>
-                  <b className={styles.postClientName}>{post?.clientName}</b>
-                  <br />
-                  <small className={styles.postClientDate}>
-                    {post?.creationTime}
-                  </small>
-                </div>
+        <div className={styles.postItem}>
+          <div className={styles.postHead}>
+            <div className={styles.postClient}>
+              <div className={styles.postAvatar}>
+                <img src={post?.clientProfilePicture} alt="" />
               </div>
-              <div className={styles.postClientAction}>
-                <div className={styles.tag}>{post?.status}</div>
-                <MoreIcon onClick={() => idShow(post.id)} />
-                {/* {isListVisible === post.id && (
-      <div
-        className={styles.list}
-        style={{ marginTop: "220px", position: "absolute" }}>
-        <button>Share</button>
-        <button>Copy link</button>
-        <button>{isFreelancer ? "report" : "delete"}</button>
-      </div>
-    )} */}
-              </div>
-            </div>
-            <div className={styles.postBody}>
-              <b className={styles.postTitle}>{post?.title}</b>
-              <p className={styles.postDesc}>{post.description}</p>
-            </div>
-            { }
-            {(!post?.imageUrl || seeMore) && (
               <div>
-                <div className={styles.moreInfo}>
-                  <b className={styles.infoTitle}>Duration of project</b>
-                  <p className={styles.infoValue}>{post?.duration}</p>
-                </div>
-                <div className={styles.moreInfo}>
-                  <b className={styles.infoTitle}>Pricing</b>
-                  <p className={styles.infoValue}>Hourly $ {post.budget}</p>
-                </div>
+                <b className={styles.postClientName}>{post?.clientName}</b>
+                <br />
+                <small className={styles.postClientDate}>
+                  {post?.creationTime}
+                </small>
               </div>
-            )}
-            {post?.imageUrl && (
-              <>
-                {seeMore ? (
-                  <span onClick={() => setSeeMore(false)} className={styles.seeLess}>See less</span>
-                ) : (
-                  <span onClick={() => setSeeMore(true)} className={styles.seeLess}>See more</span>
-                )}
-                <img className={styles.postImage} src={post?.imageUrl} />
-              </>
-            )}
-            <div className={styles.postFooter1}>
-              <div className={styles.postFooter2}>
-                <div className={styles.footerItem}>
-                  <HeartIcon onClick={handleToggleHeart} isFilled={isLiked} /> <span>{(totalLikes)} like</span>
+            </div>
+            <div className={styles.postClientAction}>
+              <div className={styles.tag}>{post?.status}</div>
+              <MoreIcon onClick={() => idShow(post.id)} />
+              {/* {isListVisible === post.id && (
+                <div
+                  className={styles.list}
+                  style={{ marginTop: "220px", position: "absolute" }}>
+                  <button>Share</button>
+                  <button>Copy link</button>
+                  <button>{isFreelancer ? "report" : "delete"}</button>
                 </div>
-                <div className={styles.footerItem} onClick={setIsCommentForm}>
-                  <CommentsIcon /> <span>{totalComments} comment</span>
-                </div>
-              </div>
-              <CustomButton
-                Width={isSmallScreen ? "100%" : "128px"}
-                style={{ margin: "0px", marginLeft: "auto" }}
-                onClick={() => setApplyPopup(true)}
-                Display={isFreelancer}
-              >
-                Apply now
-              </CustomButton>
+              )} */}
             </div>
           </div>
+          <div className={styles.postBody}>
+            <b className={styles.postTitle}>{post?.title}</b>
+            <p className={styles.postDesc}>{post.description}</p>
+          </div>
+            { }
+          {(!post?.imageUrl || seeMore) && (
+            <div>
+              <div className={styles.moreInfo}>
+                <b className={styles.infoTitle}>Duration of project</b>
+                <p className={styles.infoValue}>{post?.duration}</p>
+              </div>
+              <div className={styles.moreInfo}>
+                <b className={styles.infoTitle}>Pricing</b>
+                <p className={styles.infoValue}>Hourly $ {post.budget}</p>
+              </div>
+            </div>
+          )}
+          {post?.imageUrl && (
+            <>
+              {seeMore ? (
+                <span onClick={() => setSeeMore(false)} className={styles.seeLess}>See less</span>
+              ) : (
+                <span onClick={() => setSeeMore(true)} className={styles.seeLess}>See more</span>
+              )}
+              <img className={styles.postImage} src={post?.imageUrl} />
+            </>
+          )}
+          <div className={styles.postFooter1}>
+            <div className={styles.postFooter2}>
+              <div className={styles.footerItem}>
+                  <HeartIcon onClick={handleToggleHeart} isFilled={isLiked} /> <span>{(totalLikes)} like</span>
+              </div>
+              <div className={styles.footerItem} onClick={setIsCommentForm}>
+                <CommentsIcon /> <span>{totalComments} comment</span>
+              </div>
+            </div>
+            <CustomButton
+              Width={isSmallScreen ? "100%" : "128px"}
+              style={{ margin: "0px", marginLeft: "auto" }}
+              onClick={() => setApplyPopup(true)}
+              Display={isFreelancer}
+            >
+              Apply now
+            </CustomButton>
+          </div>
+        </div>
         </Card>)}
-      <ApplyToProjectFormPopup
-        projectId={post.id}
-        isOpen={applyPopup}
-        onClose={() => setApplyPopup(false)}
-      />
-           <DeleteComponent
+        <ApplyToProjectFormPopup
+          projectId={post.id}
+          isOpen={applyPopup}
+          onClose={() => setApplyPopup(false)}
+        />
+        <DeleteComponent
         isOpen={showDelete}
         message={"are you sure you want to delete this post"}
-        onClose={() => setShowDelete(false)}
+          onClose={() => setShowDelete(false)}
         TypeofDelete={`projects/${deleteId}`}
         GetAllData={handleToggleHeart}
-      />
+        />
+        <CommentForm
+          isOpen={isCommentForm}
+          postId={post.id}
+          newCommentAdded={() => setTotalComments(totalComments+1)}
+          onClose={() => setIsCommentForm(!isCommentForm)}
+        />
     </>
   );
 };

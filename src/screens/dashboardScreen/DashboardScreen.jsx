@@ -141,7 +141,7 @@ const DashboardScreen = () => {
 
   useEffect(() => {
     getProject();
-}, [filterType]);
+  }, [filterType]);
 
   useEffect(() => { }, [filterType]);
 
@@ -151,7 +151,7 @@ const DashboardScreen = () => {
     setSelectedProject(selected);
     setShowSlider(1); // Open the slider
   };
-  
+
 
   const handleEdit = (taskId) => {
     const taskName = prompt("Edit Task Name:");
@@ -187,6 +187,7 @@ const DashboardScreen = () => {
       )
     );
   };
+  const filters = ["All", "pending", "in-progress", "completed"];
 
   return (
     <div className={styles.dashboardContainer}>
@@ -194,20 +195,16 @@ const DashboardScreen = () => {
         <div className={styles.content}>
           <section className={styles.section1}>
             <div className={styles.projectsHeader}>
-
-              <button
-                onClick={() => setFilterType("All")}
-                className={filterType === "All" && styles.active}
-              >
-                All
-              </button>
-              <button onClick={() => setFilterType("pending")}>Pending</button>
-              <button onClick={() => setFilterType("in-progress")}>
-                InProgress
-              </button>
-              <button onClick={() => setFilterType("completed")}>
-                Completed
-              </button>
+              {filters.map((filter) => (
+                <button
+                  key={filter}
+                  onClick={() => setFilterType(filter)}
+                  className={filterType === filter ? styles.active : ""}
+                  aria-pressed={filterType === filter}
+                >
+                  {filter.charAt(0).toUpperCase() + filter.slice(1)}
+                </button>
+              ))}
             </div>
             <div className={styles.projects}>
               {Array.isArray(project) &&
@@ -246,7 +243,7 @@ const DashboardScreen = () => {
                       </DonutChart>
                     </div>
                     <div className={styles.projectUserInfo}>
-                      <img src={ profilePicture } alt={name || 'User'} />
+                      <img src={profilePicture} alt={name || 'User'} />
                       <p>{name || 'Unknown User'}</p>
                     </div>
                   </button>
@@ -345,10 +342,10 @@ const DashboardScreen = () => {
         </div>
       </Container>
       <SliderOfProject
-    show={!!showSlider}
-    onClose={() => setShowSlider(0)}
-    projectData={selectedProject ? { projectId: selectedProject.id, progress: selectedProject.percentage, projectStatus: selectedProject.status } : null}
-/>
+        show={!!showSlider}
+        onClose={() => setShowSlider(0)}
+        projectData={selectedProject ? { projectId: selectedProject.id, progress: selectedProject.percentage, projectStatus: selectedProject.status } : null}
+      />
 
 
     </div>

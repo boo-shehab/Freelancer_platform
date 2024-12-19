@@ -29,7 +29,7 @@ const projectPost = ({
           <div className={styles.postHead}>
             <div className={styles.postClient}>
               <div className={styles.postAvatar}>
-                <img src={post?.clientProfilePicture} alt="" srcset="" />
+                <img src={post?.clientProfilePicture} alt="" srcSet="" />
               </div>
               <div>
                 <b className={styles.postClientName}>{post?.clientName}</b>

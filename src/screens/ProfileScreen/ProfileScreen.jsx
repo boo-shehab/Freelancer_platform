@@ -142,7 +142,7 @@ const ProfileScreen = () => {
       setIsWorkedWith(freelancersWorkedWith);
       setIsGivenLikes(givenLikes);
       setIsProjectPosted(projectPosted);
-      setPosted(projectsInProgress);
+      setPosted(projectPosted);
       setPending(projectsPending);
       setCompleted(projectsCompleted);
     } catch (error) {
@@ -198,6 +198,11 @@ const ProfileScreen = () => {
     handleInfoProfileAndRating();
     ratings();
   }, []);
+
+  useEffect(() => {
+    console.log("posted",posted);
+    
+  }, [posted]);
 
   const rating = {
     starRate: averageRating,

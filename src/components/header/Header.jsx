@@ -1,6 +1,6 @@
 import { Link, NavLink } from "react-router-dom";
 import styles from "./Header.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SearchIcon from "../../CustomIcons/SearchIcon";
 import BellIcon from "../../CustomIcons/BellIcon";
 import Container from "../Container/container";
@@ -11,12 +11,36 @@ import SettingIcon from "../../CustomIcons/SettingIcon";
 import InsertPostIcon from "../../CustomIcons/InsertPostIcon";
 import TwoStageFormPopup from "../TwoStageFormPopup/TwoStageFormPopup";
 import useUserinfoStore from "../../useUserinfoStore";
+import fetchData from "../../utility/fetchData";
+import { useSignalR } from "../../utility/signelR";
 
 const Header = ({ image = "none", name = "none", type = "none" }) => {
   const [isOpenNotification, setIsOpenNotification] = useState(false);
   const [newNotification, setNewNotification] = useState(true);
-  const { isFreelancer } = useUserinfoStore()
+  const { isFreelancer } = useUserinfoStore();
   const [currecntPageNumber, setcurrecntPageNumber] = useState(1);
+  const jwtToken = localStorage.getItem("accessToken");
+  const {
+    likeNotification,
+    // commentNotification,
+    // bidApprovalNotification,
+    // bidRejectionNotification,
+    // bidSubmissionNotification,
+    // profileVisitNotification,
+    // taskApprovalNotification,
+    // taskRejectionNotification,
+  } = useSignalR(jwtToken);
+
+  useEffect(() => {
+    console.log("likeNotification", likeNotification);
+    // console.log("commentNotification", commentNotification);
+    // console.log("bidApprovalNotification", bidApprovalNotification);
+    // console.log("bidRejectionNotification", bidRejectionNotification);
+    // console.log("bidSubmissionNotification", bidSubmissionNotification);
+    // console.log("profileVisitNotification", profileVisitNotification);
+    // console.log("taskApprovalNotification", taskApprovalNotification);
+    // console.log("taskRejectionNotification", taskRejectionNotification);
+  }, []);
 
   const todayNotifications = [
     {
@@ -58,6 +82,17 @@ const Header = ({ image = "none", name = "none", type = "none" }) => {
       time: "2d",
     },
   ];
+
+  const fetchNotifications = async () => {
+    const processedRatings = {
+      averageRating: parseFloat(results.averageRating, 10),
+      totalRating: results.totalRating,
+      highRating: results.highRating,
+      midRating: results.midRating,
+      lowRating: results.lowRating,
+    };
+  };
+
   const openNotification = () => {
     setIsOpenNotification(!isOpenNotification);
     setNewNotification(false);
@@ -111,74 +146,70 @@ const Header = ({ image = "none", name = "none", type = "none" }) => {
               className={`${newNotification ? styles["have-messages"] : ""}`}
             >
               {/* <img src={`${isOpenNotification? 'notification-active.png': './notification.png'}`} alt="" /> */}
-              <BellIcon active={isOpenNotification} />            </button>
+              <BellIcon active={isOpenNotification} />{" "}
+            </button>
 
-              {isOpenNotification && (
-                <div className={styles.notifications}>
-                  <div className={styles.notificationsTitle}>
-                    <button onClick={openNotification}>&lt;</button>
-                    <h3>Notification</h3>
-                  </div>
-                  <p className={styles.subTitle}>
-                    You Have 3 <span>Notification</span> Today !
-                  </p>
-                  <ul>
-                    <p
-                      style={{ fontSize: "18px", padding: "16px 0px 0px 0px" }}
-                    >
-                      Today
-                    </p>
-                    {todayNotifications.map((today) => (
-                      <li key={today.name}>
-                        <span className={styles.marker}></span>
-                        <div>
-                          <img src={today.img} alt="" />
-                          <p>
-                            <span style={{ color: "#3C97AF" }}>
-                              {today.name}
-                            </span>{" "}
-                            {today.type}{" "}
-                            <span style={{ color: "#999999" }}>
-                              {today.time}
-                            </span>
-                          </p>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                  <ul>
-                    <p
-                      style={{ fontSize: "18px", padding: "16px 0px 0px 0px" }}
-                    >
-                      this week
-                    </p>
-                    {thisWeekNotifications.map((today) => (
-                      <li
-                        key={today.name}
-                        style={{ border: "none", padding: "12px 0px" }}
-                      >
-                        <div>
-                          <img src={today.img} alt="" />
-                          <p>
-                            <span style={{ color: "#3C97AF" }}>
-                              {today.name}
-                            </span>{" "}
-                            {today.type}{" "}
-                            <span style={{ color: "#999999" }}>
-                              {today.time}
-                            </span>
-                          </p>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
+            {isOpenNotification && (
+              <div className={styles.notifications}>
+                <div className={styles.notificationsTitle}>
+                  <button onClick={openNotification}>&lt;</button>
+                  <h3>Notification</h3>
                 </div>
-              )}
+                <p className={styles.subTitle}>
+                  You Have 3 <span>Notification</span> Today !
+                </p>
+                <ul>
+                  <p style={{ fontSize: "18px", padding: "16px 0px 0px 0px" }}>
+                    Today
+                  </p>
+                  {todayNotifications.map((today) => (
+                    <li key={today.name}>
+                      <span className={styles.marker}></span>
+                      <div>
+                        <img src={today.img} alt="" />
+                        <p>
+                          <span style={{ color: "#3C97AF" }}>{today.name}</span>{" "}
+                          {today.type}{" "}
+                          <span style={{ color: "#999999" }}>{today.time}</span>
+                        </p>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+                <ul>
+                  <p style={{ fontSize: "18px", padding: "16px 0px 0px 0px" }}>
+                    this week
+                  </p>
+                  {thisWeekNotifications.map((today) => (
+                    <li
+                      key={today.name}
+                      style={{ border: "none", padding: "12px 0px" }}
+                    >
+                      <div>
+                        <img src={today.img} alt="" />
+                        <p>
+                          <span style={{ color: "#3C97AF" }}>{today.name}</span>{" "}
+                          {today.type}{" "}
+                          <span style={{ color: "#999999" }}>{today.time}</span>
+                        </p>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
         </div>
       </Container>
-      <div className={isFreelancer ? styles.footerOPtionFreelancer : styles.footerOPtion}>
-        <div className={styles.option1} style={{ display: isFreelancer ? "none" : "block" }}>
+      <div
+        className={
+          isFreelancer ? styles.footerOPtionFreelancer : styles.footerOPtion
+        }
+      >
+        <div
+          className={styles.option1}
+          style={{ display: isFreelancer ? "none" : "block" }}
+        >
           <NavLink onClick={() => setcurrecntPageNumber(1)} to="/">
             {" "}
             <HomeIcon color={currecntPageNumber} />{" "}
@@ -188,13 +219,19 @@ const Header = ({ image = "none", name = "none", type = "none" }) => {
             <DashBord color={currecntPageNumber} />{" "}
           </NavLink>
         </div>
-        <div className={styles.insertPostIcon} style={{ display: isFreelancer ? "none" : "block" }}>
+        <div
+          className={styles.insertPostIcon}
+          style={{ display: isFreelancer ? "none" : "block" }}
+        >
           {" "}
           <button onClick={() => setIsPopupOpen(true)}>
             <InsertPostIcon />{" "}
           </button>
         </div>
-        <div className={styles.option2} style={{ display: isFreelancer ? "none" : "block" }}>
+        <div
+          className={styles.option2}
+          style={{ display: isFreelancer ? "none" : "block" }}
+        >
           <NavLink onClick={() => setcurrecntPageNumber(3)} to="/profile">
             {" "}
             <ProfileIcon color={currecntPageNumber} />{" "}
@@ -204,7 +241,10 @@ const Header = ({ image = "none", name = "none", type = "none" }) => {
             <SettingIcon color={currecntPageNumber} />{" "}
           </NavLink>
         </div>
-        <div className={styles.freeLancerFooter} style={{ display: isFreelancer ? "flex" : "none" }}>
+        <div
+          className={styles.freeLancerFooter}
+          style={{ display: isFreelancer ? "flex" : "none" }}
+        >
           <NavLink onClick={() => setcurrecntPageNumber(1)} to="/">
             {" "}
             <HomeIcon color={currecntPageNumber} />{" "}

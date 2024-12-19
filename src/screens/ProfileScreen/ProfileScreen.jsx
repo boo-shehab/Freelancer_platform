@@ -73,7 +73,6 @@ const ProfileScreen = () => {
   const [completed, setCompleted] = useState(0);
   const [loading, setLoading] = useState(false);
   const [profile, setProfile] = useState([]);
-<<<<<<< HEAD
   const [posts, setPosts] = useState([]);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
@@ -111,7 +110,6 @@ const ProfileScreen = () => {
     }
   };
 
-=======
   //Muhammed was here
   const [clientsWorkedWith, setClientsWorkedWith] = useState(11);
   const [givenLikes, setGivenLikes] = useState(11);
@@ -128,7 +126,6 @@ const ProfileScreen = () => {
   const [freeMidRating, setFreeMidRating] = useState(0);
   const [freeHighRating, setFreeHighRating] = useState(0);
   const [freeTotalRating, setFreeTotalRating] = useState(0);
->>>>>>> 8218c1c85b7187f2a19fcac98c645f5222c76fd1
 
   function ShowDelete(message) {
     setmessageDelete(message);
@@ -152,7 +149,7 @@ const ProfileScreen = () => {
     { value: posted, color: "#D9D9D9" },
     { value: completed, color: "#7FC882" },
   ];
-<<<<<<< HEAD
+
   // const posts = [
   //   {
   //     id: 1,
@@ -178,34 +175,7 @@ const ProfileScreen = () => {
   //     },
   //   },
   // ];
-=======
 
-  const posts = [
-    {
-      id: 1,
-      title: "Looking for Full-Sack Developer with experience +2 years",
-      desc: "to build a responsive, user-focused web application. Must be skilled in both front-end and back-end development",
-      duration: "4 Months",
-      image: "/post.png",
-      price: 50,
-      client: {
-        name: "Client Name",
-        createdAt: "Posted 2 hours ago  ",
-      },
-    },
-    {
-      id: 2,
-      title: "Looking for Full-Sack Developer with experience +2 years",
-      desc: "to build a responsive, user-focused web application. Must be skilled in both front-end and back-end development",
-      duration: "4 Months",
-      price: 50,
-      client: {
-        name: "Client Name",
-        createdAt: "Posted 2 hours ago  ",
-      },
-    },
-  ];
->>>>>>> 8218c1c85b7187f2a19fcac98c645f5222c76fd1
 
   // const projects = [
   //   {
@@ -353,11 +323,8 @@ const ProfileScreen = () => {
     getProfile();
     handleInfoProfileAndRating();
     ratings();
-<<<<<<< HEAD
     getProject();
-=======
     ratingsFreelancer();
->>>>>>> 8218c1c85b7187f2a19fcac98c645f5222c76fd1
   }, []);
 
   useEffect(() => {
@@ -656,13 +623,10 @@ const ProfileScreen = () => {
                       <b>About</b>
                       <EditIcon />
                     </div>
-<<<<<<< HEAD
                     <p>
                       {profile?.about}
                     </p>
-=======
                     <p>{profile?.about}</p>
->>>>>>> 8218c1c85b7187f2a19fcac98c645f5222c76fd1
                   </div>
                   <div className={styles.history}>
                     <div className={styles.historyHead}>
@@ -680,10 +644,6 @@ const ProfileScreen = () => {
                           <div className={styles.itemInfo}>
                             <h4>{p.title}</h4>
                             <small>
-<<<<<<< HEAD
-                              {`${startDateOfProject.getFullYear()}-${String(startDateOfProject.getMonth() + 1).padStart(2, '0')}-${String(startDateOfProject.getDate()).padStart(2, '0')}`}
-                              {` to ${endDateOfProject.getFullYear()}-${String(endDateOfProject.getMonth() + 1).padStart(2, '0')}-${String(endDateOfProject.getDate()).padStart(2, '0')}`}
-=======
                               {`${startDateOfProject.getFullYear()}-${String(
                                 startDateOfProject.getMonth() + 1
                               ).padStart(2, "0")}-${String(
@@ -694,16 +654,11 @@ const ProfileScreen = () => {
                               ).padStart(2, "0")}-${String(
                                 endDateOfProject.getDate()
                               ).padStart(2, "0")}`}
->>>>>>> 8218c1c85b7187f2a19fcac98c645f5222c76fd1
                             </small>
                             <p className={styles.itemDesc}>{p.description}</p>
                           </div>
                         </div>
-<<<<<<< HEAD
-                      )
-=======
                       );
->>>>>>> 8218c1c85b7187f2a19fcac98c645f5222c76fd1
                     })}
                   </div>
                   {/* <div className={styles.history}>
@@ -842,7 +797,6 @@ const ProfileScreen = () => {
                         </div>
                       </Card>
                     ))}*/}
-<<<<<<< HEAD
                     {posts?.map((post) => (
                       <ProjectPost
                         key={post.id}
@@ -851,10 +805,6 @@ const ProfileScreen = () => {
                       />
                     ))}
 
-=======
-                    {/* <ProjectPost /> */}
-                    ///////////
->>>>>>> 8218c1c85b7187f2a19fcac98c645f5222c76fd1
                   </div>
                   <div className={styles.LineInBottom}></div>
                   <button className={styles.seeAllReviews}>See all</button>

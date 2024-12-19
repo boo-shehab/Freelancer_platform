@@ -22,6 +22,8 @@ import SkilsSide from "../../components/Skils/skils";
 import DeleteComponent from "../../components/DeleteComponent/DeleteComponent";
 import FetchData from "../../utility/fetchData";
 import useUserinfoStore from "../../useUserinfoStore";
+import ProjectPost from "../../components/ProjectPost/ProjectPost";
+
 const WorkFor = [
   {
     id: 1,
@@ -38,7 +40,7 @@ const WorkFor = [
 ];
 
 const ProfileScreen = () => {
-  const { about, setAbout } = useUserinfoStore();
+  const { about, projects } = useUserinfoStore();
 
   const [isUserInfoOpen, setIsUserInfoOpen] = useState(false);
   const [isAboutPopupOpen, setIsAboutPopupOpen] = useState(false);
@@ -50,7 +52,7 @@ const ProfileScreen = () => {
   const [aboutState, setAboutState] = useState(about.slice(0, 492));
   const [dotsAbout, setDotsAbout] = useState("....");
   const [seeAction, setSeeAction] = useState("See More");
-  const [isFreeLancer, setIsFreeLancer] = useState(false);
+  const { isFreelancer } = useUserinfoStore();
   const [showDelete, setshowDelete] = useState(false);
   const [messageDelete, setmessageDelete] = useState("");
   // Muhammed state:
@@ -67,15 +69,29 @@ const ProfileScreen = () => {
   const [posted, setPosted] = useState(25);
   const [pending, setPending] = useState(25);
   const [completed, setCompleted] = useState(25);
+  const [loading, setLoading] = useState(false);
+  const [profile, setProfile] = useState([]);
 
   function ShowDelete(message) {
     setmessageDelete(message);
     setshowDelete(true);
   }
-
+  const getProfile = async () => {
+    try {
+      const data = await FetchData(
+        `profiles/${localStorage.getItem('id')}`,
+        {
+          method: "GET",
+        }
+      );
+      setProfile(data.results);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const chartData = [
     { value: pending, color: "#FFDB70" },
-    ...(isFreeLancer ? [{ value: 15, color: "#86C6F8" }] : []),
+    ...(isFreelancer ? [{ value: 15, color: "#86C6F8" }] : []),
     { value: posted, color: "#D9D9D9" },
     { value: completed, color: "#7FC882" },
   ];
@@ -105,20 +121,20 @@ const ProfileScreen = () => {
     },
   ];
 
-  const projects = [
-    {
-      id: 1,
-      title: "Project Name One",
-      createdAt: "22 Jan 2024 - 11 May  2024.",
-      desc: "Developed a task management web application designed to help users organize, prioritize, and track their daily tasks efficiently. ",
-    },
-    {
-      id: 2,
-      title: "Project Name Two",
-      createdAt: "22 Jan 2024 - 11 May  2024.",
-      desc: "Developed a task management web application designed to help users organize, prioritize, and track their daily tasks efficiently. ",
-    },
-  ];
+  // const projects = [
+  //   {
+  //     id: 1,
+  //     title: "Project Name One",
+  //     createdAt: "22 Jan 2024 - 11 May  2024.",
+  //     desc: "Developed a task management web application designed to help users organize, prioritize, and track their daily tasks efficiently. ",
+  //   },
+  //   {
+  //     id: 2,
+  //     title: "Project Name Two",
+  //     createdAt: "22 Jan 2024 - 11 May  2024.",
+  //     desc: "Developed a task management web application designed to help users organize, prioritize, and track their daily tasks efficiently. ",
+  //   },
+  // ];
 
   const handleInfoProfileAndRating = async () => {
     try {
@@ -128,14 +144,22 @@ const ProfileScreen = () => {
           method: "GET",
         }
       );
+      const {
+        freelancersWorkedWith,
+        projectPosted,
+        givenLikes,
+        projectsPending,
+        projectsInProgress,
+        projectsCompleted,
+      } = data.results;
 
-      const { freelancersWorkedWith, projectPosted, givenLikes } = data.results;
+
       setIsWorkedWith(freelancersWorkedWith);
       setIsGivenLikes(givenLikes);
       setIsProjectPosted(projectPosted);
-      setPosted();
-      setPending();
-      setCompleted();
+      setPosted(projectsInProgress);
+      setPending(projectsPending);
+      setCompleted(projectsCompleted);
     } catch (error) {
       console.log("Login failed. Please try again.");
     }
@@ -151,7 +175,7 @@ const ProfileScreen = () => {
       );
 
       const processedRatings = {
-        averageRating: parseInt(results.averageRating, 10),
+        averageRating: parseFloat(results.averageRating, 10),
         totalRating: results.totalRating,
         highRating: results.highRating,
         midRating: results.midRating,
@@ -186,12 +210,13 @@ const ProfileScreen = () => {
   };
 
   useEffect(() => {
+    getProfile();
     handleInfoProfileAndRating();
     ratings();
   }, []);
 
   const rating = {
-    starRate: "4.0",
+    starRate: averageRating,
     highRate: 82,
     midRate: 12,
     lowRate: 6,
@@ -228,9 +253,10 @@ const ProfileScreen = () => {
   const idShow = (id) => {
     setVisiblePostId((prevId) => (prevId === id ? null : id));
   };
+
   return (
     <div>
-      {isFreeLancer ? (
+      {isFreelancer ? (
         <div>
           <Container>
             <div className={styles.profilePageOFFreelancer}>
@@ -268,9 +294,9 @@ const ProfileScreen = () => {
                           className={styles.dot}
                           style={{ backgroundColor: "#D9D9D9" }}
                         ></div>
-                        <p>{isFreeLancer ? "In-Review" : "Posted projects"}</p>
+                        <p>{isFreelancer ? "In-Review" : "Posted projects"}</p>
                       </div>
-                      {isFreeLancer ? (
+                      {isFreelancer ? (
                         <div className={styles.ChartInfoItem}>
                           <div
                             className={styles.dot}
@@ -283,13 +309,13 @@ const ProfileScreen = () => {
                         <div
                           className={styles.dot}
                           style={{
-                            backgroundColor: isFreeLancer
+                            backgroundColor: isFreelancer
                               ? "#7FC882"
                               : "#FFDB70",
                           }}
                         ></div>
                         <p>
-                          {isFreeLancer
+                          {isFreelancer
                             ? "Completed projects"
                             : "Pending projects"}
                         </p>
@@ -298,13 +324,13 @@ const ProfileScreen = () => {
                         <div
                           className={styles.dot}
                           style={{
-                            backgroundColor: isFreeLancer
+                            backgroundColor: isFreelancer
                               ? "#FFDB70"
                               : "#7FC882",
                           }}
                         ></div>
                         <p>
-                          {isFreeLancer
+                          {isFreelancer
                             ? "InProgress projects"
                             : "Completed projects"}
                         </p>
@@ -433,18 +459,21 @@ const ProfileScreen = () => {
           <EditAboutPopup
             isOpen={isAboutPopupOpen}
             onClose={() => setIsAboutPopupOpen(false)}
-            onSave={handleEditAbout}
+            getData={getProfile}
+            initialData={profile?.about}
           />
           <EditProfilePopup
             isOpen={isUserInfoOpen}
             onClose={() => setIsUserInfoOpen(false)}
-            onSave={handleEditProfile}
+            isFreelancer={false}
+            initialData={{ name: profile?.name, specialization: profile?.companyName }}
+            getData={getProfile}
           />
-          <ProjectHistoryForm
+          {/* <ProjectHistoryForm
             isOpen={isUserInfoOpen}
             onClose={() => setIsUserInfoOpen(false)}
             onSave={handleEditProfile}
-          />
+          /> */}
           {/* <EducationForm isOpen={isUserInfoOpen} onClose={() => setIsUserInfoOpen(false)} /> */}
           <Container paddingx={isSmallScreen ? 0 : 56}>
             <div className={styles.content}>
@@ -452,10 +481,10 @@ const ProfileScreen = () => {
                 <Card paddingx={24} isProfilePage={true}>
                   <div className={styles.userProfile}>
                     <div className={styles.userInfo}>
-                      <img src="./avatar.png" alt="" />
+                      <img src={profile?.profilePicture} alt="" />
                       <div>
-                        <h2>Mustafa Emad</h2>
-                        <p>Business scope</p>
+                        <h2>{profile?.name}</h2>
+                        <p>{profile?.companyName}</p>
                       </div>
                     </div>
                     <div
@@ -474,23 +503,17 @@ const ProfileScreen = () => {
                       <EditIcon />
                     </div>
                     <p>
-                      {aboutState}
-                      {dotsAbout}{" "}
-                      <span
-                        className={styles.seeMoreAbout}
-                        onClick={handleSeeMore}
-                      >
-                        {seeAction}
-                      </span>
+                      {profile?.about}                    
                     </p>
                   </div>
-
                   <div className={styles.history}>
                     <div className={styles.historyHead}>
                       <b>Projects History</b>
                     </div>
-
-                    {projects?.map((p) => (
+                    {projects?.map((p) => {
+                      const startDateOfProject = new Date(p.startDate);
+                      const endDateOfProject = new Date(p.endDate);
+                      return (
                       <div className={styles.projectItem} key={p.id}>
                         <div className={styles.guid}>
                           <div className={styles.dot}></div>
@@ -498,11 +521,14 @@ const ProfileScreen = () => {
                         </div>
                         <div className={styles.itemInfo}>
                           <h4>{p.title}</h4>
-                          <small>{p.createdAt}</small>
-                          <p className={styles.itemDesc}>{p.desc}</p>
+                          <small>
+                              {`${startDateOfProject.getFullYear()}-${String(startDateOfProject.getMonth() + 1).padStart(2, '0')}-${String(startDateOfProject.getDate()).padStart(2, '0')}`}
+                              {` to ${endDateOfProject.getFullYear()}-${String(endDateOfProject.getMonth() + 1).padStart(2, '0')}-${String(endDateOfProject.getDate()).padStart(2, '0')}`}
+                          </small>
+                          <p className={styles.itemDesc}>{p.description}</p>
                         </div>
                       </div>
-                    ))}
+                    )})}
                   </div>
                   {/* <div className={styles.history}>
                     <WorkForForm
@@ -554,7 +580,7 @@ const ProfileScreen = () => {
                         <PlusIcon />
                       </div>
                     </div>
-                    {posts?.map((post) => (
+                    {/* {posts?.map((post) => (
                       <Card marginTop={16} key={post.id} paddingx={16}>
                         <div className={styles.postItem}>
                           <div className={styles.postHead}>
@@ -571,9 +597,12 @@ const ProfileScreen = () => {
                               </div>
                             </div>
 
-                            <div className={styles.postClientAction} >
+                            <div className={styles.postClientAction}>
                               <div className={styles.tag}>Available</div>
-                              <MoreIcon onClick={() => idShow(post.id)} style={{cursor:"pointer"}} />
+                              <MoreIcon
+                                onClick={() => idShow(post.id)}
+                                style={{ cursor: "pointer" }}
+                              />
                               {isListVisible === post.id && (
                                 <div
                                   className={styles.list}
@@ -583,7 +612,8 @@ const ProfileScreen = () => {
                                   }}
                                 >
                                   <button>Edit</button>
-                                  <button className={styles.deletebtnForPost}
+                                  <button
+                                    className={styles.deletebtnForPost}
                                     onClick={() =>
                                       ShowDelete(
                                         "Are you sure u want to delete this Post"
@@ -635,11 +665,15 @@ const ProfileScreen = () => {
                           </div>
                         </div>
                       </Card>
-                    ))}
+                    ))}*/}
+                                    {/* <ProjectPost /> */}
+                                    ///////////
+                                    
+
                   </div>
                   <div className={styles.LineInBottom}></div>
                   <button className={styles.seeAllReviews}>See all</button>
-                </Card>
+                </Card> 
               </section>
               <section className={styles.section2}>
                 <Card paddingx={24} isProfilePage={true}>
@@ -739,36 +773,36 @@ const ProfileScreen = () => {
                         <div className={styles.bar}>
                           <div
                             style={{
-                              width: `${rating.highRate}%`,
+                              width: `${highRating}`,
                               backgroundColor: "#4DB251",
                             }}
                           ></div>
                         </div>
-                        <p>{highRating}</p>
+                        <p>{`${highRating}%`}</p>
                       </div>
                       <div className={styles.barItem}>
                         <b>Mid rate</b>
                         <div className={styles.bar}>
                           <div
                             style={{
-                              width: `${rating.midRate}%`,
+                              width: `${midRating}`,
                               backgroundColor: "#FFBF00",
                             }}
                           ></div>
                         </div>
-                        <p>{midRating}</p>
+                        <p>{`${midRating}%`}</p>
                       </div>
                       <div className={styles.barItem}>
                         <b>low rate</b>
                         <div className={styles.bar}>
                           <div
                             style={{
-                              width: `${rating.lowRate}%`,
+                              width: `${lowRating}%`,
                               backgroundColor: "#E4636F",
                             }}
                           ></div>
                         </div>
-                        <p>{lowRating}</p>
+                        <p>{`${lowRating}%`}</p>
                       </div>
                     </div>
                   </div>
@@ -776,9 +810,7 @@ const ProfileScreen = () => {
                 <Card marginTop={24} paddingx={24} isProfilePage={true}>
                   <div className={styles.titleReviewsBox}>
                     <h3 className={styles.titleReviews}>Reviews</h3>
-                    <p className={styles.subtitleReviews}>
-                      Total People who visited your profile
-                    </p>
+                    <p className={styles.subtitleReviews}>Total Reviews</p>
                     <p className={styles.reviews}>
                       <b>{totalRating}</b> review
                     </p>

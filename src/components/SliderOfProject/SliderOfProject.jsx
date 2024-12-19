@@ -9,6 +9,7 @@ import DonutChart from "../../components/charts/DonutChart";
 import AddTaskForm from '../../components/AddTaskForm/AddTaskForm';
 import AddTaskIcon from '../../CustomIcons/AddTaskIcon';
 import SubList from './SubList';
+import useUserinfoStore from "../../useUserinfoStore";
 
 const SliderOfProject = ({
     show,
@@ -16,10 +17,10 @@ const SliderOfProject = ({
     projectData, 
     callbacks, 
 }) => {
+    const { isFreelancer } = useUserinfoStore();
     if (!show) return null;
 
     const [selectedTab, setSelectedTab] = useState("To Do");
-    const [isFreeLancer, setIsFreeLancer] = useState(true);
     const [isSubListVisible, setIsSubListVisible] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
 
@@ -146,9 +147,9 @@ const SliderOfProject = ({
                     <>
                         <div className={styles.tasksSection}>
                             <h3 className={styles.titelText}>
-                                {isFreeLancer ? "My Tasks" : "Freelancer Tasks"}
+                                {isFreelancer ? "My Tasks" : "Freelancer Tasks"}
                             </h3>
-                            {!isFreeLancer && (
+                            {!isFreelancer && (
                                 <button className={styles.addTaskButton} onClick={() => setIsOpen(true)}>
                                     <AddTaskIcon />
                                 </button>
@@ -173,9 +174,9 @@ const SliderOfProject = ({
                                 .map(({ id, name }) => (
                                     <div
                                         key={id}
-                                        className={`${styles.task} ${!isFreeLancer ? styles.withJustifyContent : ""}`}
+                                        className={`${styles.task} ${!isFreelancer ? styles.withJustifyContent : ""}`}
                                     >
-                                        {selectedTab === "Done" && isFreeLancer && (
+                                        {selectedTab === "Done" && isFreelancer && (
                                             <input
                                                 type="checkbox"
                                                 id={`task-${id}`}
@@ -185,17 +186,17 @@ const SliderOfProject = ({
                                             />
                                         )}
                                         <div className={styles.iconContainer}>
-                                            {isFreeLancer && selectedTab === "In Progress" && (
+                                            {isFreelancer && selectedTab === "In Progress" && (
                                                 <InProgressIcon className={styles.inProgressIcon} />
                                             )}
-                                            {isFreeLancer && selectedTab === "In Review" && (
+                                            {isFreelancer && selectedTab === "In Review" && (
                                                 <InReviewIcon className={styles.inReviewIcon} />
                                             )}
                                         </div>
 
                                         <p
                                             onClick={
-                                                isFreeLancer && selectedTab !== "Done"
+                                                isFreelancer && selectedTab !== "Done"
                                                     ? () => handleToggleSubList(id)
                                                     : undefined
                                             }
@@ -204,11 +205,11 @@ const SliderOfProject = ({
                                             {name}
                                         </p>
 
-                                        {isFreeLancer && isSubListVisible[id] && selectedTab !== "Done" && (
+                                        {isFreelancer && isSubListVisible[id] && selectedTab !== "Done" && (
                                             <SubList taskId={id} onStatusChange={handleStatusChange} />
                                         )}
 
-                                        {!isFreeLancer && selectedTab === "To Do" && (
+                                        {!isFreelancer && selectedTab === "To Do" && (
                                             <div className={styles.buttonContainer}>
                                                 <button onClick={() => handleEdit(id)} className={styles.editButton}>
                                                     <MessageEdit />

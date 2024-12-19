@@ -14,11 +14,11 @@ const freeLancerScreen = ({
   const [selectedJobs, setSelectedJobs] = useState([]);
   const [sizeModule, setSizeModule] = useState(1);
 
-  const handleJobSelection = (jobId) => {
+  const handleJobSelection = (job) => {
     setSelectedJobs((prevSelected) =>
-      prevSelected.includes(jobId)
-        ? prevSelected.filter((id) => id !== jobId)
-        : [...prevSelected, jobId]
+      prevSelected.some((selectedJob) => selectedJob.value === job.value)
+        ? prevSelected.filter((selectedJob) => selectedJob.value !== job.value)
+        : [...prevSelected, job]
     );
   };
 
@@ -65,26 +65,27 @@ const freeLancerScreen = ({
       },
     },
   };
+  
   const optionOfFreelancing = [
     {
-      id: 1,
-      Job: "Full-Stack",
+      value: "uiux",
+      label: "UIUX Designer",
     },
     {
-      id: 2,
-      Job: "Front End ",
+      value: "backend",
+      label: "Back-end",
     },
     {
-      id: 3,
-      Job: "Mobile Developer",
+      value: "frontend",
+      label: "Front-end",
     },
     {
-      id: 4,
-      Job: "UI UX Designer",
+      value: "fullstack",
+      label: "Full-Stack",
     },
     {
-      id: 5,
-      Job: "Back End",
+      value: "mobile",
+      label: "Mobile app",
     },
   ];
   const nameOfFreeLancer = [
@@ -112,14 +113,12 @@ const freeLancerScreen = ({
             <div className={styles.specializationBody}>
               <div className={styles.spacing}>
                 {optionOfFreelancing.map((job) => (
-                  <div key={job.id} className={styles.Options}>
+                  <div key={job.label} className={styles.Options}>
                     <button
-                      className={`${styles.btn} ${
-                        selectedJobs.includes(job.id) ? styles.btnGreen : ""
-                      }`}
-                      onClick={() => handleJobSelection(job.id)}
+                      className={`${styles.btn} ${selectedJobs.some((selectedJob) => selectedJob.value === job.value) ? styles.btnGreen : ""}`}
+                      onClick={() => handleJobSelection(job)}
                     ></button>
-                    <p>{job.Job}</p>
+                    <p>{job.label}</p>
                   </div>
                 ))}
               </div>
@@ -233,15 +232,15 @@ const freeLancerScreen = ({
           <div className={styles.specializationResbonsiveChoose}>
             {optionOfFreelancing.map((i) => (
               <button
-                key={i.Job}
-                onClick={() => handleJobSelection(i.Job)}
+                key={i.value}
+                onClick={() => handleJobSelection(i)}
                 className={
-                  selectedJobs.includes(i.Job)
+                  selectedJobs.some((selectedJob) => selectedJob.value === i.value)
                     ? styles.specializationResbonsiveChooseBtnActive
                     : styles.specializationResbonsiveChooseBtn
                 }
               >
-                {i.Job}
+                {i.label}
               </button>
             ))}
           </div>

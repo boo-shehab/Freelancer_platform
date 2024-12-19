@@ -1,78 +1,108 @@
 import React, { useState } from "react";
 import styles from "./EditProfilePopup.module.css";
 import ContainerForm from "../ContainerForm/ContainerForm";
+import FetchData from "../../utility/fetchData";
 
-const EditProfilePopup = ({ isOpen, onClose, initialData, onSave }) => {
-  const [firstName, setFirstName] = useState(initialData?.firstName || "");
-  const [lastName, setLastName] = useState(initialData?.lastName || "");
+const EditProfilePopup = ({ isOpen, onClose, initialData = {} , getData , isFreelancer = true }) => {
+  const [name, setName] = useState(initialData?.name || "");
   const [specialization, setSpecialization] = useState(initialData?.specialization || "");
   const [errors, setErrors] = useState({});
 
-  const handleSave = () => {
+  const handleSave = async () => {
     const newErrors = {};
 
-    if (!firstName.trim()) newErrors.firstName = "First Name is required.";
-    if (!lastName.trim()) newErrors.lastName = "Last Name is required.";
+    if (!name.trim()) newErrors.name = "First Name is required.";
+    if (!specialization.trim()) newErrors.specialization = "Specialization is required.";
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
-      return;
+      return; 
     }
 
+    try {
+      await FetchData(isFreelancer ? 'freelancers' : 'clients',
+        {
+          method: "PATCH",
+          body: JSON.stringify( isFreelancer ? { name, qualificationName: specialization }
+                                             : { name, companyName : specialization }
+          ) ,
+        },
+        { "Content-Type": "application/json" }
+      );
+      getData();
+      onClose();
+    } catch (e) {
+      console.error("Error updating profile:", e);
+    }
+  };
 
-    onSave({ firstName, lastName, specialization });
-    onClose();
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    if (name === "name") setName(value);
+    if (name === "specialization") setSpecialization(value);
+    
+    if (errors[name]) {
+      setErrors({ ...errors, [name]: "" }); 
+    }
   };
 
   if (!isOpen) return null;
 
   return (
     <ContainerForm isOpen={isOpen} onClose={onClose} HeadName="Edit Name and Specialization">
-        <div className={styles.body}>
-          <label>
-            First Name*
-            <input
-              type="text"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-              placeholder="First Name"
-              className={`${styles.input} ${errors.firstName ? styles.error : ""}`}
-            />
-            {errors.firstName && <span className={styles.errorMessage}>{errors.firstName}</span>}
-          </label>
-          <label>
-            Last Name*
-            <input
-              type="text"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-              placeholder="Last Name"
-              className={`${styles.input} ${errors.lastName ? styles.error : ""}`}
-            />
-            {errors.lastName && <span className={styles.errorMessage}>{errors.lastName}</span>}
-          </label>
-          <label>
-            Specialization
-            <select
-              value={specialization}
-              onChange={(e) => setSpecialization(e.target.value)}
-              className={styles.select}
-            >
-              <option value="">Select Specialization</option>
-              <option value="Full-Stack Developer">Full-Stack Developer</option>
-              <option value="Front-End Developer">Front-End Developer</option>
-              <option value="Back-End Developer">Back-End Developer</option>
-            </select>
-          </label>
-        </div>
-        <div className={styles.footer}>
-          <button onClick={handleSave} className={styles.saveButton}>
-            Save
-          </button>
-        </div>
+      <div className={styles.body}>
+        <label>
+          First Name*
+          <input
+            type="text"
+            name="name" // Add name attribute for handling change
+            value={name}
+            onChange={handleChange}
+            placeholder="First Name"
+            className={`${styles.input} ${errors.name ? styles.error : ""}`}
+          />
+          {errors.name && <span className={styles.errorMessage}>{errors.name}</span>}
+        </label>
+        {isFreelancer ? (
+           <label>
+          Specialization*
+          <select
+            name="specialization"
+            value={specialization}
+            onChange={handleChange}
+            className={`${styles.select} ${errors.specialization ? styles.error : ""}`}
+          >
+            <option value="" disabled>
+              Select specialization
+            </option>
+            <option value="backend">Back-end</option>
+            <option value="frontend">Front-end</option>
+            <option value="fullstack">Full-stack</option>
+            <option value="mobile">Mobile</option>
+            <option value="ui">UI/UX</option>
+          </select>
+          {errors.specialization && <span className={styles.errorMessage}>{errors.specialization}</span>}
+        </label>
+       ):(
+        <label>
+        Comapny Name*
+        <input
+          name="specialization"
+          value={specialization}
+          onChange={handleChange}
+          className={`${styles.select} ${errors.specialization ? styles.error : ""}`}
+        />
+        {errors.specialization && <span className={styles.errorMessage}>{errors.specialization}</span>}
+      </label>
+       )}
+      </div>
+      <div className={styles.footer}>
+        <button onClick={handleSave} className={styles.saveButton}>
+          Save
+        </button>
+      </div>
     </ContainerForm>
   );
-  
 };
 
 export default EditProfilePopup;

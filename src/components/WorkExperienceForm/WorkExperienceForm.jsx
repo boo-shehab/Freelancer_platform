@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styles from "./WorkExperienceForm.module.css";
 import ContainerForm from "../ContainerForm/ContainerForm";
+import FetchData from "../../utility/fetchData";
+import dayjs from "dayjs";
 
-const WorkExperienceForm = ({isOpen, onClose, initialData, onSave}) => {
+const WorkExperienceForm = ({isOpen, onClose , initialData = "" , GetDate}) => {
   
   const [formData, setFormData] = useState({
     jobTitle: "",
@@ -13,6 +15,53 @@ const WorkExperienceForm = ({isOpen, onClose, initialData, onSave}) => {
     endMonth: "",
     endYear: "",
   });
+  // const { accessToken, userDetails } = data.results;
+        // const { id , role } = userDetails;
+
+        // // Save sensitive data securely
+        // localStorage.setItem('accessToken', accessToken);
+        // localStorage.setItem('id', id);
+
+        // addUserInfo(userDetails);
+
+        // console.log('User Details:', isFreelancer);
+
+        // navigate('/');
+
+  const addNewWorkEx = async () => {
+
+    try {
+      const response = await FetchData(
+          `freelancers/work-experience`,
+          {
+              method: 'POST',
+              body: JSON.stringify({
+                  jobTitle: formData.jobTitle,
+                  isCurrent: false ,
+                  employmentType: formData.employmentType,
+                  employerName: formData.clientName,
+                  startDate: dayjs(`${formData.startYear}-${formData.startMonth}-01`).format("YYYY-MM-DDTHH:mm:ss.SSS[Z]"),
+                  endDate: dayjs(`${formData.endYear}-${formData.endMonth}-01`).format("YYYY-MM-DDTHH:mm:ss.SSS[Z]"),
+              }),
+              headers: { 'Content-Type': 'application/json' }
+          }
+      );
+  
+      if (response.ok) {
+          console.log("Data submitted successfully.");
+          // Handle successful response, e.g., clear form or display success message
+      } else {
+          console.error("Error submitting data:", response.statusText);
+          // Handle unsuccessful response
+      }
+  } catch (error) {
+      console.error("An error occurred:", error.message || 'An unexpected error occurred.');
+  } finally {
+    GetDate();
+    onClose();
+  }
+  
+};
 
   const months = [
     "January",
@@ -30,11 +79,11 @@ const WorkExperienceForm = ({isOpen, onClose, initialData, onSave}) => {
   ];
   const years = Array.from({ length: 50 }, (_, i) => `${1975 + i}`);
 
-  useEffect(() => {
-    if (initialData) {
-      setFormData(initialData);
-    }
-  }, [initialData]);
+  // useEffect(() => {
+  //   if (initialData) {
+  //     setFormData(initialData);
+  //   }
+  // }, [initialData]);
 
 
   const handleChange = (e) => {
@@ -62,7 +111,6 @@ const WorkExperienceForm = ({isOpen, onClose, initialData, onSave}) => {
 
   return (
     <ContainerForm isOpen={isOpen} onClose={onClose} HeadName={`${initialData? "Add Work Experience" : "Edit Work Experience"}`}>
-        <form onSubmit={handleSubmit} className={styles.form}>
         <label className={styles.label}>
             Job Title*
             <input
@@ -77,13 +125,19 @@ const WorkExperienceForm = ({isOpen, onClose, initialData, onSave}) => {
 
         <label className={styles.label}>
             Employment Type*
-            <input
-            name="employmentType"
-            value={formData.employmentType}
-            onChange={handleChange}
-            className={styles.input}
-            required
-            />
+            <select
+                name="employmentType"
+                value={formData.employmentType}
+                onChange={handleChange}
+                className={styles.input}
+                required
+                >
+                <option value="" disabled>Select employment type</option>
+                <option value="full-time">Full-time</option>
+                <option value="part-time">Part-time</option>
+                <option value="contract">Contract</option>
+                <option value="internship">Internship</option>
+            </select>
         </label>
 
         <label className={styles.label}>
@@ -182,11 +236,10 @@ const WorkExperienceForm = ({isOpen, onClose, initialData, onSave}) => {
             </div>
         </div>
         <div className={styles.buttonContainer}>
-          <button type="submit" className={styles.button}>
+          <button className={styles.button} onClick={addNewWorkEx}>
               Save
           </button>
         </div>
-        </form>
     </ContainerForm>
   );
 };

@@ -64,29 +64,29 @@ import useUserinfoStore from "../../useUserinfoStore";
 //   },
 // ];
 
-const recentProjects = [
-  {
-    id: 1,
-    projectName: "Web Design Project",
-    projectPrice: "10$/Hour",
-    projectDescription:
-      "This Project Involves implementing both frontend and back-end functionalities ,as  well as integrating with third-party Apls.",
-  },
-  {
-    id: 2,
-    projectName: "Web Design Project",
-    projectPrice: "10$/Hour",
-    projectDescription:
-      "This Project Involves implementing both frontend and back-end functionalities ,as  well as integrating with third-party Apls.",
-  },
-  {
-    id: 3,
-    projectName: "Web Design Project",
-    projectPrice: "10$/Hour",
-    projectDescription:
-      "This Project Involves implementing both frontend and back-end functionalities ,as  well as integrating with third-party Apls.",
-  },
-];
+// const recentProjects = [
+//   {
+//     id: 1,
+//     projectName: "Web Design Project",
+//     projectPrice: "10$/Hour",
+//     projectDescription:
+//       "This Project Involves implementing both frontend and back-end functionalities ,as  well as integrating with third-party Apls.",
+//   },
+//   {
+//     id: 2,
+//     projectName: "Web Design Project",
+//     projectPrice: "10$/Hour",
+//     projectDescription:
+//       "This Project Involves implementing both frontend and back-end functionalities ,as  well as integrating with third-party Apls.",
+//   },
+//   {
+//     id: 3,
+//     projectName: "Web Design Project",
+//     projectPrice: "10$/Hour",
+//     projectDescription:
+//       "This Project Involves implementing both frontend and back-end functionalities ,as  well as integrating with third-party Apls.",
+//   },
+// ];
 // const WorkFor = [
 //   {
 //     id: 1,
@@ -165,13 +165,14 @@ const formerCoworkers = [
 
 const HomeScreen = () => {
   const [posts, setPosts] = useState([]);
+  const [recentProjects, setRecentProjects]= useState([])
   const [selectedJobs, setSelectedJobs] = useState([]);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [recentProjectOpened, setRecentProjectOpened] = useState(-1);
-  const [isFreeLancer, setIsFreeLancer] = useState(false);
+  const { isFreelancer } = useUserinfoStore()
+  
   const [isPopupOpen2, setIsPopupOpen2] = useState(false);
   const [callBack, setCallBack] = useState([]);
-  const [isCommentForm, setIsCommentForm] = useState(false);
   const [openDrawer, setOpenDrawer] = useState(false);
   const [isWorkForOpen, setIsWorkForOpen] = useState(false);
   const [isAboutPopupOpen, setIsAboutPopupOpen] = useState(false);
@@ -196,16 +197,28 @@ const HomeScreen = () => {
 
   const getProject = async () => {
     try {
-      const queryParams = selectedJobs
-        .map((qualification) => `qualificationNames=${qualification}`)
-        .join("&");
-
-      const response = await fetchData(
-        `projects/client-feed?page=0&pageSize=10&${queryParams}`,
-        {
-          method: "GET",
+        let response = '';
+        if(isFreelancer) {
+          const queryParams = selectedJobs
+            .map((qualification) => `specializations=${qualification}`)
+            .join("&");
+          response = await fetchData(
+            `projects/freelancer-feed?page=0&pageSize=10&${queryParams}`,
+            {
+              method: "GET",
+            }
+          );
+        } else {
+          const queryParams = selectedJobs
+            .map((qualification) => `qualificationNames=${qualification}`)
+            .join("&");
+          response = await fetchData(
+            `projects/client-feed?page=0&pageSize=10&${queryParams}`,
+            {
+              method: "GET",
+            }
+          );
         }
-      );
       console.log(response.results.result);
       setPosts(response.results.result);
     } catch (e) {
@@ -234,27 +247,41 @@ const HomeScreen = () => {
     handleSeeMore();
   }, [about]);
 
-  const handleEditAbout = (value) => {
-    setAbout(value);
-    setAboutState(value.slice(0, 492));
-  };
+  useEffect(() => {
+    const getRecentProjects = async() => {
+      try{
+        const response = await fetchData(
+          `clients/recent-projects?page=0&pageSize=4`,
+          {
+            method: "GET",
+          }
+        );
+        setRecentProjects(response.results.result);
+      }catch(e) {
+        console.log(e);
+        
+      }
+    }
+    if(!isFreelancer)
+      getRecentProjects()
+  }, [isFreelancer])
 
   useEffect(() => {
     getProject();
-  }, [selectedJobs]);
-
-  useEffect(() => {
-    console.log('about: ', about);
-    
-  }, [about])
+  }, [selectedJobs, isFreelancer]);
 
   const handleNewProject = () => {
     setIsPopupOpen(true);
   };
   const callBackFun = (CB) => {
     setCallBack(CB);
-    console.log(CB);
+    const values = CB.map(item => item.value);
+    console.log('values', values);
+    console.log('CB', CB);
+    
+    setSelectedJobs(values);
   };
+  console.log('User Details:', isFreelancer);
 
   return (
     <div style={styles.homeScreen}>
@@ -318,7 +345,8 @@ const HomeScreen = () => {
       <Container>
         <div className={styles.content}>
           {/* MuhammedLami */}
-          {isFreeLancer ? (
+          {isFreelancer}
+          {isFreelancer ? (
             <FreeLancerScreen
               isPopupOpen2={isPopupOpen2}
               setIsPopupOpen2={setIsPopupOpen2}
@@ -458,7 +486,7 @@ const HomeScreen = () => {
             className={styles.section2}
             style={{ marginBottom: `${isSmallScreen ? "130px" : "0px"}` }}
           >
-            {isFreeLancer ? (
+            {isFreelancer ? (
               <>
                 <div className={styles.mainFreeLancerScreenSearch}>
                   <div className={styles.FreeLancerScreenSearch}>
@@ -482,7 +510,7 @@ const HomeScreen = () => {
                     <>
                       <div className={styles.insideShowingUp}>
                         <div>x</div>
-                        <div>{i}</div>
+                        <div>{i.label}</div>
                       </div>
                     </>
                   ))}{" "}
@@ -530,15 +558,12 @@ const HomeScreen = () => {
             )}
             {posts?.map((post) => (
               <ProjectPost
-                isFreeLancer={isFreeLancer}
-                IsCommentForm={isCommentForm}
-                SetIsCommentForm={() => setIsCommentForm(!isCommentForm)}
                 key={post.id}
                 post={post}
               />
             ))}
           </section>
-          {!isFreeLancer && (
+          {!isFreelancer && (
             <section className={styles.section3}>
               <Card>
                 <div className={styles.recent}>
@@ -558,9 +583,9 @@ const HomeScreen = () => {
                         <div className={styles.recentItemInfo}>
                           <div className={styles.recentItemAvatar}></div>
                           <div>
-                            <b>{recentProject.projectName}</b>
+                            <b>{recentProject.title}</b>
                             <br />
-                            <small>{recentProject.projectPrice}</small>
+                            <small>{recentProject.budget}</small>
                           </div>
                         </div>
 
@@ -582,7 +607,7 @@ const HomeScreen = () => {
                         </button>
                       </div>
                       <p className={styles.projectDescription}>
-                        {recentProject.projectDescription}
+                        {recentProject.description}
                       </p>
                     </div>
                   ))}
@@ -617,13 +642,10 @@ const HomeScreen = () => {
           )}
         </div>
       </Container>
-      <CommentForm
-        isOpen={isCommentForm}
-        onClose={() => setIsCommentForm(!isCommentForm)}
-      />
       <EditAboutPopup
         isOpen={isAboutPopupOpen}
         onClose={() => setIsAboutPopupOpen(false)}
+        initialData={about}
       />
     </div>
   );

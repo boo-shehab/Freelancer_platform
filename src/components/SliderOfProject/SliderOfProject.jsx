@@ -12,7 +12,6 @@ import SubList from './SubList';
 import useUserinfoStore from "../../useUserinfoStore";
 import FetchData from "../../utility/fetchData";
 
-<<<<<<< HEAD
     const [selectedTab, setSelectedTab] = useState("toDo");
     const [isSubListVisible, setIsSubListVisible] = useState({});
 
@@ -25,10 +24,6 @@ import FetchData from "../../utility/fetchData";
             [taskId]: !prevState[taskId],
         }));
     };
-=======
-//     const [selectedTab, setSelectedTab] = useState("toDo");
-
->>>>>>> e819c1007fee9d788bbd01c7e0d4512bd5bac7ae
 
     const handleStatusChange = (taskId, newStatus) => {
         callbacks.onStatusChange(taskId, newStatus);
@@ -124,7 +119,6 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
         }
     };
 
-<<<<<<< HEAD
     // const ChangeTheTaskStutas = async (projectId, bidId, action) => {
     //     const url = `projects/${projectId}/bids/${bidId}/${action}`;
     //     try {
@@ -141,9 +135,8 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
     //         console.error(`Error ${action}ing freelancer:`, error);
     //     }
     // };
-=======
+
     const handleTabClick = (tabName) => setSelectedTab(tabName);
->>>>>>> e819c1007fee9d788bbd01c7e0d4512bd5bac7ae
 
     const handleToggleSubList = (taskId) => {
         setIsSubListVisible((prevState) => ({
@@ -175,11 +168,7 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
             const newTaskData = { ...taskData, status: "to-do" };
     
             const response = await FetchData(`projects/${projectId}/tasks`, {
-<<<<<<< HEAD
                 method: 'POST',
-=======
-                method: "POST",
->>>>>>> e819c1007fee9d788bbd01c7e0d4512bd5bac7ae
                 headers: {
                     "Content-Type": "application/json",
                 },

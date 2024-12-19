@@ -14,8 +14,6 @@ const ProtectedRoute = ({ isProtected, children }) => {
         try {
           const response = await fetchData(`profiles/${id}`);
           const data = await response.results;
-
-          console.log("user info: ", data);
           
           // Update Zustand store with fetched data
 

@@ -33,7 +33,6 @@ const ApplyToProjectFormPopup = ({ isOpen, onClose, projectId }) => {
       onClose();
     } catch(e) {
       console.log(e);
-      
     }
   };
   useEffect(() => {

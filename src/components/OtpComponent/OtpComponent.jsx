@@ -37,7 +37,6 @@ const OtpComponent = ({handleNext, phone}) => {
     setOtp(''); 
     setTimer(59);
     setIsResendDisabled(true);
-    console.log('Resend OTP');
   };
 
   const handleOTP = async() => {
@@ -50,7 +49,6 @@ const OtpComponent = ({handleNext, phone}) => {
       }, {
         'Content-Type': 'application/json'
       })
-        console.log('Submission response:', data);
         handleNext()
     } catch(e) {
       console.log(e);

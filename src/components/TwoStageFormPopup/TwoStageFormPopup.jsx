@@ -115,9 +115,6 @@ const handlePost=()=>{
   }
 }
 
-  useEffect(() => {
-    console.log(projectsPosts);
-  }, [projectsPosts]);
 
   if (!isOpen) return null;
 

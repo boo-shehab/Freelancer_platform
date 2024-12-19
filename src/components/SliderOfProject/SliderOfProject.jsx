@@ -320,7 +320,12 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
                                                 <div
                                                     key={id}
                                                     className={`${styles.task} ${!isFreelancer ? styles.withJustifyContent : ""}`}
+                                                    style={{position: "relative"}}
                                                 >
+                                                    <SubList />
+                                                    { isFreelancer &&(
+                                                        <SubList />
+                                                    )}
                                                     {selectedTab === "done" && isFreelancer && (
                                                         <input
                                                             type="checkbox"

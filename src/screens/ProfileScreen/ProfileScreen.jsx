@@ -24,8 +24,7 @@ import FetchData from "../../utility/fetchData";
 import useUserinfoStore from "../../useUserinfoStore";
 import ProjectPost from "../../components/ProjectPost/ProjectPost";
 import TwoStageFormPopup from "../../components/TwoStageFormPopup/TwoStageFormPopup";
-
-
+import BookWithPlus from "../../CustomIcons/bookWithPlus" 
 const WorkFor = [
   {
     id: 1,
@@ -81,28 +80,25 @@ const ProfileScreen = () => {
   };
   const getProject = async () => {
     try {
-        let response = '';
-        // if(isFreelancer) {
-          // const queryParams = selectedJobs
-            // .map((qualification) => `specializations=${qualification}`)
-            // .join("&");
-          response = await FetchData(
-            `projects/client-feed?page=0&pageSize=10`,
-            {
-              method: "GET",
-            }
-          );
-        // } else {
-        //   const queryParams = selectedJobs
-        //     .map((qualification) => `qualificationNames=${qualification}`)
-        //     .join("&");
-        //   response = await fetchData(
-        //     `projects/client-feed?page=0&pageSize=10&${queryParams}`,
-        //     {
-        //       method: "GET",
-        //     }
-        //   );
-        // }
+      let response = "";
+      // if(isFreelancer) {
+      // const queryParams = selectedJobs
+      // .map((qualification) => `specializations=${qualification}`)
+      // .join("&");
+      response = await FetchData(`projects/client-feed?page=0&pageSize=10`, {
+        method: "GET",
+      });
+      // } else {
+      //   const queryParams = selectedJobs
+      //     .map((qualification) => `qualificationNames=${qualification}`)
+      //     .join("&");
+      //   response = await fetchData(
+      //     `projects/client-feed?page=0&pageSize=10&${queryParams}`,
+      //     {
+      //       method: "GET",
+      //     }
+      //   );
+      // }
       console.log(response.results.result);
       setPosts(response.results.result);
     } catch (e) {
@@ -142,13 +138,46 @@ const ProfileScreen = () => {
       console.log(error);
     }
   };
+  const [chartData, setChartData] = useState(() => {
+    return isFreelancer
+      ? [
+          { value: inProgressProjects, color: "#FFDB70" },
+          { value: todo, color: "#86C6F8" },
+          { value: inReview, color: "#D9D9D9" },
+          { value: completedProjects, color: "#7FC882" },
+        ]
+      : [
+          { value: pending, color: "#FFDB70" },
+          { value: posted, color: "#D9D9D9" },
+          { value: completed, color: "#7FC882" },
+        ];
+  });
 
-  const chartData = [
-    { value: pending, color: "#FFDB70" },
-    ...(isFreelancer ? [{ value: todo, color: "#86C6F8" }] : []),
-    { value: posted, color: "#D9D9D9" },
-    { value: completed, color: "#7FC882" },
-  ];
+  useEffect(() => {
+    setChartData(
+      isFreelancer
+        ? [
+            { value: inProgressProjects, color: "#FFDB70" },
+            { value: todo, color: "#86C6F8" },
+            { value: inReview, color: "#D9D9D9" },
+            { value: completedProjects, color: "#7FC882" },
+          ]
+        : [
+            { value: pending, color: "#FFDB70" },
+            { value: posted, color: "#D9D9D9" },
+            { value: completed, color: "#7FC882" },
+          ]
+    );
+  }, [
+    isFreelancer,
+    inProgressProjects,
+    todo,
+    inReview,
+    completedProjects,
+    pending,
+    posted,
+    completed,
+  ]);
 
   // const posts = [
   //   {
@@ -175,7 +204,6 @@ const ProfileScreen = () => {
   //     },
   //   },
   // ];
-
 
   // const projects = [
   //   {
@@ -364,7 +392,7 @@ const ProfileScreen = () => {
     setAboutState(value.slice(0, 492));
   };
 
-  const handleEditProfile = () => { };
+  const handleEditProfile = () => {};
   const [isListVisible, setVisiblePostId] = useState(null);
   const idShow = (id) => {
     setVisiblePostId((prevId) => (prevId === id ? null : id));
@@ -466,9 +494,9 @@ const ProfileScreen = () => {
                         <div className={styles.value}>{givenLikes}</div>
                       </div>
                       <div className={styles.infoItem}>
-                        <TaskDoneIcon />
-                        <div className={styles.label}>Project Posted</div>
-                        <div className={styles.value}>{inProgressProjects}</div>
+                        <BookWithPlus />
+                        <div className={styles.label}>Project you applied</div>
+                        <div className={styles.value}>{projectYouApplied}</div>
                       </div>
                       <div className={styles.infoItem}>
                         <TaskDoneIcon />
@@ -623,9 +651,7 @@ const ProfileScreen = () => {
                       <b>About</b>
                       <EditIcon />
                     </div>
-                    <p>
-                      {profile?.about}
-                    </p>
+                    <p>{profile?.about}</p>
                     <p>{profile?.about}</p>
                   </div>
                   <div className={styles.history}>
@@ -801,10 +827,9 @@ const ProfileScreen = () => {
                       <ProjectPost
                         key={post.id}
                         post={post}
-                        isProfilepage = {true}
+                        isProfilepage={true}
                       />
                     ))}
-
                   </div>
                   <div className={styles.LineInBottom}></div>
                   <button className={styles.seeAllReviews}>See all</button>
@@ -971,7 +996,7 @@ const ProfileScreen = () => {
         TypeofDelete={`freelancers/certifications`}
         id={80}
       />
-       <TwoStageFormPopup
+      <TwoStageFormPopup
         isOpen={isPopupOpen}
         onClose={() => setIsPopupOpen(false)}
       />

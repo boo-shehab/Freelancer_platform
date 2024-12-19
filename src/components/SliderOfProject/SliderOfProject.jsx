@@ -102,6 +102,15 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
             console.error(`Error ${action}ing freelancer:`, error);
         }
     };
+    useEffect(() => {
+        if (projectId) {
+            getProjectInfo();
+            getFreelancerApplied();
+            getTasks();
+            ChangeTheTaskStutas(10,"start-task");
+        }
+       
+    }, [projectId]);
 
     const ChangeTheTaskStutas = async (taskid, action) => {
         const url = `tasks/${projectId}/${action}`;
@@ -175,15 +184,7 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
     };
     
     // const canCompleteProject = !isFreelancer && tasks.every((task) => task.status === "done");
-    useEffect(() => {
-        if (projectId) {
-            getProjectInfo();
-            getFreelancerApplied();
-            getTasks();
-            ChangeTheTaskStutas(10,"start-task");
-        }
-       
-    }, [projectId]);
+    
     return (
         <div className={styles.sliderOfProject}>
             <div className={styles.overlay} onClick={onClose}></div>

@@ -29,8 +29,6 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
     const [selectedTab, setSelectedTab] = useState("toDo");
     const [isSubListVisible, setIsSubListVisible] = useState({});
 
-//     // Handlers
-
     const handleStatusChange = (taskId, newStatus) => {
         callbacks.onStatusChange(taskId, newStatus);
         setSelectedTab(newStatus);
@@ -114,6 +112,8 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
                 console.log(`Freelancer ${action}ed successfully!`);
                 setFreelancerApplied(freelancerApplied.filter(f => f.id !== bidId));
                 getProjectInfo();
+                getFreelancerApplied();
+                getTasks();
             } else {
                 console.error(`Failed to ${action} freelancer:`, response);
             }
@@ -179,9 +179,9 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
             getProjectInfo();
             getFreelancerApplied();
             getTasks();
-             ChangeTheTaskStutas(10,"start-task");
+          
         }
-       
+         ChangeTheTaskStutas( 10, "start-task");
     }, [projectId]);
     return (
         <div className={styles.sliderOfProject}>

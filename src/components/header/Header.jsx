@@ -13,6 +13,7 @@ import TwoStageFormPopup from "../TwoStageFormPopup/TwoStageFormPopup";
 import useUserinfoStore from "../../useUserinfoStore";
 import fetchData from "../../utility/fetchData";
 import { useSignalR } from "../../utility/signelR";
+import dayjs from "dayjs";
 
 const Header = ({ image = "none", name = "none", type = "none" }) => {
   const [isOpenNotification, setIsOpenNotification] = useState(false);
@@ -20,27 +21,12 @@ const Header = ({ image = "none", name = "none", type = "none" }) => {
   const { isFreelancer } = useUserinfoStore();
   const [currecntPageNumber, setcurrecntPageNumber] = useState(1);
   const jwtToken = localStorage.getItem("accessToken");
-  const {
-    likeNotification,
-    // commentNotification,
-    // bidApprovalNotification,
-    // bidRejectionNotification,
-    // bidSubmissionNotification,
-    // profileVisitNotification,
-    // taskApprovalNotification,
-    // taskRejectionNotification,
-  } = useSignalR(jwtToken);
+  const { notifications } = useSignalR(jwtToken);
 
   useEffect(() => {
-    console.log("likeNotification", likeNotification);
-    // console.log("commentNotification", commentNotification);
-    // console.log("bidApprovalNotification", bidApprovalNotification);
-    // console.log("bidRejectionNotification", bidRejectionNotification);
-    // console.log("bidSubmissionNotification", bidSubmissionNotification);
-    // console.log("profileVisitNotification", profileVisitNotification);
-    // console.log("taskApprovalNotification", taskApprovalNotification);
-    // console.log("taskRejectionNotification", taskRejectionNotification);
-  }, []);
+    console.log("All notifications:", notifications);
+    // Perform actions with the notifications here
+  }, [notifications]);
 
   const todayNotifications = [
     {
@@ -156,41 +142,37 @@ const Header = ({ image = "none", name = "none", type = "none" }) => {
                   <h3>Notification</h3>
                 </div>
                 <p className={styles.subTitle}>
-                  You Have 3 <span>Notification</span> Today !
+                  {notifications.length === 0
+                    ? "No Notification"
+                    : `You Have ${notifications.length} Notification
+                  Today !`}
                 </p>
                 <ul>
-                  <p style={{ fontSize: "18px", padding: "16px 0px 0px 0px" }}>
-                    Today
-                  </p>
-                  {todayNotifications.map((today) => (
-                    <li key={today.name}>
-                      <span className={styles.marker}></span>
-                      <div>
-                        <img src={today.img} alt="" />
-                        <p>
-                          <span style={{ color: "#3C97AF" }}>{today.name}</span>{" "}
-                          {today.type}{" "}
-                          <span style={{ color: "#999999" }}>{today.time}</span>
-                        </p>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-                <ul>
-                  <p style={{ fontSize: "18px", padding: "16px 0px 0px 0px" }}>
-                    this week
-                  </p>
-                  {thisWeekNotifications.map((today) => (
-                    <li
-                      key={today.name}
-                      style={{ border: "none", padding: "12px 0px" }}
+                  {notifications.length === 0 ? null : (
+                    <p
+                      style={{ fontSize: "18px", padding: "16px 0px 0px 0px" }}
                     >
-                      <div>
-                        <img src={today.img} alt="" />
+                      Today
+                    </p>
+                  )}
+
+                  {notifications.map((notification, index) => (
+                    <li key={index}>
+                      <span className={styles.marker}></span>
+                      <div >
+                        <img className={styles.notiPic}
+                          src={notification.data.image}
+                          alt={notification.data.likerName}
+                        />
                         <p>
-                          <span style={{ color: "#3C97AF" }}>{today.name}</span>{" "}
-                          {today.type}{" "}
-                          <span style={{ color: "#999999" }}>{today.time}</span>
+                          <span style={{ color: "#3C97AF" }}>
+                            {notification.data.likerName}
+                          </span>{" "}
+                          {notification.data.message}{" "}
+                          <br />
+                          <span style={{ color: "#999999" }}>
+                            {dayjs(notification.data.createdAt).format("HH:mm")}
+                          </span>
                         </p>
                       </div>
                     </li>

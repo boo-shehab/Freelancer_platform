@@ -3,11 +3,13 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "proxy": "http://16.170.247.41/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "proxy": "http://16.170.247.41/"
   },
   "dependencies": {
     "@microsoft/signalr": "^8.0.7",
@@ -22,7 +24,8 @@
     "react-router-dom": "^7.0.2",
     "react-select": "^5.8.3",
     "reactjs-otp-input": "^2.0.10",
-    "zustand": "^5.0.2"
+    "zustand": "^5.0.2",
+    "proxy": "http://16.170.247.41/"
   },
   "devDependencies": {
     "@eslint/js": "^9.13.0",
@@ -35,6 +38,7 @@
     "eslint-plugin-react-refresh": "^0.4.14",
     "globals": "^15.11.0",
     "vite": "^5.4.11",
-    "vite-plugin-svgr": "^4.3.0"
+    "vite-plugin-svgr": "^4.3.0",
+    "proxy": "http://16.170.247.41/"
   }
 }

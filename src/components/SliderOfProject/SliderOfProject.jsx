@@ -12,23 +12,7 @@ import SubList from './SubList';
 import useUserinfoStore from "../../useUserinfoStore";
 import FetchData from "../../utility/fetchData";
 
-    const [selectedTab, setSelectedTab] = useState("toDo");
-    const [isSubListVisible, setIsSubListVisible] = useState({});
-
-//     // Handlers
-    const handleTabClick = (tabName) => setSelectedTab(tabName);
-
-    const handleToggleSubList = (taskId) => {
-        setIsSubListVisible((prevState) => ({
-            ...prevState,
-            [taskId]: !prevState[taskId],
-        }));
-    };
-
-    const handleStatusChange = (taskId, newStatus) => {
-        callbacks.onStatusChange(taskId, newStatus);
-        setSelectedTab(newStatus);
-    };
+ 
 
 
 const SliderOfProject = ({ show, onClose, projectData }) => {
@@ -40,9 +24,17 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
     const [seeAction, setSeeAction] = useState("See More");
     const [descriptionState, setDescriptionState] = useState("");
     const [freelancerApplied, setFreelancerApplied] = useState([]);
-    const [selectedTab, setSelectedTab] = useState("to-do");
+    // const [selectedTab, setSelectedTab] = useState("to-do");
+    // const [isSubListVisible, setIsSubListVisible] = useState({});
+    const [selectedTab, setSelectedTab] = useState("toDo");
     const [isSubListVisible, setIsSubListVisible] = useState({});
 
+//     // Handlers
+
+    const handleStatusChange = (taskId, newStatus) => {
+        callbacks.onStatusChange(taskId, newStatus);
+        setSelectedTab(newStatus);
+    };
 
     const { projectId, progress, projectStatus } = projectData || {};
     // Fetch project data and freelancer bids when the projectId changes
@@ -93,13 +85,7 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
         }
     };
 
-    useEffect(() => {
-        if (projectId) {
-            getProjectInfo();
-            getFreelancerApplied();
-            getTasks();
-        }
-    }, [projectId]);
+  
 
 
     const FreelancerAction = async (projectId, bidId, action) => {
@@ -120,9 +106,9 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
     };
 
     const ChangeTheTaskStutas = async (taskid, action) => {
-        const url = `projects/${projectId}/bids/${bidId}/${action}`;
+        const url = `tasks/${projectId}/${action}`;
         try {
-            const response = await FetchData(url, { method: 'POST' });
+            const response = await FetchData(url, { method: 'PATCH' });
 
             if (response.isSuccess) {
                 console.log(`Freelancer ${action}ed successfully!`);
@@ -188,7 +174,15 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
     };
     
     // const canCompleteProject = !isFreelancer && tasks.every((task) => task.status === "done");
-
+    useEffect(() => {
+        if (projectId) {
+            getProjectInfo();
+            getFreelancerApplied();
+            getTasks();
+             ChangeTheTaskStutas(10,"start-task");
+        }
+       
+    }, [projectId]);
     return (
         <div className={styles.sliderOfProject}>
             <div className={styles.overlay} onClick={onClose}></div>

@@ -168,7 +168,6 @@ const DashboardScreen = () => {
   };
 
   const handleCompleteProject = (projectId) => {
-    console.log("Complete project clicked for projectId:", projectId);
     setProjects((prevProjects) =>
       prevProjects.map((project) =>
         project.id === projectId

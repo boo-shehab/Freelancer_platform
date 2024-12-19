@@ -28,12 +28,10 @@ function Setting() {
   };
 
   const LogoutFunction = () => {
-    console.log('LogoutFunction triggered');
     setOpenModal(false);
     setOpenDrawer(false);
     localStorage.clear();
     setTimeout(() => {
-      console.log('Navigating to /');
       navigate('/');
     }, 100);
   };

@@ -55,7 +55,6 @@ function ProfileLeft1({ userId }) {
           method: "GET",
         }
       );
-      console.log(data);
       setEducation(data.results.result);
     } catch (error) {
       console.log(error);
@@ -70,8 +69,6 @@ function ProfileLeft1({ userId }) {
         }
       );
       setWorkExperience(data.results.result);
-      console.log("data : ", workExperience);
-
     } catch (error) {
       console.log(error);
     }

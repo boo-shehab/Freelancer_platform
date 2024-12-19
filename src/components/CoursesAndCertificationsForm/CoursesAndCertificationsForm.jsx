@@ -2,18 +2,21 @@ import React, { useState } from "react";
 import styles from "./CoursesAndCertificationsForm.module.css";
 import ContainerForm from "../ContainerForm/ContainerForm";
 import FetchData from "../../utility/fetchData";
+import dayjs from "dayjs";
 
-const CoursesAndCertificationsForm = ({ isOpen, onClose }) => {
-  const [formData, setFormData] = useState({
-    Name: "",
-    Issuer: "",
-    CredentialId: "",
-    CredentialUrl: "",
-    startMonth: "",
-    startYear: "",
-    endMonth: "",
-    endYear: "",
-  });
+const CoursesAndCertificationsForm = ({
+  isOpen,
+  onClose,
+  getAllCertifications,
+}) => {
+  const [name, setName] = useState("");
+  const [issuer, setIssuer] = useState("");
+  const [credentialId, setCredentialId] = useState("");
+  const [credentialUrl, setCredentialUrl] = useState("");
+  const [startMonth, setStartMonth] = useState("");
+  const [startYear, setStartYear] = useState("");
+  const [endMonth, setEndMonth] = useState("");
+  const [endYear, setEndYear] = useState("");
 
   const months = [
     "January",
@@ -29,27 +32,61 @@ const CoursesAndCertificationsForm = ({ isOpen, onClose }) => {
     "November",
     "December",
   ];
-  const addNewCertifications = async () => {
-    try {
-      await FetchData(`freelancers/certifications`, {
-        method: 'POST',
-        body: JSON.stringify({
-          name : formData.Name ,
-          issuer : formData.Issuer  ,
-          credentialId : formData.CredentialId ,
-          credentialUrl : formData.CredentialUrl ,
-          issueDate : formData.startMonth +"-"+formData.startYear,
-          expiryDate : formData.endMonth +"-"+formData.endYear,
-        }),
-      }, {
-        'Content-Type': 'application/json'
-      });
 
+  const clearData = () => {
+    setName("");
+    setCredentialUrl("");
+    setCredentialId("");
+    setEndMonth("");
+    setEndYear("");
+    setStartMonth("");
+    setStartYear("");
+    setIssuer("");
+  };
+
+  const addNewCertifications = async () => {
+    const issueDate = dayjs(`${startYear}-${startMonth}-01`).format(
+      "YYYY-MM-DDTHH:mm:ss.SSS[Z]"
+    );
+    const expiryDate = dayjs(`${startYear}-${startMonth}-01`).format(
+      "YYYY-MM-DDTHH:mm:ss.SSS[Z]"
+    );
+    if (!name || !issuer) {
+      alert("Please fill out all required fields.");
+      return;
+    }
+    if (issueDate > expiryDate) {
+      alert("Start date must be before the end date.");
+      return;
+    }
+    const data = {
+      name,
+      issuer,
+      credentialId: !credentialId ? null : credentialId,
+      credentialUrl: !credentialUrl ? null : credentialUrl,
+      issueDate,
+      expiryDate,
+    };
+
+    try {
+      await FetchData(
+        `freelancers/certifications`,
+        {
+          method: "POST",
+          body: JSON.stringify(data),
+        },
+        {
+          "Content-Type": "application/json",
+        }
+      );
     } catch (error) {
-      setErrorMessage('Failed to add the skill. Please try again.');
+      setErrorMessage("Failed to add the skill. Please try again.");
       console.error(error);
     }
-  }
+    getAllCertifications(localStorage.getItem("id"));
+    clearData();
+    onClose();
+  };
   const years = Array.from({ length: 50 }, (_, i) => `${1975 + i}`);
 
   const handleChange = (e) => {
@@ -57,42 +94,22 @@ const CoursesAndCertificationsForm = ({ isOpen, onClose }) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async () => {
-    const { startMonth, startYear, endMonth, endYear, Name, Issuer, CredentialId, CredentialUrl } = formData;
-
-    if (!Name || !Issuer || !CredentialId || !CredentialUrl || !startMonth || !startYear || !endMonth || !endYear) {
-      alert("Please fill out all required fields.");
-      return;
-    }
-
-    const startDate = new Date(`${startMonth} ${startYear}`);
-    const endDate = new Date(`${endMonth} ${endYear}`);
-
-    if (startDate > endDate) {
-      alert("Start date must be before the end date.");
-      return;
-    }
-    addNewCertifications();
-
-    console.log("Submitted Data:", {
-      ...formData
-    });
-
-    onClose();
-  };
-
   if (!isOpen) return null;
 
   return (
-    <ContainerForm isOpen={isOpen} onClose={onClose} HeadName="Edit Courses and Certifications">
+    <ContainerForm
+      isOpen={isOpen}
+      onClose={onClose}
+      HeadName="Edit Courses and Certifications"
+    >
       <label className={styles.label}>
         Name*
         <input
           type="text"
           name="Name"
           placeholder="Enter course or certification name"
-          value={formData.Name}
-          onChange={handleChange}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
           className={styles.input}
           required
         />
@@ -103,21 +120,21 @@ const CoursesAndCertificationsForm = ({ isOpen, onClose }) => {
         <input
           placeholder="Enter the organization"
           name="Issuer"
-          value={formData.Issuer}
-          onChange={handleChange}
+          value={issuer}
+          onChange={(e) => setIssuer(e.target.value)}
           className={styles.input}
           required
         />
       </label>
 
       <label className={styles.label}>
-        Credential ID*
+        Credential ID
         <input
           type="text"
           name="CredentialId"
           placeholder="Enter ID"
-          value={formData.CredentialId}
-          onChange={handleChange}
+          value={credentialId}
+          onChange={(e) => setCredentialId(e.target.value)}
           className={styles.input}
           required
         />
@@ -129,8 +146,8 @@ const CoursesAndCertificationsForm = ({ isOpen, onClose }) => {
             Start Month
             <select
               name="startMonth"
-              value={formData.startMonth}
-              onChange={handleChange}
+              value={startMonth}
+              onChange={(e) => setStartMonth(e.target.value)}
               className={styles.select}
               required
             >
@@ -149,8 +166,8 @@ const CoursesAndCertificationsForm = ({ isOpen, onClose }) => {
             Start Year
             <select
               name="startYear"
-              value={formData.startYear}
-              onChange={handleChange}
+              value={startYear}
+              onChange={(e) => setStartYear(e.target.value)}
               className={styles.select}
               required
             >
@@ -171,8 +188,8 @@ const CoursesAndCertificationsForm = ({ isOpen, onClose }) => {
             End Month
             <select
               name="endMonth"
-              value={formData.endMonth}
-              onChange={handleChange}
+              value={endMonth}
+              onChange={(e) => setEndMonth(e.target.value)}
               className={styles.select}
               required
             >
@@ -191,8 +208,8 @@ const CoursesAndCertificationsForm = ({ isOpen, onClose }) => {
             End Year
             <select
               name="endYear"
-              value={formData.endYear}
-              onChange={handleChange}
+              value={endYear}
+              onChange={(e) => setEndYear(e.target.value)}
               className={styles.select}
               required
             >
@@ -208,20 +225,20 @@ const CoursesAndCertificationsForm = ({ isOpen, onClose }) => {
       </div>
 
       <label className={styles.label}>
-        Credential URL*
+        Credential URL
         <input
           type="text"
           name="CredentialUrl"
           placeholder="Enter URL"
-          value={formData.CredentialUrl}
-          onChange={handleChange}
+          value={credentialUrl}
+          onChange={(e) => setCredentialUrl(e.target.value)}
           className={styles.input}
           required
         />
       </label>
 
       <div className={styles.buttonContainer}>
-        <button className={styles.button} onClick={handleSubmit}>
+        <button className={styles.button} onClick={addNewCertifications}>
           Save
         </button>
       </div>

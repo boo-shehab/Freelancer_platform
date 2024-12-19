@@ -216,7 +216,7 @@ const ProfileScreen = () => {
       setPending(projectsPending);
       setCompleted(projectsCompleted);
     } catch (error) {
-      console.log("Login failed. Please try again.");
+      console.log(error);
     }
   };
 

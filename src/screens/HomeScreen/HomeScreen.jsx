@@ -219,7 +219,6 @@ const HomeScreen = () => {
             }
           );
         }
-      console.log(response.results.result);
       setPosts(response.results.result);
     } catch (e) {
       console.log(e);
@@ -275,13 +274,15 @@ const HomeScreen = () => {
   };
   const callBackFun = (CB) => {
     setCallBack(CB);
+<<<<<<< HEAD
     const values = CB.map(item => item.value);
     console.log('values', values);
     console.log('CB', CB);
     
     setSelectedJobs(values);
+=======
+>>>>>>> 4b2e73d7545119e8b4852f434f2a98d991c23fd0
   };
-  console.log('User Details:', isFreelancer);
 
   return (
     <div style={styles.homeScreen}>

@@ -20,33 +20,14 @@ const Skils = () => {
   const [name, setname] = useState("");
   const [skills, setSkillsvalue] = useState([]);
   const [certifications, setCertifications] = useState([]);
+  const [getType, setGetType] = useState("");
 
   function ShowDelete(message, urlapi) {
     setmessageDelete(message);
     setshowDelete(true);
     seturlapi(urlapi);
   }
-  const Courses = [
-    {
-      id: 1,
-      title: "Microsoft 365 Certified: Fundamentals",
-      date: "issued in 22 Jul 2024",
-      desc: " Microsoft ",
-    },
-    {
-      id: 2,
-      title: "Microsoft 365 Certified: Fundamentals",
-      date: "issued in 22 Jul 2024",
-      desc: " Microsoft ",
-    },
-    {
-      id: 3,
-      title: "Microsoft 365 Certified: Fundamentals",
-      date: "22 Jan 2024 - 11 May  2024.",
-      desc: " Microsoft ",
-    },
-  ];
-  /// select skills
+
   const getAllSkills = async (id) => {
     try {
       const data = await FetchData(
@@ -77,7 +58,6 @@ const Skils = () => {
           "Content-Type": "application/json",
         }
       );
-      console.log(data.results.result);
       setCertifications(data.results.result);
     } catch (error) {
       console.log(error);
@@ -88,6 +68,7 @@ const Skils = () => {
     getAllSkills(localStorage.getItem("id"));
     getAllCertifications(localStorage.getItem("id"));
   }, []);
+
 
   return (
     <div className={Styles.skilsCard}>
@@ -112,12 +93,13 @@ const Skils = () => {
               <div className={Styles.skilssAction}>
                 {/* <EditIcon onClick={() => setIsSkillsFormOpen(true)} /> */}
                 <DeleteIcon
-                  onClick={() =>
+                  onClick={() => {
                     ShowDelete(
                       "Are you sure u want to delete this skill",
                       `skills/${sk.id}`
-                    )
-                  }
+                    ),
+                      setGetType("skill");
+                  }}
                 />
               </div>
             </div>
@@ -129,6 +111,7 @@ const Skils = () => {
           <CoursesAndCertificationsForm
             isOpen={isCoursesOpen}
             onClose={() => setIsCoursesOpen(false)}
+            getAllCertifications={(e) => getAllCertifications(e)}
           />
           <div className={Styles.skilsHead}>
             <h4 className={Styles.skilsTitil}> Courses & Certifications</h4>
@@ -141,24 +124,22 @@ const Skils = () => {
               certifications.map((cert) => (
                 <li key={cert.id}>
                   <div className={Styles.Item}>
-                  
-                      <div className={Styles.itemBox}>
+                    <div className={Styles.itemBox}>
                       <MicrosoftIcon />
                       <p>{cert.name || "No name available"}</p>
-                      </div>
+                    </div>
                     <div className={Styles.deleteIcon}>
                       <DeleteIcon
                         onClick={() =>
                           ShowDelete(
                             "Are you sure you want to delete this certification?",
-                            `certifications/${cert.id}`
+                            `freelancers/certifications/${cert.id}`
                           )
                         }
                       />
                     </div>
-                   
                   </div>
-                  
+
                   <div className={Styles.subItem}>
                     <small>{cert.issuer || "No issuer available"}</small>
                     <small>
@@ -180,7 +161,9 @@ const Skils = () => {
         isOpen={showDelete}
         onClose={() => setshowDelete(false)}
         TypeofDelete={urlapi}
-        GetAllSkills={(id) => getAllSkills(id)}
+        GetAllData={(id) =>
+          (getType === "skill" ? getAllSkills(id) : getAllCertifications(id))
+        }
       />
     </div>
   );

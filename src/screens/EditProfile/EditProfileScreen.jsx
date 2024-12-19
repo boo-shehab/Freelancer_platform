@@ -33,7 +33,6 @@ const EditAboutPopupScreen = () => {
         onClose={() => setIsPopupOpen(false)}
         initialData={initialData}
         onSave={(data) => {
-          console.log("Saved data:", data);
           setIsPopupOpen(false);
         }}
       />

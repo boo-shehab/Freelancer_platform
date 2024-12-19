@@ -138,7 +138,7 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
     const AddTask = async (taskData) => {
         try {
             const response = await FetchData(`projects/${projectId}/tasks`, {
-                method: 'POST',
+                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                 },

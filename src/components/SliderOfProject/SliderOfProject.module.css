@@ -313,7 +313,7 @@ button.declineFreeLancer {
 }
 
 .task {
-    display: flex;
+    /* display: flex; */
     align-items: center;
     background: #f9f9f9;
     padding: 10px;

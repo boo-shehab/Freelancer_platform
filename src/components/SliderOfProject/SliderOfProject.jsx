@@ -12,6 +12,7 @@ import SubList from './SubList';
 import useUserinfoStore from "../../useUserinfoStore";
 import FetchData from "../../utility/fetchData";
 
+<<<<<<< HEAD
     const [selectedTab, setSelectedTab] = useState("toDo");
     const [isSubListVisible, setIsSubListVisible] = useState({});
 
@@ -24,6 +25,10 @@ import FetchData from "../../utility/fetchData";
             [taskId]: !prevState[taskId],
         }));
     };
+=======
+//     const [selectedTab, setSelectedTab] = useState("toDo");
+
+>>>>>>> e819c1007fee9d788bbd01c7e0d4512bd5bac7ae
 
     const handleStatusChange = (taskId, newStatus) => {
         callbacks.onStatusChange(taskId, newStatus);
@@ -41,6 +46,8 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
     const [descriptionState, setDescriptionState] = useState("");
     const [freelancerApplied, setFreelancerApplied] = useState([]);
     const [selectedTab, setSelectedTab] = useState("to-do");
+    const [isSubListVisible, setIsSubListVisible] = useState({});
+
 
     const { projectId, progress, projectStatus } = projectData || {};
     // Fetch project data and freelancer bids when the projectId changes
@@ -103,7 +110,7 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
     const FreelancerAction = async (projectId, bidId, action) => {
         const url = `projects/${projectId}/bids/${bidId}/${action}`;
         try {
-            const response = await FetchData(url, { method: 'POST' });
+            const response = await FetchData(url, { method: 'PUT' });
 
             if (response.isSuccess) {
                 console.log(`Freelancer ${action}ed successfully!`);
@@ -117,6 +124,7 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
         }
     };
 
+<<<<<<< HEAD
     // const ChangeTheTaskStutas = async (projectId, bidId, action) => {
     //     const url = `projects/${projectId}/bids/${bidId}/${action}`;
     //     try {
@@ -133,7 +141,16 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
     //         console.error(`Error ${action}ing freelancer:`, error);
     //     }
     // };
+=======
+    const handleTabClick = (tabName) => setSelectedTab(tabName);
+>>>>>>> e819c1007fee9d788bbd01c7e0d4512bd5bac7ae
 
+    const handleToggleSubList = (taskId) => {
+        setIsSubListVisible((prevState) => ({
+            ...prevState,
+            [taskId]: !prevState[taskId],
+        }));
+    };
     if (!show) return null;
 
     const handleSeeMore = () => {
@@ -155,26 +172,33 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
 
     const AddTask = async (taskData) => {
         try {
+            const newTaskData = { ...taskData, status: "to-do" };
+    
             const response = await FetchData(`projects/${projectId}/tasks`, {
+<<<<<<< HEAD
                 method: 'POST',
+=======
+                method: "POST",
+>>>>>>> e819c1007fee9d788bbd01c7e0d4512bd5bac7ae
                 headers: {
-                    'Content-Type': 'application/json',
+                    "Content-Type": "application/json",
                 },
-                body: JSON.stringify(taskData),
+                body: JSON.stringify(newTaskData),
             });
-
+    
             if (response.isSuccess) {
                 setTasks((prevTasks) => [...prevTasks, response.result]);
                 setIsOpen(false);
-                console.log('Task added successfully');
+                console.log("Task added successfully");
             } else {
-                console.error('Failed to add task:', response);
+                console.error("Failed to add task:", response);
             }
         } catch (error) {
-            console.error('Error adding task:', error);
+            console.error("Error adding task:", error);
         }
     };
-    const canCompleteProject = !isFreelancer && tasks.every((task) => task.status === "done");
+    
+    // const canCompleteProject = !isFreelancer && tasks.every((task) => task.status === "done");
 
     return (
         <div className={styles.sliderOfProject}>
@@ -184,7 +208,7 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
                     <AddTaskForm
                         isOpen={isOpen}
                         onClose={() => setIsOpen(false)}
-                        addTask={AddTask} // Pass the handler to AddTaskForm
+                        addTask={AddTask} 
                         tasks={tasks}
                     />
                     <div className={styles.slider}>
@@ -315,7 +339,7 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
                                 <div className={styles.taskList}>
                                     {tasks.length > 0 ? (
                                         tasks
-                                            .filter((task) => task.status === selectedTab)
+                                            .filter((task) => task?.status === selectedTab)
                                             .map(({ id, name }) => (
                                                 <div
                                                     key={id}
@@ -357,7 +381,7 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
                                     )}
                                 </div>
                                  
-                                {canCompleteProject && (
+                                {!isFreelancer && (
                                     <button className={styles.completeBtn} onClick={() => onComplete(projectId)}>
                                         Project Complete
                                     </button>

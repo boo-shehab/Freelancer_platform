@@ -55,7 +55,6 @@ const PhoneNumberInput = ({ handleNext }) => {
 
   const sendPhone = async(phoneNumber) => {
     setIsLoading(true)
-    console.log(phoneNumber);
     
     try {
       const data = await fetchData("auth/send-verification-code", { 

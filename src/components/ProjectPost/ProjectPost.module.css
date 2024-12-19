@@ -206,3 +206,34 @@ color:#3C97AF;
     
   }
 }
+.list {
+  position: absolute;
+  background-color: #ffffff;
+  border-radius: 16px;
+  right: 0px;
+  padding: 10px;
+  box-shadow: 1px 2px 8px 0px #21868E40;
+  min-width: 150px;
+  z-index: 10;
+}
+
+.list button {
+  width: 100%;
+  padding: 8px 12px;
+  margin: 5px 0;
+  background-color: #ddf8e7;
+  color: hsl(122, 40%, 50%);
+  border: 1px solid #4db251;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  text-align: center;
+}
+.list button.deletebtnForPost{
+  background-color: #f8e5dd;
+  color: hsl(14, 40%, 50%);
+  border: 1px solid #b24d4d;
+}
+.active button {
+  background-color: rgb(0, 0, 0);
+}

@@ -136,7 +136,10 @@
     font-size: 12px;
     font-weight: 700
 }
-
+.seeMore{
+    color: #3c97af;
+    cursor: pointer;
+}
 .sliderOFprojectinfo .freeLancerList {
     margin-top: 32px;
 }

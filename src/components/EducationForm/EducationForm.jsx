@@ -63,15 +63,12 @@ const EducationForm = ({ isOpen, onClose, initialData , GetEducations}) => {
           body:  JSON.stringify({
             degree: degree,
             institution: school,
-            startDate: dayjs(`${startYear}-${startMonth}-01`).format("YYYY-MM-DDTHH:mm:ss.SSS[Z]"),
+            startDate:(`${startYear}-${startMonth}-01`).format("YYYY-MM-DDTHH:mm:ss.SSS[Z]"),
             endDate: dayjs(`${endYear}-${endMonth}-01`).format("YYYY-MM-DDTHH:mm:ss.SSS[Z]"),
           }),
         }
       );
-    
-        const responseData = await resp.json();
-        console.log("Response Data:", responseData);
-       
+        const responseData = await resp.json();       
     } catch (error) {
       console.error("Request failed:", error);
     }
@@ -79,21 +76,8 @@ const EducationForm = ({ isOpen, onClose, initialData , GetEducations}) => {
     onClose();
   };
   
-  
- 
-
-
-
   if (!isOpen) return null;
   
-  const handleAddEducation = async () => {
-    console.log({
-      school,
-      degree,
-      startDate: dayjs(startYear, startMonth, 1),
-      endDate: dayjs(endYear, endMonth, 1),
-    });
-  };
 
   return (
     <ContainerForm

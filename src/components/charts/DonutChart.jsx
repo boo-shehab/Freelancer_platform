@@ -1,4 +1,5 @@
 import React from "react";
+
 const DonutChart = ({
   data,
   total,
@@ -6,6 +7,7 @@ const DonutChart = ({
   emptyColor = "#d3d3d3",
   children,
   barSize,
+  deg = -270, 
 }) => {
   const circleRadius = (size - (barSize || size / 6)) / 2; // Adjust radius based on size
 
@@ -52,7 +54,7 @@ const DonutChart = ({
               strokeDasharray={`${dashArray} ${circleCircumference}`}
               strokeDashoffset={-accumulatedOffset + dashArray}
               style={{
-                transform: `rotate(-269deg)`,
+                transform: `rotate(${deg}deg)`,  // Use dynamic rotation based on the prop
                 transformOrigin: "center",
               }}
             />
@@ -70,7 +72,7 @@ const DonutChart = ({
           textAlign: "center",
           fontSize: size / 8, // Adjust font size based on size
           fontWeight: "600",
-          lineHeight:"25px"
+          lineHeight: "25px",
         }}
       >
         {children}

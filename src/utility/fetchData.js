@@ -1,9 +1,10 @@
 const fetchData = async (url, options = {}, headers = {}) => {
     try {
         const token = localStorage.getItem('accessToken');
+        const isFormData = options.body instanceof FormData;
         const defaultHeaders = {
             'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json',
+            ...(isFormData ? {} : { 'Content-Type': 'application/json' }),
             ...headers,
         };
 

@@ -176,7 +176,7 @@ const HomeScreen = () => {
   const [openDrawer, setOpenDrawer] = useState(false);
   const [isWorkForOpen, setIsWorkForOpen] = useState(false);
   const [isAboutPopupOpen, setIsAboutPopupOpen] = useState(false);
-  const { about, projects } = useUserinfoStore();
+  const { about, projects , name} = useUserinfoStore();
   const [aboutState, setAboutState] = useState(about.slice(0, 200));
   const [dotsAbout, setDotsAbout] = useState("....");
   const [seeAction, setSeeAction] = useState("See More");
@@ -545,7 +545,7 @@ const HomeScreen = () => {
                         onClick={handleNewProject}
                       >
                         <p className={styles.postInputHint}>
-                          Mustafa Let’s Create a Project !
+                          {name} Let’s Create a Project !
                         </p>
                         <button className={styles.addBtn}>
                           <Pluse2Icon />

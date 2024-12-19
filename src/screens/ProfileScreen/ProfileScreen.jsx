@@ -23,6 +23,8 @@ import DeleteComponent from "../../components/DeleteComponent/DeleteComponent";
 import FetchData from "../../utility/fetchData";
 import useUserinfoStore from "../../useUserinfoStore";
 import ProjectPost from "../../components/ProjectPost/ProjectPost";
+import TwoStageFormPopup from "../../components/TwoStageFormPopup/TwoStageFormPopup";
+
 
 const WorkFor = [
   {
@@ -71,6 +73,43 @@ const ProfileScreen = () => {
   const [completed, setCompleted] = useState(25);
   const [loading, setLoading] = useState(false);
   const [profile, setProfile] = useState([]);
+  const [posts, setPosts] = useState([]);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+
+  const handleNewProject = () => {
+    setIsPopupOpen(true);
+  };
+  const getProject = async () => {
+    try {
+        let response = '';
+        // if(isFreelancer) {
+          // const queryParams = selectedJobs
+            // .map((qualification) => `specializations=${qualification}`)
+            // .join("&");
+          response = await FetchData(
+            `projects/client-feed?page=0&pageSize=10`,
+            {
+              method: "GET",
+            }
+          );
+        // } else {
+        //   const queryParams = selectedJobs
+        //     .map((qualification) => `qualificationNames=${qualification}`)
+        //     .join("&");
+        //   response = await fetchData(
+        //     `projects/client-feed?page=0&pageSize=10&${queryParams}`,
+        //     {
+        //       method: "GET",
+        //     }
+        //   );
+        // }
+      console.log(response.results.result);
+      setPosts(response.results.result);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
 
   function ShowDelete(message) {
     setmessageDelete(message);
@@ -95,31 +134,31 @@ const ProfileScreen = () => {
     { value: posted, color: "#D9D9D9" },
     { value: completed, color: "#7FC882" },
   ];
-  const posts = [
-    {
-      id: 1,
-      title: "Looking for Full-Sack Developer with experience +2 years",
-      desc: "to build a responsive, user-focused web application. Must be skilled in both front-end and back-end development",
-      duration: "4 Months",
-      image: "/post.png",
-      price: 50,
-      client: {
-        name: "Client Name",
-        createdAt: "Posted 2 hours ago  ",
-      },
-    },
-    {
-      id: 2,
-      title: "Looking for Full-Sack Developer with experience +2 years",
-      desc: "to build a responsive, user-focused web application. Must be skilled in both front-end and back-end development",
-      duration: "4 Months",
-      price: 50,
-      client: {
-        name: "Client Name",
-        createdAt: "Posted 2 hours ago  ",
-      },
-    },
-  ];
+  // const posts = [
+  //   {
+  //     id: 1,
+  //     title: "Looking for Full-Sack Developer with experience +2 years",
+  //     desc: "to build a responsive, user-focused web application. Must be skilled in both front-end and back-end development",
+  //     duration: "4 Months",
+  //     image: "/post.png",
+  //     price: 50,
+  //     client: {
+  //       name: "Client Name",
+  //       createdAt: "Posted 2 hours ago  ",
+  //     },
+  //   },
+  //   {
+  //     id: 2,
+  //     title: "Looking for Full-Sack Developer with experience +2 years",
+  //     desc: "to build a responsive, user-focused web application. Must be skilled in both front-end and back-end development",
+  //     duration: "4 Months",
+  //     price: 50,
+  //     client: {
+  //       name: "Client Name",
+  //       createdAt: "Posted 2 hours ago  ",
+  //     },
+  //   },
+  // ];
 
   // const projects = [
   //   {
@@ -213,6 +252,7 @@ const ProfileScreen = () => {
     getProfile();
     handleInfoProfileAndRating();
     ratings();
+    getProject();
   }, []);
 
   const rating = {
@@ -248,7 +288,7 @@ const ProfileScreen = () => {
     setAboutState(value.slice(0, 492));
   };
 
-  const handleEditProfile = () => {};
+  const handleEditProfile = () => { };
   const [isListVisible, setVisiblePostId] = useState(null);
   const idShow = (id) => {
     setVisiblePostId((prevId) => (prevId === id ? null : id));
@@ -503,7 +543,7 @@ const ProfileScreen = () => {
                       <EditIcon />
                     </div>
                     <p>
-                      {profile?.about}                    
+                      {profile?.about}
                     </p>
                   </div>
                   <div className={styles.history}>
@@ -514,21 +554,22 @@ const ProfileScreen = () => {
                       const startDateOfProject = new Date(p.startDate);
                       const endDateOfProject = new Date(p.endDate);
                       return (
-                      <div className={styles.projectItem} key={p.id}>
-                        <div className={styles.guid}>
-                          <div className={styles.dot}></div>
-                          <div className={styles.line}></div>
-                        </div>
-                        <div className={styles.itemInfo}>
-                          <h4>{p.title}</h4>
-                          <small>
+                        <div className={styles.projectItem} key={p.id}>
+                          <div className={styles.guid}>
+                            <div className={styles.dot}></div>
+                            <div className={styles.line}></div>
+                          </div>
+                          <div className={styles.itemInfo}>
+                            <h4>{p.title}</h4>
+                            <small>
                               {`${startDateOfProject.getFullYear()}-${String(startDateOfProject.getMonth() + 1).padStart(2, '0')}-${String(startDateOfProject.getDate()).padStart(2, '0')}`}
                               {` to ${endDateOfProject.getFullYear()}-${String(endDateOfProject.getMonth() + 1).padStart(2, '0')}-${String(endDateOfProject.getDate()).padStart(2, '0')}`}
-                          </small>
-                          <p className={styles.itemDesc}>{p.description}</p>
+                            </small>
+                            <p className={styles.itemDesc}>{p.description}</p>
+                          </div>
                         </div>
-                      </div>
-                    )})}
+                      )
+                    })}
                   </div>
                   {/* <div className={styles.history}>
                     <WorkForForm
@@ -577,7 +618,7 @@ const ProfileScreen = () => {
                     <div className={styles.postsHead}>
                       <b>Your Activity</b>
                       <div className={styles.actions}>
-                        <PlusIcon />
+                        <PlusIcon onClick={handleNewProject} />
                       </div>
                     </div>
                     {/* {posts?.map((post) => (
@@ -666,14 +707,18 @@ const ProfileScreen = () => {
                         </div>
                       </Card>
                     ))}*/}
-                                    {/* <ProjectPost /> */}
-                                    ///////////
-                                    
+                    {posts?.map((post) => (
+                      <ProjectPost
+                        key={post.id}
+                        post={post}
+                        isProfilepage = {true}
+                      />
+                    ))}
 
                   </div>
                   <div className={styles.LineInBottom}></div>
                   <button className={styles.seeAllReviews}>See all</button>
-                </Card> 
+                </Card>
               </section>
               <section className={styles.section2}>
                 <Card paddingx={24} isProfilePage={true}>
@@ -835,6 +880,10 @@ const ProfileScreen = () => {
         onClose={() => setshowDelete(false)}
         TypeofDelete={`freelancers/certifications`}
         id={80}
+      />
+       <TwoStageFormPopup
+        isOpen={isPopupOpen}
+        onClose={() => setIsPopupOpen(false)}
       />
     </div>
   );

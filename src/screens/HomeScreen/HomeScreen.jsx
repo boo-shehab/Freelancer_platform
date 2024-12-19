@@ -125,43 +125,43 @@ const optionOfFreelancing = [
   },
 ];
 
-const formerCoworkers = [
-  {
-    id: 1,
-    img: "./avatar.png",
-    name: "Zena Saad",
-    time: "2 months ago",
-    rate: "8.0",
-  },
-  {
-    id: 2,
-    img: "./avatar.png",
-    name: "Zena Saad",
-    time: "2 months ago",
-    rate: "6.0",
-  },
-  {
-    id: 3,
-    img: "./avatar.png",
-    name: "Zena Saad",
-    time: "2 months ago",
-    rate: "5.0",
-  },
-  {
-    id: 4,
-    img: "./avatar.png",
-    name: "Zena Saad",
-    time: "2 months ago",
-    rate: "9.0",
-  },
-  {
-    id: 5,
-    img: "./avatar.png",
-    name: "Zena Saad",
-    time: "2 months ago",
-    rate: "8.0",
-  },
-];
+// const formerCoworkers = [
+//   {
+//     id: 1,
+//     img: "./avatar.png",
+//     name: "Zena Saad",
+//     time: "2 months ago",
+//     rate: "8.0",
+//   },
+//   {
+//     id: 2,
+//     img: "./avatar.png",
+//     name: "Zena Saad",
+//     time: "2 months ago",
+//     rate: "6.0",
+//   },
+//   {
+//     id: 3,
+//     img: "./avatar.png",
+//     name: "Zena Saad",
+//     time: "2 months ago",
+//     rate: "5.0",
+//   },
+//   {
+//     id: 4,
+//     img: "./avatar.png",
+//     name: "Zena Saad",
+//     time: "2 months ago",
+//     rate: "9.0",
+//   },
+//   {
+//     id: 5,
+//     img: "./avatar.png",
+//     name: "Zena Saad",
+//     time: "2 months ago",
+//     rate: "8.0",
+//   },
+// ];
 
 const HomeScreen = () => {
   const [posts, setPosts] = useState([]);
@@ -169,8 +169,9 @@ const HomeScreen = () => {
   const [selectedJobs, setSelectedJobs] = useState([]);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [recentProjectOpened, setRecentProjectOpened] = useState(-1);
-  const { isFreelancer, name } = useUserinfoStore()
-  
+  const { isFreelancer, name, profilePicture } = useUserinfoStore()
+  const [formerCoworkers, setFormerCoworkers] = useState([]);
+  const [priceRage, setPriceRage] = useState(["minimum", "maximum"])
   const [isPopupOpen2, setIsPopupOpen2] = useState(false);
   const [callBack, setCallBack] = useState([]);
   const [openDrawer, setOpenDrawer] = useState(false);
@@ -201,8 +202,9 @@ const HomeScreen = () => {
           const queryParams = selectedJobs
             .map((qualification) => `specializations=${qualification}`)
             .join("&");
+            
           response = await fetchData(
-            `projects/freelancer-feed?page=0&pageSize=10&${queryParams}`,
+            `projects/freelancer-feed?page=0&pageSize=10&${queryParams}${priceRage[1] > 0? `&MinPrice=${priceRage[0]}&MaxPrice=${priceRage[1]}` : ''}`,
             {
               method: "GET",
             }
@@ -223,6 +225,23 @@ const HomeScreen = () => {
       console.log(e);
     }
   };
+
+  const handlePriceFilter = () => {
+
+  }
+
+  const getFormerCoworkers = async() => {
+    try{
+      const response = await fetchData('clients/freelancers-worked-with?page=0&pageSize=5', {
+        method: 'GET'
+      });
+      setFormerCoworkers(response.results.result)
+      console.log('freelancers worked with:', response.results.result);
+      
+    }catch(e) {
+      console.log('freelancers worked with:',e);
+    }
+  }
 
   const handleSeeMore = () => {
     if (about.length < 200) {
@@ -260,8 +279,10 @@ const HomeScreen = () => {
         
       }
     }
-    if(!isFreelancer)
+    if(!isFreelancer) {
       getRecentProjects()
+      getFormerCoworkers()
+    }
   }, [isFreelancer])
 
   useEffect(() => {
@@ -272,14 +293,24 @@ const HomeScreen = () => {
     setIsPopupOpen(true);
   };
   const callBackFun = (CB) => {
-    setCallBack(CB);
-    const values = CB.map(item => item.value);
+    setCallBack(CB.selectedJobs);
+    const values = CB.selectedJobs.map(item => item.value);
     console.log('values', values);
-    console.log('CB', CB);
-    
+    console.log('CB', CB.selectedJobs)
     setSelectedJobs(values);
+    setPriceRage(CB.price)
 
   };
+  
+  const formattedDate = (dataDate) => {
+    const date = new Date(dataDate);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+
+    return `${year}-${month}-${day}`;
+    
+  }
 
   return (
     <div style={styles.homeScreen}>
@@ -343,7 +374,6 @@ const HomeScreen = () => {
       </MobileDrawer>
       <Container>
         <div className={styles.content}>
-          {/* MuhammedLami */}
           {isFreelancer}
           {isFreelancer ? (
             <FreeLancerScreen
@@ -355,7 +385,7 @@ const HomeScreen = () => {
             <section className={styles.section1}>
               <Card>
                 <div className={styles.userInfo}>
-                  <img src="/avatar.png" />
+                  <img src={profilePicture} />
                   <p className={styles.name}>{name}</p>
                   <div className={styles.rate}>
                     <StarIcon /> <span>5.0</span>
@@ -428,7 +458,7 @@ const HomeScreen = () => {
                       </div>
                       <div className={styles.itemInfo}>
                         <h4>{p.title}</h4>
-                        <small>{p.createdAt}</small>
+                        <small>{formattedDate(p.startDate)} - {p.endDate? formattedDate(p.startDate): 'present'}</small>
                         <p className={styles.itemDesc}>{p.description}</p>
                       </div>
                     </div>
@@ -538,7 +568,7 @@ const HomeScreen = () => {
                 <div className={styles.postBoxCont}>
                   <Card>
                     <div className={styles.postBox}>
-                      <img src="/avatar.png" />
+                      <img src={profilePicture} />
                       <div
                         className={styles.postInput}
                         onClick={handleNewProject}
@@ -623,15 +653,15 @@ const HomeScreen = () => {
                   {formerCoworkers.map((coWorker) => (
                     <div key={coWorker.id} className={styles.coWorkerItem}>
                       <div className={styles.coWorkerInfo}>
-                        <img src={coWorker.img} alt="" />
+                        <img src={coWorker.profilePicture} alt="" />
                         <div>
                           <b>{coWorker.name}</b>
                           <br />
-                          <small>{coWorker.time}</small>
+                          <small>{formattedDate(coWorker.lastWorkDate)}</small>
                         </div>
                       </div>
                       <div className={styles.rate}>
-                        <StarIcon /> <span>{coWorker.rate}</span>
+                        <StarIcon /> <span>{coWorker.rating}</span>
                       </div>
                     </div>
                   ))}

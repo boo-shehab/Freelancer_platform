@@ -106,7 +106,7 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
         }
        
     }, [projectId]);
-    
+
     const ChangeTheTaskStutas = async (taskid, action) => {
         const url = `projects/${projectId}/bids/${bidId}/${action}`;
         try {

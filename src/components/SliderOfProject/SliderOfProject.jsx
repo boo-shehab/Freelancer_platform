@@ -12,23 +12,23 @@ import SubList from './SubList';
 import useUserinfoStore from "../../useUserinfoStore";
 import FetchData from "../../utility/fetchData";
 
-//     const [selectedTab, setSelectedTab] = useState("toDo");
-//     const [isSubListVisible, setIsSubListVisible] = useState({});
+    const [selectedTab, setSelectedTab] = useState("toDo");
+    const [isSubListVisible, setIsSubListVisible] = useState({});
 
 //     // Handlers
-//     const handleTabClick = (tabName) => setSelectedTab(tabName);
+    const handleTabClick = (tabName) => setSelectedTab(tabName);
 
-//     const handleToggleSubList = (taskId) => {
-//         setIsSubListVisible((prevState) => ({
-//             ...prevState,
-//             [taskId]: !prevState[taskId],
-//         }));
-//     };
+    const handleToggleSubList = (taskId) => {
+        setIsSubListVisible((prevState) => ({
+            ...prevState,
+            [taskId]: !prevState[taskId],
+        }));
+    };
 
-//     const handleStatusChange = (taskId, newStatus) => {
-//         callbacks.onStatusChange(taskId, newStatus);
-//         setSelectedTab(newStatus);
-//     };
+    const handleStatusChange = (taskId, newStatus) => {
+        callbacks.onStatusChange(taskId, newStatus);
+        setSelectedTab(newStatus);
+    };
 
 
 const SliderOfProject = ({ show, onClose, projectData }) => {
@@ -108,6 +108,7 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
             if (response.isSuccess) {
                 console.log(`Freelancer ${action}ed successfully!`);
                 setFreelancerApplied(freelancerApplied.filter(f => f.id !== bidId));
+                getProjectInfo();
             } else {
                 console.error(`Failed to ${action} freelancer:`, response);
             }
@@ -116,6 +117,22 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
         }
     };
 
+    // const ChangeTheTaskStutas = async (projectId, bidId, action) => {
+    //     const url = `projects/${projectId}/bids/${bidId}/${action}`;
+    //     try {
+    //         const response = await FetchData(url, { method: 'POST' });
+
+    //         if (response.isSuccess) {
+    //             console.log(`Freelancer ${action}ed successfully!`);
+    //             setFreelancerApplied(freelancerApplied.filter(f => f.id !== bidId));
+    //             getProjectInfo();
+    //         } else {
+    //             console.error(`Failed to ${action} freelancer:`, response);
+    //         }
+    //     } catch (error) {
+    //         console.error(`Error ${action}ing freelancer:`, error);
+    //     }
+    // };
 
     if (!show) return null;
 
@@ -139,7 +156,7 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
     const AddTask = async (taskData) => {
         try {
             const response = await FetchData(`projects/${projectId}/tasks`, {
-                method: 'PUT',
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },

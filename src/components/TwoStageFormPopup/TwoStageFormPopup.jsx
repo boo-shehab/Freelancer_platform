@@ -37,7 +37,7 @@ const options = [
 //   "fullstack",
 //   "mobile",
 // ];
-const TwoStageFormPopup = ({ isOpen, onClose }) => {
+const TwoStageFormPopup = ({ isOpen, onClose, refresh }) => {
   const { projectsPosts, addNewProjectPost } = useAppStore((state) => state);
   const [stage, setStage] = useState(1);
   const [CurrentOption, setCurrentOption] = useState("Select option");
@@ -83,6 +83,7 @@ const TwoStageFormPopup = ({ isOpen, onClose }) => {
           Accept: "*/*",
         }
       );
+      refresh()
     } catch (e) {
       console.log(e);
     }
@@ -115,9 +116,6 @@ const handlePost=()=>{
   }
 }
 
-  useEffect(() => {
-    console.log(projectsPosts);
-  }, [projectsPosts]);
 
   if (!isOpen) return null;
 

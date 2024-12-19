@@ -169,14 +169,13 @@ const HomeScreen = () => {
   const [selectedJobs, setSelectedJobs] = useState([]);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [recentProjectOpened, setRecentProjectOpened] = useState(-1);
-  const { isFreelancer } = useUserinfoStore()
+  const { isFreelancer, name } = useUserinfoStore()
   
   const [isPopupOpen2, setIsPopupOpen2] = useState(false);
   const [callBack, setCallBack] = useState([]);
   const [openDrawer, setOpenDrawer] = useState(false);
-  const [isWorkForOpen, setIsWorkForOpen] = useState(false);
   const [isAboutPopupOpen, setIsAboutPopupOpen] = useState(false);
-  const { about, projects } = useUserinfoStore();
+  const { about, projects} = useUserinfoStore();
   const [aboutState, setAboutState] = useState(about.slice(0, 200));
   const [dotsAbout, setDotsAbout] = useState("....");
   const [seeAction, setSeeAction] = useState("See More");
@@ -219,7 +218,6 @@ const HomeScreen = () => {
             }
           );
         }
-      console.log(response.results.result);
       setPosts(response.results.result);
     } catch (e) {
       console.log(e);
@@ -280,12 +278,13 @@ const HomeScreen = () => {
     console.log('CB', CB);
     
     setSelectedJobs(values);
+
   };
-  console.log('User Details:', isFreelancer);
 
   return (
     <div style={styles.homeScreen}>
       <TwoStageFormPopup
+        refresh={() => getProject()}
         isOpen={isPopupOpen}
         onClose={() => setIsPopupOpen(false)}
       />
@@ -357,7 +356,7 @@ const HomeScreen = () => {
               <Card>
                 <div className={styles.userInfo}>
                   <img src="/avatar.png" />
-                  <p className={styles.name}>Mustafa Emad</p>
+                  <p className={styles.name}>{name}</p>
                   <div className={styles.rate}>
                     <StarIcon /> <span>5.0</span>
                   </div>
@@ -545,7 +544,7 @@ const HomeScreen = () => {
                         onClick={handleNewProject}
                       >
                         <p className={styles.postInputHint}>
-                          Mustafa Let’s Create a Project !
+                          {name} Let’s Create a Project !
                         </p>
                         <button className={styles.addBtn}>
                           <Pluse2Icon />

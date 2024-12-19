@@ -24,14 +24,12 @@ const Register = () => {
   };
 
   const handleOTP = () => {
-    console.log('otp next stage:');
     
     setStage(4)
     // navigate("/user-info");
   };
 
   const sendData = async(data) => {
-    console.log(data);
     
     setIsLoading(true)
     const bodyData = {

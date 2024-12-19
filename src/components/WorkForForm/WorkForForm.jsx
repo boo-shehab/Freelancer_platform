@@ -39,9 +39,7 @@ const WorkForForm = ({isOpen, onClose, initialData, onSave}) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-    console.log(formData);
-    
+    setFormData((prev) => ({ ...prev, [name]: value }));    
   };
 
   const handleSubmit = (e) => {
@@ -53,8 +51,6 @@ const WorkForForm = ({isOpen, onClose, initialData, onSave}) => {
       alert("Start date must be before the end date.");
       return;
     }
-
-    console.log("Form Data Submitted:", formData);
   };
 
   

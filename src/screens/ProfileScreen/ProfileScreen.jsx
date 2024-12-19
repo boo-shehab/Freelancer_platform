@@ -23,6 +23,8 @@ import DeleteComponent from "../../components/DeleteComponent/DeleteComponent";
 import FetchData from "../../utility/fetchData";
 import useUserinfoStore from "../../useUserinfoStore";
 import ProjectPost from "../../components/ProjectPost/ProjectPost";
+import TwoStageFormPopup from "../../components/TwoStageFormPopup/TwoStageFormPopup";
+
 
 const WorkFor = [
   {
@@ -60,66 +62,120 @@ const ProfileScreen = () => {
   const [isProjectPosted, setIsProjectPosted] = useState(0);
   const [isGivenLikes, setIsGivenLikes] = useState(0);
   //Muhammed 2
-  const [lowRating, setLowRating] = useState(11);
-  const [midRating, setMidRating] = useState(11);
-  const [highRating, setHighRating] = useState(11);
-  const [totalRating, setTotalRating] = useState(11);
-  const [averageRating, setAverageRating] = useState(11);
+  const [lowRating, setLowRating] = useState(0);
+  const [midRating, setMidRating] = useState(0);
+  const [highRating, setHighRating] = useState(0);
+  const [totalRating, setTotalRating] = useState(0);
+  const [averageRating, setAverageRating] = useState(0);
   //circl
-  const [posted, setPosted] = useState(25);
-  const [pending, setPending] = useState(25);
-  const [completed, setCompleted] = useState(25);
+  const [posted, setPosted] = useState(0);
+  const [pending, setPending] = useState(0);
+  const [completed, setCompleted] = useState(0);
   const [loading, setLoading] = useState(false);
   const [profile, setProfile] = useState([]);
+  const [posts, setPosts] = useState([]);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+
+  const handleNewProject = () => {
+    setIsPopupOpen(true);
+  };
+  const getProject = async () => {
+    try {
+        let response = '';
+        // if(isFreelancer) {
+          // const queryParams = selectedJobs
+            // .map((qualification) => `specializations=${qualification}`)
+            // .join("&");
+          response = await FetchData(
+            `projects/client-feed?page=0&pageSize=10`,
+            {
+              method: "GET",
+            }
+          );
+        // } else {
+        //   const queryParams = selectedJobs
+        //     .map((qualification) => `qualificationNames=${qualification}`)
+        //     .join("&");
+        //   response = await fetchData(
+        //     `projects/client-feed?page=0&pageSize=10&${queryParams}`,
+        //     {
+        //       method: "GET",
+        //     }
+        //   );
+        // }
+      console.log(response.results.result);
+      setPosts(response.results.result);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  //Muhammed was here
+  const [clientsWorkedWith, setClientsWorkedWith] = useState(11);
+  const [givenLikes, setGivenLikes] = useState(11);
+  const [projectYouApplied, setProjectYouApplied] = useState(11); //
+  const [projectYouWorkingOn, setProjectYouWorkingOn] = useState(11);
+  const [inReview, setInReview] = useState(11);
+  const [todo, setToDo] = useState(0);
+  const [completedProjects, setCompletedProjects] = useState(11); //
+  const [inProgressProjects, setInProgressProjects] = useState(11);
+  //Muhammed free
+
+  const [freeAverageRating, setFreeAverageRating] = useState(0);
+  const [freeLowRating, setFreeLowRating] = useState(0);
+  const [freeMidRating, setFreeMidRating] = useState(0);
+  const [freeHighRating, setFreeHighRating] = useState(0);
+  const [freeTotalRating, setFreeTotalRating] = useState(0);
 
   function ShowDelete(message) {
     setmessageDelete(message);
     setshowDelete(true);
   }
+
   const getProfile = async () => {
     try {
-      const data = await FetchData(
-        `profiles/${localStorage.getItem('id')}`,
-        {
-          method: "GET",
-        }
-      );
+      const data = await FetchData(`profiles/${localStorage.getItem("id")}`, {
+        method: "GET",
+      });
       setProfile(data.results);
     } catch (error) {
       console.log(error);
     }
   };
+
   const chartData = [
     { value: pending, color: "#FFDB70" },
-    ...(isFreelancer ? [{ value: 15, color: "#86C6F8" }] : []),
+    ...(isFreelancer ? [{ value: todo, color: "#86C6F8" }] : []),
     { value: posted, color: "#D9D9D9" },
     { value: completed, color: "#7FC882" },
   ];
-  const posts = [
-    {
-      id: 1,
-      title: "Looking for Full-Sack Developer with experience +2 years",
-      desc: "to build a responsive, user-focused web application. Must be skilled in both front-end and back-end development",
-      duration: "4 Months",
-      image: "/post.png",
-      price: 50,
-      client: {
-        name: "Client Name",
-        createdAt: "Posted 2 hours ago  ",
-      },
-    },
-    {
-      id: 2,
-      title: "Looking for Full-Sack Developer with experience +2 years",
-      desc: "to build a responsive, user-focused web application. Must be skilled in both front-end and back-end development",
-      duration: "4 Months",
-      price: 50,
-      client: {
-        name: "Client Name",
-        createdAt: "Posted 2 hours ago  ",
-      },
-    },
-  ];
+
+  // const posts = [
+  //   {
+  //     id: 1,
+  //     title: "Looking for Full-Sack Developer with experience +2 years",
+  //     desc: "to build a responsive, user-focused web application. Must be skilled in both front-end and back-end development",
+  //     duration: "4 Months",
+  //     image: "/post.png",
+  //     price: 50,
+  //     client: {
+  //       name: "Client Name",
+  //       createdAt: "Posted 2 hours ago  ",
+  //     },
+  //   },
+  //   {
+  //     id: 2,
+  //     title: "Looking for Full-Sack Developer with experience +2 years",
+  //     desc: "to build a responsive, user-focused web application. Must be skilled in both front-end and back-end development",
+  //     duration: "4 Months",
+  //     price: 50,
+  //     client: {
+  //       name: "Client Name",
+  //       createdAt: "Posted 2 hours ago  ",
+  //     },
+  //   },
+  // ];
+
 
   // const projects = [
   //   {
@@ -153,7 +209,6 @@ const ProfileScreen = () => {
         projectsCompleted,
       } = data.results;
 
-
       setIsWorkedWith(freelancersWorkedWith);
       setIsGivenLikes(givenLikes);
       setIsProjectPosted(projectPosted);
@@ -161,9 +216,44 @@ const ProfileScreen = () => {
       setPending(projectsPending);
       setCompleted(projectsCompleted);
     } catch (error) {
+      console.log(error);
+    }
+  };
+
+  //Muhammed freelancer
+  const handleInfoProfileAndRatingFreelancer = async () => {
+    try {
+      const data = await FetchData(
+        `freelancers/${localStorage.getItem("id")}/activities`,
+        {
+          method: "GET",
+        }
+      );
+
+      const {
+        clientsWorkedWith,
+        givenLikes,
+        projectYouApplied,
+        projectYouWorkingOn,
+        inReview,
+        toDo,
+        completedProjects,
+        inProgressProjects,
+      } = data.results;
+
+      setClientsWorkedWith(clientsWorkedWith);
+      setGivenLikes(givenLikes);
+      setProjectYouApplied(projectYouApplied);
+      setInReview(inReview);
+      setCompletedProjects(completedProjects);
+      setToDo(toDo);
+      setProjectYouWorkingOn(projectYouWorkingOn);
+      setInProgressProjects(inProgressProjects);
+    } catch (error) {
       console.log("Login failed. Please try again.");
     }
   };
+
   //Muhammed
   const fetchRatings = async (userId) => {
     try {
@@ -209,11 +299,37 @@ const ProfileScreen = () => {
     }
   };
 
+  const ratingsFreelancer = async () => {
+    try {
+      const userId = localStorage.getItem("id");
+      if (!userId) {
+        throw new Error("User ID not found");
+      }
+
+      const { averageRating, totalRating, highRating, midRating, lowRating } =
+        await fetchRatings(userId);
+
+      setFreeAverageRating(averageRating);
+      setFreeTotalRating(totalRating);
+      setFreeHighRating(highRating);
+      setFreeMidRating(midRating);
+      setFreeLowRating(lowRating);
+    } catch (error) {
+      console.error("Error processing ratings:", error.message);
+    }
+  };
+
   useEffect(() => {
     getProfile();
     handleInfoProfileAndRating();
     ratings();
+    getProject();
+    ratingsFreelancer();
   }, []);
+
+  useEffect(() => {
+    handleInfoProfileAndRatingFreelancer();
+  });
 
   const rating = {
     starRate: averageRating,
@@ -248,7 +364,7 @@ const ProfileScreen = () => {
     setAboutState(value.slice(0, 492));
   };
 
-  const handleEditProfile = () => {};
+  const handleEditProfile = () => { };
   const [isListVisible, setVisiblePostId] = useState(null);
   const idShow = (id) => {
     setVisiblePostId((prevId) => (prevId === id ? null : id));
@@ -340,26 +456,28 @@ const ProfileScreen = () => {
                       <div className={styles.infoItem}>
                         <UserIcon width={24} height={24} />
                         <div className={styles.label}>
-                          freelancer worked with
+                          Client you worked with
                         </div>
-                        <div className={styles.value}>8</div>
+                        <div className={styles.value}>{clientsWorkedWith}</div>
                       </div>
                       <div className={styles.infoItem}>
                         <HeartIcon />
                         <div className={styles.label}>Given Likes</div>
-                        <div className={styles.value}>32</div>
+                        <div className={styles.value}>{givenLikes}</div>
                       </div>
                       <div className={styles.infoItem}>
                         <TaskDoneIcon />
                         <div className={styles.label}>Project Posted</div>
-                        <div className={styles.value}>14</div>
+                        <div className={styles.value}>{inProgressProjects}</div>
                       </div>
                       <div className={styles.infoItem}>
                         <TaskDoneIcon />
                         <div className={styles.label}>
                           Project you work on it
                         </div>
-                        <div className={styles.value}>34</div>
+                        <div className={styles.value}>
+                          {projectYouWorkingOn}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -369,7 +487,7 @@ const ProfileScreen = () => {
                     <h3 className={styles.rateTitle}>Rating</h3>
                     <p className={styles.rateSubtitle}>Average Rating</p>
                     <div className={styles.ratingStars}>
-                      <b>{rating.starRate}</b>
+                      <b>{averageRating}</b>
                       <div>
                         {+rating.starRate >= 1 ? (
                           <Star2Icon />
@@ -404,36 +522,36 @@ const ProfileScreen = () => {
                         <div className={styles.bar}>
                           <div
                             style={{
-                              width: `${rating.highRate}%`,
+                              width: `${freeHighRating}%`,
                               backgroundColor: "#4DB251",
                             }}
                           ></div>
                         </div>
-                        <p>{rating.highRate}%</p>
+                        <p>{freeHighRating}%</p>
                       </div>
                       <div className={styles.barItem}>
                         <b>Mid rate</b>
                         <div className={styles.bar}>
                           <div
                             style={{
-                              width: `${rating.midRate}%`,
+                              width: `${freeMidRating}%`,
                               backgroundColor: "#FFBF00",
                             }}
                           ></div>
                         </div>
-                        <p>{rating.midRate}%</p>
+                        <p>{freeMidRating}%</p>
                       </div>
                       <div className={styles.barItem}>
                         <b>low rate</b>
                         <div className={styles.bar}>
                           <div
                             style={{
-                              width: `${rating.lowRate}%`,
+                              width: `${freeLowRating}%`,
                               backgroundColor: "#E4636F",
                             }}
                           ></div>
                         </div>
-                        <p>{rating.lowRate}%</p>
+                        <p>{freeLowRating}%</p>
                       </div>
                     </div>
                   </div>
@@ -445,7 +563,7 @@ const ProfileScreen = () => {
                       Total People who visited your profile
                     </p>
                     <p className={styles.reviews}>
-                      <b>70</b> review
+                      <b>{totalRating}</b> review
                     </p>
                     <button className={styles.seeAllReviews}>See all</button>
                   </div>
@@ -466,7 +584,10 @@ const ProfileScreen = () => {
             isOpen={isUserInfoOpen}
             onClose={() => setIsUserInfoOpen(false)}
             isFreelancer={false}
-            initialData={{ name: profile?.name, specialization: profile?.companyName }}
+            initialData={{
+              name: profile?.name,
+              specialization: profile?.companyName,
+            }}
             getData={getProfile}
           />
           {/* <ProjectHistoryForm
@@ -503,8 +624,9 @@ const ProfileScreen = () => {
                       <EditIcon />
                     </div>
                     <p>
-                      {profile?.about}                    
+                      {profile?.about}
                     </p>
+                    <p>{profile?.about}</p>
                   </div>
                   <div className={styles.history}>
                     <div className={styles.historyHead}>
@@ -514,21 +636,30 @@ const ProfileScreen = () => {
                       const startDateOfProject = new Date(p.startDate);
                       const endDateOfProject = new Date(p.endDate);
                       return (
-                      <div className={styles.projectItem} key={p.id}>
-                        <div className={styles.guid}>
-                          <div className={styles.dot}></div>
-                          <div className={styles.line}></div>
+                        <div className={styles.projectItem} key={p.id}>
+                          <div className={styles.guid}>
+                            <div className={styles.dot}></div>
+                            <div className={styles.line}></div>
+                          </div>
+                          <div className={styles.itemInfo}>
+                            <h4>{p.title}</h4>
+                            <small>
+                              {`${startDateOfProject.getFullYear()}-${String(
+                                startDateOfProject.getMonth() + 1
+                              ).padStart(2, "0")}-${String(
+                                startDateOfProject.getDate()
+                              ).padStart(2, "0")}`}
+                              {` to ${endDateOfProject.getFullYear()}-${String(
+                                endDateOfProject.getMonth() + 1
+                              ).padStart(2, "0")}-${String(
+                                endDateOfProject.getDate()
+                              ).padStart(2, "0")}`}
+                            </small>
+                            <p className={styles.itemDesc}>{p.description}</p>
+                          </div>
                         </div>
-                        <div className={styles.itemInfo}>
-                          <h4>{p.title}</h4>
-                          <small>
-                              {`${startDateOfProject.getFullYear()}-${String(startDateOfProject.getMonth() + 1).padStart(2, '0')}-${String(startDateOfProject.getDate()).padStart(2, '0')}`}
-                              {` to ${endDateOfProject.getFullYear()}-${String(endDateOfProject.getMonth() + 1).padStart(2, '0')}-${String(endDateOfProject.getDate()).padStart(2, '0')}`}
-                          </small>
-                          <p className={styles.itemDesc}>{p.description}</p>
-                        </div>
-                      </div>
-                    )})}
+                      );
+                    })}
                   </div>
                   {/* <div className={styles.history}>
                     <WorkForForm
@@ -577,7 +708,7 @@ const ProfileScreen = () => {
                     <div className={styles.postsHead}>
                       <b>Your Activity</b>
                       <div className={styles.actions}>
-                        <PlusIcon />
+                        <PlusIcon onClick={handleNewProject} />
                       </div>
                     </div>
                     {/* {posts?.map((post) => (
@@ -666,14 +797,18 @@ const ProfileScreen = () => {
                         </div>
                       </Card>
                     ))}*/}
-                                    {/* <ProjectPost /> */}
-                                    ///////////
-                                    
+                    {posts?.map((post) => (
+                      <ProjectPost
+                        key={post.id}
+                        post={post}
+                        isProfilepage = {true}
+                      />
+                    ))}
 
                   </div>
                   <div className={styles.LineInBottom}></div>
                   <button className={styles.seeAllReviews}>See all</button>
-                </Card> 
+                </Card>
               </section>
               <section className={styles.section2}>
                 <Card paddingx={24} isProfilePage={true}>
@@ -773,7 +908,7 @@ const ProfileScreen = () => {
                         <div className={styles.bar}>
                           <div
                             style={{
-                              width: `${highRating}`,
+                              width: `${highRating}%`,
                               backgroundColor: "#4DB251",
                             }}
                           ></div>
@@ -785,7 +920,7 @@ const ProfileScreen = () => {
                         <div className={styles.bar}>
                           <div
                             style={{
-                              width: `${midRating}`,
+                              width: `${midRating}%`,
                               backgroundColor: "#FFBF00",
                             }}
                           ></div>
@@ -835,6 +970,10 @@ const ProfileScreen = () => {
         onClose={() => setshowDelete(false)}
         TypeofDelete={`freelancers/certifications`}
         id={80}
+      />
+       <TwoStageFormPopup
+        isOpen={isPopupOpen}
+        onClose={() => setIsPopupOpen(false)}
       />
     </div>
   );

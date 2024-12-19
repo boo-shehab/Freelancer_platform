@@ -15,10 +15,10 @@ import FetchData from "../../utility/fetchData";
 //     const [selectedTab, setSelectedTab] = useState("toDo");
 
 
-//     const handleStatusChange = (taskId, newStatus) => {
-//         callbacks.onStatusChange(taskId, newStatus);
-//         setSelectedTab(newStatus);
-//     };
+// const handleStatusChange = (taskId, newStatus) => {
+//     callbacks.onStatusChange(taskId, newStatus);
+//     setSelectedTab(newStatus);
+// };
 
 
 const SliderOfProject = ({ show, onClose, projectData }) => {
@@ -100,6 +100,7 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
             if (response.isSuccess) {
                 console.log(`Freelancer ${action}ed successfully!`);
                 setFreelancerApplied(freelancerApplied.filter(f => f.id !== bidId));
+                getProjectInfo();
             } else {
                 console.error(`Failed to ${action} freelancer:`, response);
             }
@@ -109,6 +110,7 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
     };
 
     const handleTabClick = (tabName) => setSelectedTab(tabName);
+
 
     const handleToggleSubList = (taskId) => {
         setIsSubListVisible((prevState) => ({
@@ -138,15 +140,16 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
     const AddTask = async (taskData) => {
         try {
             const newTaskData = { ...taskData, status: "to-do" };
-    
+
             const response = await FetchData(`projects/${projectId}/tasks`, {
                 method: "POST",
+
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify(newTaskData),
             });
-    
+
             if (response.isSuccess) {
                 setTasks((prevTasks) => [...prevTasks, response.result]);
                 setIsOpen(false);
@@ -158,8 +161,8 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
             console.error("Error adding task:", error);
         }
     };
-    
-    // const canCompleteProject = !isFreelancer && tasks.every((task) => task.status === "done");
+
+    const canCompleteProject = !isFreelancer && tasks.every((task) => task?.status === "done");
 
     return (
         <div className={styles.sliderOfProject}>
@@ -169,7 +172,7 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
                     <AddTaskForm
                         isOpen={isOpen}
                         onClose={() => setIsOpen(false)}
-                        addTask={AddTask} 
+                        addTask={AddTask}
                         tasks={tasks}
                     />
                     <div className={styles.slider}>
@@ -278,7 +281,7 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
                                     <h3 className={styles.titelText}>
                                         {isFreelancer ? "My Tasks" : "Freelancer Tasks"}
                                     </h3>
-                                    {!isFreelancer &&  (
+                                    {!isFreelancer && (
                                         <button className={styles.addTaskButton} onClick={() => setIsOpen(true)}>
                                             <AddTaskIcon />
                                         </button>
@@ -305,6 +308,7 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
                                                 <div
                                                     key={id}
                                                     className={`${styles.task} ${!isFreelancer ? styles.withJustifyContent : ""}`}
+                                                    onClick={isFreelancer && selectedTab !== "done" ? () => handleToggleSubList(id) : undefined}
                                                 >
                                                     {selectedTab === "done" && isFreelancer && (
                                                         <input
@@ -324,19 +328,21 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
                                                         )}
                                                     </div>
 
-                                                    <p
-                                                        onClick={isFreelancer && selectedTab !== "done" ? () => handleToggleSubList(id) : undefined}
-                                                        className={selectedTab === "done" ? styles.doneTask : ""}
-                                                    >
+                                                    <p onClick={isFreelancer && selectedTab !== "done" ? () => handleToggleSubList(id) : undefined} className={selectedTab === "done" ? styles.doneTask : ""}>
                                                         {name}
                                                     </p>
+
+                                                    {/* Sublist rendering */}
+                                                    {isSubListVisible[id] && (
+                                                        <SubList taskId={id} />
+                                                    )}
                                                 </div>
                                             ))
                                     ) : (
                                         <p>No tasks available</p>
                                     )}
                                 </div>
-                                 
+
                                 {!isFreelancer && (
                                     <button className={styles.completeBtn} onClick={() => onComplete(projectId)}>
                                         Project Complete

@@ -167,6 +167,7 @@
 .section2 .postBox img {
   width: 75px;
   height: 75px;
+  border-radius: 50%;
 }
 
 .section2 .postBox .postInput .postInputHint {

@@ -46,14 +46,6 @@ const WorkExperienceForm = ({isOpen, onClose , initialData = "" , GetDate}) => {
               headers: { 'Content-Type': 'application/json' }
           }
       );
-  
-      if (response.ok) {
-          console.log("Data submitted successfully.");
-          // Handle successful response, e.g., clear form or display success message
-      } else {
-          console.error("Error submitting data:", response.statusText);
-          // Handle unsuccessful response
-      }
   } catch (error) {
       console.error("An error occurred:", error.message || 'An unexpected error occurred.');
   } finally {
@@ -89,7 +81,6 @@ const WorkExperienceForm = ({isOpen, onClose , initialData = "" , GetDate}) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    console.log(formData);
     
   };
 
@@ -103,7 +94,6 @@ const WorkExperienceForm = ({isOpen, onClose , initialData = "" , GetDate}) => {
       return;
     }
 
-    console.log("Form Data Submitted:", formData);
   };
 
   

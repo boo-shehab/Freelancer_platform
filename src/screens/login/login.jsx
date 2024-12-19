@@ -45,9 +45,6 @@ const Login = () => {
             localStorage.setItem('id', id);
 
             addUserInfo(userDetails);
-
-            console.log('User Details:', isFreelancer);
-
             navigate('/');
         } catch (error) {
             setErrorMessage(error.message || 'Login failed. Please try again.');

@@ -6,15 +6,19 @@ import Card from "../../components/Card/card";
 import DonutChart from "../../components/charts/DonutChart";
 import SliderOfProject from "../../components/SliderOfProject/SliderOfProject";
 import FetchData from "../../utility/fetchData";
+import useUserinfoStore from "../../useUserinfoStore";
 
 
 const DashboardScreen = () => {
-  const [showSlider, setshowSlider] = useState(0);
+  const [showSlider, setShowSlider] = useState(0); // Correct casing for `setShowSlider`
   const [filterType, setFilterType] = useState("All");
   const [selectedProject, setSelectedProject] = useState(null);
   const [statistics, setStatistics] = useState({})
-  const [project, setProject] = useState({})
-
+  const [project, setProject] = useState([]);
+  const { isFreelancer } = useUserinfoStore()
+  const profilePicture = useUserinfoStore((state) => state.profilePicture);
+  const name = useUserinfoStore((state) => state.name);
+  const [projectInfo, setProjectInfo] = useState([]);
   const [tasks, setTasks] = useState([
     { id: 1, name: "Design Registration Screen", status: "To Do" },
     { id: 2, name: "Design Registration Screen", status: "To Do" },
@@ -30,68 +34,68 @@ const DashboardScreen = () => {
     { id: 12, name: "Design Registration Screen", status: "Done" },
   ]);
 
-  const [projects, setProjects] = useState([
-    {
-      id: 1,
-      projectName: "ProjectName 1",
-      projectStatus: "In Progress",
-      progress: 50,
-      user: {
-        image: "./avatar.png",
-        name: "Ahmed Abas",
-      },
-    },
-    {
-      id: 2,
-      projectName: "ProjectName 2",
-      projectStatus: "In Progress",
-      progress: 50,
-      user: {
-        image: "./avatar.png",
-        name: "Ahmed Abas",
-      },
-    },
-    {
-      id: 3,
-      projectName: "ProjectName 3",
-      projectStatus: "Completed",
-      progress: 100,
-      user: {
-        image: "./avatar.png",
-        name: "Ahmed Abas",
-      },
-    },
-    {
-      id: 4,
-      projectName: "ProjectName 4",
-      projectStatus: "Completed",
-      progress: 100,
-      user: {
-        image: "./avatar.png",
-        name: "Ahmed Abas",
-      },
-    },
-    {
-      id: 5,
-      projectName: "ProjectName 5",
-      projectStatus: "Pending",
-      progress: 0,
-      user: {
-        image: "./avatar.png",
-        name: "Ahmed Abas",
-      },
-    },
-    {
-      id: 6,
-      projectName: "ProjectName 6",
-      projectStatus: "Pending",
-      progress: 0,
-      user: {
-        image: "./avatar.png",
-        name: "Ahmed Abas",
-      },
-    }
-  ]);
+  // const [projects, setProjects] = useState([
+  //   {
+  //     id: 1,
+  //     projectName: "ProjectName 1",
+  //     projectStatus: "In Progress",
+  //     progress: 50,
+  //     user: {
+  //       image: "./avatar.png",
+  //       name: "Ahmed Abas",
+  //     },
+  //   },
+  //   {
+  //     id: 2,
+  //     projectName: "ProjectName 2",
+  //     projectStatus: "In Progress",
+  //     progress: 50,
+  //     user: {
+  //       image: "./avatar.png",
+  //       name: "Ahmed Abas",
+  //     },
+  //   },
+  //   {
+  //     id: 3,
+  //     projectName: "ProjectName 3",
+  //     projectStatus: "Completed",
+  //     progress: 100,
+  //     user: {
+  //       image: "./avatar.png",
+  //       name: "Ahmed Abas",
+  //     },
+  //   },
+  //   {
+  //     id: 4,
+  //     projectName: "ProjectName 4",
+  //     projectStatus: "Completed",
+  //     progress: 100,
+  //     user: {
+  //       image: "./avatar.png",
+  //       name: "Ahmed Abas",
+  //     },
+  //   },
+  //   {
+  //     id: 5,
+  //     projectName: "ProjectName 5",
+  //     projectStatus: "Pending",
+  //     progress: 0,
+  //     user: {
+  //       image: "./avatar.png",
+  //       name: "Ahmed Abas",
+  //     },
+  //   },
+  //   {
+  //     id: 6,
+  //     projectName: "ProjectName 6",
+  //     projectStatus: "Pending",
+  //     progress: 0,
+  //     user: {
+  //       image: "./avatar.png",
+  //       name: "Ahmed Abas",
+  //     },
+  //   }
+  // ]);
 
   const rating = {
     starRate: "4.0",
@@ -106,7 +110,7 @@ const DashboardScreen = () => {
         method: 'GET',
       })
       if (data.isSuccess) {
-        setStatistics(data.results); // Update state with fetched data
+        setStatistics(data.results);
       } else {
         console.error("Failed to fetch statistics");
       }
@@ -121,26 +125,43 @@ const DashboardScreen = () => {
 
   const getProject = async () => {
     try {
-      const data = await FetchData(`profiles/projects?status=closed&page=0&pageSize=100`, {
+      const data = await FetchData(`profiles/projects?status=&page=0&pageSize=100`, {
         method: 'GET',
-      })
+      });
       if (data.isSuccess) {
-        setProject(data.results); // Update state with fetched data
-        console.log(data.results.result);
-
+        setProject(data.results.result || []);
       } else {
         console.error("Failed to fetch projects");
       }
     } catch (error) {
-      console.log(error);
+      console.error("Error fetching data:", error);
     }
-  }
+  };
+
   useEffect(() => {
     getProject();
 
   }, []);
 
+  // const getProjectInfo = async (projectId) => {
+  //   try {
+  //     const data = await FetchData(`profiles/${projectId}`, {
+  //       method: 'GET',
+  //     });
+  //     if (data.isSuccess) {
+  //       setProjectInfo(data.result);
+  //     } else {
+  //       console.error("Failed to fetch projects");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error fetching data:", error);
+  //   }
+  // };
 
+  // useEffect(() => {
+  //   getProjectInfo(2);
+
+  // }, []);
 
   useEffect(() => { }, [filterType]);
 
@@ -172,10 +193,11 @@ const DashboardScreen = () => {
   };
 
   const handleProjectClick = (projectId) => {
-    const project = projects.find((project) => project.id === projectId);
-    setSelectedProject(project);
-    setshowSlider(1);
+    const selected = project.find((p) => p.id === projectId);
+    setSelectedProject(selected);
+    setShowSlider(1); // Open the slider
   };
+  
 
   const handleEdit = (taskId) => {
     const taskName = prompt("Edit Task Name:");
@@ -213,9 +235,9 @@ const DashboardScreen = () => {
 
   const handleCompleteProject = (projectId) => {
     console.log("Complete project clicked for projectId:", projectId);
-    setProjects((prevProjects) =>
+    setProject((prevProjects) =>
       prevProjects.map((project) =>
-        project.id === projectId
+        project.result.id === projectId
           ? { ...project, projectStatus: "Completed", progress: 100 }
           : project
       )
@@ -244,48 +266,49 @@ const DashboardScreen = () => {
               </button>
             </div>
             <div className={styles.projects}>
-              {Array.isArray(projects) && projects.map((project) => (
-                <button
-                  className={styles.projectBtn}
-                  key={project.id}
-                  onClick={() => handleProjectClick(project.id)}
-                >
-                  <div className={styles.projectInfo}>
-                    <div
-                      className={`${styles.projectData} ${project.projectStatus === "Completed"
-                        ? styles.completed
-                        : project.projectStatus === "Pending"
-                          ? styles.pending
-                          : styles.inProgress
-                        }`}
-                    >
-                      <b>{project.projectName}</b>
-                      <p>{project.projectStatus}</p>
+              {Array.isArray(project) &&
+                project.map((p) => (
+                  <button
+                    className={styles.projectBtn}
+                    key={p.id}
+                    onClick={() => handleProjectClick(p.id)}
+                  >
+                    <div className={styles.projectInfo}>
+                      <div
+                        className={`${styles.projectData} ${p.status === "completed"
+                          ? styles.completed
+                          : p.status === "pending"
+                            ? styles.pending
+                            : styles.inProgress
+                          }`}
+                      >
+                        <b>{p.title}</b>
+                        <p>{p.status}</p>
+                      </div>
+                      <DonutChart
+                        data={[
+                          {
+                            value: isNaN(parseFloat(p.percentage)) ? 0 : parseFloat(p.percentage),
+                            color: p.status === "completed" ? "#1FAD58" : "#FFBF00",
+                          },
+                        ]}
+                        total={100}
+                        size={71}
+                        barSize={4}
+                      >
+                        <p className={styles.ChartText}>
+                          {isNaN(parseFloat(p.percentage)) ? "0%" : p.percentage}
+                        </p>
+                      </DonutChart>
                     </div>
-                    <DonutChart
-                      data={[
-                        {
-                          value: project.progress,
-                          color:
-                            project.projectStatus === "Completed"
-                              ? "#1FAD58"
-                              : "#FFBF00",
-                        },
-                      ]}
-                      total={100}
-                      size={71}
-                      barSize={4}
-                    >
-                      <p className={styles.ChartText}>{project.progress}%</p>
-                    </DonutChart>
-                  </div>
-                  <div className={styles.projectUserInfo}>
-                    <img src={project.user.image} alt="" />
-                    <p>{project.user.name}</p>
-                  </div>
-                </button>
-              ))}
+                    <div className={styles.projectUserInfo}>
+                      <img src={ profilePicture } alt={name || 'User'} />
+                      <p>{name || 'Unknown User'}</p>
+                    </div>
+                  </button>
+                ))}
             </div>
+
           </section>
           <div className={styles.section2}>
             {" "}
@@ -296,16 +319,16 @@ const DashboardScreen = () => {
               </div>
               <div className={styles.card}>
                 <p>Pending</p>
-                <b>{statistics?.projects?.available ?? 0}</b>
+                <b>{statistics?.projects?.pending ?? 0}</b>
               </div>
 
               <div className={styles.card}>
                 <p>In Progress</p>
-                <b>{statistics?.projects?.closed ?? 0}</b>
+                <b>{statistics?.projects?.inProgrss ?? 0}</b>
               </div>
               <div className={styles.card}>
                 <p>Done</p>
-                <b>2</b>
+                <b>{statistics?.projects?.completed ?? 0}</b>
               </div>
             </div>
             <Card marginTop={12}>
@@ -339,33 +362,33 @@ const DashboardScreen = () => {
 
                 <div className={styles.ratingBar}>
                   <div className={styles.barItem}>
-                    <b>To Do <span>{statistics?.tasks?.toDo }</span>%</b>
+                    <b>To Do <span>{statistics?.tasks?.toDo}</span></b>
                     <div className={styles.bar}>
                       <div
                         style={{
-                          width: `${statistics?.tasks?.toDo}%`,
+                          width: `${statistics?.tasks?.toDo}`,
                           backgroundColor: "#3C97AF",
                         }}
                       ></div>
                     </div>
                   </div>
                   <div className={styles.barItem}>
-                    <b>In Progress <span>{statistics?.tasks?.inProgress }</span>%</b>
+                    <b>In Progress <span>{statistics?.tasks?.inProgress}</span></b>
                     <div className={styles.bar}>
                       <div
                         style={{
-                          width: `${statistics?.tasks?.inProgress}%`,
+                          width: `${statistics?.tasks?.inProgress}`,
                           backgroundColor: "#D69E2E",
                         }}
                       ></div>
                     </div>
                   </div>
                   <div className={styles.barItem}>
-                    <b>Done <span>{statistics?.tasks?.done }</span>%</b>
+                    <b>Done <span>{statistics?.tasks?.done}</span></b>
                     <div className={styles.bar}>
                       <div
                         style={{
-                          width: `${statistics?.tasks?.done}%`,
+                          width: `${statistics?.tasks?.done}`,
                           backgroundColor: "#1FAD58",
                         }}
                       ></div>
@@ -378,22 +401,11 @@ const DashboardScreen = () => {
         </div>
       </Container>
       <SliderOfProject
-        show={!!showSlider}
-        onClose={() => setshowSlider(0)}
-        projectData={{
-          freelancers: freelancerApplied,
-          projectStatus: selectedProject?.projectStatus || "",
-          progress: selectedProject?.progress || "",
-          tasks: selectedProject ? tasks : [],
-        }}
-        callbacks={{
-          handleEdit,
-          handleDelete,
-          onStatusChange: handleTaskStatusChange,
-          addTask,
-          onComplete: handleCompleteProject,
-        }}
-      />
+    show={!!showSlider}
+    onClose={() => setShowSlider(0)}
+    projectData={selectedProject ? { projectId: selectedProject.id, progress: selectedProject.percentage, projectStatus: selectedProject.status } : null}
+/>
+
 
     </div>
   );

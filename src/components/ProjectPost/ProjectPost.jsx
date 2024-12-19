@@ -19,6 +19,21 @@ const projectPost = ({
   const [seeMore, setSeeMore] = useState(false)
   const isSmallScreen = useMediaQuery({ query: "(max-width: 750px)" });
 
+  const  handleStatus =()=>{
+    if(post.status == "completed"){
+      return(<div className={styles.tag}>{post?.status}</div>)
+    }
+    else if(post.status == "pending"){
+      return(<div className={styles.tagPend}>{post?.status}</div>)
+    }
+    else if (post.status == "in-progress"){
+      return(<div className={styles.tagIn}>{post?.status}</div>)
+    }
+    else{
+      return
+    }
+  }
+  
   const idShow = (i) => {
     setVisiblePostId((prevId) => (prevId === i ? null : i));
   };
@@ -40,7 +55,7 @@ const projectPost = ({
               </div>
             </div>
             <div className={styles.postClientAction}>
-              <div className={styles.tag}>{post?.status}</div>
+              <div >{handleStatus()}</div>
               <MoreIcon onClick={() => idShow(post.id)} />
               {/* {isListVisible === post.id && (
                 <div

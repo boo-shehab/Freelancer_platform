@@ -125,7 +125,8 @@ const DashboardScreen = () => {
 
   const getProject = async () => {
     try {
-      const data = await FetchData(`profiles/projects?status=&page=0&pageSize=100`, {
+      const status = filterType !== "All" ? filterType : "";
+      const data = await FetchData(`profiles/projects?status=${status}&page=0&pageSize=100`, {
         method: 'GET',
       });
       if (data.isSuccess) {
@@ -140,57 +141,10 @@ const DashboardScreen = () => {
 
   useEffect(() => {
     getProject();
-
-  }, []);
-
-  // const getProjectInfo = async (projectId) => {
-  //   try {
-  //     const data = await FetchData(`profiles/${projectId}`, {
-  //       method: 'GET',
-  //     });
-  //     if (data.isSuccess) {
-  //       setProjectInfo(data.result);
-  //     } else {
-  //       console.error("Failed to fetch projects");
-  //     }
-  //   } catch (error) {
-  //     console.error("Error fetching data:", error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   getProjectInfo(2);
-
-  // }, []);
+}, [filterType]);
 
   useEffect(() => { }, [filterType]);
 
-  const [freelancerApplied, setfreelancerApplied] = useState([
-    {
-      id: 1,
-      imag: "./avatar.png",
-      name: "Sara Saad",
-      type: "UIUX Designer",
-    },
-    {
-      id: 2,
-      imag: "./avatar.png",
-      name: "Mohamed ali",
-      type: "UIUX Designer",
-    },
-    {
-      id: 3,
-      imag: "./avatar.png",
-      name: "Ali Saad",
-      type: "UIUX Designer",
-    },
-  ]);
-
-  const removeFreelancerById = (id) => {
-    setfreelancerApplied((prevState) =>
-      prevState.filter((freelancer) => freelancer.id !== id)
-    );
-  };
 
   const handleProjectClick = (projectId) => {
     const selected = project.find((p) => p.id === projectId);
@@ -208,16 +162,6 @@ const DashboardScreen = () => {
         )
       );
     }
-  };
-  const addTask = (name, status) => {
-    setTasks((prevTasks) => [
-      ...prevTasks,
-      {
-        id: prevTasks.length + 1,
-        name,
-        status,
-      },
-    ]);
   };
 
   const handleDelete = (taskId) => {
@@ -257,11 +201,11 @@ const DashboardScreen = () => {
               >
                 All
               </button>
-              <button onClick={() => setFilterType("Pending")}>Pending</button>
-              <button onClick={() => setFilterType("In Progress")}>
+              <button onClick={() => setFilterType("pending")}>Pending</button>
+              <button onClick={() => setFilterType("in-progress")}>
                 InProgress
               </button>
-              <button onClick={() => setFilterType("Completed")}>
+              <button onClick={() => setFilterType("completed")}>
                 Completed
               </button>
             </div>

@@ -62,7 +62,7 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
         try {
             const data = await FetchData(`projects/${projectId}/bids?page=0&pageSize=100`, { method: 'GET' });
 
-            setFreelancerApplied(data.result); 
+            setFreelancerApplied(data.result);
 
         } catch (error) {
             console.log("Error fetching data:", error);
@@ -73,17 +73,23 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
 
     const getTasks = async () => {
         try {
-            const data = await FetchData(`projects/${projectId}/tasks?status=`,
-                { method: 'GET' });
+            const data = await FetchData(`projects/${projectId}/tasks?status=`, { method: 'GET' });
+
             if (data.isSuccess) {
                 setTasks(data.results || {});
             } else {
                 console.error("Failed to fetch tasks");
             }
         } catch (error) {
-            console.error("Error fetching data:", error);
+            if (error.response && error.response.status === 403) {
+                console.error("You do not have permission to view these tasks.");
+                alert("You do not have permission to view these tasks.");
+            } else {
+                console.error("Error fetching data:", error);
+            }
         }
     };
+
     useEffect(() => {
         if (projectId) {
             getProjectInfo();
@@ -91,6 +97,7 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
             getTasks();
         }
     }, [projectId]);
+
 
     const FreelancerAction = async (projectId, bidId, action) => {
         const url = `projects/${projectId}/bids/${bidId}/${action}`;
@@ -149,6 +156,7 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
             console.error('Error adding task:', error);
         }
     };
+    const canCompleteProject = !isFreelancer && tasks.every((task) => task.status === "done");
 
     return (
         <div className={styles.sliderOfProject}>
@@ -179,10 +187,10 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
                                         style={{
                                             color:
                                                 projectStatus === "completed"
-                                                    ? '#1FAD58' 
+                                                    ? '#1FAD58'
                                                     : projectStatus === "pending"
-                                                        ? '#3182CE' 
-                                                        : '#D69E2E', 
+                                                        ? '#3182CE'
+                                                        : '#D69E2E',
                                         }}
                                     >
                                         {projectStatus}
@@ -200,10 +208,10 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
                                 <DonutChart
                                     data={[
                                         {
-                                          value: progress,
-                                          color: projectStatus === 'completed' ? '#1FAD58' : projectStatus === 'pending' ? '#3182CE' : '#D69E2E', // Green for completed, Blue for pending, Yellow for other statuses
+                                            value: progress,
+                                            color: projectStatus === 'completed' ? '#1FAD58' : projectStatus === 'pending' ? '#3182CE' : '#D69E2E', // Green for completed, Blue for pending, Yellow for other statuses
                                         },
-                                      ]}
+                                    ]}
                                     total={100}
                                     size={70}
                                     barSize={4}
@@ -239,21 +247,24 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
                                                     <h1>{freelancer.name}</h1>
                                                 </div>
                                             </div>
-                                            <div className={styles.freeLancerAction}>
-                                                <button
-                                                    onClick={() => FreelancerAction(projectId, id, "approve")} 
-                                                    className={styles.acceptFreeLancer}
-                                                >
-                                                    Accept
-                                                </button>
-                                                <button
-                                                    onClick={() => FreelancerAction(projectId, id, "reject")} 
-                                                    className={styles.declineFreeLancer}
-                                                >
-                                                    Reject
-                                                </button>
-                                            </div>
+                                            {!isFreelancer && (
+                                                <div className={styles.freeLancerAction}>
+                                                    <button
+                                                        onClick={() => FreelancerAction(projectId, id, "approve")}
+                                                        className={styles.acceptFreeLancer}
+                                                    >
+                                                        Accept
+                                                    </button>
+                                                    <button
+                                                        onClick={() => FreelancerAction(projectId, id, "reject")}
+                                                        className={styles.declineFreeLancer}
+                                                    >
+                                                        Reject
+                                                    </button>
+                                                </div>
+                                            )}
                                         </div>
+
                                     ))}
 
 
@@ -325,11 +336,13 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
                                     )}
                                 </div>
 
-                                {tasks.every((task) => task.status === "done") && (
+
+                                {canCompleteProject && (
                                     <button className={styles.completeBtn} onClick={() => onComplete(projectId)}>
                                         Project Complete
                                     </button>
                                 )}
+
                             </>
                         )}
                     </div>

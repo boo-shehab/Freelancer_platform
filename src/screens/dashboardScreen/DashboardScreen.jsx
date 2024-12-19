@@ -234,12 +234,7 @@ const DashboardScreen = () => {
   };
 
   const handleCompleteProject = (projectId) => {
-<<<<<<< HEAD
     setProjects((prevProjects) =>
-=======
-    console.log("Complete project clicked for projectId:", projectId);
-    setProject((prevProjects) =>
->>>>>>> e3c72ee723c86639ad87ab14db030816297d2344
       prevProjects.map((project) =>
         project.result.id === projectId
           ? { ...project, projectStatus: "Completed", progress: 100 }

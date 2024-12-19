@@ -11,15 +11,15 @@ const SubList = ({ taskId, onStatusChange }) => (
             <li onClick={() => onStatusChange(taskId, "To Do")}>
                 <ToDoIcon /> To Do
             </li>
-            <li onClick={() => onStatusChange(taskId, "In Progress")}>
+            <li onClick={() => onStatusChange(taskId, "start-task")}>
                 <InProgressIcon /> In Progress
             </li>
-            <li onClick={() => onStatusChange(taskId, "In Review")}>
+            <li onClick={() => onStatusChange(taskId, "submit-task")}>
                 <InReviewIcon /> In Review
             </li>
-            <li onClick={() => onStatusChange(taskId, "Done")}>
+            {/* <li onClick={() => onStatusChange(taskId, "approve-task")}>
                 <DoneTaskIcon /> Done
-            </li>
+            </li> */}
         </ul>
     </div>
 );

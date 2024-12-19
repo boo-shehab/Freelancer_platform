@@ -9,10 +9,11 @@ import DonutChart from "../../components/charts/DonutChart";
 import AddTaskForm from '../../components/AddTaskForm/AddTaskForm';
 import AddTaskIcon from '../../CustomIcons/AddTaskIcon';
 import SubList from './SubList';
+import clientSublist from './clientSublist';
 import useUserinfoStore from "../../useUserinfoStore";
 import FetchData from "../../utility/fetchData";
 
- 
+
 
 
 const SliderOfProject = ({ show, onClose, projectData }) => {
@@ -107,23 +108,31 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
             getProjectInfo();
             getFreelancerApplied();
             getTasks();
-            ChangeTheTaskStutas(10,"start-task");
+            // ChangeTheTaskStutas(10,"start-task");
         }
-       
+
     }, [projectId]);
 
     const ChangeTheTaskStutas = async (taskid, action) => {
+<<<<<<< HEAD
         const url = `tasks/${projectId}/${action}`;
+=======
+        const url = `tasks/${taskid}/${action}`;
+>>>>>>> a263bd5148469b6eaed8552dc731517fc0fa9988
         try {
             const response = await FetchData(url, { method: 'PATCH' });
 
             if (response.isSuccess) {
                 console.log(`Freelancer ${action}ed successfully!`);
+<<<<<<< HEAD
                 setFreelancerApplied(freelancerApplied.filter(f => f.id !== bidId));
                 getProjectInfo();
                 getProjectInfo();
                 getFreelancerApplied();
                 getTasks();
+=======
+
+>>>>>>> a263bd5148469b6eaed8552dc731517fc0fa9988
             } else {
                 console.error(`Failed to ${action} freelancer:`, response);
             }
@@ -182,9 +191,9 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
             console.error("Error adding task:", error);
         }
     };
-    
+
     // const canCompleteProject = !isFreelancer && tasks.every((task) => task.status === "done");
-    
+
     return (
         <div className={styles.sliderOfProject}>
             <div className={styles.overlay} onClick={onClose}></div>
@@ -308,7 +317,7 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
                                         </button>
                                     )}
                                     <div className={styles.taskTabs}>
-                                        {["to-do", "in progress", "in-review", "done"].map((tab) => (
+                                        {["to-do", "in-progress", "in-review", "done"].map((tab) => (
                                             <a
                                                 key={tab}
                                                 href={`#${tab.toLowerCase().replace(" ", "-")}`}
@@ -351,6 +360,7 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
                                                         {isFreelancer && selectedTab === "in-review" && (
                                                             <InReviewIcon className={styles.inReviewIcon} />
                                                         )}
+                                                       
                                                     </div>
 
                                                     <p
@@ -359,6 +369,15 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
                                                     >
                                                         {name}
                                                     </p>
+<<<<<<< HEAD
+=======
+
+                                                    {isSubListVisible[id] && (
+                                                        <SubList taskId={id}
+                                                            onStatusChange={ChangeTheTaskStutas}
+                                                        />
+                                                    )}
+>>>>>>> a263bd5148469b6eaed8552dc731517fc0fa9988
                                                 </div>
                                             ))
                                     ) : (

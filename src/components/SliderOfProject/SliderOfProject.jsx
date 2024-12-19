@@ -9,10 +9,11 @@ import DonutChart from "../../components/charts/DonutChart";
 import AddTaskForm from '../../components/AddTaskForm/AddTaskForm';
 import AddTaskIcon from '../../CustomIcons/AddTaskIcon';
 import SubList from './SubList';
+import clientSublist from './clientSublist';
 import useUserinfoStore from "../../useUserinfoStore";
 import FetchData from "../../utility/fetchData";
 
- 
+
 
 
 const SliderOfProject = ({ show, onClose, projectData }) => {
@@ -102,22 +103,19 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
             getProjectInfo();
             getFreelancerApplied();
             getTasks();
-            ChangeTheTaskStutas(10,"start-task");
+            // ChangeTheTaskStutas(10,"start-task");
         }
-       
+
     }, [projectId]);
 
     const ChangeTheTaskStutas = async (taskid, action) => {
-        const url = `projects/${projectId}/bids/${bidId}/${action}`;
+        const url = `tasks/${taskid}/${action}`;
         try {
-            const response = await FetchData(url, { method: 'POST' });
+            const response = await FetchData(url, { method: 'PATCH' });
 
             if (response.isSuccess) {
                 console.log(`Freelancer ${action}ed successfully!`);
-                setFreelancerApplied(freelancerApplied.filter(f => f.id !== bidId));
-                getProjectInfo();
-                getFreelancerApplied();
-                getTasks();
+
             } else {
                 console.error(`Failed to ${action} freelancer:`, response);
             }
@@ -178,9 +176,9 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
             console.error("Error adding task:", error);
         }
     };
-    
+
     // const canCompleteProject = !isFreelancer && tasks.every((task) => task.status === "done");
-    
+
     return (
         <div className={styles.sliderOfProject}>
             <div className={styles.overlay} onClick={onClose}></div>
@@ -304,7 +302,7 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
                                         </button>
                                     )}
                                     <div className={styles.taskTabs}>
-                                        {["to-do", "in progress", "in-review", "done"].map((tab) => (
+                                        {["to-do", "in-progress", "in-review", "done"].map((tab) => (
                                             <a
                                                 key={tab}
                                                 href={`#${tab.toLowerCase().replace(" ", "-")}`}
@@ -343,15 +341,17 @@ const SliderOfProject = ({ show, onClose, projectData }) => {
                                                         {isFreelancer && selectedTab === "in-review" && (
                                                             <InReviewIcon className={styles.inReviewIcon} />
                                                         )}
+                                                       
                                                     </div>
 
                                                     <p onClick={isFreelancer && selectedTab !== "done" ? () => handleToggleSubList(id) : undefined} className={selectedTab === "done" ? styles.doneTask : ""}>
                                                         {name}
                                                     </p>
 
-                                                    {/* Sublist rendering */}
                                                     {isSubListVisible[id] && (
-                                                        <SubList taskId={id} />
+                                                        <SubList taskId={id}
+                                                            onStatusChange={ChangeTheTaskStutas}
+                                                        />
                                                     )}
                                                 </div>
                                             ))

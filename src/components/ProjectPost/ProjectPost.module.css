@@ -47,6 +47,26 @@
   font-weight: 600;
   line-height: 15px;
 }
+.postItem .postHead .tagPend {
+  padding: 12px 16px;
+  background-color:#F8EFDD;
+  border-radius: 24px;
+  color: #D69E2E;
+  font-family: Poppins;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 15px;
+}
+.postItem .postHead .tagIn {
+  padding: 12px 16px;
+  background-color:#DEEBF7;
+  border-radius: 24px;
+  color:#3182CE;
+  font-family: Poppins;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 15px;
+}
 
 .postItem .postHead .postClientAction {
   display: flex;

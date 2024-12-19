@@ -24,6 +24,21 @@ const projectPost = ({ isProfilepage = false,
   const [isCommentForm, setIsCommentForm] = useState(false);
   const [deleteId, setDeleteId] = useState(false);
 
+  const  handleStatus =()=>{
+    if(post.status == "completed"){
+      return(<div className={styles.tag}>{post?.status}</div>)
+    }
+    else if(post.status == "pending"){
+      return(<div className={styles.tagPend}>{post?.status}</div>)
+    }
+    else if (post.status == "in-progress"){
+      return(<div className={styles.tagIn}>{post?.status}</div>)
+    }
+    else{
+      return
+    }
+  }
+  
   const [showDelete, setShowDelete] = useState(false);
 
 
@@ -72,7 +87,7 @@ const projectPost = ({ isProfilepage = false,
                 </div>
               </div>
               <div className={styles.postClientAction}>
-                <div className={styles.tag}>{post?.status}</div>
+                <div >{handleStatus()}</div>
                 <MoreIcon onClick={() => idShow(post.id)} />
                 {isListVisible === post.id && (
                   <div
@@ -160,7 +175,7 @@ const projectPost = ({ isProfilepage = false,
               </div>
             </div>
             <div className={styles.postClientAction}>
-              <div className={styles.tag}>{post?.status}</div>
+              <div >{handleStatus()}</div>
               <MoreIcon onClick={() => idShow(post.id)} />
               {/* {isListVisible === post.id && (
                 <div

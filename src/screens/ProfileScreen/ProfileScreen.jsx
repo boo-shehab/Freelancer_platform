@@ -240,7 +240,7 @@ const ProfileScreen = () => {
       setIsWorkedWith(freelancersWorkedWith);
       setIsGivenLikes(givenLikes);
       setIsProjectPosted(projectPosted);
-      setPosted(projectsInProgress);
+      setPosted(projectPosted);
       setPending(projectsPending);
       setCompleted(projectsCompleted);
     } catch (error) {

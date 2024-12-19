@@ -97,12 +97,12 @@ const DashboardScreen = () => {
   //   }
   // ]);
 
-  const rating = {
-    starRate: "4.0",
-    highRate: 53,
-    midRate: 12,
-    lowRate: 35,
-  };
+  // const rating = {
+  //   starRate: "4.0",
+  //   highRate: 53,
+  //   midRate: 12,
+  //   lowRate: 35,
+  // };
 
   const getStatistics = async () => {
     try {
@@ -153,39 +153,39 @@ const DashboardScreen = () => {
   };
 
 
-  const handleEdit = (taskId) => {
-    const taskName = prompt("Edit Task Name:");
-    if (taskName) {
-      setTasks((prevTasks) =>
-        prevTasks.map((task) =>
-          task.id === taskId ? { ...task, name: taskName } : task
-        )
-      );
-    }
-  };
+  // const handleEdit = (taskId) => {
+  //   const taskName = prompt("Edit Task Name:");
+  //   if (taskName) {
+  //     setTasks((prevTasks) =>
+  //       prevTasks.map((task) =>
+  //         task.id === taskId ? { ...task, name: taskName } : task
+  //       )
+  //     );
+  //   }
+  // };
 
-  const handleDelete = (taskId) => {
-    if (window.confirm("Are you sure you want to delete this task?")) {
-      setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
-    }
-  };
-  const handleTaskStatusChange = (taskId, newStatus) => {
-    setTasks((prevTasks) =>
-      prevTasks.map((task) =>
-        task.id === taskId ? { ...task, status: newStatus } : task
-      )
-    );
-  };
+  // const handleDelete = (taskId) => {
+  //   if (window.confirm("Are you sure you want to delete this task?")) {
+  //     setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
+  //   }
+  // };
+  // const handleTaskStatusChange = (taskId, newStatus) => {
+  //   setTasks((prevTasks) =>
+  //     prevTasks.map((task) =>
+  //       task.id === taskId ? { ...task, status: newStatus } : task
+  //     )
+  //   );
+  // };
 
-  const handleCompleteProject = (projectId) => {
-    setProjects((prevProjects) =>
-      prevProjects.map((project) =>
-        project.result.id === projectId
-          ? { ...project, projectStatus: "Completed", progress: 100 }
-          : project
-      )
-    );
-  };
+  // const handleCompleteProject = (projectId) => {
+  //   setProjects((prevProjects) =>
+  //     prevProjects.map((project) =>
+  //       project.result.id === projectId
+  //         ? { ...project, projectStatus: "Completed", progress: 100 }
+  //         : project
+  //     )
+  //   );
+  // };
   const filters = ["All", "pending", "in-progress", "completed"];
 
   return (
